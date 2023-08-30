@@ -9,6 +9,7 @@
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
 	import { superForm, type FormOptions } from "sveltekit-superforms/client";
+	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
 	import type { HTMLFormAttributes } from "svelte/elements";
 
 	import type { SuperValidated } from "sveltekit-superforms";
@@ -19,6 +20,7 @@
 		schema: T;
 		options?: Options<T, M>;
 		data: SuperValidated<T, M>;
+		debug?: boolean;
 	};
 
 	export let schema: T;
@@ -27,6 +29,8 @@
 		validators: schema,
 		taintedMessage: null
 	};
+
+	export let debug = false;
 
 	const form = superForm(data, options);
 	const { enhance, form: formStore } = form;
@@ -39,4 +43,7 @@
 
 <form {...$$restProps} use:enhance>
 	<slot form={field} formValues={$formStore} formStore={form.form} />
+	{#if debug}
+		<SuperDebug data={$formStore} />
+	{/if}
 </form>

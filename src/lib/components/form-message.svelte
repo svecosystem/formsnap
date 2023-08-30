@@ -12,7 +12,7 @@
 
 {#if asChild}
 	<slot {attrs} errors={$errors} />
-{:else}
+{:else if $errors}
 	<p id={formMessageId} {...$$restProps}>
 		{$errors}
 	</p>
