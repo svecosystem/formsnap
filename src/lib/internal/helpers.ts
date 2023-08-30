@@ -19,14 +19,15 @@ export function createFormField<
 } {
 	const id = Math.random().toString(36).slice(2);
 	const stores = formFieldProxy<T, Path>(form.form, name);
-	const { errors } = stores;
+	const { errors, value } = stores;
 
 	const context: FormFieldContext = {
 		formItemId: id,
 		formDescriptionId: `${id}-form-item-description`,
 		formMessageId: `${id}-form-item-message`,
 		name,
-		errors
+		errors,
+		value
 	};
 	setContext(FORM_FIELD_CONTEXT, context);
 
@@ -47,19 +48,5 @@ export function createFormField<
 	return {
 		stores,
 		getFieldAttrs
-	};
-}
-
-export function labelAction(node: HTMLElement) {
-	const handleMouseDown = (e: MouseEvent) => {
-		e.preventDefault();
-	};
-
-	node.addEventListener("mousedown", handleMouseDown);
-
-	return {
-		destroy() {
-			node.removeEventListener("mousedown", handleMouseDown);
-		}
 	};
 }

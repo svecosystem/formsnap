@@ -29,6 +29,7 @@ export type FormFieldContext = {
 	formDescriptionId: string;
 	formMessageId: string;
 	errors: Writable<string[] | undefined>;
+	value: Writable<unknown>;
 };
 
 export type FieldAttrs<T> = {
