@@ -12,22 +12,23 @@
 
 	function action(node: HTMLInputElement) {
 		node.id = formItemId;
-		node.value = (get(value) as string) ?? ("" as string);
 		node.name = name;
-		const handleInput = (e: Event) => {
+		const handleChange = (e: Event) => {
 			if (e.currentTarget instanceof HTMLInputElement) {
-				value.set(e.currentTarget.value);
+				if (e.currentTarget.checked) {
+					value.set(e.currentTarget.value);
+				}
 			}
 		};
 
-		node.addEventListener("input", handleInput);
+		node.addEventListener("change", handleChange);
 
 		return {
 			destroy() {
-				node.removeEventListener("input", handleInput);
+				node.removeEventListener("change", handleChange);
 			}
 		};
 	}
 </script>
 
-<input {...$$restProps} use:action />
+<input type="radio" {...$$restProps} use:action />
