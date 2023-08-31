@@ -8,6 +8,6 @@
   },
   "aliases": {
     "components": "\u0017$components",
-    "utils": "$lib/utils"
+    "utils": "$utils/index.js"
   }
 }

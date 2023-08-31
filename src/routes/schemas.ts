@@ -9,13 +9,17 @@ export const someFormSchema = z.object({
 	notifications: z.enum(["all", "mentions", "none"], {
 		required_error: "You need to select a notification type"
 	}),
+	language: z.enum(["en", "es", "fr"], {
+		required_error: "You need to select a language."
+	}),
 	bio: z.string().max(250, "Bio must be at most 250 characters").optional(),
 	website: z.string().url("Invalid URL").optional(),
 	theme: z
 		.enum(["light", "dark"], {
 			required_error: "You need to select a theme"
 		})
-		.default("light")
+		.default("light"),
+	usage: z.boolean().default(true)
 });
 
 export type SomeFormSchema = typeof someFormSchema;

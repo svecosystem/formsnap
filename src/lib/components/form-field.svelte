@@ -35,7 +35,8 @@
 		},
 		handleInput: (e: FormInputEvent) => {
 			field.updateValue(e.currentTarget.value);
-		}
+		},
+		value: $value
 	};
 </script>
 
