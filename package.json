@@ -15,6 +15,19 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "huntabyte",
+		"url": "https://twitter.com/huntabyte"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/huntabyte/formsnap.git",
+		"directory": "src/lib"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
