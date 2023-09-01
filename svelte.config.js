@@ -1,11 +1,14 @@
+import { mdsvex } from "@huntabyte/mdsvex";
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/kit/vite";
+import { mdsvexOptions } from "./mdsvex.config.js";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
-	preprocess: [vitePreprocess({})],
+	preprocess: [mdsvex(mdsvexOptions), vitePreprocess({})],
+	extensions: [".svelte", ".md"],
 
 	kit: {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
@@ -15,8 +18,8 @@ const config = {
 		alias: {
 			$lib: "src/lib",
 			"$lib/*": "src/lib/*",
-			$components: "src/components",
-			"$components/*": "src/components/*"
+			"@": "src/",
+			"@/*": "src/*"
 		}
 	}
 };

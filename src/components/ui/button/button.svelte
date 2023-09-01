@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button as ButtonPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "@/utils/index.js";
 	import { buttonVariants, type ButtonVariant, type ButtonSize } from "./index.js";
 
 	type $$Props = ButtonPrimitive.Props & {
