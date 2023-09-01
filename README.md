@@ -133,9 +133,9 @@ The form field component is responsible for managing the context of the field wh
 
 #### Slot Props
 
-| Name  | Type              | Description                                                                        |
-| ----- | ----------------- | ---------------------------------------------------------------------------------- |
-| field | [`field`](#field) | An object containing helpers useful when using your own form elements / components |
+| Name  | Type                          | Description                                                                        |
+| ----- | ----------------------------- | ---------------------------------------------------------------------------------- |
+| field | [`FieldHelper`](#fieldhelper) | An object containing helpers useful when using your own form elements / components |
 
 ```svelte
 <Form.Field {form} name="username">
@@ -242,10 +242,10 @@ Can receive any props you would normally pass to an `<input />` element.
 </Form.Field>
 ```
 
-#### `field`
+#### `FieldHelper`
 
 ```ts
-{
+type FieldHelper<T> = {
 	/**
 	 * The attributes to be spread onto your input element.
 	 */
