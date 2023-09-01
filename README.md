@@ -126,32 +126,126 @@ The form field component is responsible for managing the context of the field wh
 
 #### Props
 
-| Name | Type                                        | Default | Description                                             |
-| ---- | ------------------------------------------- | ------- | ------------------------------------------------------- |
-| form | `{ form: SuperForm; schema: AnyZodObject }` | -       | The `form` from the `Form.Root` component's slot props. |
+| Name | Type                                        | Default | Description                                                            |
+| ---- | ------------------------------------------- | ------- | ---------------------------------------------------------------------- |
+| form | `{ form: SuperForm; schema: AnyZodObject }` | -       | The `form` from the `Form.Root` component's slot props.                |
+| name | `string`                                    | -       | The name of the field. This is typesafe using the `schema` properties. |
 
 #### Slot Props
 
-| Name  | Type                          | Description                                                                        |
-| ----- | ----------------------------- | ---------------------------------------------------------------------------------- |
-| field | [`FieldHelper`](#fieldhelper) | An object containing helpers useful when using your own form elements / components |
+| Name  | Type              | Description                                                                        |
+| ----- | ----------------- | ---------------------------------------------------------------------------------- |
+| field | [`field`](#field) | An object containing helpers useful when using your own form elements / components |
+
+```svelte
+<Form.Field {form} name="username">
+	<!-- Other `Form` components for this field -->
+</Form.Field>
+```
 
 ### Form.Label
 
 Automatically associates the label with the input element within the same `Form.Field` component.
 
-### Form.Message
-
-Renders validation messages for the field.
+```svelte
+<Form.Field {form} name="username">
+	<Form.Label>Username</Form.Label>
+	<Form.Input />
+</Form.Field>
+```
 
 ### Form.Description
 
 Renders a description for the field.
 
-#### `FieldHelper`
+```svelte
+<Form.Field {form} name="username">
+	<Form.Label>Username</Form.Label>
+	<Form.Input />
+	<Form.Description>The name used to identify you on the site</Form.Description>
+</Form.Field>
+```
+
+### Form.Message
+
+Renders validation messages for the field.
+
+```svelte
+<Form.Field {form} name="username">
+	<Form.Label>Username</Form.Label>
+	<Form.Input />
+	<Form.Description>The name used to identify you on the site</Form.Description>
+	<Form.Message />
+</Form.Field>
+```
+
+### Form.Input
+
+Renders an `<input />` element with the correct `name` and `value` attributes. Automatically attaches event listeners to update the form value store when the input value changes.
+
+Can receive any props you would normally pass to an `<input />` element.
+
+### Form.Textarea
+
+Renders a `<textarea />` element with the correct `name` and `value` attributes. Automatically attaches event listeners to update the form value store when the textarea value changes.
+
+Can receive any props you would normally pass to a `<textarea />` element.
+
+### Form.Select
+
+Renders a `<select />` element with the correct `name` and `value` attributes. Automatically attaches event listeners to update the form value store when the select value changes.
+
+Can receive any props you would normally pass to a `<select />` element. The options should be children of the `Form.Select` component.
+
+```svelte
+<Form.Select>
+	<option value="apple">Apple</option>
+	<option value="banana">Banana</option>
+	<option value="grape">Grape</option>
+</Form.Select>
+```
+
+### Form.Checkbox
+
+Renders a `<input type="checkbox" />` element with the correct `name` and `checked` attributes to automatically handle [this](https://superforms.rocks/components#a-minor-issue-checkboxes) Superforms caveat.
+
+Can receive any props you would normally pass to an `<input />` element.
+
+```svelte
+<Form.Field {form} name="terms">
+	<Form.Checkbox />
+	<Form.Label>I agree to the terms & conditions.</Form.Label>
+	<Form.Message />
+</Form.Field>
+```
+
+### Form.RadioItem
+
+| Name  | Type     | Default | Description                  |
+| ----- | -------- | ------- | ---------------------------- |
+| value | `string` | -       | The value of the radio item. |
+
+Renders a `<input type="radio" />` element with the correct `name` and `checked` attributes. Automatically attaches event listeners to update the form value store when the radio value changes.
+
+Can receive any props you would normally pass to an `<input />` element.
+
+```svelte
+<Form.Field {form} name="theme">
+	<Form.RadioItem value="light" />
+	<Form.Label>Light</Form.Label>
+	<Form.Message />
+</Form.Field>
+<Form.Field {form} name="theme">
+	<Form.RadioItem value="dark" />
+	<Form.Label>Dark</Form.Label>
+	<Form.Message />
+</Form.Field>
+```
+
+#### `field`
 
 ```ts
-type FieldHelpers<T> = {
+{
 	/**
 	 * The attributes to be spread onto your input element.
 	 */
