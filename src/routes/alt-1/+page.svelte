@@ -69,6 +69,17 @@
 				<Form.Message class="text-destructive" />
 			</div>
 		</Form.Field>
+		<Form.Field {form} name="language">
+			<div class="grid gap-2">
+				<Form.Label>Language</Form.Label>
+				<Form.Select class="rounded bg-background border border-border h-9 text-foreground p-2">
+					<option value="en">English</option>
+					<option value="es">Spanish</option>
+					<option value="fr">French</option>
+				</Form.Select>
+				<Form.Message class="text-destructive" />
+			</div>
+		</Form.Field>
 		<Form.Field {form} name="usage">
 			<div class="grid gap-2">
 				<div class="flex items-center gap-4">

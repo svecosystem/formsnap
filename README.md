@@ -1,4 +1,4 @@
-# \<Form /> - name tbd..
+# Formsnap
 
 The goal of this library is to make working with the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) even more pleasant, by wrapping it with accessible form components.
 
