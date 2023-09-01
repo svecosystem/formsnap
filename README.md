@@ -173,7 +173,6 @@ type FieldHelpers<T> = {
 	handleInput: (e: Event) => void;
 
 	/**
-	 *
 	 * The value of the field.
 	 */
 	value: T;
