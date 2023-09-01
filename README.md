@@ -4,29 +4,27 @@ The goal of this library is to make working with the already incredible [sveltek
 
 🚧 WORK IN PROGRESS 🚧
 
+## Installation
+
+```bash
+npm i formsnap
+```
+
 ## Usage
 
-You'll conduct the intial Superforms setup just as your normally would, where you define a schema and return the form from your load function.
+You'll handle the initial Superforms setup just as you normally would, where you define a schema and return the form from your load function. The magic happens once you have access to that form inside of your page component.
 
 ### 1. Define a Zod schema
 
 ```ts
 // schemas.ts
 import { z } from "zod";
-export const someFormSchema = z.object({
-	username: z
-		.string()
-		.min(3, "Username must be at least 3 characters")
-		.max(20, "Username must be at most 20 characters"),
-	email: z.string().email("Invalid email address"),
-	language: z.enum(["en", "es", "fr"], {
-		required_error: "You must select a language"
-	}),
-	bio: z.string().max(250, "Bio must be at most 250 characters").optional(),
-	website: z.string().url("Invalid URL").optional(),
-	terms: z.boolean().refine((v) => v === true, {
-		message: "You must agree to the terms and conditions"
-	})
+export const settingsFormSchema = z.object({
+	email: z.string().email(),
+	bio: z.string().max(250).optional(),
+	language: z.enum(["en", "es", "fr"]),
+	marketingEmails: z.boolean().default(true),
+	theme: z.enum(["light", "dark"]).default("light")
 });
 ```
 
@@ -36,11 +34,11 @@ export const someFormSchema = z.object({
 // +page.server.ts
 import { superValidate } from "sveltekit-superforms/server";
 import type { PageServerLoad } from "./$types";
-import { someFormSchema } from "./schemas";
+import { settingsFormSchema } from "./schemas";
 
 export const load: PageServerLoad = async () => {
 	return {
-		form: superValidate(someFormSchema)
+		form: superValidate(settingsFormSchema)
 	};
 };
 ```
@@ -56,11 +54,6 @@ export const load: PageServerLoad = async () => {
 </script>
 
 <Form.Root schema={someFormSchema} data={data.form} let:form method="POST" action="?/someAction">
-	<Form.Field {form} name="username">
-		<Form.Label>Username</Form.Label>
-		<Form.Input />
-		<Form.Message />
-	</Form.Field>
 	<Form.Field {form} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />
@@ -78,7 +71,23 @@ export const load: PageServerLoad = async () => {
 			<option value="es">Spanish</option>
 			<option value="fr">French</option>
 		</Form.Select>
-		<Form.Message class="text-destructive" />
+		<Form.Message />
 	</Form.Field>
+	<Form.Field {form} name="marketingEmails">
+		<Form.Checkbox />
+		<Form.Label>Receive marketing emails from us</Form.Label>
+		<Form.Message />
+	</Form.Field>
+	<Form.Field {form} name="theme">
+		<Form.RadioItem value="light" />
+		<Form.Label>Light</Form.Label>
+		<Form.Message />
+	</Form.Field>
+	<Form.Field {form} name="theme">
+		<Form.RadioItem value="dark" />
+		<Form.Label>Dark</Form.Label>
+		<Form.Message />
+	</Form.Field>
+	<button type="submit">Submit</button>
 </Form.Root>
 ```
