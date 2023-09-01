@@ -45,6 +45,7 @@
 		"zod": "^3.22.2"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.26.2",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
