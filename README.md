@@ -14,7 +14,7 @@ npm i formsnap
 
 You'll handle the initial Superforms setup just as you normally would, where you define a schema and return the form from your load function. The magic happens once you have access to that form inside of your page component.
 
-### 1. Define a Zod schema
+#### 1. Define a Zod schema
 
 ```ts
 // schemas.ts
@@ -28,7 +28,7 @@ export const settingsFormSchema = z.object({
 });
 ```
 
-### 2. Return the form from your load function
+#### 2. Return the form from your load function
 
 ```ts
 // +page.server.ts
@@ -43,17 +43,23 @@ export const load: PageServerLoad = async () => {
 };
 ```
 
-### 3. Construct the form in your page
+#### 3. Construct the form in your page
 
 ```svelte
 <script lang="ts">
 	import { Form } from "@huntabyte/form";
-	import { someFormSchema } from "./schemas";
+	import { settingsFormSchema } from "./schemas";
 	import type { PageData } from "./$types";
 	export let data: PageData;
 </script>
 
-<Form.Root schema={someFormSchema} data={data.form} let:form method="POST" action="?/someAction">
+<Form.Root
+	schema={settingsFormSchema}
+	data={data.form}
+	let:form
+	method="POST"
+	action="?/someAction"
+>
 	<Form.Field {form} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />
@@ -90,4 +96,86 @@ export const load: PageServerLoad = async () => {
 	</Form.Field>
 	<button type="submit">Submit</button>
 </Form.Root>
+```
+
+## API
+
+### Form.Root
+
+The form root component is responsible for setting up the form and passing it down to the rest of the components via a slot prop.
+
+#### Props
+
+| Name    | Type                            | Default | Description                                                                                          |
+| ------- | ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| schema  | `AnyZodObject`                  | -       | The Zod schema to validate the form against.                                                         |
+| data    | `SuperValidated<typeof schema>` | -       | The form object returned from superforms.                                                            |
+| options | `FormOptions`                   | -       | Options you would normally use to initialize Superforms.                                             |
+| debug   | `boolean`                       | `false` | Whether to render Superforms' `<SuperDebug />` on the page. Useful for debugging during development. |
+| ...     | `HTMLFormAttributes`            | -       | Any other props you want to pass to the form element.                                                |
+
+#### Slot Props
+
+| Name | Type                                       | Description                                                                                                                                 |
+| ---- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| form | `{ form: SuperForm; schema: AnyZodObject}` | The form object returned from superforms along with it's schema. This is passed as a prop to the `Form.Field`s for typesafe values & names. |
+
+### Form.Field
+
+The form field component is responsible for managing the context of the field which will be used by its children.
+
+#### Props
+
+| Name | Type                                        | Default | Description                                             |
+| ---- | ------------------------------------------- | ------- | ------------------------------------------------------- |
+| form | `{ form: SuperForm; schema: AnyZodObject }` | -       | The `form` from the `Form.Root` component's slot props. |
+
+#### Slot Props
+
+| Name  | Type                          | Description                                                                        |
+| ----- | ----------------------------- | ---------------------------------------------------------------------------------- |
+| field | [`FieldHelper`](#fieldhelper) | An object containing helpers useful when using your own form elements / components |
+
+### Form.Label
+
+Automatically associates the label with the input element within the same `Form.Field` component.
+
+### Form.Message
+
+Renders validation messages for the field.
+
+### Form.Description
+
+Renders a description for the field.
+
+#### `FieldHelper`
+
+```ts
+type FieldHelpers<T> = {
+	/**
+	 * The attributes to be spread onto your input element.
+	 */
+	attrs: Record<PropertyKey, string>;
+
+	/**
+	 * A function which updates the Superforms `form` store value for this field.
+	 *
+	 * @param v - The value to set the field to.
+	 */
+	updateValue: (v: unknown) => void;
+
+	/**
+	 * A helper function which handles the input event from your input element.
+	 * It automatically updates the Superforms `form` store value for this field with the input's value.
+	 *
+	 * @param e - The input event from your input element.
+	 */
+	handleInput: (e: Event) => void;
+
+	/**
+	 *
+	 * The value of the field.
+	 */
+	value: T;
+};
 ```
