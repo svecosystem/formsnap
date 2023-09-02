@@ -151,25 +151,29 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 	<Form.Field {form} name="name">
 		<Form.Label>Name</Form.Label>
 		<Form.Input />
-		<Form.Description />
+		<Form.Description>Be sure to use your real name.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input type="email" />
-		<Form.Description />
+		<Form.Description>
+			It's preferred that you use your company email.
+		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="password">
 		<Form.Label>Password</Form.Label>
 		<Form.Input type="password" />
-		<Form.Description />
+		<Form.Description>
+			Ensure the password is at least 10 characters.
+		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 </Form.Root>
 ```
 
-That's it! We just condensed 66 lines of code into 27, while retaining the same functionality. Now I know some of you might be thinking, "gross, how many times do I have to type Form?", and I hear you.
+That's it! We just condensed a bunch of code, while retaining the same functionality. Now I know some of you might be thinking, "gross, how many times do I have to type Form?", and I hear you.
 
 You can alias the names to whatever floats your boat, here's an example:
 
