@@ -10,3 +10,4 @@ export { default as Steps } from "./steps.svelte";
 export { default as Code } from "./markdown/code.svelte";
 export { default as APISection } from "./api-section.svelte";
 export { default as ComponentPreview } from "./component-preview.svelte";
+export { default as Callout } from "./callout.svelte";

@@ -1,12 +1,12 @@
 export const siteConfig = {
 	name: "Bit UI",
 	url: "https://bits-ui.com",
-	description: "Headless components for Svelte built on top of Melt UI.",
+	description: "Componentized & accessible forms for SvelteKit.",
 	links: {
 		twitter: "https://twitter.com/huntabyte",
-		github: "https://github.com/huntabyte/primitives"
+		github: "https://github.com/huntabyte/formsnap"
 	},
-	keywords: `Svelte,SvelteKit,Svelte Components,Headless Svelte Components,Headless UI Svelte`
+	keywords: `Svelte,SvelteKit,Svelte Components,Headless Svelte Components,SvelteKit forms, svelte forms library,`
 };
 
 export type SiteConfig = typeof siteConfig;

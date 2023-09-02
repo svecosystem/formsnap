@@ -1,9 +1,6 @@
-import { superValidate } from "sveltekit-superforms/server";
+import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types.js";
-import { someFormSchema } from "./schemas.js";
 
 export const load: PageServerLoad = async () => {
-	return {
-		form: superValidate(someFormSchema)
-	};
+	throw redirect(302, "/docs/introduction");
 };

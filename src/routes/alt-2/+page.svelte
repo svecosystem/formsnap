@@ -31,28 +31,28 @@
 			<div class="grid gap-2">
 				<Form.Label>Email</Form.Label>
 				<Input {...field.attrs} on:input={field.handleInput} />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="username" let:field>
 			<div class="grid gap-2">
 				<Form.Label>Username</Form.Label>
 				<Input {...field.attrs} on:input={field.handleInput} />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="bio" let:field>
 			<div class="grid gap-2">
 				<Form.Label>Bio</Form.Label>
 				<Textarea {...field.attrs} on:input={field.handleInput} />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="website" let:field>
 			<div class="grid gap-2">
 				<Form.Label>Website</Form.Label>
 				<Input {...field.attrs} on:input={field.handleInput} />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="notifications" let:field>
@@ -63,7 +63,7 @@
 					<option value="mentions">Mentions</option>
 					<option value="none">None</option>
 				</select>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="language" let:field>

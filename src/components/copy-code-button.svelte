@@ -14,6 +14,7 @@
 	)}
 	on:click={copyCode}
 	{...$$restProps}
+	data-code-copy
 >
 	<span class="sr-only">Copy</span>
 	{#if copied}

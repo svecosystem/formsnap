@@ -35,7 +35,7 @@
 					on:input={field.handleInput}
 					class="rounded bg-background border border-border h-9 text-foreground p-2"
 				/>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="username" let:field>
@@ -46,7 +46,7 @@
 					on:input={field.handleInput}
 					class="rounded bg-background border border-border h-9 text-foreground p-2"
 				/>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="bio" let:field>
@@ -58,7 +58,7 @@
 					rows="4"
 					class="rounded resize-none bg-background border border-border text-foreground p-2"
 				/>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="website" let:field>
@@ -69,7 +69,7 @@
 					on:input={field.handleInput}
 					class="rounded bg-background border border-border h-9 text-foreground p-2"
 				/>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="notifications" let:field>
@@ -84,7 +84,7 @@
 					<option value="mentions">Mentions</option>
 					<option value="none">None</option>
 				</select>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Button type="submit">Submit</Button>

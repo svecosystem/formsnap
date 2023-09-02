@@ -21,14 +21,14 @@
 			<div class="grid gap-2">
 				<Form.Label>Email</Form.Label>
 				<Form.Input class="rounded bg-background border border-border h-9 text-foreground p-2" />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="username">
 			<div class="grid gap-2">
 				<Form.Label>Username</Form.Label>
 				<Form.Input class="rounded bg-background border border-border h-9 text-foreground p-2" />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="bio">
@@ -38,14 +38,14 @@
 					rows={4}
 					class="resize-none rounded bg-background border border-border text-foreground p-2"
 				/>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="website">
 			<div class="grid gap-2">
 				<Form.Label>Website</Form.Label>
 				<Form.Input class="rounded bg-background border border-border h-9 text-foreground p-2" />
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="notifications">
@@ -56,7 +56,7 @@
 					<option value="mentions">Mentions</option>
 					<option value="none">None</option>
 				</Form.Select>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="language">
@@ -67,7 +67,7 @@
 					<option value="es">Spanish</option>
 					<option value="fr">French</option>
 				</Form.Select>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="usage">
@@ -76,7 +76,7 @@
 					<Form.Checkbox />
 					<Form.Label>Send crash reports & statistics</Form.Label>
 				</div>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="theme">
@@ -85,7 +85,7 @@
 					<Form.RadioItem value="light" />
 					<Form.Label>Light</Form.Label>
 				</div>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 		<Form.Field {form} name="theme">
@@ -94,7 +94,7 @@
 					<Form.RadioItem value="dark" />
 					<Form.Label>Dark</Form.Label>
 				</div>
-				<Form.Message class="text-destructive" />
+				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
 

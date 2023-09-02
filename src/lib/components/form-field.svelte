@@ -21,12 +21,12 @@
 	export let name: $$Props["name"];
 
 	const {
-		stores: { errors, value },
+		stores: { errors, value, constraints },
 		getFieldAttrs
 	} = createFormField<T, Path>(form, name);
 
 	$: field = {
-		attrs: getFieldAttrs($value, $errors),
+		attrs: getFieldAttrs($value, $errors, $constraints),
 		updateValue: (v: unknown) => {
 			//@ts-expect-error - do we leave this as is, or do we want to force the type to match
 			// the schema?
