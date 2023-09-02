@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Form } from "@/lib/index.js";
 	import type { PageData } from "./$types.js";
-	import { someFormSchema } from "../schemas.js";
+	import { someFormSchema } from "../alt-2/schemas.js";
 	import { Button } from "@/components/ui/button/index.js";
 
 	export let data: PageData;

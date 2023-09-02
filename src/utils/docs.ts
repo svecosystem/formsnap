@@ -1,5 +1,5 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { Doc } from "contentlayer/generated";
+import type { Doc } from "../../.contentlayer/generated/index.js";
 
 export type FrontMatter = Pick<Doc, "title" | "description">;
 

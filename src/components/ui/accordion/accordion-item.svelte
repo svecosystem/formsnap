@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Accordion as AccordionPrimitive } from "bits-ui";
-	import { cn } from "@/utils";
+	import { cn } from "@/utils/index.js";
 
 	type $$Props = AccordionPrimitive.ItemProps;
 
@@ -9,10 +9,6 @@
 	export let value: $$Props["value"];
 </script>
 
-<AccordionPrimitive.Item
-	{value}
-	class={cn("border-b", className)}
-	{...$$restProps}
->
+<AccordionPrimitive.Item {value} class={cn("border-b", className)} {...$$restProps}>
 	<slot />
 </AccordionPrimitive.Item>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { HTMLTextareaAttributes } from "svelte/elements";
-	import { cn } from "@/utils";
-	import type { FormTextareaEvent } from ".";
+	import { cn } from "@/utils/index.js";
+	import type { FormTextareaEvent } from "./index.js";
 
 	type $$Props = HTMLTextareaAttributes;
 	type $$Events = {

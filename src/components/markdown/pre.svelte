@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CopyCodeButton } from "@/components";
+	import { CopyCodeButton } from "@/components/index.js";
 	import { cn, createCopyCodeButton } from "@/utils/index.js";
 
 	let className: string | undefined | null = undefined;

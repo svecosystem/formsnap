@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Checkbox as CheckboxPrimitive } from "bits-ui";
 	import { Check, Minus } from "radix-icons-svelte";
-	import { cn } from "@/utils";
+	import { cn } from "@/utils/index.js";
 
 	type $$Props = CheckboxPrimitive.Props;
 	type $$Events = CheckboxPrimitive.Events;

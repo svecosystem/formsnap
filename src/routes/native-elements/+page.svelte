@@ -1,20 +1,10 @@
 <script lang="ts">
 	import { Form } from "@/lib/index.js";
 	import type { PageData } from "./$types.js";
-	import { simpleFormSchema } from "../schemas.js";
+	import { simpleFormSchema } from "../alt-2/schemas.js";
 	import { Button } from "@/components/ui/button/index.js";
-	import * as Select from "@/components/ui/select/index.js";
-	import { Input } from "@/components/ui/input/index.js";
-	import { Textarea } from "@/components/ui/textarea/index.js";
-	import { Checkbox } from "@/components/ui/checkbox/index.js";
 
 	export let data: PageData;
-
-	const languages = {
-		en: "English",
-		es: "Spanish",
-		fr: "French"
-	} as const;
 </script>
 
 <div class="flex flex-col h-full min-h-screen w-full items-center py-28">
