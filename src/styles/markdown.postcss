@@ -45,13 +45,13 @@
 	}
 
 	& code {
-		@apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0;
+		@apply grid break-words rounded-none border-0 bg-transparent;
 		counter-reset: line;
 		box-decoration-break: clone;
 	}
 
 	& [data-line] {
-		@apply inline-block w-full basis-4 border-l-[3px] border-l-transparent py-0.5 pl-2 pr-5;
+		@apply inline-block min-w-0 border-l-[3px] border-l-transparent py-0.5 pl-2;
 	}
 
 	& [data-chars-id] {

@@ -30,7 +30,7 @@ If you aren't already familiar with Superforms, it's highly recommended that you
 
 Superforms requires us to define a [Zod](https://zod.dev) schema that describes the shape of our form. This schema is then used to validate the form data on the client (optional) and server, along with some other useful things.
 
-```ts title="src/routes/sign-up/schema.ts" showLineNumbers
+```ts title="src/routes/sign-up/schema.ts"
 import { z } from "zod";
 
 const signupFormSchema = z.object({
@@ -44,7 +44,7 @@ const signupFormSchema = z.object({
 
 To seamlessly merge `PageData` and `ActionData`, we need to return the form from a load function. While this may seem a bit strange, if you've ever tried to wrangle `PageData` and `ActionData` together manually, then you know why this is necessary.
 
-```ts title="src/routes/sign-up/+page.server.ts" showLineNumbers
+```ts title="src/routes/sign-up/+page.server.ts"
 import type { PageServerLoad } from "./$types";
 import { signupFormSchema } from "./schema";
 import { superValidate } from "sveltekit-superforms/server";
@@ -64,7 +64,7 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 
 ## Using _only_ Superforms
 
-```svelte title="src/routes/sign-up/+page.svelte" showLineNumbers
+```svelte title="src/routes/sign-up/+page.svelte"
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import { superForm } from "sveltekit-superforms/client";
@@ -139,7 +139,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 
 ## Using Superforms _and_ Formsnap
 
-```svelte title="src/routes/sign-up/+page.svelte" showLineNumbers
+```svelte title="src/routes/sign-up/+page.svelte"
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import { signupFormSchema } from "./schemas.ts";
@@ -169,11 +169,11 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 </Form.Root>
 ```
 
-That's it! We just condensed 66 lines of code into 27, while retaining the same functionality. Now I know some of you (looking at you Kevin) might be thinking, "gross, how many times do I have to type `Form`", but don't you think that tradeoff might be worth it?
+That's it! We just condensed 66 lines of code into 27, while retaining the same functionality. Now I know some of you might be thinking, "gross, how many times do I have to type Form?", and I hear you.
 
-You can also alias the names to whatever floats your boat, here's an example:
+You can alias the names to whatever floats your boat, here's an example:
 
-```ts title="src/lib/no-form-form.ts" showLineNumbers
+```ts title="src/lib/no-form-form.ts"
 import { Form as FormSnap } from "formsnap";
 
 const Form = FormSnap.Root;
