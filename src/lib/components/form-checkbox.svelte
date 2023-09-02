@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "$lib/internal/index.js";
+	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
 	import { getContext } from "svelte";
 	import type { HTMLInputAttributes } from "svelte/elements";
 	import { get } from "svelte/store";

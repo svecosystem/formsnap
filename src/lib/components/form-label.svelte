@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { getContext } from "svelte";
-	import { FORM_FIELD_CONTEXT, type FormFieldContext, labelAction } from "$lib/internal/index.js";
+	import { FORM_FIELD_CONTEXT, type FormFieldContext, labelAction } from "@/lib/internal/index.js";
 
 	const { formItemId } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
 
 	export let asChild = false;
 
-	$: attrs = {
+	const attrs = {
 		id: formItemId
 	};
 </script>

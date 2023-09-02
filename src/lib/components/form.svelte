@@ -3,8 +3,6 @@
 	import type { AnyZodObject } from "zod";
 
 	type Validation = ZodValidation<AnyZodObject>;
-	type T = Validation;
-	type M = unknown;
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">

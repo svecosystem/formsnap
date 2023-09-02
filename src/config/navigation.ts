@@ -34,16 +34,6 @@ export const navigation: Navigation = {
 					title: "Introduction",
 					href: "/docs/introduction",
 					items: []
-				},
-				{
-					title: "Getting started",
-					href: "/docs/getting-started",
-					items: []
-				},
-				{
-					title: "Render delegation",
-					href: "/docs/render-delegation",
-					items: []
 				}
 			]
 		}

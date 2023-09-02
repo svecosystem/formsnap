@@ -1,8 +1,10 @@
+import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
+import typography from "@tailwindcss/typography";
 
-/** @type {import('tailwindcss').Config} */
-const config = {
-	darkMode: ["class"],
+export default {
+	darkMode: "class",
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	theme: {
 		container: {
@@ -54,10 +56,25 @@ const config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: [...fontFamily.sans]
+				sans: ["Inter", ...fontFamily.sans]
 			}
 		}
 	},
-};
-
-export default config;
+	plugins: [
+		typography,
+		plugin(function ({ theme, matchUtilities }) {
+			// Square utility
+			matchUtilities(
+				{
+					sq: (value) => ({
+						width: value,
+						height: value
+					})
+				},
+				{
+					values: theme("spacing")
+				}
+			);
+		})
+	]
+} satisfies Config;

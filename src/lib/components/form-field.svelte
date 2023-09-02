@@ -6,7 +6,7 @@
 		type Form,
 		type FormFieldName,
 		type FormInputEvent
-	} from "$lib/internal/index.js";
+	} from "@/lib/internal/index.js";
 	import type { AnyZodObject } from "zod";
 
 	type T = $$Generic<AnyZodObject>;
