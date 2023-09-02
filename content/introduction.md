@@ -161,7 +161,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="password">
-		<Form.Label>Name</Form.Label>
+		<Form.Label>Password</Form.Label>
 		<Form.Input type="password" />
 		<Form.Description />
 		<Form.Validation />
