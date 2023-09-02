@@ -30,6 +30,8 @@ export type FormFieldContext = {
 	formValidationId: string;
 	errors: Writable<string[] | undefined>;
 	value: Writable<unknown>;
+	hasDescription: Writable<boolean>;
+	hasValidation: Writable<boolean>;
 };
 
 export type FieldAttrs<T> = {
@@ -52,4 +54,8 @@ export type FormStores<
 
 export type FormInputEvent = Event & {
 	currentTarget: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+};
+
+export type FormCheckboxEvent = Event & {
+	currentTarget: HTMLInputElement;
 };

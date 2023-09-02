@@ -32,7 +32,8 @@ export const simpleFormSchema = z.object({
 		required_error: "You need to select a notification type"
 	}),
 	bio: z.string().max(250, "Bio must be at most 250 characters").optional(),
-	website: z.string().url("Invalid URL").optional()
+	website: z.string().url("Invalid URL").optional(),
+	terms: z.boolean().default(false)
 });
 
 export type SomeFormSchema = typeof someFormSchema;

@@ -2,7 +2,9 @@
 	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
 	import { getContext } from "svelte";
 
-	const { formValidationId, errors } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	const { formValidationId, errors, hasValidation } =
+		getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	hasValidation.set(true);
 
 	const attrs = {
 		id: formValidationId,

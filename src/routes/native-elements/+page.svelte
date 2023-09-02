@@ -62,6 +62,18 @@
 				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
+		<Form.Field {form} name="terms" let:field>
+			<div class="grid gap-2">
+				<Form.Label>Website</Form.Label>
+				<input
+					type="checkbox"
+					{...field.attrs}
+					on:change={field.handleChecked}
+					class="rounded bg-background border border-border h-9 text-foreground p-2"
+				/>
+				<Form.Validation class="text-destructive" />
+			</div>
+		</Form.Field>
 		<Form.Field {form} name="notifications" let:field>
 			<div class="grid gap-2">
 				<Form.Label>Notifications</Form.Label>
