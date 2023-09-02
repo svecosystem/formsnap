@@ -22,11 +22,15 @@
 	}
 </script>
 
-<div class="markdown pb-24">
-	<PageHeader>
-		<PageHeaderTagline>{tagline}</PageHeaderTagline>
-		<PageHeaderHeading>{doc.title}</PageHeaderHeading>
-		<PageHeaderDescription>{doc.description}</PageHeaderDescription>
-	</PageHeader>
-	<svelte:component this={component} />
-</div>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+	<div class="mx-auto w-full min-w-0">
+		<PageHeader>
+			<PageHeaderTagline>{tagline}</PageHeaderTagline>
+			<PageHeaderHeading>{doc.title}</PageHeaderHeading>
+			<PageHeaderDescription>{doc.description}</PageHeaderDescription>
+		</PageHeader>
+		<div class="markdown pt-8">
+			<svelte:component this={component} />
+		</div>
+	</div>
+</main>
