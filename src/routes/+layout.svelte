@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { dev } from "$app/environment";
-	import { SidebarNav, SiteHeader, TailwindIndicator } from "@/components/index.js";
+	import { SiteFooter, SiteHeader, TailwindIndicator } from "@/components/index.js";
 	import { setInitialClassState } from "@/components/light-switch/light-switch.js";
-	import { navigation } from "@/config/index.js";
 	import "@/styles/app.postcss";
 </script>
 
@@ -16,6 +15,7 @@
 	<div class="flex-1">
 		<slot />
 	</div>
+	<SiteFooter />
 	{#if dev}
 		<TailwindIndicator />
 	{/if}

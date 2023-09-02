@@ -69,7 +69,13 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 	export let data: PageData;
 </script>
 
-<Form.Root data={data.form} schema={settingsSchema} let:form method="POST">
+<Form.Root
+	data={data.form}
+	schema={settingsSchema}
+	let:form
+	debug={true}
+	method="POST"
+>
 	<!-- ... -->
 </Form.Root>
 ```
@@ -80,11 +86,13 @@ In addition to the required props, it also accepts any attribute you could norma
 
 It also provides a `form` slot prop, which we're accessing with `let:form`. This prop is used to properly type and wire up the form fields, which we'll see in the next step.
 
-### Add a form field
+And lastly, we can pass a `debug` prop to enable debug mode, which will display Superform's `<SuperDebug />` component at the bottom of the form to help with debugging.
+
+### Constructing a form field
 
 You can think of form fields as the building blocks of your form. Each input will have a form field responsible for managing its state, validation, and accessibility attributes. We'll start with the `email` field and work our way down.
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers {9,11}
+```svelte title="src/routes/settings/+page.svelte" showLineNumbers {15,17}
 <script lang="ts">
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
@@ -92,7 +100,13 @@ You can think of form fields as the building blocks of your form. Each input wil
 	export let data: PageData;
 </script>
 
-<Form.Root data={data.form} schema={settingsSchema} let:form method="POST">
+<Form.Root
+	data={data.form}
+	schema={settingsSchema}
+	let:form
+	method="POST"
+	debug={true}
+>
 	<Form.Field {form} name="email">
 		<!-- ... -->
 	</Form.Field>
@@ -101,4 +115,105 @@ You can think of form fields as the building blocks of your form. Each input wil
 
 We pass the `form` slot prop we received from `Form.Root` to the field, along with the `name` of the field, which is typed to be a property of our schema.
 
+Now that we have our field and the context has been setup under the hood, we can start adding the components that bring the field to life.
+
+```svelte title="src/routes/settings/+page.svelte" showLineNumbers {16-19}
+<script lang="ts">
+	import { Form } from "formsnap";
+	import type { PageData } from "./$types";
+	import { settingsSchema } from "./schemas.ts";
+	export let data: PageData;
+</script>
+
+<Form.Root
+	data={data.form}
+	schema={settingsSchema}
+	let:form
+	method="POST"
+	debug={true}
+>
+	<Form.Field {form} name="email">
+		<Form.Label>Email</Form.Label>
+		<Form.Input />
+		<Form.Description>Use your company email if you have one.</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+</Form.Root>
+```
+
+We've added `Label`, `Input`, `Description`, and `Validation` components to our field. The label and input are pretty self-explanatory, they render `<label>` and `<input>` elements respectively, and the ids are synced up so that clicking the label focuses the input.
+
+The `Description` component is optional, but it's useful for providing additional context to the user about the field. It'll be synced with the `aria-describedby` attribute on the input, so it's accessible to screen readers.
+
+The `Validation` component is used to display validation errors to the user. It also is synced with the `aria-describedby` attribute on the input, which can receive multiple IDs, so that screen readers are able to read the error messages in addition to the description.
+
+And that's really all it takes to setup a form field. Let's continue on with the rest of the fields.
+
+### Add remaining form fields
+
+```svelte title="src/routes/settings/+page.svelte" showLineNumbers
+<script lang="ts">
+	import { Form } from "formsnap";
+	import type { PageData } from "./$types";
+	import { settingsSchema } from "./schemas.ts";
+	export let data: PageData;
+</script>
+
+<Form.Root
+	data={data.form}
+	schema={settingsSchema}
+	let:form
+	method="POST"
+	debug={true}
+>
+	<Form.Field {form} name="email">
+		<Form.Label>Email</Form.Label>
+		<Form.Input />
+		<Form.Description>Use your company email if you have one.</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+	<Form.Field {form} name="bio">
+		<Form.Label>Bio</Form.Label>
+		<Form.Textarea />
+		<Form.Description>
+			Your bio will be visible on your public profile.
+		</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+	<fieldset>
+		<legend>Select your theme</legend>
+		<Form.Field {form} name="theme">
+			<Form.Radio value="light" />
+			<Form.Label>Light</Form.Label>
+			<Form.Validation />
+		</Form.Field>
+		<Form.Field {form} name="theme">
+			<Form.Radio value="dark" />
+			<Form.Label>Dark</Form.Label>
+		</Form.Field>
+	</fieldset>
+	<Form.Field {form} name="language">
+		<Form.Label>Language</Form.Label>
+		<Form.Select>
+			<option value="en">English</option>
+			<option value="es">Spanish</option>
+			<option value="fr">French</option>
+		</Form.Select>
+		<Form.Description>
+			Select your preferred language to use in the app.
+		</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+	<button type="submit"> Save </button>
+</Form.Root>
+```
+
+We're still working on the best way to handle radio groups, but for now, we can use a fieldset and wrap each radio in its own field. We're only adding the `Validation` component to the first radio field, since they're both using the same name, and we only want to display the error once, so that we aren't spamming the screen reader or cluttering the UI with redundant validation messages.
+
 </Steps>
+
+And that's it! You've now successfully built a settings form with Formsnap!
+
+## Next Steps
+
+Now that you've built your first form, you're ready to start building more complex forms with Formsnap & Superforms. Be sure to check out the rest of the documentation to learn more about the different components and APIs available to you.

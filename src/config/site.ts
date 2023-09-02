@@ -1,6 +1,6 @@
 export const siteConfig = {
-	name: "Bit UI",
-	url: "https://bits-ui.com",
+	name: "Formsnap",
+	url: "https://formsnap.vercel.app",
 	description: "Componentized & accessible forms for SvelteKit.",
 	links: {
 		twitter: "https://twitter.com/huntabyte",

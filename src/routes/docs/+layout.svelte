@@ -5,7 +5,7 @@
 
 <div class="border-b">
 	<div
-		class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-4 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8"
+		class="container flex-1 items-start md:grid md:grid-cols-[200px_minmax(0,1fr)] md:gap-4 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-8"
 	>
 		<aside
 			class="fixed top-14 z-30 -ml-2 hidden min-h-[calc(100vh-64px)] w-full shrink-0 md:sticky md:block overflow-y-auto"

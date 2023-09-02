@@ -82,7 +82,7 @@
 		<Form.Field {form} name="theme">
 			<div class="grid gap-2">
 				<div class="flex items-center gap-4">
-					<Form.RadioItem value="light" />
+					<Form.Radio value="light" />
 					<Form.Label>Light</Form.Label>
 				</div>
 				<Form.Validation class="text-destructive" />
@@ -91,7 +91,7 @@
 		<Form.Field {form} name="theme">
 			<div class="grid gap-2">
 				<div class="flex items-center gap-4">
-					<Form.RadioItem value="dark" />
+					<Form.Radio value="dark" />
 					<Form.Label>Dark</Form.Label>
 				</div>
 				<Form.Validation class="text-destructive" />

@@ -7,17 +7,6 @@ import Input from "./form-input.svelte";
 import Textarea from "./form-textarea.svelte";
 import Select from "./form-select.svelte";
 import Checkbox from "./form-checkbox.svelte";
-import RadioItem from "./form-radio-item.svelte";
+import Radio from "./form-radio.svelte";
 
-export {
-	Root,
-	Field,
-	Label,
-	Description,
-	Validation,
-	Input,
-	Textarea,
-	Select,
-	Checkbox,
-	RadioItem
-};
+export { Root, Field, Label, Description, Validation, Input, Textarea, Select, Checkbox, Radio };
