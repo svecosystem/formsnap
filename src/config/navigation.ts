@@ -46,6 +46,16 @@ export const navigation: Navigation = {
 					items: []
 				}
 			]
+		},
+		{
+			title: "API Reference",
+			items: [
+				{
+					title: "Form.Root",
+					href: "/docs/form-root",
+					items: []
+				}
+			]
 		}
 	]
 };
