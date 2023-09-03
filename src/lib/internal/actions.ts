@@ -161,8 +161,8 @@ export function createRadioAction(props: CreateActionProps) {
 		}
 
 		const unsubAttrs = effect(attrs, ($attrs) => {
-			const { value, ...rest } = $attrs;
-			setAttributes(node, rest);
+			delete $attrs.value;
+			setAttributes(node, $attrs);
 		});
 
 		const handleChange = () => {
