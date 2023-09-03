@@ -77,58 +77,52 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 </script>
 
 <form method="POST" use:enhance>
-	<fieldset>
-		<label for="name">Name</label>
-		<input
-			id="name"
-			name="name"
-			aria-describedby={$errors.name ? "name-error name-desc" : "name-desc"}
-			aria-invalid={$errors.name ? "true" : undefined}
-			bind:value={$form.name}
-		/>
-		<span id="name-desc">Be sure to use your real name.</span>
-		<span id="name-error" aria-live="assertive">
-			{#if $errors.name}
-				{$errors.name}
-			{/if}
-		</span>
-	</fieldset>
-	<fieldset>
-		<label for="email">Email</label>
-		<input
-			id="email"
-			name="email"
-			type="email"
-			aria-describedby={$errors.email ? "email-error email-desc" : "email-desc"}
-			aria-invalid={$errors.email ? "true" : undefined}
-			bind:value={$form.email}
-		/>
-		<span id="email-desc">It's preferred that you use your company email.</span>
-		<span id="email-error" aria-live="assertive">
-			{#if $errors.email}
-				{$errors.email}
-			{/if}
-		</span>
-	</fieldset>
-	<fieldset>
-		<label for="password">Password</label>
-		<input
-			id="password"
-			name="password"
-			type="password"
-			aria-describedby={$errors.password
-				? "password-error password-desc"
-				: "password-desc"}
-			aria-invalid={$errors.password ? "true" : undefined}
-			bind:value={$form.password}
-		/>
-		<span id="password-desc">Ensure the password is at least 10 characters.</span>
-		<span id="password-error" aria-live="assertive">
-			{#if $errors.password}
-				{$errors.password}
-			{/if}
-		</span>
-	</fieldset>
+	<label for="name">Name</label>
+	<input
+		id="name"
+		name="name"
+		aria-describedby={$errors.name ? "name-error name-desc" : "name-desc"}
+		aria-invalid={$errors.name ? "true" : undefined}
+		bind:value={$form.name}
+	/>
+	<span id="name-desc">Be sure to use your real name.</span>
+	<span id="name-error" aria-live="assertive">
+		{#if $errors.name}
+			{$errors.name}
+		{/if}
+	</span>
+	<label for="email">Email</label>
+	<input
+		id="email"
+		name="email"
+		type="email"
+		aria-describedby={$errors.email ? "email-error email-desc" : "email-desc"}
+		aria-invalid={$errors.email ? "true" : undefined}
+		bind:value={$form.email}
+	/>
+	<span id="email-desc">It's preferred that you use your company email.</span>
+	<span id="email-error" aria-live="assertive">
+		{#if $errors.email}
+			{$errors.email}
+		{/if}
+	</span>
+	<label for="password">Password</label>
+	<input
+		id="password"
+		name="password"
+		type="password"
+		aria-describedby={$errors.password
+			? "password-error password-desc"
+			: "password-desc"}
+		aria-invalid={$errors.password ? "true" : undefined}
+		bind:value={$form.password}
+	/>
+	<span id="password-desc">Ensure the password is at least 10 characters.</span>
+	<span id="password-error" aria-live="assertive">
+		{#if $errors.password}
+			{$errors.password}
+		{/if}
+	</span>
 	<button>Submit</button>
 </form>
 ```
