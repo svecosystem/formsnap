@@ -13,7 +13,7 @@ export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, someFormSchema);
 		if (!form.valid) return fail(400, { form });
-
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 		return {
 			form
 		};

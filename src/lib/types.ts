@@ -32,6 +32,11 @@ export type FieldProps<T extends AnyZodObject = AnyZodObject, Path = FormFieldNa
 	name: Path;
 };
 
+// Or SubmitProps?
+export type ButtonProps<T extends AnyZodObject = AnyZodObject> = {
+	config: Form<T>;
+};
+
 export type InputProps = HTMLInputAttributes;
 export type CheckboxProps = HTMLInputAttributes;
 
