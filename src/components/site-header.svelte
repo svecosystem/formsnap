@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button } from "@/components/ui/button/index.js";
 	import { Xcom, GitHub } from "@/components/icons/index.js";
-	import { LightSwitch } from "@/components/index.js";
+	import { LightSwitch, MobileNav } from "@/components/index.js";
 	import { siteConfig } from "@/config/index.js";
 </script>
 
@@ -9,13 +9,14 @@
 	<div class="container">
 		<div class="flex items-center justify-between gap-3 h-16">
 			<div class="flex items-center gap-1.5">
+				<MobileNav />
 				<a
 					href="/"
 					class="font-bold tracking-tight text-2xl
 				">Formsnap</a
 				>
 			</div>
-			<div class="items-center justify-end gap-1.5">
+			<nav class="flex items-center justify-end gap-1.5">
 				<Button
 					href={siteConfig.links.github}
 					target="_blank"
@@ -37,7 +38,7 @@
 					<Xcom class="sq-5" />
 				</Button>
 				<LightSwitch />
-			</div>
+			</nav>
 		</div>
 	</div>
 </header>

@@ -20,12 +20,7 @@ export type Navigation = {
 };
 
 export const navigation: Navigation = {
-	main: [
-		{
-			title: "Docs",
-			href: "/docs"
-		}
-	],
+	main: [],
 	sidebar: [
 		{
 			title: "Overview",

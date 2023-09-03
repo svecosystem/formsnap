@@ -14,3 +14,4 @@ export { default as CopySimple } from "./copy-simple.svelte";
 export { default as ArrowSquareOut } from "./arrow-square-out.svelte";
 export { default as CaretUpDown } from "./caret-up-down.svelte";
 export { default as WarningDiamond } from "./warning-diamond.svelte";
+export { default as SquareHalf } from "./square-half.svelte";
