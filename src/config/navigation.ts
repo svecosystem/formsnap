@@ -39,6 +39,11 @@ export const navigation: Navigation = {
 					title: "Headless usage",
 					href: "/docs/headless-usage",
 					items: []
+				},
+				{
+					title: "Options",
+					href: "/docs/options",
+					items: []
 				}
 			]
 		}
