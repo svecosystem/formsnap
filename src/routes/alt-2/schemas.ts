@@ -33,7 +33,12 @@ export const simpleFormSchema = z.object({
 	}),
 	bio: z.string().max(250, "Bio must be at most 250 characters").optional(),
 	website: z.string().url("Invalid URL").optional(),
-	terms: z.boolean().default(false)
+	terms: z
+		.boolean()
+		.default(false)
+		.refine((v) => v === true, {
+			message: "You need to accept the terms and conditions"
+		})
 });
 
 export type SomeFormSchema = typeof someFormSchema;

@@ -39,6 +39,11 @@ export const navigation: Navigation = {
 					title: "Quick start",
 					href: "/docs/quick-start",
 					items: []
+				},
+				{
+					title: "Headless usage",
+					href: "/docs/headless-usage",
+					items: []
 				}
 			]
 		}

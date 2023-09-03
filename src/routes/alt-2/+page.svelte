@@ -21,44 +21,44 @@
 	<h1 class="text-3xl font-semibold tracking-tight pb-8">Account Settings</h1>
 	<Form.Root
 		schema={someFormSchema}
-		data={data.form}
+		form={data.form}
 		debug={true}
-		let:form
+		let:config
 		method="POST"
 		class="container max-w-[750px] mx-auto flex flex-col gap-8"
 	>
-		<Form.Field {form} name="email" let:field>
+		<Form.Field {config} name="email" let:handlers let:attrs>
 			<div class="grid gap-2">
 				<Form.Label>Email</Form.Label>
-				<Input {...field.attrs} on:input={field.handleInput} />
+				<Input {...attrs.input} on:input={handlers.input} />
 				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
-		<Form.Field {form} name="username" let:field>
+		<Form.Field {config} name="username" let:handlers let:attrs>
 			<div class="grid gap-2">
 				<Form.Label>Username</Form.Label>
-				<Input {...field.attrs} on:input={field.handleInput} />
+				<Input {...attrs.input} on:input={handlers.input} />
 				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
-		<Form.Field {form} name="bio" let:field>
+		<Form.Field {config} name="bio" let:handlers let:attrs>
 			<div class="grid gap-2">
 				<Form.Label>Bio</Form.Label>
-				<Textarea {...field.attrs} on:input={field.handleInput} />
+				<Textarea {...attrs.input} on:input={handlers.input} />
 				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
-		<Form.Field {form} name="website" let:field>
+		<Form.Field {config} name="website" let:handlers let:attrs>
 			<div class="grid gap-2">
 				<Form.Label>Website</Form.Label>
-				<Input {...field.attrs} on:input={field.handleInput} />
+				<Input {...attrs.input} on:input={handlers.input} />
 				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
-		<Form.Field {form} name="notifications" let:field>
+		<Form.Field {config} name="notifications" let:handlers let:attrs>
 			<div class="grid gap-2">
 				<Form.Label>Notifications</Form.Label>
-				<select {...field.attrs} on:change={field.handleInput}>
+				<select {...attrs.input} on:change={handlers.select}>
 					<option value="all">All</option>
 					<option value="mentions">Mentions</option>
 					<option value="none">None</option>
@@ -66,15 +66,15 @@
 				<Form.Validation class="text-destructive" />
 			</div>
 		</Form.Field>
-		<Form.Field {form} name="language" let:field>
-			{@const { value } = field.attrs}
+		<Form.Field {config} name="language" let:attrs let:setValue>
+			{@const { value } = attrs.input}
 			<div class="grid gap-2">
 				<Form.Label>Language</Form.Label>
 				<Select.Root
 					selected={{ value, label: languages[value] }}
-					onSelectedChange={(v) => field.updateValue(v?.value)}
+					onSelectedChange={(v) => setValue(v?.value)}
 				>
-					<Select.Trigger {...field.attrs}>
+					<Select.Trigger {...attrs.input}>
 						<Select.Value placeholder="Select a language" />
 					</Select.Trigger>
 					<Select.Content>
@@ -85,20 +85,19 @@
 				</Select.Root>
 			</div>
 		</Form.Field>
-		<Form.Field {form} name="usage" let:field>
-			{@const { value, ...rest } = field.attrs}
+		<Form.Field {config} name="usage" let:attrs let:setValue>
+			{@const { value, ...rest } = attrs.input}
 			<div class="flex items-center gap-4">
 				<Checkbox
 					checked={value}
 					onCheckedChange={(v) => {
-						if (typeof v === "boolean") field.updateValue(v);
+						setValue(v);
 					}}
 					{...rest}
 				/>
 				<Form.Label>Send bugs and crash statistics</Form.Label>
 			</div>
 		</Form.Field>
-
 		<Button type="submit">Submit</Button>
 	</Form.Root>
 </div>

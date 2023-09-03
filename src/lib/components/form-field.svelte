@@ -1,50 +1,66 @@
 <script lang="ts">
-	import { writable } from "svelte/store";
-	import type { HTMLAttributes } from "svelte/elements";
+	import type { FieldProps } from "../types.js";
+
 	import {
 		createFormField,
 		type Form,
-		type FormCheckboxEvent,
 		type FormFieldName,
-		type FormInputEvent
+		createHandlers
 	} from "@/lib/internal/index.js";
 	import type { AnyZodObject } from "zod";
 
 	type T = $$Generic<AnyZodObject>;
 	type Path = $$Generic<FormFieldName<T>>;
 
-	type $$Props = {
-		form: Form<T>;
-		name: Path;
-	} & HTMLAttributes<HTMLDivElement>;
+	type $$Props = FieldProps<T, Path>;
 
-	export let form: $$Props["form"];
+	export let config: $$Props["config"];
 	export let name: $$Props["name"];
 
-	const hasValidation = writable(false);
-	const hasDescription = writable(false);
+	const { superFormStores, getFieldAttrs, actions, attrStore, hasValidation, hasDescription, ids } =
+		createFormField<T, Path>(config, name);
 
-	const {
-		stores: { errors, value, constraints },
-		getFieldAttrs
-	} = createFormField<T, Path>(form, name, hasValidation, hasDescription);
+	const { value, errors, constraints } = superFormStores;
 
-	$: field = {
-		attrs: getFieldAttrs($value, $errors, $constraints, $hasValidation, $hasDescription),
-		updateValue: (v: unknown) => {
-			//@ts-expect-error - do we leave this as is, or do we want to force the type to match
-			// the schema?
-			// Pros: we don't have to deal with type coercin inside the update function and since we're runtime validating with zod anyways, do we really lose anything?
-			value.set(v);
+	const setValue = (v: unknown) => {
+		//@ts-expect-error - do we leave this as is, or do we want to force the type to match
+		// the schema?
+		// Pros: we don't have to deal with type coercin inside the update function and since we're runtime validating with zod anyways, do we really lose anything?
+		value.set(v);
+	};
+	const handlers = createHandlers(setValue);
+
+	$: inputAttrs = getFieldAttrs<typeof $value>({
+		val: $value,
+		errors: $errors,
+		constraints: $constraints,
+		hasValidation: $hasValidation,
+		hasDescription: $hasDescription
+	});
+	$: attrStore.set(inputAttrs);
+
+	$: attrs = {
+		input: inputAttrs,
+		label: {
+			for: ids.input
 		},
-		handleInput: (e: FormInputEvent) => {
-			field.updateValue(e.currentTarget.value);
+		description: {
+			id: ids.description
 		},
-		handleChecked: (e: FormCheckboxEvent) => {
-			field.updateValue(e.currentTarget.checked);
-		},
-		value
+		validation: {
+			id: ids.validation,
+			"aria-live": "assertive"
+		} as const
 	};
 </script>
 
-<slot {field} />
+<slot
+	stores={superFormStores}
+	errors={$errors}
+	value={$value}
+	constraints={$constraints}
+	{handlers}
+	{attrs}
+	{actions}
+	{setValue}
+/>

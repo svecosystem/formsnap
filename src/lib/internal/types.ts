@@ -1,3 +1,4 @@
+import type { Action } from "svelte/action";
 import type { Writable } from "svelte/store";
 import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { SuperForm, formFieldProxy } from "sveltekit-superforms/client";
@@ -15,24 +16,31 @@ export type ExpandDeep<T> = T extends object
 		: never
 	: T;
 
-export type Form<T extends ZodValidation<AnyZodObject>> = {
+export type Form<T extends Validation> = {
 	schema: T;
 	form: SuperForm<T, unknown>;
 };
+export type Arrayable<T> = T | T[];
 
-export type FormValidation = ZodValidation<AnyZodObject>;
-export type FormFieldName<T extends ZodValidation<AnyZodObject>> = FormPathLeaves<z.infer<T>>;
+export type FormValidation = Validation;
+export type FormFieldName<T extends Validation> = FormPathLeaves<z.infer<T>>;
 
 export type FormFieldContext = {
 	name: string;
-	formItemId: string;
-	formDescriptionId: string;
-	formValidationId: string;
+	ids: {
+		input: string;
+		description: string;
+		validation: string;
+	};
 	errors: Writable<string[] | undefined>;
 	value: Writable<unknown>;
 	hasDescription: Writable<boolean>;
 	hasValidation: Writable<boolean>;
+	attrStore: AttrStore;
+	actions: ActionsObject;
 };
+
+export type AttrStore = Writable<Record<string, unknown>>;
 
 export type FieldAttrs<T> = {
 	"aria-invalid"?: boolean;
@@ -58,4 +66,25 @@ export type FormInputEvent = Event & {
 
 export type FormCheckboxEvent = Event & {
 	currentTarget: HTMLInputElement;
+};
+
+export type ActionsObject = {
+	label: Action<HTMLLabelElement>;
+	description: Action<HTMLElement>;
+	validation: Action<HTMLElement>;
+	input: Action<HTMLInputElement>;
+	textarea: Action<HTMLTextAreaElement>;
+	radio: Action<HTMLInputElement>;
+	select: Action<HTMLSelectElement>;
+	checkbox: Action<HTMLInputElement>;
+};
+
+export type Validation = ZodValidation<AnyZodObject>;
+
+export type GetFieldAttrsProps<T> = {
+	val: T;
+	errors: string[] | undefined;
+	constraints: Record<string, unknown> | undefined;
+	hasValidation: boolean;
+	hasDescription: boolean;
 };

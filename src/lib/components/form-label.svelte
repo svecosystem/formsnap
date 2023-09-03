@@ -1,20 +1,14 @@
 <script lang="ts">
-	import { getContext } from "svelte";
-	import { FORM_FIELD_CONTEXT, type FormFieldContext, labelAction } from "@/lib/internal/index.js";
+	import { createLabelAction, getCtx } from "@/lib/internal/index.js";
+	import type { LabelProps } from "../types.js";
 
-	const { formItemId } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	type $$Props = LabelProps;
 
-	export let asChild = false;
+	const { ids } = getCtx();
 
-	const attrs = {
-		id: formItemId
-	};
+	const action = createLabelAction({ htmlFor: ids.input });
 </script>
 
-{#if asChild}
-	<slot {attrs} />
-{:else}
-	<label for={formItemId} use:labelAction>
-		<slot />
-	</label>
-{/if}
+<label use:action {...$$restProps}>
+	<slot />
+</label>

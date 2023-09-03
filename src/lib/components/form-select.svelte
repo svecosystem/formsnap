@@ -1,31 +1,17 @@
 <script lang="ts">
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
-	import { getContext } from "svelte";
-	import type { HTMLSelectAttributes } from "svelte/elements";
-	import { get } from "svelte/store";
+	import { createSelectAction, getCtx } from "@/lib/internal/index.js";
+	import type { SelectProps } from "../types.js";
 
-	type $$Props = HTMLSelectAttributes;
+	type $$Props = SelectProps;
 
-	const { formItemId, value, name } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	const { ids, value, name, attrStore } = getCtx();
 
-	function action(node: HTMLSelectElement) {
-		node.id = formItemId;
-		node.value = (get(value) as string) ?? ("" as string);
-		node.name = name;
-		const handleChange = (e: Event) => {
-			if (e.currentTarget instanceof HTMLSelectElement) {
-				value.set(e.currentTarget.value);
-			}
-		};
-
-		node.addEventListener("change", handleChange);
-
-		return {
-			destroy() {
-				node.removeEventListener("change", handleChange);
-			}
-		};
-	}
+	const action = createSelectAction({
+		id: ids.input,
+		value,
+		name,
+		attrs: attrStore
+	});
 </script>
 
 <select {...$$restProps} use:action>

@@ -1,30 +1,17 @@
 <script lang="ts">
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
-	import { getContext } from "svelte";
-	import type { HTMLInputAttributes } from "svelte/elements";
-	import { get } from "svelte/store";
+	import { createCheckboxAction, getCtx } from "@/lib/internal/index.js";
+	import type { CheckboxProps } from "../types.js";
 
-	type $$Props = HTMLInputAttributes;
+	type $$Props = CheckboxProps;
 
-	const { formItemId, value } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	const { ids, value, name, attrStore } = getCtx();
 
-	function action(node: HTMLInputElement) {
-		node.id = formItemId;
-		node.value = (get(value) as string) ?? ("" as string);
-
-		const handleChange = (e: Event) => {
-			if (!(e.currentTarget instanceof HTMLInputElement)) return;
-			value.set(e.currentTarget.checked);
-		};
-
-		node.addEventListener("change", handleChange);
-
-		return {
-			destroy() {
-				node.removeEventListener("change", handleChange);
-			}
-		};
-	}
+	const action = createCheckboxAction({
+		id: ids.input,
+		value,
+		name,
+		attrs: attrStore
+	});
 </script>
 
 <input type="checkbox" use:action />

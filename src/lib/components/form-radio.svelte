@@ -1,33 +1,17 @@
 <script lang="ts">
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
-	import { getContext } from "svelte";
-	import type { HTMLInputAttributes } from "svelte/elements";
+	import { createRadioAction, getCtx } from "@/lib/internal/index.js";
+	import type { RadioProps } from "../types.js";
 
-	type $$Props = HTMLInputAttributes & {
-		value?: any;
-	};
+	type $$Props = RadioProps;
 
-	const { formItemId, value, name } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	const { ids, value, name, attrStore } = getCtx();
 
-	function action(node: HTMLInputElement) {
-		node.id = formItemId;
-		node.name = name;
-		const handleChange = (e: Event) => {
-			if (e.currentTarget instanceof HTMLInputElement) {
-				if (e.currentTarget.checked) {
-					value.set(e.currentTarget.value);
-				}
-			}
-		};
-
-		node.addEventListener("change", handleChange);
-
-		return {
-			destroy() {
-				node.removeEventListener("change", handleChange);
-			}
-		};
-	}
+	const action = createRadioAction({
+		id: ids.input,
+		value,
+		name,
+		attrs: attrStore
+	});
 </script>
 
 <input type="radio" {...$$restProps} use:action />

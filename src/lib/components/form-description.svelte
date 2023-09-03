@@ -1,20 +1,17 @@
 <script lang="ts">
-	import { getContext } from "svelte";
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
+	import { createDescriptionAction, getCtx } from "@/lib/internal/index.js";
+	import type { DescriptionProps } from "../types.js";
 
-	const { formDescriptionId, hasDescription } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
-	export let asChild = false;
-	hasDescription.set(true);
+	type $$Props = DescriptionProps;
 
-	const attrs = {
-		id: formDescriptionId
-	};
+	const { ids, hasDescription } = getCtx();
+
+	const action = createDescriptionAction({
+		id: ids.description,
+		hasDescription
+	});
 </script>
 
-{#if asChild}
-	<slot {attrs} />
-{:else}
-	<p id={formDescriptionId} {...$$restProps}>
-		<slot {attrs} />
-	</p>
-{/if}
+<span use:action {...$$restProps}>
+	<slot />
+</span>

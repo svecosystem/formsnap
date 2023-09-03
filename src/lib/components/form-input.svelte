@@ -1,33 +1,17 @@
 <script lang="ts">
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
-	import { getContext } from "svelte";
-	import type { HTMLInputAttributes } from "svelte/elements";
-	import { get } from "svelte/store";
+	import { createInputAction, getCtx } from "@/lib/internal/index.js";
+	import type { InputProps } from "../types.js";
 
-	type $$Props = HTMLInputAttributes & {
-		value?: any;
-	};
+	type $$Props = InputProps;
 
-	const { formItemId, value, name } = getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
+	const { ids, value, name, attrStore } = getCtx();
 
-	function action(node: HTMLInputElement) {
-		node.id = formItemId;
-		node.value = (get(value) as string) ?? ("" as string);
-		node.name = name;
-		const handleInput = (e: Event) => {
-			if (e.currentTarget instanceof HTMLInputElement) {
-				value.set(e.currentTarget.value);
-			}
-		};
-
-		node.addEventListener("input", handleInput);
-
-		return {
-			destroy() {
-				node.removeEventListener("input", handleInput);
-			}
-		};
-	}
+	const action = createInputAction({
+		id: ids.input,
+		value,
+		name,
+		attrs: attrStore
+	});
 </script>
 
 <input {...$$restProps} use:action />

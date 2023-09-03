@@ -1,18 +1,21 @@
 <script lang="ts">
-	import { FORM_FIELD_CONTEXT, type FormFieldContext } from "@/lib/internal/index.js";
-	import { getContext } from "svelte";
+	import { createValidationAction, getCtx } from "@/lib/internal/index.js";
+	import type { ValidationProps } from "../types.js";
 
-	const { formValidationId, errors, hasValidation } =
-		getContext<FormFieldContext>(FORM_FIELD_CONTEXT);
-	hasValidation.set(true);
+	type $$Props = ValidationProps;
 
-	const attrs = {
-		id: formValidationId,
-		"aria-live": "assertive"
-	} as const;
+	const { ids, errors, hasValidation } = getCtx();
+
+	const action = createValidationAction({
+		id: ids.validation,
+		hasValidation,
+		attrs: {
+			"aria-live": "assertive"
+		}
+	});
 </script>
 
-<span {...attrs} {...$$restProps}>
+<span use:action {...$$restProps}>
 	{#if $errors}
 		{$errors}
 	{/if}
