@@ -10,7 +10,6 @@
 
 	import { superForm, type FormOptions } from "sveltekit-superforms/client";
 	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
-	import type { HTMLFormAttributes } from "svelte/elements";
 
 	import type { SuperValidated } from "sveltekit-superforms";
 
@@ -24,6 +23,7 @@
 		validators: schema,
 		taintedMessage: null
 	};
+	export let asChild = false;
 
 	export let debug = false;
 
@@ -36,9 +36,13 @@
 	};
 </script>
 
-<form {...$$restProps} use:enhance>
-	<slot {config} formValues={$formStore} form={superFrm} />
-	{#if debug}
-		<SuperDebug data={$formStore} />
-	{/if}
-</form>
+{#if asChild}
+	<slot {config} formValues={$formStore} form={superFrm} {enhance} />
+{:else}
+	<form {...$$restProps} use:enhance>
+		<slot {config} formValues={$formStore} form={superFrm} {enhance} />
+		{#if debug}
+			<SuperDebug data={$formStore} />
+		{/if}
+	</form>
+{/if}

@@ -69,14 +69,14 @@ export type FormCheckboxEvent = Event & {
 };
 
 export type ActionsObject = {
-	label: Action<HTMLLabelElement>;
+	checkbox: Action<HTMLInputElement>;
 	description: Action<HTMLElement>;
-	validation: Action<HTMLElement>;
 	input: Action<HTMLInputElement>;
-	textarea: Action<HTMLTextAreaElement>;
+	label: Action<HTMLLabelElement>;
 	radio: Action<HTMLInputElement>;
 	select: Action<HTMLSelectElement>;
-	checkbox: Action<HTMLInputElement>;
+	textarea: Action<HTMLTextAreaElement>;
+	validation: Action<HTMLElement>;
 };
 
 export type Validation = ZodValidation<AnyZodObject>;

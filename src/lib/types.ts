@@ -24,6 +24,7 @@ export type FormProps<T extends Validation = Validation, M = any> = {
 	options?: Options<T, M>;
 	form: SuperValidated<T, M>;
 	debug?: boolean;
+	asChild?: boolean;
 } & HTMLFormAttributes;
 
 export type FieldProps<T extends AnyZodObject = AnyZodObject, Path = FormFieldName<T>> = {

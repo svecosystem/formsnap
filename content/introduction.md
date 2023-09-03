@@ -147,14 +147,14 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 	export let data: PageData;
 </script>
 
-<Form.Root method="POST" data={data.form} schema={signupFormSchema} let:form>
-	<Form.Field {form} name="name">
+<Form.Root method="POST" form={data.form} schema={signupFormSchema} let:config>
+	<Form.Field {config} name="name">
 		<Form.Label>Name</Form.Label>
 		<Form.Input />
 		<Form.Description>Be sure to use your real name.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {form} name="email">
+	<Form.Field {config} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input type="email" />
 		<Form.Description>
@@ -162,7 +162,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {form} name="password">
+	<Form.Field {config} name="password">
 		<Form.Label>Password</Form.Label>
 		<Form.Input type="password" />
 		<Form.Description>
@@ -190,6 +190,6 @@ const Validation = FormSnap.Validation;
 export { Form, Field, Label, Input, Description, Validation };
 ```
 
-If aliasing isn't your cup of tea either, there are alternative ways to use Formsnap that while a bit more verbose, still provide the same functionality, while giving you the ability to use native HTML elements or your own custom components. You can read more about this in the [Bring Your Own](/docs/bring-your-own) section of the docs.
+If aliasing isn't your cup of tea either, there are alternative ways to use Formsnap that while a bit more verbose, still provide the same functionality, while giving you the ability to use native HTML elements or your own custom components. You can read more about this in the [Headless usage](/docs/headless-usage) section of the docs.
 
 To get started using Formsnap, head over to the [Getting Started](/docs/getting-started) section of the docs, where you'll learn how to install and use the library.

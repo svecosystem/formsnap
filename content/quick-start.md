@@ -70,9 +70,9 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 </script>
 
 <Form.Root
-	data={data.form}
+	form={data.form}
 	schema={settingsSchema}
-	let:form
+	let:config
 	debug={true}
 	method="POST"
 >
@@ -80,11 +80,11 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 </Form.Root>
 ```
 
-`Form.Root` is the component which renders a `<form>` element and provides the context for its children. It requires a `data` prop which is the form we return from our load function, and a `schema` prop which is the Zod schema we defined earlier.
+`Form.Root` is the component which renders a `<form>` element and provides the context for its children. It requires a `form` prop which is the form we return from our load function, and a `schema` prop which is the Zod schema we defined earlier.
 
 In addition to the required props, it also accepts any attribute you could normally pass to a `<form>` element, as well as an `options` prop, which allows us to customize the form's behavior with the same options we can pass to `superForm` when using it directly.
 
-It also provides a `form` slot prop, which we're accessing with `let:form`. This prop is used to properly type and wire up the form fields, which we'll see in the next step.
+It also provides a `config` slot prop, which we're accessing with `let:config`. This prop is used to properly type and wire up the form fields, which we'll see in the next step.
 
 And lastly, we can pass a `debug` prop to enable debug mode, which will display Superform's `<SuperDebug />` component at the bottom of the form to help with debugging.
 
@@ -101,19 +101,19 @@ You can think of form fields as the building blocks of your form. Each input wil
 </script>
 
 <Form.Root
-	data={data.form}
+	form={data.form}
 	schema={settingsSchema}
-	let:form
+	let:config
 	method="POST"
 	debug={true}
 >
-	<Form.Field {form} name="email">
+	<Form.Field {config} name="email">
 		<!-- ... -->
 	</Form.Field>
 </Form.Root>
 ```
 
-We pass the `form` slot prop we received from `Form.Root` to the field, along with the `name` of the field, which is typed to be a property of our schema.
+We pass the `config` slot prop we received from `Form.Root` to the field, along with the `name` of the field, which is typed to be a property of our schema.
 
 Now that we have our field and the context has been setup under the hood, we can start adding the components that bring the field to life.
 
@@ -126,13 +126,13 @@ Now that we have our field and the context has been setup under the hood, we can
 </script>
 
 <Form.Root
-	data={data.form}
+	form={data.form}
 	schema={settingsSchema}
-	let:form
+	let:config
 	method="POST"
 	debug={true}
 >
-	<Form.Field {form} name="email">
+	<Form.Field {config} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />
 		<Form.Description>Use your company email if you have one.</Form.Description>
@@ -160,19 +160,19 @@ And that's really all it takes to setup a form field. Let's continue on with the
 </script>
 
 <Form.Root
-	data={data.form}
+	form={data.form}
 	schema={settingsSchema}
-	let:form
+	let:config
 	method="POST"
 	debug={true}
 >
-	<Form.Field {form} name="email">
+	<Form.Field {config} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />
 		<Form.Description>Use your company email if you have one.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {form} name="bio">
+	<Form.Field {config} name="bio">
 		<Form.Label>Bio</Form.Label>
 		<Form.Textarea />
 		<Form.Description>
@@ -182,17 +182,17 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	</Form.Field>
 	<fieldset>
 		<legend>Select your theme</legend>
-		<Form.Field {form} name="theme">
+		<Form.Field {config} name="theme">
 			<Form.Radio value="light" />
 			<Form.Label>Light</Form.Label>
 			<Form.Validation />
 		</Form.Field>
-		<Form.Field {form} name="theme">
+		<Form.Field {config} name="theme">
 			<Form.Radio value="dark" />
 			<Form.Label>Dark</Form.Label>
 		</Form.Field>
 	</fieldset>
-	<Form.Field {form} name="language">
+	<Form.Field {config} name="language">
 		<Form.Label>Language</Form.Label>
 		<Form.Select>
 			<option value="en">English</option>

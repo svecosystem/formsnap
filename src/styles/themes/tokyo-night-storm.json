@@ -223,7 +223,7 @@
 		"editorSuggestWidget.selectedBackground": "#282e44",
 		"editorSuggestWidget.highlightForeground": "#668ac4",
 
-		"editorCodeLens.foreground": "#565f89",
+		"editorCodeLens.foreground": "#a6aaad",
 		"editorLightBulb.foreground": "#e0af68",
 		"editorLightBulbAutoFix.foreground": "#e0af68",
 
@@ -425,7 +425,7 @@
 				"storage.modifier"
 			],
 			"settings": {
-				"fontStyle": "italic"
+				"fontStyle": ""
 			}
 		},
 		{
@@ -444,7 +444,7 @@
 				"comment.block.documentation punctuation"
 			],
 			"settings": {
-				"foreground": "#565f89"
+				"foreground": "#a6aaad"
 			}
 		},
 		{
@@ -1399,7 +1399,7 @@
 			"name": "Markup - Italic",
 			"scope": ["markup.italic", "markup.italic punctuation"],
 			"settings": {
-				"fontStyle": "italic",
+				"fontStyle": "",
 				"foreground": "#c0caf5"
 			}
 		},
@@ -1437,7 +1437,7 @@
 			"name": "Markup - Quote",
 			"scope": "markup.quote",
 			"settings": {
-				"fontStyle": "italic"
+				"fontStyle": ""
 			}
 		},
 		{
@@ -1468,7 +1468,7 @@
 			"scope": "meta.separator",
 			"settings": {
 				"fontStyle": "bold",
-				"foreground": "#565f89"
+				"foreground": "#a6aaad"
 			}
 		},
 		{
