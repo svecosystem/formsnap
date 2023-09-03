@@ -1,12 +1,6 @@
 <script lang="ts">
 	import type { FieldProps } from "../types.js";
-
-	import {
-		createFormField,
-		type Form,
-		type FormFieldName,
-		createHandlers
-	} from "@/lib/internal/index.js";
+	import { createFormField, type FormFieldName, createHandlers } from "@/lib/internal/index.js";
 	import type { AnyZodObject } from "zod";
 
 	type T = $$Generic<AnyZodObject>;

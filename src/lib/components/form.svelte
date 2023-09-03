@@ -19,16 +19,44 @@
 
 	export let schema: T;
 	export let form: SuperValidated<T, M>;
-	export let options: Options<typeof form, M> = {
+
+	const defaultOptions: Options<typeof form, M> = {
 		validators: schema,
 		taintedMessage: null
 	};
+
+	export let options: Options<typeof form, M> = defaultOptions;
+
+	const optionsWithDefaults: Options<typeof form, M> = {
+		...defaultOptions,
+		...options
+	};
+
 	export let asChild = false;
 
 	export let debug = false;
 
-	const superFrm = superForm(form, options);
-	const { enhance, form: formStore } = superFrm;
+	const superFrm = superForm(form, optionsWithDefaults);
+	const {
+		enhance,
+		form: formStore,
+		allErrors,
+		delayed,
+		errors,
+		reset,
+		submitting,
+		tainted,
+		timeout,
+		validate,
+		posted,
+		fields,
+		message,
+		options: formOptions,
+		formId,
+		restore,
+		capture,
+		constraints
+	} = superFrm;
 
 	const config = {
 		form: superFrm,
@@ -37,10 +65,52 @@
 </script>
 
 {#if asChild}
-	<slot {config} formValues={$formStore} form={superFrm} {enhance} />
+	<slot
+		{config}
+		formValues={$formStore}
+		form={superFrm}
+		{enhance}
+		allErrors={$allErrors}
+		delayed={$delayed}
+		errors={$errors}
+		{reset}
+		submitting={$submitting}
+		tainted={$tainted}
+		timeout={$timeout}
+		{validate}
+		posted={$posted}
+		{fields}
+		message={$message}
+		options={formOptions}
+		formId={$formId}
+		{restore}
+		{capture}
+		constraints={$constraints}
+	/>
 {:else}
 	<form {...$$restProps} use:enhance>
-		<slot {config} formValues={$formStore} form={superFrm} {enhance} />
+		<slot
+			{config}
+			formValues={$formStore}
+			form={superFrm}
+			{enhance}
+			allErrors={$allErrors}
+			delayed={$delayed}
+			errors={$errors}
+			{reset}
+			submitting={$submitting}
+			tainted={$tainted}
+			timeout={$timeout}
+			{validate}
+			posted={$posted}
+			{fields}
+			message={$message}
+			options={formOptions}
+			formId={$formId}
+			{restore}
+			{capture}
+			constraints={$constraints}
+		/>
 		{#if debug}
 			<SuperDebug data={$formStore} />
 		{/if}
