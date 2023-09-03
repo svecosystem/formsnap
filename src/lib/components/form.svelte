@@ -34,13 +34,27 @@
 		form: superFrm,
 		schema
 	};
+
+	// Adding a variable to mantain tracking of server errors thrown in +page.server.ts action
+	let serverError: string | undefined = undefined;
 </script>
 
 {#if asChild}
+	<!-- Don't know how to manage here yet -->
 	<slot {config} formValues={$formStore} form={superFrm} {enhance} />
 {:else}
-	<form {...$$restProps} use:enhance>
-		<slot {config} formValues={$formStore} form={superFrm} {enhance} />
+	<form {...$$restProps} use:enhance={{
+		// We can add a custom onError handler to the enhance store
+		onError: ({result}) => {
+			serverError = result.error.message;
+		} 
+	}}>
+		<!-- We could add serverError directly on Form.Root -->
+		<slot {config} formValues={$formStore} form={superFrm} {enhance} {serverError} />
+
+		<!-- Or pass it as another slot -->
+		<slot name="serverError" {serverError} />	
+
 		{#if debug}
 			<SuperDebug data={$formStore} />
 		{/if}
