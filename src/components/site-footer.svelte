@@ -15,7 +15,7 @@
 					class="font-medium underline underline-offset-4"
 				>
 					huntabyte
-				</a>
+				</a>.
 			</p>
 		</div>
 	</div>

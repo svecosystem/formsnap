@@ -192,4 +192,4 @@ export { Form, Field, Label, Input, Description, Validation };
 
 If aliasing isn't your cup of tea either, there are alternative ways to use Formsnap that while a bit more verbose, still provide the same functionality, while giving you the ability to use native HTML elements or your own custom components. You can read more about this in the [Headless usage](/docs/headless-usage) section of the docs.
 
-To get started using Formsnap, head over to the [Getting Started](/docs/getting-started) section of the docs, where you'll learn how to install and use the library.
+To get started using Formsnap, head over to the [Quick start](/docs/quick-start) section of the docs, where you'll learn how to install and use the library.
