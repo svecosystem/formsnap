@@ -1,5 +1,0 @@
----
-"formsnap": patch
----
-
-initial release
