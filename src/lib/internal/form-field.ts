@@ -42,6 +42,8 @@ type CreateFormFieldReturn<
 	attrStore: AttrStore;
 	hasValidation: Writable<boolean>;
 	hasDescription: Writable<boolean>;
+	handlers: Handlers;
+	setValue: SetValue;
 };
 
 export function createFormField<
@@ -126,7 +128,9 @@ export function createFormField<
 		ids,
 		attrStore,
 		hasDescription,
-		hasValidation
+		hasValidation,
+		handlers,
+		setValue
 	};
 }
 
