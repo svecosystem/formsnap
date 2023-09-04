@@ -4,6 +4,8 @@
 
 	type $$Props = ValidationProps;
 
+	export let tag = "p"
+
 	const { ids, errors, hasValidation } = getCtx();
 
 	const action = createValidationAction({
@@ -15,8 +17,8 @@
 	});
 </script>
 
-<span use:action {...$$restProps}>
+<svelte:element this={tag} use:action {...$$restProps}>
 	{#if $errors}
 		{$errors}
 	{/if}
-</span>
+</svelte:element>
