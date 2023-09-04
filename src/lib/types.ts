@@ -57,5 +57,3 @@ export type RadioProps = HTMLInputAttributes;
 export type SelectProps = HTMLSelectAttributes;
 export type TextareaProps = HTMLTextareaAttributes;
 export type LabelProps = HTMLLabelAttributes;
-export * from "./internal/form-field.js";
-export * from "./internal/types.js";
