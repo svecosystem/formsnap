@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.0.7
+
+### Patch Changes
+
+- 4bc5459: Fix: Value typing
+
 ## 0.0.6
 
 ### Patch Changes
