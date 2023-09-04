@@ -35,10 +35,23 @@ export type FieldProps<T extends AnyZodObject = AnyZodObject, Path = FormFieldNa
 export type InputProps = HTMLInputAttributes;
 export type CheckboxProps = HTMLInputAttributes;
 
-type HTMLSpanAttributes = HTMLAttributes<HTMLSpanElement>;
+export type DescriptionProps = {
+	/**
+	 * The tag to use for the description element.
+	 *
+	 * @default "p"
+	 */
+	tag?: "string";
+} & HTMLAttributes<HTMLElement>;
 
-export type DescriptionProps = HTMLSpanAttributes;
-export type ValidationProps = HTMLSpanAttributes;
+export type ValidationProps = {
+	/**
+	 * The tag to use for the validation message element.
+	 *
+	 * @default "p"
+	 */
+	tag?: "string";
+} & HTMLAttributes<HTMLElement>;
 
 export type RadioProps = HTMLInputAttributes;
 export type SelectProps = HTMLSelectAttributes;

@@ -4,6 +4,8 @@
 
 	type $$Props = DescriptionProps;
 
+	export let tag = "p";
+
 	const { ids, hasDescription } = getCtx();
 
 	const action = createDescriptionAction({
@@ -12,6 +14,6 @@
 	});
 </script>
 
-<span use:action {...$$restProps}>
+<svelte:element this={tag} use:action {...$$restProps}>
 	<slot />
-</span>
+</svelte:element>
