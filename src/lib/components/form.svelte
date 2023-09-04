@@ -78,12 +78,11 @@
 		{validate}
 		posted={$posted}
 		{fields}
-		message={$message}
-		options={formOptions}
+		{formOptions}
 		formId={$formId}
 		{restore}
 		{capture}
-		constraints={$constraints}
+		message={$message}
 	/>
 {:else}
 	<form {...$$restProps} use:enhance>
@@ -102,12 +101,11 @@
 			{validate}
 			posted={$posted}
 			{fields}
-			message={$message}
-			options={formOptions}
+			{formOptions}
 			formId={$formId}
 			{restore}
 			{capture}
-			constraints={$constraints}
+			message={$message}
 		/>
 		{#if debug}
 			<SuperDebug data={$formStore} />
