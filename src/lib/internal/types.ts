@@ -38,6 +38,8 @@ export type FormFieldContext = {
 	hasValidation: Writable<boolean>;
 	attrStore: AttrStore;
 	actions: ActionsObject;
+	handlers: Handlers;
+	setValue: SetValue;
 };
 
 export type AttrStore = Writable<Record<string, unknown>>;
@@ -87,4 +89,21 @@ export type GetFieldAttrsProps<T> = {
 	constraints: Record<string, unknown> | undefined;
 	hasValidation: boolean;
 	hasDescription: boolean;
+};
+
+/**
+ * Sets the value of a field store to the given value.
+ */
+export type SetValue = (value: unknown) => void;
+
+/**
+ * An object of helper functions for setting the value of a field store
+ * using `on:input` and `on:change` for native form elements and their
+ * events.
+ */
+export type Handlers = {
+	input: (e: Event) => void;
+	checkbox: (e: Event) => void;
+	radio: (e: Event) => void;
+	select: (e: Event) => void;
 };
