@@ -18,6 +18,7 @@
 
 	export let schema: T;
 	export let form: SuperValidated<T, M>;
+	export let namespace = 'formsnap';
 
 	const defaultOptions: Options<typeof form, M> = {
 		validators: schema,
@@ -85,7 +86,7 @@
 		message={$message}
 	/>
 {:else}
-	<form {...$$restProps} use:enhance>
+	<form {...$$restProps} use:enhance class={namespace}>
 		<slot
 			{config}
 			formValues={$formStore}
