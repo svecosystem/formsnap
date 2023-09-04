@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.0.6
+
+### Patch Changes
+
+- bfa0520: Add `tag` prop to `Validation` & `Description`
+
 ## 0.0.5
 
 ### Patch Changes
