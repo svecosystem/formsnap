@@ -66,6 +66,7 @@
 	<slot
 		{config}
 		formValues={$formStore}
+		{formStore}
 		form={superFrm}
 		{enhance}
 		allErrors={$allErrors}
@@ -88,6 +89,7 @@
 	<form {...$$restProps} use:enhance>
 		<slot
 			{config}
+			{formStore}
 			formValues={$formStore}
 			form={superFrm}
 			{enhance}
