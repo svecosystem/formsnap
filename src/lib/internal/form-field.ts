@@ -7,7 +7,9 @@ import type {
 	Form,
 	FormFieldContext,
 	FormStores,
-	GetFieldAttrsProps
+	GetFieldAttrsProps,
+	Handlers,
+	SetValue
 } from "./types.js";
 import { formFieldProxy } from "sveltekit-superforms/client";
 import { getContext, setContext } from "svelte";
@@ -73,6 +75,15 @@ export function createFormField<
 		checkbox: createCheckboxAction({ id: ids.input, value, name, attrs: attrStore })
 	};
 
+	const setValue = (v: unknown) => {
+		//@ts-expect-error - do we leave this as is, or do we want to force the type to match the schema?
+		// Pros: we don't have to deal with type narrowing inside the `setValue` function and we're runtime validating the type with zod anyways.
+		// Cons: we're not forcing the type to match the schema so more issues could occur.
+		value.set(v);
+	};
+
+	const handlers = createHandlers(setValue);
+
 	const context: FormFieldContext = {
 		ids,
 		name,
@@ -81,7 +92,9 @@ export function createFormField<
 		hasValidation,
 		hasDescription,
 		attrStore,
-		actions
+		actions,
+		setValue,
+		handlers
 	};
 
 	setContext(FORM_FIELD_CONTEXT, context);
@@ -117,7 +130,7 @@ export function createFormField<
 	};
 }
 
-export function createHandlers(setValue: (v: unknown) => void) {
+export function createHandlers(setValue: SetValue): Handlers {
 	return {
 		input: (e: Event) => {
 			const target = e.target;
