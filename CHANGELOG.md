@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.0.8
+
+### Patch Changes
+
+- 48eea47: - add `formStore` to `<Form.Root />` slot props
+
 ## 0.0.7
 
 ### Patch Changes
