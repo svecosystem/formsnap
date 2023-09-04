@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.0.5
+
+### Patch Changes
+
+- 2a857e1: Fix: `<Form.Root />` slot prop types
+
 ## 0.0.4
 
 ### Patch Changes
