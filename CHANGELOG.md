@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.0.9
+
+### Patch Changes
+
+- 709b7ab: - Add `method="POST"` by default to `<Form.Root />`
+
 ## 0.0.8
 
 ### Patch Changes
