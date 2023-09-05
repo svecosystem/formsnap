@@ -86,7 +86,7 @@
 		message={$message}
 	/>
 {:else}
-	<form {...$$restProps} use:enhance>
+	<form method="POST" {...$$restProps} use:enhance>
 		<slot
 			{config}
 			{formStore}

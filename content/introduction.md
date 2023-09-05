@@ -141,7 +141,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 	export let data: PageData;
 </script>
 
-<Form.Root method="POST" form={data.form} schema={signupFormSchema} let:config>
+<Form.Root form={data.form} schema={signupFormSchema} let:config>
 	<Form.Field {config} name="name">
 		<Form.Label>Name</Form.Label>
 		<Form.Input />

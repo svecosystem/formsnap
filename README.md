@@ -55,7 +55,6 @@ export const load: PageServerLoad = async () => {
 	schema={settingsFormSchema}
 	form={data.form}
 	let:config
-	method="POST"
 	action="?/someAction"
 >
 	<Form.Field {config} name="email">
