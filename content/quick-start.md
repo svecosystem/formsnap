@@ -69,13 +69,7 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 	export let data: PageData;
 </script>
 
-<Form.Root
-	form={data.form}
-	schema={settingsSchema}
-	let:config
-	debug={true}
-	method="POST"
->
+<Form.Root form={data.form} schema={settingsSchema} let:config debug={true}>
 	<!-- ... -->
 </Form.Root>
 ```
@@ -100,13 +94,7 @@ You can think of form fields as the building blocks of your form. Each input wil
 	export let data: PageData;
 </script>
 
-<Form.Root
-	form={data.form}
-	schema={settingsSchema}
-	let:config
-	method="POST"
-	debug={true}
->
+<Form.Root form={data.form} schema={settingsSchema} let:config debug={true}>
 	<Form.Field {config} name="email">
 		<!-- ... -->
 	</Form.Field>
@@ -125,13 +113,7 @@ Now that we have our field and the context has been setup under the hood, we can
 	export let data: PageData;
 </script>
 
-<Form.Root
-	form={data.form}
-	schema={settingsSchema}
-	let:config
-	method="POST"
-	debug={true}
->
+<Form.Root form={data.form} schema={settingsSchema} let:config debug={true}>
 	<Form.Field {config} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />
@@ -159,13 +141,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	export let data: PageData;
 </script>
 
-<Form.Root
-	form={data.form}
-	schema={settingsSchema}
-	let:config
-	method="POST"
-	debug={true}
->
+<Form.Root form={data.form} schema={settingsSchema} let:config debug={true}>
 	<Form.Field {config} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />

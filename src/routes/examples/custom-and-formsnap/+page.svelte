@@ -24,7 +24,6 @@
 		form={data.form}
 		debug={true}
 		let:config
-		method="POST"
 		class="container max-w-[750px] mx-auto flex flex-col gap-8"
 	>
 		<Form.Field {config} name="email" let:handlers let:attrs>
