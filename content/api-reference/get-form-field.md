@@ -1,30 +1,38 @@
-import type { Action } from "svelte/action";
-import type { Writable } from "svelte/store";
-import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
-import type { SuperForm, formFieldProxy } from "sveltekit-superforms/client";
-import type { AnyZodObject, z } from "zod";
+---
+title: getFormField
+description: A helper function for composing custom form components
+---
 
-export type Expand<T> = T extends object
-	? T extends infer O
-		? { [K in keyof O]: O[K] }
-		: never
-	: T;
+You can use `getFormField` within the context of a `<Form.Field>` component to build custom form components. For example, let's say we have the following form component with a custom input:
 
-export type ExpandDeep<T> = T extends object
-	? T extends infer O
-		? { [K in keyof O]: ExpandDeep<O[K]> }
-		: never
-	: T;
+```svelte
+<Form.Root>
+	<Form.Field>
+		<CustomInput />
+	</Form.Field>
+</Form.Root>
+```
 
-export type Form<T extends Validation> = {
-	schema: T;
-	form: SuperForm<T, unknown>;
-};
-export type Arrayable<T> = T | T[];
+Since the `<CustomInput />` is within the context scope of a `<Form.Field />`, we can use `getFormField` inside of it to access helpers we can use to add functionality to our custom input:
 
-export type FormValidation = Validation;
-export type FormFieldName<T extends Validation> = FormPathLeaves<z.infer<T>>;
+```svelte title="CustomInput.svelte"
+<script lang="ts">
+	import { getFormField } from "formsnap";
+	const { actions } = getFormField();
+</script>
 
+<input use:actions.input />
+
+<style>
+	input {
+		/* ... */
+	}
+</style>
+```
+
+The `getFormField` function returns an object with the following types:
+
+```ts
 export type FormFieldContext = {
 	/**
 	 * The name of the field in the form schema.
@@ -102,34 +110,6 @@ export type FormFieldContext = {
 	setValue: SetValue;
 };
 
-export type AttrStore = Writable<Record<string, unknown>>;
-
-export type FieldAttrs<T> = {
-	"aria-invalid"?: boolean;
-	"aria-describedby"?: string;
-	name: string;
-	id: string;
-	value: T;
-};
-
-export type ControlFieldAttrs<T> = {
-	control: Omit<FieldAttrs<T>, "name">;
-	input: Pick<FieldAttrs<T>, "value" | "name">;
-};
-
-export type FormStores<
-	T extends ZodValidation<AnyZodObject>,
-	Path extends FormPathLeaves<z.infer<UnwrapEffects<T>>>
-> = ReturnType<typeof formFieldProxy<T, Path>>;
-
-export type FormInputEvent = Event & {
-	currentTarget: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-};
-
-export type FormCheckboxEvent = Event & {
-	currentTarget: HTMLInputElement;
-};
-
 export type ActionsObject = {
 	/**
 	 * An action for setting the attributes and event handlers for a checkbox component.
@@ -188,16 +168,6 @@ export type ActionsObject = {
 	validation: Action<HTMLElement>;
 };
 
-export type Validation = ZodValidation<AnyZodObject>;
-
-export type GetFieldAttrsProps<T> = {
-	val: T;
-	errors: string[] | undefined;
-	constraints: Record<string, unknown> | undefined;
-	hasValidation: boolean;
-	hasDescription: boolean;
-};
-
 /**
  * Sets the value of a field store to the given value.
  */
@@ -214,3 +184,4 @@ export type Handlers = {
 	radio: (e: Event) => void;
 	select: (e: Event) => void;
 };
+```

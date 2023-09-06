@@ -296,3 +296,7 @@ Now let's use the slot props provided by `<Form.Field />` to wire up our custom 
 We're using the `attrs` slot prop to apply the necessary attributes to our custom input, and we're using the `handlers` slot prop to update the field's `value` store as the user interacts with the input.
 
 Of course we could also bring our own `<Form.Label />`, `<Form.Description />`, and `<Form.Validation />` components, and the process would be the same, except they would receive `{...attrs.label}`, `{...attrs.description}`, and `{...attrs.validation}` respectively.
+
+## Using the `getFormField` helper
+
+Alternatively, you can use the `getFormField` helper function to compose your own form components. For more information on how to use this function, see [getFormField](/docs/api-reference/get-form-field).
