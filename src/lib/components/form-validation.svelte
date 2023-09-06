@@ -1,23 +1,13 @@
 <script lang="ts">
-	import { createValidationAction, getCtx } from "@/lib/internal/index.js";
+	import { getFormField } from "@/lib/index.js";
 	import type { ValidationProps } from "../types.js";
 
 	type $$Props = ValidationProps;
-
-	export let tag = "p"
-
-	const { ids, errors, hasValidation } = getCtx();
-
-	const action = createValidationAction({
-		id: ids.validation,
-		hasValidation,
-		attrs: {
-			"aria-live": "assertive"
-		}
-	});
+	export let tag = "p";
+	const { actions, errors } = getFormField();
 </script>
 
-<svelte:element this={tag} use:action {...$$restProps}>
+<svelte:element this={tag} use:actions.validation {...$$restProps}>
 	{#if $errors}
 		{$errors}
 	{/if}

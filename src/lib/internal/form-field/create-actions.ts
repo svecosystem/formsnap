@@ -1,11 +1,33 @@
 import { get, type Writable } from "svelte/store";
-import { effect, addEventListener, type AttrStore } from "@/lib/internal/index.js";
-import { setAttributes } from "./dom.js";
+import { effect, addEventListener, setAttributes } from "@/lib/internal/index.js";
+import type { CreateFieldActionsProps, FieldActions, FieldAttrStore } from "./types.js";
+
+export function createFieldActions(props: CreateFieldActionsProps): FieldActions {
+	const { ids, attrs, hasValidation, hasDescription, value, name } = props;
+	return {
+		label: createLabelAction({
+			htmlFor: ids.input
+		}),
+		description: createDescriptionAction({ id: ids.description, hasDescription }),
+		validation: createValidationAction({
+			id: ids.validation,
+			hasValidation,
+			attrs: {
+				"aria-live": "assertive"
+			}
+		}),
+		input: createInputAction({ id: ids.input, value, name, attrs }),
+		textarea: createTextareaAction({ id: ids.input, value, name, attrs }),
+		radio: createRadioAction({ id: ids.input, value, name, attrs }),
+		select: createSelectAction({ id: ids.input, value, name, attrs }),
+		checkbox: createCheckboxAction({ id: ids.input, value, name, attrs })
+	};
+}
 
 type CreateLabelActionProps = {
 	htmlFor: string;
 };
-export function createLabelAction(props: CreateLabelActionProps) {
+function createLabelAction(props: CreateLabelActionProps) {
 	const { htmlFor } = props;
 
 	return (node: HTMLLabelElement) => {
@@ -30,7 +52,7 @@ type CreateValidationActionProps = {
 	attrs: Record<string, string>;
 };
 
-export function createValidationAction(props: CreateValidationActionProps) {
+function createValidationAction(props: CreateValidationActionProps) {
 	const { id, hasValidation, attrs } = props;
 	return (node: HTMLElement) => {
 		node.id = id;
@@ -49,7 +71,7 @@ type CreateDescriptionActionProps = {
 	hasDescription: Writable<boolean>;
 };
 
-export function createDescriptionAction(props: CreateDescriptionActionProps) {
+function createDescriptionAction(props: CreateDescriptionActionProps) {
 	const { id, hasDescription } = props;
 	return (node: HTMLElement) => {
 		node.id = id;
@@ -66,10 +88,10 @@ type CreateActionProps = {
 	id: string;
 	value: Writable<unknown>;
 	name: string;
-	attrs: AttrStore;
+	attrs: FieldAttrStore;
 };
 
-export function createInputAction(props: CreateActionProps) {
+function createInputAction(props: CreateActionProps) {
 	const { id, value, name, attrs } = props;
 	return (node: HTMLInputElement) => {
 		node.id = id;
@@ -95,7 +117,7 @@ export function createInputAction(props: CreateActionProps) {
 	};
 }
 
-export function createTextareaAction(props: CreateActionProps) {
+function createTextareaAction(props: CreateActionProps) {
 	const { id, value, name, attrs } = props;
 	return (node: HTMLTextAreaElement) => {
 		node.id = id;
@@ -121,7 +143,7 @@ export function createTextareaAction(props: CreateActionProps) {
 	};
 }
 
-export function createCheckboxAction(props: CreateActionProps) {
+function createCheckboxAction(props: CreateActionProps) {
 	const { id, value, name, attrs } = props;
 	return (node: HTMLInputElement) => {
 		node.id = id;
@@ -182,7 +204,7 @@ export function createRadioAction(props: CreateActionProps) {
 	};
 }
 
-export function createSelectAction(props: CreateActionProps) {
+function createSelectAction(props: CreateActionProps) {
 	const { id, value, name, attrs } = props;
 	return (node: HTMLSelectElement) => {
 		node.id = id;

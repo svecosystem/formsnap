@@ -1,17 +1,9 @@
 <script lang="ts">
-	import { createTextareaAction, getCtx } from "@/lib/internal/index.js";
+	import { getFormField } from "@/lib/index.js";
 	import type { TextareaProps } from "../types.js";
 
 	type $$Props = TextareaProps;
-
-	const { ids, value, name, attrStore } = getCtx();
-
-	const action = createTextareaAction({
-		id: ids.input,
-		value,
-		name,
-		attrs: attrStore
-	});
+	const { actions } = getFormField();
 </script>
 
-<textarea {...$$restProps} use:action />
+<textarea {...$$restProps} use:actions.textarea />

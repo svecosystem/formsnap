@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { createLabelAction, getCtx } from "@/lib/internal/index.js";
+	import { getFormField } from "@/lib/index.js";
 	import type { LabelProps } from "../types.js";
 
 	type $$Props = LabelProps;
-
-	const { ids } = getCtx();
-
-	const action = createLabelAction({ htmlFor: ids.input });
+	const { actions } = getFormField();
 </script>
 
-<label use:action {...$$restProps}>
+<label use:actions.label {...$$restProps}>
 	<slot />
 </label>

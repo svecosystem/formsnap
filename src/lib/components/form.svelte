@@ -6,6 +6,9 @@
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
+	import { FORM_CONTEXT } from "@/lib/internal/index.js";
+	import { setContext } from "svelte";
+
 	import type { FormProps } from "../types.js";
 	import { superForm, type FormOptions } from "sveltekit-superforms/client";
 	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
@@ -35,6 +38,8 @@
 	export let debug = false;
 
 	const superFrm = superForm(form, optionsWithDefaults);
+	setContext(superFrm, FORM_CONTEXT);
+
 	const {
 		enhance,
 		form: formStore,
