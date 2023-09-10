@@ -297,6 +297,6 @@ We're using the `attrs` slot prop to apply the necessary attributes to our custo
 
 Of course we could also bring our own `<Form.Label />`, `<Form.Description />`, and `<Form.Validation />` components, and the process would be the same, except they would receive `{...attrs.label}`, `{...attrs.description}`, and `{...attrs.validation}` respectively.
 
-## Using the `getFormField` helper
+## Using the helper functions
 
-Alternatively, you can use the `getFormField` helper function to compose your own form components. For more information on how to use this function, see [getFormField](/docs/api-reference/get-form-field).
+Alternatively, you can use the `getForm` and `getFormField` helper functions to compose your own form components. For more information on how to use these functions, see [getForm](/docs/api-reference/get-form) & [getFormField](/docs/api-reference/get-form-field).
