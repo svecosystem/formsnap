@@ -51,6 +51,11 @@ export const navigation: Navigation = {
 			title: "API Reference",
 			items: [
 				{
+					title: "getForm",
+					href: "/docs/api-reference/get-form",
+					items: []
+				},
+				{
 					title: "getFormField",
 					href: "/docs/api-reference/get-form-field",
 					items: []

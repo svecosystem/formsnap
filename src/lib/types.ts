@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Form, FormFieldName, Validation } from "@/lib/internal/types.js";
+import type { Form, FormFieldName, SuperFormOptions } from "@/lib/internal/types.js";
 import type {
 	HTMLAttributes,
 	HTMLFormAttributes,
@@ -8,21 +8,20 @@ import type {
 	HTMLSelectAttributes,
 	HTMLTextareaAttributes
 } from "svelte/elements";
-import type { SuperValidated, UnwrapEffects } from "sveltekit-superforms";
-import type { FormOptions as SuperFormOptions } from "sveltekit-superforms/client";
+import type { SuperValidated, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { AnyZodObject } from "zod";
 
-export type Options<T extends Validation = Validation, M = any> = SuperFormOptions<
+export type FormOptions<T extends ZodValidation<AnyZodObject>, M = any> = SuperFormOptions<
 	UnwrapEffects<T>,
 	M
 >;
 
 export type HelperEventHandler = (e: Event) => void;
 
-export type FormProps<T extends Validation = Validation, M = any> = {
+export type FormProps<T extends ZodValidation<AnyZodObject>, M = any> = {
 	schema: T;
-	options?: Options<T, M>;
 	form: SuperValidated<T, M>;
+	options?: FormOptions<UnwrapEffects<T>, M>;
 	debug?: boolean;
 	asChild?: boolean;
 } & HTMLFormAttributes;

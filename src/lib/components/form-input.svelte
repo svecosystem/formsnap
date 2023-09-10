@@ -1,17 +1,9 @@
 <script lang="ts">
-	import { createInputAction, getCtx } from "@/lib/internal/index.js";
+	import { getFormField } from "@/lib/index.js";
 	import type { InputProps } from "../types.js";
 
 	type $$Props = InputProps;
-
-	const { ids, value, name, attrStore } = getCtx();
-
-	const action = createInputAction({
-		id: ids.input,
-		value,
-		name,
-		attrs: attrStore
-	});
+	const { actions } = getFormField();
 </script>
 
-<input {...$$restProps} use:action />
+<input {...$$restProps} use:actions.input />

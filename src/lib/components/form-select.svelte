@@ -1,19 +1,11 @@
 <script lang="ts">
-	import { createSelectAction, getCtx } from "@/lib/internal/index.js";
+	import { getFormField } from "@/lib/index.js";
 	import type { SelectProps } from "../types.js";
 
 	type $$Props = SelectProps;
-
-	const { ids, value, name, attrStore } = getCtx();
-
-	const action = createSelectAction({
-		id: ids.input,
-		value,
-		name,
-		attrs: attrStore
-	});
+	const { actions } = getFormField();
 </script>
 
-<select {...$$restProps} use:action>
+<select {...$$restProps} use:actions.select>
 	<slot />
 </select>
