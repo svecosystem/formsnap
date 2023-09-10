@@ -1,5 +1,12 @@
 # formsnap
 
+## 0.1.0
+
+### Minor Changes
+
+- 83dcbbd: - Add `getForm` helper
+  - Fix bug which was creating large `.d.ts` files and crashing editors
+
 ## 0.0.9
 
 ### Patch Changes
