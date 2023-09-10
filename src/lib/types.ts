@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Form, FormFieldName } from "@/lib/internal/types.js";
+import type { Form, FormFieldName, SuperFormOptions } from "@/lib/internal/types.js";
 import type {
 	HTMLAttributes,
 	HTMLFormAttributes,
@@ -10,7 +10,11 @@ import type {
 } from "svelte/elements";
 import type { SuperValidated, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { AnyZodObject } from "zod";
-import type { FormOptions } from "./index.js";
+
+export type FormOptions<T extends ZodValidation<AnyZodObject>, M = any> = SuperFormOptions<
+	UnwrapEffects<T>,
+	M
+>;
 
 export type HelperEventHandler = (e: Event) => void;
 

@@ -1,4 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+/**
+ * For some reason, when certain types are imported from the package, the entirety of the recursive
+ * type is output in the .d.ts file, which causes the compiler to crash. Defining them locally seems
+ * to fix this issue, but it's not ideal.
+ */
+
 import type {
 	z,
 	AnyZodObject,
@@ -14,6 +21,7 @@ import type {
 } from "zod";
 import type { Readable, Writable } from "svelte/store";
 import type { ActionResult, Page } from "@sveltejs/kit";
+import type { Validators as SuperValidators } from "./types.js";
 type EntityRecord<T extends AnyZodObject, K> = Record<keyof z.infer<T>, K>;
 
 export type ErrorShape = {
@@ -76,21 +84,22 @@ export type ZodValidation<T extends AnyZodObject> =
 
 export type RawShape<T> = T extends ZodObject<infer U> ? U : never;
 
-type UnwrappedRawShape<T extends AnyZodObject, P extends keyof RawShape<T>> = UnwrappedEntity<
-	RawShape<T>[P]
->;
+export type UnwrappedRawShape<
+	T extends AnyZodObject,
+	P extends keyof RawShape<T>
+> = UnwrappedEntity<RawShape<T>[P]>;
 
-type IntersectArray<T extends readonly unknown[]> = T extends [infer U, ...infer Rest]
+export type IntersectArray<T extends readonly unknown[]> = T extends [infer U, ...infer Rest]
 	? Rest extends []
 		? U
 		: U & IntersectArray<Rest>
 	: never;
 
-type IntersectUnion<T extends ZodUnion<ZodUnionOptions>> = T extends ZodUnion<infer O>
+export type IntersectUnion<T extends ZodUnion<ZodUnionOptions>> = T extends ZodUnion<infer O>
 	? IntersectArray<O>
 	: never;
 
-type SuperStructArray<T extends AnyZodObject, Data, ArrayData = unknown> = {
+export type SuperStructArray<T extends AnyZodObject, Data, ArrayData = unknown> = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[Property in keyof RawShape<T>]?: T extends any
 		? UnwrappedEntity<T> extends ZodUnion<ZodUnionOptions>
@@ -117,7 +126,7 @@ type SuperStructArray<T extends AnyZodObject, Data, ArrayData = unknown> = {
 		: never;
 };
 
-type SuperStruct<T extends AnyZodObject, Data> = Partial<{
+export type SuperStruct<T extends AnyZodObject, Data> = Partial<{
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[Property in keyof RawShape<T>]: T extends any
 		? UnwrappedEntity<T> extends ZodUnion<ZodUnionOptions>
@@ -211,7 +220,7 @@ export type FormFields<T extends AnyZodObject> = {
 
 export type FieldPath<T extends object> = [keyof T, ...(string | number)[]];
 
-export type FormOptions<T extends ZodValidation<AnyZodObject>, M> = Partial<{
+export type SuperFormOptions<T extends ZodValidation<AnyZodObject>, M> = Partial<{
 	id: string;
 	applyAction: boolean;
 	invalidateAll: boolean;
@@ -253,7 +262,7 @@ export type FormOptions<T extends ZodValidation<AnyZodObject>, M> = Partial<{
 		  }) => MaybePromise<unknown | void>);
 	dataType: "form" | "json";
 	jsonChunkSize: number;
-	validators: ZodValidation<UnwrapEffects<T>>;
+	validators: SuperValidators<T>;
 	validationMethod: "auto" | "oninput" | "onblur" | "submit-only";
 	defaultValidator: "keep" | "clear";
 	customValidity: boolean;
@@ -330,5 +339,3 @@ export type SubmitFunction<
 			update(options?: { reset: boolean }): Promise<void>;
 	  }) => void)
 >;
-
-export type MyFormOptions<T extends ZodValidation<AnyZodObject>, M> = FormOptions<T, M>;

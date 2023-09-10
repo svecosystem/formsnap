@@ -1,22 +1,22 @@
 <script lang="ts" context="module">
-	import type { UnwrapEffects, ZodValidation } from "sveltekit-superforms";
+	import type { ZodValidation } from "sveltekit-superforms";
 	import type { AnyZodObject } from "zod";
 
 	type Validation = ZodValidation<AnyZodObject>;
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
-	import type { MyFormOptions } from "..";
+	import type { FormOptions } from "@/lib/types.js";
 	import { superForm } from "sveltekit-superforms/client";
 	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
 	import type { SuperValidated } from "sveltekit-superforms";
 
 	export let schema: T;
 	export let form: SuperValidated<T, M>;
-	export let options: MyFormOptions<UnwrapEffects<T>, M> | undefined = undefined;
+	export let options: FormOptions<T, M> | undefined = undefined;
 
 	const defaultOptions = {
-		validators: schema as MyFormOptions<UnwrapEffects<T>, M>["validators"],
+		validators: schema as FormOptions<T, M>["validators"],
 		taintedMessage: null
 	};
 
@@ -45,8 +45,7 @@
 		message,
 		formId,
 		restore,
-		capture,
-		constraints
+		capture
 	} = superFrm;
 
 	const config = {

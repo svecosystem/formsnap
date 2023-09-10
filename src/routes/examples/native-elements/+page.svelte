@@ -1,17 +1,31 @@
 <script lang="ts">
-	import { Form } from "@/lib/index.js";
+	import { Form, type FormOptions } from "@/lib/index.js";
 	import type { PageData } from "./$types.js";
 	import { simpleFormSchema } from "../schemas.js";
 	import { Button } from "@/components/ui/button/index.js";
 
 	export let data: PageData;
+
+	const options: FormOptions<typeof simpleFormSchema> = {
+		validators: {
+			email: (v) => (!v.startsWith("a") ? 'Must start with "a"' : null)
+		}
+	};
 </script>
 
 <div class="flex flex-col h-full min-h-screen w-full items-center py-28">
 	<h1 class="text-3xl font-semibold tracking-tight pb-8">Account Settings</h1>
-	<Form.Root asChild schema={simpleFormSchema} form={data.form} debug={true} let:config let:enhance>
+	<Form.Root
+		asChild
+		schema={simpleFormSchema}
+		form={data.form}
+		debug={true}
+		let:config
+		let:enhance
+		{options}
+	>
 		<form method="POST" class="container max-w-[750px] mx-auto flex flex-col gap-8" use:enhance>
-			<Form.Field {config} name="email" let:actions let:errors>
+			<Form.Field {config} name="email" let:actions let:errors let:value>
 				<div class="flex flex-col gap-2">
 					<!-- svelte-ignore a11y-label-has-associated-control / applied by action -->
 					<label use:actions.label>Email</label>

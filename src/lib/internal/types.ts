@@ -1,6 +1,9 @@
 import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { SuperForm, formFieldProxy } from "sveltekit-superforms/client";
 import type { AnyZodObject, z } from "zod";
+import type { SuperFormOptions, Validators as SuperFormValidators } from "./super-form-patch";
+
+export type { SuperFormOptions };
 
 export type Expand<T> = T extends object
 	? T extends infer O
@@ -14,14 +17,15 @@ export type ExpandDeep<T> = T extends object
 		: never
 	: T;
 
-export type Form<T extends Validation> = {
+export type Form<T extends FormValidation> = {
 	schema: T;
 	form: SuperForm<T, unknown>;
 };
+
 export type Arrayable<T> = T | T[];
 
-export type FormValidation = Validation;
-export type FormFieldName<T extends Validation> = FormPathLeaves<z.infer<T>>;
+export type FormValidation = ZodValidation<AnyZodObject>;
+export type FormFieldName<T extends FormValidation> = FormPathLeaves<z.infer<T>>;
 
 export type FieldAttrs<T> = {
 	"aria-invalid"?: boolean;
@@ -49,8 +53,6 @@ export type FormCheckboxEvent = Event & {
 	currentTarget: HTMLInputElement;
 };
 
-export type Validation = ZodValidation<AnyZodObject>;
-
 export type GetFieldAttrsProps<T> = {
 	val: T;
 	errors: string[] | undefined;
@@ -58,3 +60,8 @@ export type GetFieldAttrsProps<T> = {
 	hasValidation: boolean;
 	hasDescription: boolean;
 };
+
+export type Validators<T> =
+	| false
+	| SuperFormValidators<UnwrapEffects<T>>
+	| ZodValidation<UnwrapEffects<T>>;

@@ -1,5 +1,5 @@
 import { getContext } from "svelte";
-import { FORM_CONTEXT, type Validation, type FormContext } from "@/lib/internal/index.js";
+import { FORM_CONTEXT, type FormValidation, type FormContext } from "@/lib/internal/index.js";
 /**
  * Get the form context from the current component.
  * Must be called within component initialization that is
@@ -7,6 +7,6 @@ import { FORM_CONTEXT, type Validation, type FormContext } from "@/lib/internal/
  *
  * @template T - The form schema.
  */
-export function getForm<T extends Validation = Validation>(): FormContext<T> {
+export function getForm<T extends FormValidation = FormValidation>(): FormContext<T> {
 	return getContext<FormContext<T>>(FORM_CONTEXT);
 }
