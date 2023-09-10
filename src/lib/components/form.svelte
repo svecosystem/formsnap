@@ -6,30 +6,21 @@
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
-	import { FORM_CONTEXT } from "@/lib/internal/index.js";
-	import { setContext } from "svelte";
-
-	import type { FormProps } from "../types.js";
-	import { superForm, type FormOptions } from "sveltekit-superforms/client";
+	import type { MyFormOptions } from "..";
+	import { superForm } from "sveltekit-superforms/client";
 	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
-
 	import type { SuperValidated } from "sveltekit-superforms";
-
-	type Options<T, M> = FormOptions<UnwrapEffects<T>, M>;
-
-	type $$Props = FormProps<T, M>;
 
 	export let schema: T;
 	export let form: SuperValidated<T, M>;
+	export let options: MyFormOptions<UnwrapEffects<T>, M> | undefined = undefined;
 
-	const defaultOptions: Options<typeof form, M> = {
-		validators: schema,
+	const defaultOptions = {
+		validators: schema as MyFormOptions<UnwrapEffects<T>, M>["validators"],
 		taintedMessage: null
 	};
 
-	export let options: Options<typeof form, M> = defaultOptions;
-
-	const optionsWithDefaults: Options<typeof form, M> = {
+	const optionsWithDefaults = {
 		...defaultOptions,
 		...options
 	};
@@ -38,8 +29,6 @@
 	export let debug = false;
 
 	const superFrm = superForm(form, optionsWithDefaults);
-	setContext(superFrm, FORM_CONTEXT);
-
 	const {
 		enhance,
 		form: formStore,
@@ -54,7 +43,6 @@
 		posted,
 		fields,
 		message,
-		options: formOptions,
 		formId,
 		restore,
 		capture,
@@ -84,7 +72,6 @@
 		{validate}
 		posted={$posted}
 		{fields}
-		{formOptions}
 		formId={$formId}
 		{restore}
 		{capture}
@@ -108,7 +95,6 @@
 			{validate}
 			posted={$posted}
 			{fields}
-			{formOptions}
 			formId={$formId}
 			{restore}
 			{capture}
