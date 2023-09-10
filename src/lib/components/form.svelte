@@ -13,7 +13,7 @@
 
 	export let schema: T;
 	export let form: SuperValidated<T, M>;
-	export let options: FormOptions<T, M> | undefined = undefined;
+	export let options: FormOptions<T, M> = {};
 
 	const defaultOptions = {
 		validators: schema as FormOptions<T, M>["validators"],

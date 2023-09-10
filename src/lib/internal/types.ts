@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { SuperForm, formFieldProxy } from "sveltekit-superforms/client";
 import type { AnyZodObject, z } from "zod";
 import type { SuperFormOptions, Validators as SuperFormValidators } from "./super-form-patch";
+import type { ActionResult, Page } from "@sveltejs/kit";
 
 export type { SuperFormOptions };
 
@@ -65,3 +67,13 @@ export type Validators<T> =
 	| false
 	| SuperFormValidators<UnwrapEffects<T>>
 	| ZodValidation<UnwrapEffects<T>>;
+
+export type SvelteActionResult<
+	Success extends Record<string, unknown> | undefined = Record<string, any>,
+	Failure extends Record<string, unknown> | undefined = Record<string, any>
+> = ActionResult<Success, Failure>;
+
+export type SveltePage<
+	Params extends Record<string, string> = Record<string, string>,
+	RouteId extends string | null = string | null
+> = Page<Params, RouteId>;

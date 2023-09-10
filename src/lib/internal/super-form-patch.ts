@@ -20,8 +20,7 @@ import type {
 	ZodTypeAny
 } from "zod";
 import type { Readable, Writable } from "svelte/store";
-import type { ActionResult, Page } from "@sveltejs/kit";
-import type { Validators as SuperValidators } from "./types.js";
+import type { Validators as SuperValidators, SvelteActionResult, SveltePage } from "./types.js";
 type EntityRecord<T extends AnyZodObject, K> = Record<keyof z.infer<T>, K>;
 
 export type ErrorShape = {
@@ -238,7 +237,7 @@ export type SuperFormOptions<T extends ZodValidation<AnyZodObject>, M> = Partial
 		  };
 	onSubmit: (...params: Parameters<SubmitFunction>) => MaybePromise<unknown | void>;
 	onResult: (event: {
-		result: ActionResult;
+		result: SvelteActionResult;
 		formEl: HTMLFormElement;
 		cancel: () => void;
 	}) => MaybePromise<unknown | void>;
@@ -274,8 +273,8 @@ export type SuperFormOptions<T extends ZodValidation<AnyZodObject>, M> = Partial
 	flashMessage: {
 		module: {
 			//@ts-expect-error - ''
-			getFlash(page: Readable<Page>): Writable<App.PageData["flash"]>;
-			updateFlash(page: Readable<Page>, update?: () => Promise<void>): Promise<boolean>;
+			getFlash(page: Readable<SveltePage>): Writable<App.PageData["flash"]>;
+			updateFlash(page: Readable<SveltePage>, update?: () => Promise<void>): Promise<boolean>;
 		};
 		onError?: (event: {
 			result: {
@@ -331,7 +330,7 @@ export type SubmitFunction<
 			form: HTMLFormElement;
 			formElement: HTMLFormElement;
 			action: URL;
-			result: ActionResult<Success, Failure>;
+			result: SvelteActionResult<Success, Failure>;
 			/**
 			 * Call this to get the default behavior of a form submission response.
 			 * @param options Set `reset: false` if you don't want the `<form>` values to be reset after a successful submission.
