@@ -1,11 +1,9 @@
 ---
-title: Generics
-description: The generic types used throughout the API reference.
+title: Common Types
+description: The common types used throughout the API reference.
 ---
 
-## Generic Types
-
-Throughout the API reference, you'll see a lot of generic types. The following is a list of those types and what they mean. These types are the same as the ones used in the [Superforms API reference](https://superforms.rocks/api).
+Throughout the API reference, you'll see a lot of the same types being used. The following is a list of those types and what they mean. These types are the same as the ones used in the [Superforms API reference](https://superforms.rocks/api).
 
 ````ts
 /**

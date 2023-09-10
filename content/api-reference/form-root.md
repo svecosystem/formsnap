@@ -3,6 +3,35 @@ title: <Form.Root />
 description: The root form component that provides the form context to all child components.
 ---
 
+## Usage
+
+The `<Form.Root />` component is used to define a form and provides a contextual scope for all the child form components. It is required to be used at the root of the form, and can only be used once per form.
+
+At a minimum, it requires a `schema` prop, which is a Zod schema that defines the structure of the form. It also requires a `form` prop, which is the form returned from the `superValidate` function within the page's load function.
+
+```svelte
+<script lang="ts">
+	import { Form } from "formsnap";
+	import { schema } from "$lib/schemas";
+	export let data;
+</script>
+
+<Form.Root {schema} form={data.form} let:config>
+	<!-- ... -->
+</Form.Root>
+```
+
+It provides a `config` slot prop that contains the form configuration,
+which must be passed to children `<Form.Field />` components for them to function properly.
+
+```svelte
+<Form.Root {schema} form={data.form} let:config>
+	<Form.Field {config} name="username">
+		<!-- ... -->
+	</Form.Field>
+</Form.Root>
+```
+
 ## Props
 
 ```ts

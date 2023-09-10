@@ -51,13 +51,18 @@ export const navigation: Navigation = {
 			title: "API Reference",
 			items: [
 				{
-					title: "Generics",
-					href: "/docs/api-reference/generics",
+					title: "Common types",
+					href: "/docs/api-reference/common-types",
 					items: []
 				},
 				{
 					title: "<Form.Root />",
 					href: "/docs/api-reference/form-root",
+					items: []
+				},
+				{
+					title: "<Form.Field />",
+					href: "/docs/api-reference/form-field",
 					items: []
 				},
 				{
