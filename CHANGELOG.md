@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.1.2
+
+### Patch Changes
+
+- Forward for events to `<Form.Root />` component ([#38](https://github.com/huntabyte/formsnap/pull/38))
+
 ## 0.1.1
 
 ### Patch Changes
