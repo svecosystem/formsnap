@@ -28,12 +28,12 @@ But when using Formsnap, you can pass those same options to the `<Form.Root/>` c
 
 ```svelte title="+page.svelte"
 <script lang="ts">
-	import { Form, type Options } from "formsnap";
+	import { Form, type FormOptions } from "formsnap";
 	import { schema } from "./schema.ts";
 
 	export let data: PageData;
 
-	const options: Options = {
+	const options: FormOptions = {
 		validators: schema,
 		onSubmit: () => {
 			// do something
