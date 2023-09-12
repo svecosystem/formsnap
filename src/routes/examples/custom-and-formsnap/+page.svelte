@@ -7,7 +7,7 @@
 	import { Input } from "@/components/ui/input/index.js";
 	import { Textarea } from "@/components/ui/textarea/index.js";
 	import { Checkbox } from "@/components/ui/checkbox/index.js";
-
+	import CustomThing from "./custom-thing.svelte";
 	export let data: PageData;
 
 	const languages = {
@@ -26,6 +26,7 @@
 		let:config
 		class="container max-w-[750px] mx-auto flex flex-col gap-8"
 	>
+		<CustomThing />
 		<Form.Field {config} name="email" let:handlers let:attrs>
 			<div class="grid gap-2">
 				<Form.Label>Email</Form.Label>
