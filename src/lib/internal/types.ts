@@ -48,7 +48,15 @@ export type FormStores<
 > = ReturnType<typeof formFieldProxy<T, Path>>;
 
 export type FormInputEvent = Event & {
-	currentTarget: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+	currentTarget: HTMLInputElement | HTMLTextAreaElement;
+};
+
+export type FormChangeEvent = Event & {
+	currentTarget: HTMLInputElement | HTMLSelectElement;
+};
+
+export type FormEvent = Event & {
+	currentTarget: HTMLFormElement;
 };
 
 export type FormCheckboxEvent = Event & {

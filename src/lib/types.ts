@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Form, FormFieldName, SuperFormOptions } from "@/lib/internal/types.js";
+import type {
+	Form,
+	FormChangeEvent,
+	FormEvent,
+	FormFieldName,
+	FormInputEvent,
+	SuperFormOptions
+} from "@/lib/internal/types.js";
 import type {
 	HTMLAttributes,
 	HTMLFormAttributes,
@@ -56,3 +63,11 @@ export type RadioProps = HTMLInputAttributes;
 export type SelectProps = HTMLSelectAttributes;
 export type TextareaProps = HTMLTextareaAttributes;
 export type LabelProps = HTMLLabelAttributes;
+
+export type FormEvents = {
+	change: FormChangeEvent;
+	input: FormInputEvent;
+	submit: FormEvent;
+	formdata: FormEvent;
+	reset: FormEvent;
+};

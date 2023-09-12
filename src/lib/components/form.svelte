@@ -6,12 +6,23 @@
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
+	import type { HTMLFormAttributes } from "svelte/elements";
 	import { setContext } from "svelte";
-	import type { FormOptions } from "@/lib/types.js";
+	import type { FormEvents, FormOptions } from "@/lib/types.js";
 	import { FORM_CONTEXT } from "@/lib/internal/index.js";
 	import { superForm } from "sveltekit-superforms/client";
 	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
 	import type { SuperValidated } from "sveltekit-superforms";
+
+	type $$Events = FormEvents;
+
+	type $$Props = {
+		schema: T;
+		form: SuperValidated<T, M>;
+		options?: FormOptions<T, M>;
+		asChild?: boolean;
+		debug?: boolean;
+	} & HTMLFormAttributes;
 
 	export let schema: T;
 	export let form: SuperValidated<T, M>;
@@ -82,7 +93,16 @@
 		message={$message}
 	/>
 {:else}
-	<form method="POST" {...$$restProps} use:enhance>
+	<form
+		method="POST"
+		{...$$restProps}
+		use:enhance
+		on:input
+		on:change
+		on:formdata
+		on:submit
+		on:reset
+	>
 		<slot
 			{config}
 			{formStore}
