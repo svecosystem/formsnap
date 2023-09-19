@@ -3,9 +3,13 @@
 	import type { SelectProps } from "../types.js";
 
 	type $$Props = SelectProps;
-	const { actions } = getFormField();
+	const { actions, errors } = getFormField();
+	const attrs = {
+		"data-fs-select": "",
+		"data-fs-error": $errors ? "" : undefined
+	};
 </script>
 
-<select {...$$restProps} use:actions.select>
+<select {...$$restProps} use:actions.select {...attrs}>
 	<slot />
 </select>

@@ -4,9 +4,13 @@
 
 	type $$Props = DescriptionProps;
 	export let tag = "p";
-	const { actions } = getFormField();
+	const { actions, errors } = getFormField();
+	const attrs = {
+		"data-fs-description": "",
+		"data-fs-error": $errors ? "" : undefined
+	};
 </script>
 
-<svelte:element this={tag} use:actions.description {...$$restProps}>
+<svelte:element this={tag} use:actions.description {...$$restProps} {...attrs}>
 	<slot />
 </svelte:element>
