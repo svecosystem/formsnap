@@ -3,7 +3,11 @@
 	import type { InputProps } from "../types.js";
 
 	type $$Props = InputProps;
-	const { actions } = getFormField();
+	const { actions, errors } = getFormField();
+	const attrs = {
+		"data-fs-input": "",
+		"data-fs-error": $errors ? "" : undefined
+	};
 </script>
 
-<input {...$$restProps} use:actions.input />
+<input {...$$restProps} use:actions.input {...attrs} />

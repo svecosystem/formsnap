@@ -68,6 +68,10 @@
 		form: superFrm,
 		schema
 	};
+	const attrs = {
+		"data-fs-form": "",
+		"data-fs-error": $errors ? "" : undefined
+	};
 </script>
 
 {#if asChild}
@@ -102,6 +106,7 @@
 		on:formdata
 		on:submit
 		on:reset
+		{...attrs}
 	>
 		<slot
 			{config}

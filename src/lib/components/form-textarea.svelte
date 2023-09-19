@@ -3,7 +3,11 @@
 	import type { TextareaProps } from "../types.js";
 
 	type $$Props = TextareaProps;
-	const { actions } = getFormField();
+	const { actions, errors } = getFormField();
+	const attrs = {
+		"data-fs-textarea": "",
+		"data-fs-error": $errors ? "" : undefined
+	};
 </script>
 
-<textarea {...$$restProps} use:actions.textarea />
+<textarea {...$$restProps} use:actions.textarea {...attrs} />

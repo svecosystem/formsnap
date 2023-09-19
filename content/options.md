@@ -33,7 +33,7 @@ But when using Formsnap, you can pass those same options to the `<Form.Root/>` c
 
 	export let data: PageData;
 
-	const options: FormOptions = {
+	const options: FormOptions<typeof schema> = {
 		validators: schema,
 		onSubmit: () => {
 			// do something
