@@ -40,5 +40,3 @@ export const simpleFormSchema = z.object({
 			message: "You need to accept the terms and conditions"
 		})
 });
-
-export type SomeFormSchema = typeof someFormSchema;
