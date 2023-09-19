@@ -261,7 +261,10 @@ export type SuperFormOptions<T extends ZodValidation<AnyZodObject>, M> = Partial
 		  }) => MaybePromise<unknown | void>);
 	dataType: "form" | "json";
 	jsonChunkSize: number;
-	validators: SuperValidators<T>;
+	validators:
+		| false
+		| SuperValidators<UnwrapEffects<T>>
+		| ZodValidation<UnwrapEffects<T>>;
 	validationMethod: "auto" | "oninput" | "onblur" | "submit-only";
 	defaultValidator: "keep" | "clear";
 	customValidity: boolean;
