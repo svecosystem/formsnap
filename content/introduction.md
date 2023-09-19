@@ -135,9 +135,9 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 
 ```svelte title="src/routes/sign-up/+page.svelte"
 <script lang="ts">
+	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
 	import { signupFormSchema } from "./schemas.ts";
-	import { Form } from "formsnap";
 	export let data: PageData;
 </script>
 
