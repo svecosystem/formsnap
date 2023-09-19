@@ -1,5 +1,13 @@
 # formsnap
 
+## 0.1.3
+
+### Patch Changes
+
+- Add data attributes for styling ([#49](https://github.com/huntabyte/formsnap/pull/49))
+
+- Fix handling of refined zod schemas so as not to throw false type errors. ([#47](https://github.com/huntabyte/formsnap/pull/47))
+
 ## 0.1.2
 
 ### Patch Changes
