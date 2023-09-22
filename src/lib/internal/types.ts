@@ -21,7 +21,7 @@ export type ExpandDeep<T> = T extends object
 
 export type Form<T extends FormValidation> = {
 	schema: T;
-	form: SuperForm<T, unknown>;
+	form: SuperForm<T>;
 };
 
 export type Arrayable<T> = T | T[];
