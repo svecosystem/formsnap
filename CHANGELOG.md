@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.1.4
+
+### Patch Changes
+
+- Add FormValidation to Field.config.schema's type ([#52](https://github.com/huntabyte/formsnap/pull/52))
+
 ## 0.1.3
 
 ### Patch Changes
