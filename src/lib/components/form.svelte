@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 	import type { ZodValidation } from "sveltekit-superforms";
 	import type { AnyZodObject } from "zod";
+	import type { Form } from "@/lib/internal/index.js";
 
 	type Validation = ZodValidation<AnyZodObject>;
 </script>
@@ -64,7 +65,7 @@
 		capture
 	} = superFrm;
 
-	const config = {
+	const config: Form<T> = {
 		form: superFrm,
 		schema
 	};

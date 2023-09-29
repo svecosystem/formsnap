@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { createFormField, type Form, type FormFieldName } from "@/lib/internal/index.js";
+	import { createFormField } from "@/lib/internal/index.js";
+	import type { Form, FormFieldName, FormValidation} from "@/lib/internal/index.js";
 	import type { AnyZodObject } from "zod";
 
-	type T = $$Generic<AnyZodObject>;
+	type T = $$Generic<AnyZodObject | FormValidation>;
 	type Path = $$Generic<FormFieldName<T>>;
 
 	export let config: Form<T>;

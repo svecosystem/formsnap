@@ -32,7 +32,7 @@ export function createFormField<
 
 	const setValue = (v: unknown) => {
 		//@ts-expect-error - do we leave this as is, or do we want to force the type to match the schema?
-		// Pros: we don't have to deal with type narrowing inside the `setValue` function and we're runtime validating the type with zod anyways.
+		// Pros: we don't have to deal with type narrowing inside the `setValue` function, and we're runtime validating the type with zod anyways.
 		// Cons: we're not forcing the type to match the schema so more issues could occur.
 		value.set(v);
 	};
@@ -65,7 +65,7 @@ export function createFormField<
 		return {
 			"aria-invalid": errors ? true : undefined,
 			"aria-describedby": describedBy,
-			"aria-required": constraints?.required ? true : false,
+			"aria-required": !!constraints?.required,
 			"data-invalid": errors ? true : undefined,
 			"data-valid": errors ? undefined : true,
 			name,
