@@ -4,11 +4,15 @@ import {
 	isHTMLTextareaElement
 } from "@/lib/internal/index.js";
 import type { FieldHandlers, FieldValueSetter } from "./types.js";
+import type { Writable } from "svelte/store";
 
 /**
  * Creates an object of event handler functions for native form elements.
  */
-export function createFieldHandlers(setValue: FieldValueSetter): FieldHandlers {
+export function createFieldHandlers(
+	setValue: FieldValueSetter,
+	valueStore: Writable<unknown>
+): FieldHandlers {
 	return {
 		input: (e: Event) => {
 			const target = e.target;
@@ -41,6 +45,27 @@ export function createFieldHandlers(setValue: FieldValueSetter): FieldHandlers {
 				}
 			}
 			setValue(value);
+		},
+		multiCheck: (e: Event) => {
+			const target = e.target;
+			if (!isHTMLInputElement(target)) return;
+
+			if (target.checked) {
+				valueStore.update((v) => {
+					if (Array.isArray(v)) {
+						v.push(target.value);
+						return v;
+					}
+					return v;
+				});
+			} else {
+				valueStore.update((v) => {
+					if (Array.isArray(v)) {
+						return v.filter((val) => val !== target.value);
+					}
+					return v;
+				});
+			}
 		}
 	};
 }

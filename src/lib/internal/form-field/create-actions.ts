@@ -20,7 +20,9 @@ export function createFieldActions(props: CreateFieldActionsProps): FieldActions
 		textarea: createTextareaAction({ id: ids.input, value, name, attrs }),
 		radio: createRadioAction({ id: ids.input, value, name, attrs }),
 		select: createSelectAction({ id: ids.input, value, name, attrs }),
-		checkbox: createCheckboxAction({ id: ids.input, value, name, attrs })
+		checkbox: createCheckboxAction({ id: ids.input, value, name, attrs }),
+		multiCheckbox: createMultiCheckboxAction({ id: ids.input, value, name, attrs }),
+		multiSelect: createMultiSelectAction({ id: ids.input, value, name, attrs })
 	};
 }
 
@@ -169,6 +171,48 @@ function createCheckboxAction(props: CreateActionProps) {
 	};
 }
 
+function createMultiCheckboxAction(props: CreateActionProps) {
+	const { id, value, name, attrs } = props;
+	return (node: HTMLInputElement) => {
+		const valueArr = get(value) as unknown[];
+		node.id = id;
+		node.checked = valueArr.includes(node.value);
+		node.name = name;
+
+		const handleChange = () => {
+			if (node.checked) {
+				value.update((v) => {
+					if (Array.isArray(v)) {
+						v.push(node.value);
+						return v;
+					}
+					return v;
+				});
+			} else {
+				value.update((v) => {
+					if (Array.isArray(v)) {
+						return v.filter((val) => val !== node.value);
+					}
+					return v;
+				});
+			}
+		};
+
+		const unsubAttrs = effect(attrs, ($attrs) => {
+			setAttributes(node, $attrs);
+		});
+
+		const unsubEvent = addEventListener(node, "change", handleChange);
+
+		return {
+			destroy() {
+				unsubEvent();
+				unsubAttrs();
+			}
+		};
+	};
+}
+
 export function createRadioAction(props: CreateActionProps) {
 	const { id, value, name, attrs } = props;
 	return (node: HTMLInputElement) => {
@@ -213,6 +257,48 @@ function createSelectAction(props: CreateActionProps) {
 
 		const handleChange = () => {
 			value.set(node.value);
+		};
+
+		const unsubAttrs = effect(attrs, ($attrs) => {
+			setAttributes(node, $attrs);
+		});
+
+		const unsubEvent = addEventListener(node, "change", handleChange);
+
+		return {
+			destroy() {
+				unsubEvent();
+				unsubAttrs();
+			}
+		};
+	};
+}
+
+function createMultiSelectAction(props: CreateActionProps) {
+	const { id, value, name, attrs } = props;
+	return (node: HTMLSelectElement) => {
+		node.id = id;
+		node.multiple = true;
+		node.name = name;
+
+		const options = node.options;
+		const valueArr = [];
+		for (let i = 0; i < options.length; i++) {
+			if (options[i].selected) {
+				valueArr.push(options[i].value);
+			}
+		}
+		value.set(value);
+
+		const handleChange = () => {
+			const options = node.options;
+			const valueArr = [];
+			for (let i = 0; i < options.length; i++) {
+				if (options[i].selected) {
+					valueArr.push(options[i].value);
+				}
+			}
+			value.set(value);
 		};
 
 		const unsubAttrs = effect(attrs, ($attrs) => {

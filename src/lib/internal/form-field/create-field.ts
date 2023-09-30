@@ -37,7 +37,7 @@ export function createFormField<
 		value.set(v);
 	};
 
-	const handlers = createFieldHandlers(setValue);
+	const handlers = createFieldHandlers(setValue, value);
 
 	const context: FieldContext = {
 		ids,
@@ -130,7 +130,7 @@ export function createFormFieldMulti<
 		value.set(v);
 	};
 
-	const handlers = createFieldHandlers(setValue);
+	const handlers = createFieldHandlers(setValue, value);
 
 	const context: FieldContext = {
 		ids,

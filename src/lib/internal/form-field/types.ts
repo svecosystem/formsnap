@@ -109,6 +109,14 @@ export type FieldActions = {
 	checkbox: Action<HTMLInputElement>;
 
 	/**
+	 * An action for setting the attributes and event handlers for a multi-select
+	 * checkbox component.
+	 *
+	 * @usage `<input type="checkbox" use:actions.multiCheckbox />`
+	 */
+	multiCheckbox: Action<HTMLInputElement>;
+
+	/**
 	 * An action for setting up the attributes & state for a description component.
 	 *
 	 * @usage `<span use:actions.description>...</span>`
@@ -144,6 +152,13 @@ export type FieldActions = {
 	select: Action<HTMLSelectElement>;
 
 	/**
+	 * An action for setting up the attributes & event handlers for a multiple select component.
+	 *
+	 * @usage `<select multiple use:actions.multiSelect>...</select>`
+	 */
+	multiSelect: Action<HTMLSelectElement>;
+
+	/**
 	 * An action for setting up the attributes & event handlers for a textarea component.
 	 *
 	 * @usage `<textarea use:actions.textarea />`
@@ -174,6 +189,7 @@ export type FieldHandlers = {
 	radio: (e: Event) => void;
 	select: (e: Event) => void;
 	multiSelect: (e: Event) => void;
+	multiCheck: (e: Event) => void;
 };
 
 export type CreateFieldActionsProps = {
