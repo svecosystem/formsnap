@@ -40,3 +40,12 @@ export const simpleFormSchema = z.object({
 			message: "You need to accept the terms and conditions"
 		})
 });
+
+export const multiSelectSchema = z.object({
+	notifications: z
+		.array(z.enum(["all", "mentions", "none"]), {
+			required_error: "You need to select a notification type"
+		})
+		.min(1, "You need to select at least one notification type"),
+	colors: z.array(z.string()).min(2, "You need to select at least two colors")
+});

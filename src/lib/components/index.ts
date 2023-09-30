@@ -8,5 +8,18 @@ import Textarea from "./form-textarea.svelte";
 import Select from "./form-select.svelte";
 import Checkbox from "./form-checkbox.svelte";
 import Radio from "./form-radio.svelte";
+import FieldMulti from "./form-field-multi.svelte";
 
-export { Root, Field, Label, Description, Validation, Input, Textarea, Select, Checkbox, Radio };
+export {
+	Root,
+	Field,
+	FieldMulti,
+	Label,
+	Description,
+	Validation,
+	Input,
+	Textarea,
+	Select,
+	Checkbox,
+	Radio
+};

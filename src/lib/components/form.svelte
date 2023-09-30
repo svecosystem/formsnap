@@ -67,7 +67,8 @@
 
 	const config: Form<T> = {
 		form: superFrm,
-		schema
+		schema,
+		formStore
 	};
 	const attrs = {
 		"data-fs-form": "",

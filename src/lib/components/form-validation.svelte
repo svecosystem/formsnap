@@ -9,6 +9,8 @@
 		"data-fs-validation": "",
 		"data-fs-error": $errors ? "" : undefined
 	};
+
+	console.log($errors);
 </script>
 
 <svelte:element this={tag} use:actions.validation {...attrs} {...$$restProps}>

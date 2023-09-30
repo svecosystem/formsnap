@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { createFormField } from "@/lib/internal/index.js";
-	import type { Form, FormFieldName, FormValidation } from "@/lib/internal/index.js";
-	import type { AnyZodObject } from "zod";
+	import { createFormFieldMulti } from "@/lib/internal/index.js";
+	import type { Form, FormValidation } from "@/lib/internal/index.js";
+	import type { AnyZodObject, z } from "zod";
 
 	type T = $$Generic<AnyZodObject | FormValidation>;
-	type Path = $$Generic<FormFieldName<T>>;
+	type Options = $$Generic<keyof z.infer<T>[][number]>;
 
 	export let config: Form<T>;
-	export let name: Path;
+	export let name: Options;
 
 	const {
 		superFormStores,
@@ -19,7 +19,7 @@
 		handlers,
 		setValue,
 		ids
-	} = createFormField<T, Path>(config, name);
+	} = createFormFieldMulti<T, Options>(config, name);
 
 	const { value, errors, constraints } = superFormStores;
 

@@ -173,6 +173,7 @@ export type FieldHandlers = {
 	checkbox: (e: Event) => void;
 	radio: (e: Event) => void;
 	select: (e: Event) => void;
+	multiSelect: (e: Event) => void;
 };
 
 export type CreateFieldActionsProps = {

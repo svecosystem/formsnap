@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
+import type { FormPath, FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { SuperForm, formFieldProxy } from "sveltekit-superforms/client";
 import type { AnyZodObject, z } from "zod";
 import type { SuperFormOptions, Validators as SuperFormValidators } from "./super-form-patch";
 import type { ActionResult, Page } from "@sveltejs/kit";
+import type { Writable } from "svelte/store";
 
 export type { SuperFormOptions };
 
@@ -19,9 +20,10 @@ export type ExpandDeep<T> = T extends object
 		: never
 	: T;
 
-export type Form<T extends FormValidation> = {
+export type Form<T extends FormValidation, U extends object = object> = {
 	schema: T;
 	form: SuperForm<T>;
+	formStore: Writable<U>;
 };
 
 export type Arrayable<T> = T | T[];

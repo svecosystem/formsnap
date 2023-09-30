@@ -29,6 +29,18 @@ export function createFieldHandlers(setValue: FieldValueSetter): FieldHandlers {
 			const target = e.target;
 			if (!isHTMLSelectElement(target)) return;
 			setValue(target.value);
+		},
+		multiSelect: (e: Event) => {
+			const target = e.target;
+			if (!isHTMLSelectElement(target)) return;
+			const options = target.options;
+			const value = [];
+			for (let i = 0; i < options.length; i++) {
+				if (options[i].selected) {
+					value.push(options[i].value);
+				}
+			}
+			setValue(value);
 		}
 	};
 }
