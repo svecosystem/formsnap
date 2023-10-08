@@ -7,6 +7,8 @@
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
+	import { FORM_FIELD_SCHEMA } from "../helpers/get-form-schema";
+
 	import type { HTMLFormAttributes } from "svelte/elements";
 	import { setContext } from "svelte";
 	import type { FormEvents, FormOptions } from "@/lib/types.js";
@@ -45,6 +47,7 @@
 	const superFrm = superForm(form, optionsWithDefaults);
 
 	setContext(FORM_CONTEXT, superFrm);
+	setContext(FORM_FIELD_SCHEMA, schema);
 
 	const {
 		enhance,
