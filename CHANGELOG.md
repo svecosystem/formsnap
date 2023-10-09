@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.2.0
+
+### Minor Changes
+
+- - Add utility function `getFormSchema()` ([#62](https://github.com/huntabyte/formsnap/pull/62))
+
 ## 0.1.4
 
 ### Patch Changes
