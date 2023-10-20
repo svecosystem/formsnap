@@ -47,7 +47,7 @@ export type DescriptionProps = {
 	 *
 	 * @default "p"
 	 */
-	tag?: "string";
+	tag?: keyof HTMLElementTagNameMap;
 } & HTMLAttributes<HTMLElement>;
 
 export type ValidationProps = {
@@ -56,7 +56,7 @@ export type ValidationProps = {
 	 *
 	 * @default "p"
 	 */
-	tag?: "string";
+	tag?: keyof HTMLElementTagNameMap;
 } & HTMLAttributes<HTMLElement>;
 
 export type RadioProps = HTMLInputAttributes;
