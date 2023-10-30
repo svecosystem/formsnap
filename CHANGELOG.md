@@ -1,5 +1,17 @@
 # formsnap
 
+## 0.2.1
+
+### Patch Changes
+
+- Fix lack of reactivity of `data-fs-error` ([#66](https://github.com/huntabyte/formsnap/pull/66))
+
+- Fix the typing for tag ([#67](https://github.com/huntabyte/formsnap/pull/67))
+
+- Fix: Reactivity ([#72](https://github.com/huntabyte/formsnap/pull/72))
+
+- fix: export get-form-schema function in helpers/index.ts ([#64](https://github.com/huntabyte/formsnap/pull/64))
+
 ## 0.2.0
 
 ### Minor Changes
