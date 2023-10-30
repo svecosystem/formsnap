@@ -4,7 +4,7 @@
 
 	type $$Props = SelectProps;
 	const { actions, errors } = getFormField();
-	const attrs = {
+	$: attrs = {
 		"data-fs-select": "",
 		"data-fs-error": $errors ? "" : undefined
 	};

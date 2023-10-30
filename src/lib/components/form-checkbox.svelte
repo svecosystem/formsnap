@@ -4,7 +4,7 @@
 
 	type $$Props = CheckboxProps;
 	const { actions, errors } = getFormField();
-	const attrs = {
+	$: attrs = {
 		"data-fs-checkbox": "",
 		"data-fs-error": $errors ? "" : undefined
 	};

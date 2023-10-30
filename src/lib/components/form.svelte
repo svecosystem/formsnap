@@ -72,7 +72,7 @@
 		form: superFrm,
 		schema
 	};
-	const attrs = {
+	$: attrs = {
 		"data-fs-form": "",
 		"data-fs-error": $errors ? "" : undefined
 	};
