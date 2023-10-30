@@ -1,0 +1,5 @@
+---
+"formsnap": patch
+---
+
+Fix: Reactivity
