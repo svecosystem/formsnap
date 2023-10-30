@@ -3,7 +3,10 @@
 	import type { AnyZodObject } from "zod";
 	import type { Form } from "@/lib/internal/index.js";
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	type Validation = ZodValidation<AnyZodObject>;
+	type T = unknown;
+	type M = unknown;
 </script>
 
 <script lang="ts" generics="T extends Validation = Validation, M = any">
@@ -36,7 +39,7 @@
 		taintedMessage: null
 	};
 
-	const optionsWithDefaults = {
+	$: optionsWithDefaults = {
 		...defaultOptions,
 		...options
 	};
@@ -44,12 +47,12 @@
 	export let asChild = false;
 	export let debug = false;
 
-	const superFrm = superForm(form, optionsWithDefaults);
+	$: superFrm = superForm(form, optionsWithDefaults);
 
-	setContext(FORM_CONTEXT, superFrm);
-	setContext(FORM_FIELD_SCHEMA, schema);
+	$: setContext(FORM_CONTEXT, superFrm);
+	$: setContext(FORM_FIELD_SCHEMA, schema);
 
-	const {
+	$: ({
 		enhance,
 		form: formStore,
 		allErrors,
@@ -66,12 +69,18 @@
 		formId,
 		restore,
 		capture
-	} = superFrm;
+	} = superFrm);
 
-	const config: Form<T> = {
+	let config: Form<T> = {
 		form: superFrm,
 		schema
 	};
+
+	$: config = {
+		form: superFrm,
+		schema
+	};
+
 	$: attrs = {
 		"data-fs-form": "",
 		"data-fs-error": $errors ? "" : undefined

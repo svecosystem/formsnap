@@ -2,8 +2,6 @@
 	import { getForm } from "@/lib";
 
 	const { delayed } = getForm();
-
-	$: console.log($delayed);
 </script>
 
 {#if $delayed}
