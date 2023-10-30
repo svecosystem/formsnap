@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createFormField } from "@/lib/internal/index.js";
-	import type { Form, FormFieldName, FormValidation} from "@/lib/internal/index.js";
+	import type { Form, FormFieldName, FormValidation } from "@/lib/internal/index.js";
 	import type { AnyZodObject } from "zod";
 
 	type T = $$Generic<AnyZodObject | FormValidation>;
@@ -9,7 +9,7 @@
 	export let config: Form<T>;
 	export let name: Path;
 
-	const {
+	$: ({
 		superFormStores,
 		getFieldAttrs,
 		actions,
@@ -19,9 +19,9 @@
 		handlers,
 		setValue,
 		ids
-	} = createFormField<T, Path>(config, name);
+	} = createFormField<T, Path>(config, name));
 
-	const { value, errors, constraints } = superFormStores;
+	$: ({ value, errors, constraints } = superFormStores);
 
 	$: inputAttrs = getFieldAttrs({
 		val: $value,

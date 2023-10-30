@@ -1,7 +1,7 @@
-import { superValidate } from "sveltekit-superforms/server";
+import { setError, superValidate } from "sveltekit-superforms/server";
 import type { PageServerLoad } from "./$types.js";
 import { someFormSchema } from "../schemas.js";
-import { fail, type Actions } from "@sveltejs/kit";
+import type { Actions } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -12,10 +12,7 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, someFormSchema);
-		if (!form.valid) return fail(400, { form });
 
-		return {
-			form
-		};
+		return setError(form, "username", "This is a custom error");
 	}
 };
