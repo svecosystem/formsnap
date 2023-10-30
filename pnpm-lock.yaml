@@ -39,8 +39,8 @@ devDependencies:
     specifier: ^10.4.14
     version: 10.4.15(postcss@8.4.29)
   bits-ui:
-    specifier: ^0.5.7
-    version: 0.5.7(svelte@4.2.0)
+    specifier: ^0.9.0
+    version: 0.9.0(svelte@4.2.0)
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
@@ -99,8 +99,8 @@ devDependencies:
     specifier: ^0.0.4
     version: 0.0.4
   sveltekit-superforms:
-    specifier: ^1.6.1
-    version: 1.6.1(@sveltejs/kit@1.24.0)(svelte@4.2.0)(zod@3.22.2)
+    specifier: ^1.8.0
+    version: 1.8.0(@sveltejs/kit@1.24.0)(svelte@4.2.0)(zod@3.22.2)
   tailwind-merge:
     specifier: ^1.14.0
     version: 1.14.0
@@ -994,8 +994,8 @@ packages:
       - supports-color
     dev: true
 
-  /@melt-ui/svelte@0.41.3(svelte@4.2.0):
-    resolution: {integrity: sha512-zNd7Bogh9Bm0CdrjU0hAak26SVV5VSxJoaJEtJnV1ZR3KxVPDekVoG1hnin7AG0VYWPm1gKXA1uXTOi5M8XJYw==}
+  /@melt-ui/svelte@0.57.2(svelte@4.2.0):
+    resolution: {integrity: sha512-Ul+pebT2wff5rp5xzlXwQ7W6z5YOS9oXsds21dqlE2gUAFBIfN1vIo4IZrTed/FkpCyey90CvHDQYfQvZiNvkA==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:
@@ -1962,13 +1962,13 @@ packages:
       file-uri-to-path: 1.0.0
     dev: true
 
-  /bits-ui@0.5.7(svelte@4.2.0):
-    resolution: {integrity: sha512-ixGAWfZSQVaqzf+jQaPNs8ZFcSs4busZg9ITaEDfbm6pptgbbxbSGRmOwtsNgQYbsSBTS4xEHSxtEyNOsnXJ0Q==}
+  /bits-ui@0.9.0(svelte@4.2.0):
+    resolution: {integrity: sha512-wEVWMnR4or4t8dY+UP+G4jVugzsfhMcuIrTOoJh8V6t/JcHWne/z1nnBA/yD1E1cn391IUurSatRkv7qTJXMww==}
     peerDependencies:
       svelte: ^4.0.0
     dependencies:
-      '@melt-ui/svelte': 0.41.3(svelte@4.2.0)
-      nanoid: 4.0.2
+      '@melt-ui/svelte': 0.57.2(svelte@4.2.0)
+      nanoid: 5.0.2
       svelte: 4.2.0
     dev: true
 
@@ -4757,6 +4757,12 @@ packages:
     hasBin: true
     dev: true
 
+  /nanoid@5.0.2:
+    resolution: {integrity: sha512-2ustYUX1R2rL/Br5B/FMhi8d5/QzvkJ912rBYxskcpu0myTHzSZfTr1LAS2Sm7jxRUObRrSBFoyzwAhL49aVSg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    dev: true
+
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -6078,8 +6084,8 @@ packages:
       periscopic: 3.1.0
     dev: true
 
-  /sveltekit-superforms@1.6.1(@sveltejs/kit@1.24.0)(svelte@4.2.0)(zod@3.22.2):
-    resolution: {integrity: sha512-85whZdnytMFStDY1PI3ycr5BoTb57XjkEJqZ2Mt8HT06y/CKlQBws5Cx/AxPxA3WHhGfC26yfXqLYqEQz1oGfw==}
+  /sveltekit-superforms@1.8.0(@sveltejs/kit@1.24.0)(svelte@4.2.0)(zod@3.22.2):
+    resolution: {integrity: sha512-ig4SJNe72UNlmL2FjXk6Z3I7WYEm+qerA8PB4WOjQkOirztiDNJrY/bs1lF8VLxc56TSG9JQkCtZkgUdlH3yYA==}
     peerDependencies:
       '@sveltejs/kit': 1.x
       svelte: 3.x || 4.x
