@@ -49,8 +49,8 @@
 
 	$: superFrm = superForm(form, optionsWithDefaults);
 
-	setContext(FORM_CONTEXT, superFrm);
-	setContext(FORM_FIELD_SCHEMA, schema);
+	$: setContext(FORM_CONTEXT, superFrm);
+	$: setContext(FORM_FIELD_SCHEMA, schema);
 
 	$: ({
 		enhance,
