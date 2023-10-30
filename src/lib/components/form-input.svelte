@@ -4,7 +4,7 @@
 
 	type $$Props = InputProps;
 	const { actions, errors } = getFormField();
-	const attrs = {
+	$: attrs = {
 		"data-fs-input": "",
 		"data-fs-error": $errors ? "" : undefined
 	};

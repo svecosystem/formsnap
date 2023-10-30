@@ -5,7 +5,7 @@
 	type $$Props = DescriptionProps;
 	export let tag = "p";
 	const { actions, errors } = getFormField();
-	const attrs = {
+	$: attrs = {
 		"data-fs-description": "",
 		"data-fs-error": $errors ? "" : undefined
 	};

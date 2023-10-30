@@ -4,7 +4,7 @@
 
 	type $$Props = LabelProps;
 	const { actions, errors } = getFormField();
-	const attrs = {
+	$: attrs = {
 		"data-fs-label": "",
 		"data-fs-error": $errors ? "" : undefined
 	};

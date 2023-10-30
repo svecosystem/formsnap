@@ -5,7 +5,7 @@
 	type $$Props = ValidationProps;
 	export let tag = "p";
 	const { actions, errors } = getFormField();
-	const attrs = {
+	$: attrs = {
 		"data-fs-validation": "",
 		"data-fs-error": $errors ? "" : undefined
 	};
