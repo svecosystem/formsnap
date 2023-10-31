@@ -13,7 +13,7 @@
 		"prepare": "pnpm package",
 		"prepublishOnly": "pnpm run package",
 		"test": "vitest",
-		"test:integration": "playwright test",
+		"test:pw": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",

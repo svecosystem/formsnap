@@ -3,6 +3,7 @@
 	import { Xcom, GitHub } from "@/components/icons/index.js";
 	import { LightSwitch, MobileNav } from "@/components/index.js";
 	import { siteConfig } from "@/config/index.js";
+	import { dev } from "$app/environment";
 </script>
 
 <header class="bg-background/75 backdrop-blur border-b border-border -mb-px sticky top-0 z-50">
@@ -17,9 +18,15 @@
 				>
 			</div>
 			<nav class="flex items-center justify-end gap-1.5">
+				{#if dev}
+					<Button href="/examples/custom-and-formsnap" variant="ghost">custom&fs</Button>
+					<Button href="/examples/sink" variant="ghost">sink</Button>
+					<Button href="/examples/native-elements" variant="ghost">native</Button>
+				{/if}
 				<Button
 					href={siteConfig.links.github}
 					target="_blank"
+					rel="noopener noreferrer"
 					size="icon"
 					variant="ghost"
 					aria-label="View the github repo for this package."
@@ -31,6 +38,7 @@
 					href={siteConfig.links.twitter}
 					target="_blank"
 					size="icon"
+					rel="noopener noreferrer"
 					variant="ghost"
 					aria-label="X, formerly known as Twitter."
 					class=""

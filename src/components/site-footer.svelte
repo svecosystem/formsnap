@@ -11,7 +11,7 @@
 				<a
 					href={siteConfig.links.twitter}
 					target="_blank"
-					rel="noreferrer"
+					rel="noopener noreferrer"
 					class="font-medium underline underline-offset-4"
 				>
 					huntabyte

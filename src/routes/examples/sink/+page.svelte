@@ -4,6 +4,7 @@
 	import { sinkFormSchema } from "../schemas.js";
 	import { Button } from "@/components/ui/button/index.js";
 	import * as Select from "@/components/ui/select/index.js";
+	import DateInput from "./DateInput.svelte";
 	export let data: PageData;
 
 	const languages = {
@@ -44,6 +45,13 @@
 				</Select.Root>
 				<Form.Validation />
 			</div>
+		</Form.Field>
+		<Form.Field {config} name="dateField">
+			<Form.Label>Date field</Form.Label>
+			<div class="max-w-[14rem]">
+				<DateInput type="datetime-local" />
+			</div>
+			<Form.Validation />
 		</Form.Field>
 		<Button type="submit">Submit</Button>
 	</Form.Root>
