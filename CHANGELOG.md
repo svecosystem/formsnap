@@ -1,5 +1,15 @@
 # formsnap
 
+## 0.3.0
+
+### Minor Changes
+
+- New Component: `<Form.Control />` ([#75](https://github.com/huntabyte/formsnap/pull/75))
+
+### Patch Changes
+
+- Fix: Returned values ([#78](https://github.com/huntabyte/formsnap/pull/78))
+
 ## 0.2.1
 
 ### Patch Changes
