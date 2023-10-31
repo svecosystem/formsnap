@@ -44,5 +44,20 @@ export const simpleFormSchema = z.object({
 export const sinkFormSchema = z.object({
 	language: z.enum(["en", "es", "fr"], {
 		required_error: "You need to select a language."
-	})
+	}),
+	dateField: z.coerce.date().nullable()
+});
+
+export const testASchema = z.object({
+	username: z
+		.string()
+		.min(3, "Username must be at least 3 characters")
+		.max(20, "Username must be at most 20 characters"),
+	email: z.string().email("Invalid email address"),
+	language: z.enum(["en", "es", "fr"], {
+		required_error: "You need to select a language."
+	}),
+	bio: z.string().max(250, "Bio must be at most 250 characters").optional(),
+	website: z.string().url("Invalid URL").optional(),
+	usage: z.boolean().default(true)
 });

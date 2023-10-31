@@ -11,4 +11,4 @@
 	};
 </script>
 
-<input type="checkbox" use:actions.checkbox {...attrs} />
+<input type="checkbox" use:actions.checkbox {...attrs} {...$$restProps} />
