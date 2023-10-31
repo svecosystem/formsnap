@@ -1,105 +1,133 @@
 import { get, type Writable } from "svelte/store";
 import { effect, addEventListener, setAttributes } from "@/lib/internal/index.js";
-import type { CreateFieldActionsProps, FieldActions, FieldAttrStore } from "./types.js";
+import type { CreateFieldActionsProps, FieldActions, FieldAttrStore, FieldIds } from "./types.js";
 
 export function createFieldActions(props: CreateFieldActionsProps): FieldActions {
 	const { ids, attrs, hasValidation, hasDescription, value, name } = props;
+
+	const controlAttrs = {
+		ids,
+		value,
+		name,
+		attrs
+	};
+
 	return {
 		label: createLabelAction({
-			htmlFor: ids.input
+			ids
 		}),
-		description: createDescriptionAction({ id: ids.description, hasDescription }),
+		description: createDescriptionAction({ ids, hasDescription }),
 		validation: createValidationAction({
-			id: ids.validation,
+			ids,
 			hasValidation,
 			attrs: {
 				"aria-live": "assertive"
 			}
 		}),
-		input: createInputAction({ id: ids.input, value, name, attrs }),
-		textarea: createTextareaAction({ id: ids.input, value, name, attrs }),
-		radio: createRadioAction({ id: ids.input, value, name, attrs }),
-		select: createSelectAction({ id: ids.input, value, name, attrs }),
-		checkbox: createCheckboxAction({ id: ids.input, value, name, attrs })
+		input: createInputAction({ ...controlAttrs }),
+		textarea: createTextareaAction({ ...controlAttrs }),
+		radio: createRadioAction({ ...controlAttrs }),
+		select: createSelectAction({ ...controlAttrs }),
+		checkbox: createCheckboxAction({ ...controlAttrs })
 	};
 }
 
 type CreateLabelActionProps = {
-	htmlFor: string;
+	ids: Writable<FieldIds>;
 };
 function createLabelAction(props: CreateLabelActionProps) {
-	const { htmlFor } = props;
+	const { ids } = props;
 
 	return (node: HTMLLabelElement) => {
-		node.htmlFor = htmlFor;
+		node.htmlFor = get(ids).input;
 		const handleMouseDown = (e: MouseEvent) => {
 			e.preventDefault();
 		};
+
+		const unsubEffect = effect(ids, ($ids) => {
+			node.htmlFor = $ids.input;
+		});
 
 		const unsubEvent = addEventListener(node, "mousedown", handleMouseDown);
 
 		return {
 			destroy() {
 				unsubEvent();
+				unsubEffect();
 			}
 		};
 	};
 }
 
 type CreateValidationActionProps = {
-	id: string;
+	ids: Writable<FieldIds>;
 	hasValidation: Writable<boolean>;
 	attrs: Record<string, string>;
 };
 
 function createValidationAction(props: CreateValidationActionProps) {
-	const { id, hasValidation, attrs } = props;
+	const { ids, hasValidation, attrs } = props;
 	return (node: HTMLElement) => {
-		node.id = id;
+		node.id = get(ids).validation;
 		setAttributes(node, attrs);
 		hasValidation.set(true);
+
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.validation;
+		});
+
 		return {
 			destroy() {
 				hasValidation.set(false);
+				unsubEffect();
 			}
 		};
 	};
 }
 
 type CreateDescriptionActionProps = {
-	id: string;
+	ids: Writable<FieldIds>;
 	hasDescription: Writable<boolean>;
 };
 
 function createDescriptionAction(props: CreateDescriptionActionProps) {
-	const { id, hasDescription } = props;
+	const { ids, hasDescription } = props;
 	return (node: HTMLElement) => {
-		node.id = id;
+		node.id = get(ids).description;
 		hasDescription.set(true);
+
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.description;
+		});
 		return {
 			destroy() {
 				hasDescription.set(false);
+				unsubEffect();
 			}
 		};
 	};
 }
 
 type CreateActionProps = {
-	id: string;
+	ids: Writable<FieldIds>;
 	value: Writable<unknown>;
 	name: string;
 	attrs: FieldAttrStore;
 };
 
 function createInputAction(props: CreateActionProps) {
-	const { id, value, name, attrs } = props;
+	const { ids, value, name, attrs } = props;
 	return (node: HTMLInputElement) => {
-		node.id = id;
+		node.id = get(ids).input;
 		node.value = (get(value) as string) ?? "";
 		node.name = name;
 
 		const unsubAttrs = effect(attrs, ($attrs) => {
 			setAttributes(node, $attrs);
+		});
+
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.input;
 		});
 
 		const handleInput = () => {
@@ -112,20 +140,25 @@ function createInputAction(props: CreateActionProps) {
 			destroy() {
 				unsubEvent();
 				unsubAttrs();
+				unsubEffect();
 			}
 		};
 	};
 }
 
 function createTextareaAction(props: CreateActionProps) {
-	const { id, value, name, attrs } = props;
+	const { ids, value, name, attrs } = props;
 	return (node: HTMLTextAreaElement) => {
-		node.id = id;
+		node.id = get(ids).input;
 		node.value = (get(value) as string) ?? "";
 		node.name = name;
 
 		const unsubAttrs = effect(attrs, ($attrs) => {
 			setAttributes(node, $attrs);
+		});
+
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.input;
 		});
 
 		const handleInput = () => {
@@ -138,15 +171,16 @@ function createTextareaAction(props: CreateActionProps) {
 			destroy() {
 				unsubEvent();
 				unsubAttrs();
+				unsubEffect();
 			}
 		};
 	};
 }
 
 function createCheckboxAction(props: CreateActionProps) {
-	const { id, value, name, attrs } = props;
+	const { ids, value, name, attrs } = props;
 	return (node: HTMLInputElement) => {
-		node.id = id;
+		node.id = get(ids).input;
 		node.checked = (get(value) as boolean) ?? false;
 		node.name = name;
 
@@ -157,6 +191,9 @@ function createCheckboxAction(props: CreateActionProps) {
 		const unsubAttrs = effect(attrs, ($attrs) => {
 			setAttributes(node, $attrs);
 		});
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.validation;
+		});
 
 		const unsubEvent = addEventListener(node, "change", handleChange);
 
@@ -164,15 +201,16 @@ function createCheckboxAction(props: CreateActionProps) {
 			destroy() {
 				unsubEvent();
 				unsubAttrs();
+				unsubEffect();
 			}
 		};
 	};
 }
 
 export function createRadioAction(props: CreateActionProps) {
-	const { id, value, name, attrs } = props;
+	const { ids, value, name, attrs } = props;
 	return (node: HTMLInputElement) => {
-		node.id = id;
+		node.id = get(ids).input;
 		node.name = name;
 
 		const $value = get(value);
@@ -187,6 +225,10 @@ export function createRadioAction(props: CreateActionProps) {
 			setAttributes(node, $attrs);
 		});
 
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.input;
+		});
+
 		const handleChange = () => {
 			if (node.checked) {
 				value.set(node.value);
@@ -199,21 +241,25 @@ export function createRadioAction(props: CreateActionProps) {
 			destroy() {
 				unsubEvent();
 				unsubAttrs();
+				unsubEffect();
 			}
 		};
 	};
 }
 
 function createSelectAction(props: CreateActionProps) {
-	const { id, value, name, attrs } = props;
+	const { ids, value, name, attrs } = props;
 	return (node: HTMLSelectElement) => {
-		node.id = id;
+		node.id = get(ids).input;
 		node.value = (get(value) as string) ?? "";
 		node.name = name;
 
 		const handleChange = () => {
 			value.set(node.value);
 		};
+		const unsubEffect = effect(ids, ($ids) => {
+			node.id = $ids.input;
+		});
 
 		const unsubAttrs = effect(attrs, ($attrs) => {
 			setAttributes(node, $attrs);
@@ -225,6 +271,7 @@ function createSelectAction(props: CreateActionProps) {
 			destroy() {
 				unsubEvent();
 				unsubAttrs();
+				unsubEffect();
 			}
 		};
 	};

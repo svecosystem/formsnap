@@ -1,6 +1,14 @@
 <script lang="ts">
-	import { createFormField } from "@/lib/internal/index.js";
-	import type { Form, FormFieldName, FormValidation } from "@/lib/internal/index.js";
+	import { formFieldProxy } from "sveltekit-superforms/client";
+	import { writable } from "svelte/store";
+	import { createFormField, createIds } from "@/lib/internal/index.js";
+
+	import type {
+		FieldAttrStore,
+		Form,
+		FormFieldName,
+		FormValidation
+	} from "@/lib/internal/index.js";
 	import type { AnyZodObject } from "zod";
 
 	type T = $$Generic<AnyZodObject | FormValidation>;
@@ -9,19 +17,13 @@
 	export let config: Form<T>;
 	export let name: Path;
 
-	$: ({
-		superFormStores,
-		getFieldAttrs,
-		actions,
-		attrStore,
-		hasValidation,
-		hasDescription,
-		handlers,
-		setValue,
-		ids
-	} = createFormField<T, Path>(config, name));
+	const attrStore: FieldAttrStore = writable({});
+	$: ({ errors, value, constraints } = formFieldProxy<T, Path>(config.form, name));
 
-	$: ({ value, errors, constraints } = superFormStores);
+	const ids = writable(createIds());
+
+	$: ({ getFieldAttrs, actions, hasValidation, hasDescription, handlers, setValue } =
+		createFormField<T, Path>(name, attrStore, value, errors, ids));
 
 	$: inputAttrs = getFieldAttrs({
 		val: $value,
@@ -30,25 +32,30 @@
 		hasValidation: $hasValidation,
 		hasDescription: $hasDescription
 	});
-	$: attrStore.set(inputAttrs);
 
 	$: attrs = {
 		input: inputAttrs,
 		label: {
-			for: ids.input
+			for: $ids.input
 		},
 		description: {
-			id: ids.description
+			id: $ids.description
 		},
 		validation: {
-			id: ids.validation,
+			id: $ids.validation,
 			"aria-live": "assertive"
 		} as const
+	};
+
+	const stores = {
+		errors,
+		value,
+		constraints
 	};
 </script>
 
 <slot
-	stores={superFormStores}
+	{stores}
 	errors={$errors}
 	value={$value}
 	constraints={$constraints}

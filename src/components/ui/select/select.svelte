@@ -7,6 +7,6 @@
 	export let open: $$Props["open"] = undefined;
 </script>
 
-<SelectPrimitive.Root bind:selected bind:open {...$$restProps}>
-	<slot />
+<SelectPrimitive.Root bind:selected bind:open {...$$restProps} let:ids>
+	<slot {ids} />
 </SelectPrimitive.Root>

@@ -39,6 +39,9 @@ export type FieldProps<T extends AnyZodObject = AnyZodObject, Path = FormFieldNa
 };
 
 export type InputProps = HTMLInputAttributes;
+export type ControlProps = {
+	id?: string;
+};
 export type CheckboxProps = HTMLInputAttributes;
 
 export type DescriptionProps = {
