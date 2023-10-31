@@ -1,22 +1,16 @@
-import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
-import type { AnyZodObject, z } from "zod";
-import type { FieldAttrs, FormStores, GetFieldAttrsProps } from "../types.js";
+import type { FieldAttrs, GetFieldAttrsProps } from "../types.js";
 import type { Writable } from "svelte/store";
 import type { Action } from "svelte/action";
 
-export type CreateFormFieldReturn<
-	T extends ZodValidation<AnyZodObject>,
-	Path extends FormPathLeaves<z.infer<UnwrapEffects<T>>>
-> = {
-	superFormStores: FormStores<T, Path>;
+export type CreateFormFieldReturn = {
 	getFieldAttrs: <T>(props: GetFieldAttrsProps<T>) => FieldAttrs<T>;
 	actions: FieldActions;
-	ids: FieldIds;
 	attrStore: FieldAttrStore;
 	hasValidation: Writable<boolean>;
 	hasDescription: Writable<boolean>;
 	handlers: FieldHandlers;
 	setValue: FieldValueSetter;
+	context: FieldContext;
 };
 
 export type FieldContext = {
@@ -31,7 +25,7 @@ export type FieldContext = {
 	 * Use this object to set appropriate aria and htmlFor attributes
 	 * when composing your own form field components.
 	 */
-	ids: FieldIds;
+	ids: Writable<FieldIds>;
 
 	/**
 	 * A writable store containing an array of validation errors
@@ -176,7 +170,7 @@ export type FieldHandlers = {
 };
 
 export type CreateFieldActionsProps = {
-	ids: FieldIds;
+	ids: Writable<FieldIds>;
 	attrs: FieldAttrStore;
 	hasValidation: Writable<boolean>;
 	hasDescription: Writable<boolean>;

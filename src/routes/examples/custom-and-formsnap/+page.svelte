@@ -71,18 +71,22 @@
 			<div class="grid gap-2">
 				<Form.Label>Language</Form.Label>
 				<Select.Root
+					let:ids
 					selected={{ value, label: languages[value] }}
 					onSelectedChange={(v) => setValue(v?.value)}
 				>
-					<Select.Trigger {...attrs.input}>
-						<Select.Value placeholder="Select a language" />
-					</Select.Trigger>
+					<Form.Control id={ids.trigger} let:attrs>
+						<Select.Trigger {...attrs}>
+							<Select.Value placeholder="Select a language" />
+						</Select.Trigger>
+					</Form.Control>
 					<Select.Content>
 						{#each Object.entries(languages) as [value, lang]}
 							<Select.Item {value}>{lang}</Select.Item>
 						{/each}
 					</Select.Content>
 				</Select.Root>
+				<Form.Validation />
 			</div>
 		</Form.Field>
 		<Form.Field {config} name="usage" let:attrs let:setValue>

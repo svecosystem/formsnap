@@ -47,12 +47,12 @@
 	export let asChild = false;
 	export let debug = false;
 
-	$: superFrm = superForm(form, optionsWithDefaults);
+	const superFrm = superForm(form, optionsWithDefaults);
 
-	$: setContext(FORM_CONTEXT, superFrm);
-	$: setContext(FORM_FIELD_SCHEMA, schema);
+	setContext(FORM_CONTEXT, superFrm);
+	setContext(FORM_FIELD_SCHEMA, schema);
 
-	$: ({
+	const {
 		enhance,
 		form: formStore,
 		allErrors,
@@ -69,7 +69,7 @@
 		formId,
 		restore,
 		capture
-	} = superFrm);
+	} = superFrm;
 
 	let config: Form<T> = {
 		form: superFrm,

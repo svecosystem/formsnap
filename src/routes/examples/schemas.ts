@@ -40,3 +40,9 @@ export const simpleFormSchema = z.object({
 			message: "You need to accept the terms and conditions"
 		})
 });
+
+export const sinkFormSchema = z.object({
+	language: z.enum(["en", "es", "fr"], {
+		required_error: "You need to select a language."
+	})
+});

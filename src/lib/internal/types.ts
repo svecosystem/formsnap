@@ -4,6 +4,7 @@ import type { SuperForm, formFieldProxy } from "sveltekit-superforms/client";
 import type { AnyZodObject, z } from "zod";
 import type { SuperFormOptions, Validators as SuperFormValidators } from "./super-form-patch";
 import type { ActionResult, Page } from "@sveltejs/kit";
+import type { Writable } from "svelte/store";
 
 export type { SuperFormOptions };
 
@@ -85,3 +86,18 @@ export type SveltePage<
 	Params extends Record<string, string> = Record<string, string>,
 	RouteId extends string | null = string | null
 > = Page<Params, RouteId>;
+
+export type ConstraintsStore = Writable<
+	| Partial<{
+			pattern: string;
+			min: string | number;
+			max: string | number;
+			required: boolean;
+			step: number | "any";
+			minlength: number;
+			maxlength: number;
+	  }>
+	| undefined
+>;
+
+export type ErrorsStore = Writable<string[] | undefined>;
