@@ -3,10 +3,11 @@
 	import type { CheckboxProps } from "../types.js";
 
 	type $$Props = CheckboxProps;
-	const { actions, errors } = getFormField();
+	const { actions, errors, attrStore } = getFormField();
 	$: attrs = {
 		"data-fs-checkbox": "",
-		"data-fs-error": $errors ? "" : undefined
+		"data-fs-error": $errors ? "" : undefined,
+		...$attrStore
 	};
 </script>
 

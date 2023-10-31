@@ -3,10 +3,11 @@
 	import type { RadioProps } from "../types.js";
 
 	type $$Props = RadioProps;
-	const { actions, errors,  } = getFormField();
+	const { actions, errors, attrStore } = getFormField();
 	$: attrs = {
-		"data-fs-radio": "",
-		"data-fs-error": $errors ? "" : undefined
+		"data-fs-select": "",
+		"data-fs-error": $errors ? "" : undefined,
+		...$attrStore
 	};
 </script>
 
