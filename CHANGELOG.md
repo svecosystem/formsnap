@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.3.1
+
+### Patch Changes
+
+- Fix (#79): Bug with the `options` prop of the `<Form.Root />` component ([#81](https://github.com/huntabyte/formsnap/pull/81))
+
 ## 0.3.0
 
 ### Minor Changes
