@@ -21,6 +21,7 @@
 		form={data.form}
 		debug={true}
 		let:config
+		options={{ dataType: "json" }}
 		class="container max-w-[750px] mx-auto flex flex-col gap-8"
 	>
 		<Form.Field {config} name="language" let:attrs let:setValue>

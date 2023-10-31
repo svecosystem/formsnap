@@ -39,7 +39,7 @@
 		taintedMessage: null
 	};
 
-	$: optionsWithDefaults = {
+	const optionsWithDefaults = {
 		...defaultOptions,
 		...options
 	};
