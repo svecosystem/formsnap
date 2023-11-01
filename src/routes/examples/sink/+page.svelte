@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { z } from "zod";
-	export const sinkFormSchema = z.object({
+	export const schema = z.object({
 		latitude: z.coerce.number(),
 		longitude: z.coerce.number(),
 		num: z.coerce.number()
@@ -16,8 +16,7 @@
 	export let data: PageData;
 
 	const superFrm = superForm(data.form, {
-		validators: sinkFormSchema,
-		dataType: "json"
+		validators: schema
 	});
 
 	onMount(() => {
@@ -46,10 +45,10 @@
 	<h1 class="text-3xl font-semibold tracking-tight pb-8">Account Settings</h1>
 	<Button on:click={getRandomNumber}>Random num</Button>
 	<Form.Root
-		schema={sinkFormSchema}
+		{schema}
 		form={superFrm}
-		controlled={true}
-		debug={true}
+		controlled
+		debug
 		let:config
 		class="container max-w-[750px] mx-auto flex flex-col gap-8"
 	>
