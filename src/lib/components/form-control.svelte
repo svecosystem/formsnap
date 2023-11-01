@@ -5,13 +5,6 @@
 
 	type $$Props = ControlProps;
 
-	/*
-	 * Optionally provide a custom ID for the form control,
-	 * which is used to link the label, description, and validation
-	 * messages to the form control.
-	 *
-	 * If no ID is provided, a random ID will be generated.
-	 */
 	export let id: string | undefined = undefined;
 
 	const { errors, attrStore, value, name, ids } = getFormField();

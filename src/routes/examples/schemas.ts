@@ -41,13 +41,6 @@ export const simpleFormSchema = z.object({
 		})
 });
 
-export const sinkFormSchema = z.object({
-	language: z.enum(["en", "es", "fr"], {
-		required_error: "You need to select a language."
-	}),
-	dateField: z.coerce.date().nullable()
-});
-
 export const testASchema = z.object({
 	username: z
 		.string()
