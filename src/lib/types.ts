@@ -40,6 +40,13 @@ export type FieldProps<T extends AnyZodObject = AnyZodObject, Path = FormFieldNa
 
 export type InputProps = HTMLInputAttributes;
 export type ControlProps = {
+	/*
+	 * Optionally provide a custom ID for the form control,
+	 * which is used to link the label, description, and validation
+	 * messages to the form control.
+	 *
+	 * If no ID is provided, a random ID will be generated.
+	 */
 	id?: string;
 };
 export type CheckboxProps = HTMLInputAttributes;

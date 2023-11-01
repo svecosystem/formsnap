@@ -3,11 +3,13 @@ title: <Form.Root />
 description: The root form component that provides the form context to all child components.
 ---
 
-## Usage
-
 The `<Form.Root />` component is used to define a form and provides a contextual scope for all the child form components. It is required to be used at the root of the form, and can only be used once per form.
 
-At a minimum, it requires a `schema` prop, which is a Zod schema that defines the structure of the form. It also requires a `form` prop, which is the form returned from the `superValidate` function within the page's load function.
+At a minimum, it requires a `schema` prop, which is a Zod schema that defines the structure of the form. It also requires a `form` prop, whose type depends on if the form state is uncontrolled (default) or controlled.
+
+## Uncontrolled Usage
+
+Uncontrolled usage is the most simple way to use the form, and is the default. It expects the `form` prop to be the form returned from the `superValidate` function within the page's load function.
 
 ```svelte
 <script lang="ts">
@@ -32,49 +34,165 @@ which must be passed to children `<Form.Field />` components for them to functio
 </Form.Root>
 ```
 
+## Controlled Usage
+
+Controlled usage is designed to be used when you need a higher level of control over the form state. To make a form controlled, you simply set the `controlled` prop to `true`, and pass the object returned from the `superForm` function to the `form` prop.
+
+Now rather than initializing the `SuperForm` on your behalf, we simply use what you pass to the `form` prop. This allows you to initialize the form wherever you'd like, as well as control it from outside the `<Form.Root />` component.
+
+When using controlled usage, you still must pass the schema for type-safe fields, but you no longer pass the `options` prop, as your options are now passed to the `superForm` function.
+
+```svelte
+<script lang="ts">
+	import { Form } from "formsnap";
+	import { schema } from "$lib/schemas";
+	import { superForm } from "sveltekit-superforms/client";
+	export let data;
+
+	const superFrm = superForm(data.form, {
+		validators: schema
+		// ...
+	});
+</script>
+
+<Form.Root {schema} controlled form={superFrm} let:config>
+	<!-- ... -->
+</Form.Root>
+```
+
 ## Props
 
-```ts
-type Props<T extends AnyZodObject, M = any> = {
+### Base Props
+
+````ts
+type BaseProps<T extends AnyZodObject, M = any> = {
 	/**
-	 * The schema representing the structure of the form, used to provide validation
-	 * and type information to the form.
+	 * The schema representing the structure of the form, used to provide
+	 * validation by default (uncontrolled), and type information to the form.
 	 *
 	 * @see https://zod.dev
 	 */
 	schema: T;
 
 	/**
-	 * The form returned from the load function after passing the schema to `superValidate`,
-	 * from `sveltekit-superforms`.
+	 * Whether to delegate rendering the `form` element which enables
+	 * you to use your own `<form />` element. You can then leverage the
+	 * `enhance` and `attrs` slot props to bring your form element to life.
+	 * @default false
+	 *
+	 * @example
+	 * ```
+	 * <Form.Root {schema} form={data.form} asChild let:enhance let:attrs>
+	 * 	<form use:enhance {...attrs}>
+	 * 		<!-- ... -->
+	 * 	</form>
+	 * </Form.Root>
+	 * ```
+	 *
+	 * @see https://formsnap.dev/docs/headless-usage
+	 */
+	asChild?: boolean;
+
+	/**
+	 * Optionally display the `SuperDebug` component beneath your
+	 * form for debugging purposes.
+	 *
+	 * @see https://formsnap.dev/docs/debug-mode
+	 */
+	debug?: boolean;
+};
+````
+
+### Uncontrolled (Default) Props
+
+````ts
+type Props<T extends AnyZodObject, M = any> = BaseProps & {
+	/**
+	 * Whether the form is controlled or not. Controlled forms
+	 * are used when you want to initialize the `superForm` yourself.
+	 *
+	 * When set to true, you need to pass the object returned from the
+	 * `superForm` function as the `form` prop. When false, you just pass
+	 * the `SuperValidated` (data.form) object as the `form` prop.
+	 *
+	 * @example
+	 *  ```
+	 * <Form.Root form={data.form} controlled>
+	 * 	<!-- ... -->
+	 * </Form.Root>
+	 * ```
+	 */
+	controlled?: false;
+
+	/**
+	 * The `SuperForm` object returned from the `superForm` function when
+	 * the `controlled` prop is set to true. Otherwise, you pass the form
+	 * returned from the load function.
+	 *
+	 * @example
+	 * ```
+	 * <Form.Root form={data.form} controlled>
+	 * 	<!-- ... -->
+	 * </Form.Root>
+	 * ```
 	 */
 	form: SuperValidated<T, M>;
 
 	/**
-	 * The options to pass to the form.
+	 * When uncontrolled, you can optionally pass any options
+	 * that you would normally pass to the `superForm` function.
 	 *
 	 * @see https://superforms.rocks/api#superform-options
 	 */
-	formOptions: FormOptions<T, M>;
-
-	/**
-	 * If false, the native `<form>` element will not be rendered
-	 * with the `<Form.Root>` component and is up to the user to
-	 * implement using the helpers.
-	 *
-	 * @see https://formsnap.dev/docs/headless-usage
-	 */
-	asChild: boolean;
-
-	/**
-	 * If true, the `<SuperDebug />` component will be rendered
-	 * underneath the form to provide debugging information.
-	 *
-	 * @see https://formsnap.dev/docs/debug-mode
-	 */
-	debug: boolean;
+	options?: FormOptions<T, M>;
 };
-```
+````
+
+### Controlled Props
+
+````ts
+type Props<T extends AnyZodObject, M = any> = BaseProps & {
+	/**
+	 * Whether the form is controlled or not. Controlled forms
+	 * are used when you want to initialize the `superForm` yourself.
+	 *
+	 * @example
+	 * ```
+	 * <script>
+	 * 	import { superForm } from "sveltekit-superforms/client";
+	 * 	import { schema } from "./schema";
+	 * 	export let data;
+	 * 	const superFrm = superForm(data.form, { validators: schema })
+	 * </script>
+	 *
+	 * <Form.Root form={superFrm} controlled>
+	 * 	<!-- ... -->
+	 * </Form.Root>
+	 * ```
+	 */
+	controlled: true;
+
+	/**
+	 * The `SuperForm` object returned from the `superForm` function when
+	 * the `controlled` prop is set to true. Otherwise, you pass the form
+	 * returned from the load function.
+	 *
+	 * @example
+	 * ```
+	 * <script>
+	 * 	import { superForm } from "sveltekit-superforms/client";
+	 * 	import { schema } from "./schema";
+	 * 	export let data;
+	 * 	const superFrm = superForm(data.form, { validators: schema })
+	 * </script>
+	 * <Form.Root form={superFrm} controlled>
+	 * 	<!-- ... -->
+	 * </Form.Root>
+	 * ```
+	 */
+	form: SuperForm<UnwrapEffects<T>, M>;
+};
+````
 
 ## Slot Props
 
