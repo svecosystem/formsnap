@@ -71,6 +71,11 @@ export const navigation: Navigation = {
 					items: []
 				},
 				{
+					title: "<Form.Control />",
+					href: "/docs/api-reference/form-control",
+					items: []
+				},
+				{
 					title: "getForm",
 					href: "/docs/api-reference/get-form",
 					items: []
