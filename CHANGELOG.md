@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.4.0
+
+### Minor Changes
+
+- Feat: Controlled `SuperForm` usage ([#83](https://github.com/huntabyte/formsnap/pull/83))
+
 ## 0.3.1
 
 ### Patch Changes
