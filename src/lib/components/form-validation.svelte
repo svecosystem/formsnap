@@ -4,10 +4,11 @@
 
 	type $$Props = ValidationProps;
 	export let tag = "p";
-	const { actions, errors } = getFormField();
+	const { actions, errors, ids } = getFormField();
 	$: attrs = {
 		"data-fs-validation": "",
-		"data-fs-error": $errors ? "" : undefined
+		"data-fs-error": $errors ? "" : undefined,
+		id: $ids.validation
 	};
 </script>
 
