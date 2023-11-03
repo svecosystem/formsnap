@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.4.1
+
+### Patch Changes
+
+- Fix: Add missing attributes for SSR ([#89](https://github.com/huntabyte/formsnap/pull/89))
+
 ## 0.4.0
 
 ### Minor Changes
