@@ -4,10 +4,11 @@
 
 	type $$Props = DescriptionProps;
 	export let tag = "p";
-	const { actions, errors } = getFormField();
+	const { actions, errors, ids } = getFormField();
 	$: attrs = {
 		"data-fs-description": "",
-		"data-fs-error": $errors ? "" : undefined
+		"data-fs-error": $errors ? "" : undefined,
+		id: $ids.description
 	};
 </script>
 
