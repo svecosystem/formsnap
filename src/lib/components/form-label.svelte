@@ -3,10 +3,11 @@
 	import type { LabelProps } from "../types.js";
 
 	type $$Props = LabelProps;
-	const { actions, errors } = getFormField();
+	const { actions, errors, ids } = getFormField();
 	$: attrs = {
 		"data-fs-label": "",
-		"data-fs-error": $errors ? "" : undefined
+		"data-fs-error": $errors ? "" : undefined,
+		for: $ids.input
 	};
 </script>
 
