@@ -56,8 +56,11 @@
 		hasDescription: $hasDescription
 	});
 
+	$: ({ value: _, ...groupAttrs } = inputAttrs);
+
 	$: attrs = {
 		input: inputAttrs,
+		group: groupAttrs,
 		label: {
 			for: $ids.input
 		},

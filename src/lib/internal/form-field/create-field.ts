@@ -1,10 +1,14 @@
 import type { FormPathLeaves, UnwrapEffects, ZodValidation } from "sveltekit-superforms";
 import type { AnyZodObject, z } from "zod";
-import { get, writable, type Writable } from "svelte/store";
-import { createFieldActions, createFieldHandlers } from "@/lib/internal/index.js";
+import { derived, get, writable, type Writable } from "svelte/store";
+import {
+	FORM_MULTIFIELD_CONTEXT,
+	createFieldActions,
+	createFieldHandlers
+} from "@/lib/internal/index.js";
 import type { ErrorsStore, GetFieldAttrsProps } from "@/lib/internal/index.js";
 import type { CreateFormFieldReturn, FieldAttrStore, FieldContext, FieldIds } from "./types.js";
-import { setContext } from "svelte";
+import { getContext, hasContext, setContext } from "svelte";
 
 export const FORM_FIELD_CONTEXT = "FormField";
 
@@ -20,6 +24,11 @@ export function createFormField<
 ): CreateFormFieldReturn {
 	const hasValidation = writable(false);
 	const hasDescription = writable(false);
+	const multiFieldContext = writable<FieldContext | null>(null);
+	const isChildOfMultiField = derived(
+		multiFieldContext,
+		($multiFieldContext) => !!$multiFieldContext
+	);
 
 	const actions = createFieldActions({
 		ids,
@@ -51,9 +60,27 @@ export function createFormField<
 
 	setContext(FORM_FIELD_CONTEXT, context);
 
+	if (hasContext(FORM_MULTIFIELD_CONTEXT)) {
+		multiFieldContext.set(getContext<FieldContext>(FORM_MULTIFIELD_CONTEXT));
+	}
+
 	function getFieldAttrs<T>(props: GetFieldAttrsProps<T>) {
-		const { val, errors, constraints, hasValidation, hasDescription } = props;
 		const $ids = get(ids);
+		const { errors, hasValidation, hasDescription, val, constraints } = props;
+		const $multiFieldContext = get(multiFieldContext);
+
+		if (get(isChildOfMultiField) && $multiFieldContext) {
+			const { attrStore } = $multiFieldContext;
+
+			const $attrStore = get(attrStore);
+			const attrs = {
+				...$attrStore,
+				name,
+				id: $ids.input,
+				value: val
+			} as const;
+			return attrs;
+		}
 		const describedBy = errors
 			? `${hasValidation ? $ids.validation : ""} ${hasDescription ? $ids.description : ""}`
 			: hasDescription

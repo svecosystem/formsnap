@@ -1,10 +1,12 @@
 <script lang="ts" context="module">
 	import { z } from "zod";
+
 	export const schema = z.object({
 		num: z.coerce.number(),
-		items: z.array(z.string()),
-		numbers: z.array(z.number()),
-		urls: z.array(z.string().url()).default([""])
+		items: z.array(z.string()).refine((value) => value.some((item) => item), {
+			message: "You must select at least one item"
+		}),
+		numbers: z.array(z.number())
 	});
 </script>
 
@@ -13,9 +15,6 @@
 	import type { PageData } from "./$types.js";
 	import { Button } from "@/components/ui/button/index.js";
 	import { superForm } from "sveltekit-superforms/client";
-	import SuperDebug from "sveltekit-superforms/client/SuperDebug.svelte";
-	import { cn } from "@/utils/styles.js";
-	import { tick } from "svelte";
 	export let data: PageData;
 
 	const superFrm = superForm(data.form, {
@@ -24,6 +23,7 @@
 	});
 
 	const { form, tainted, errors } = superFrm;
+	const items = ["Apple", "Orange", "Pineapple", "Grapes", "Watermelon"];
 
 	function getRandomNumber() {
 		superFrm.form.update((curr) => {
@@ -51,7 +51,7 @@
 			<Form.Input type="number" />
 			<Form.Validation />
 		</Form.Field>
-		<Form.MultiField {config} name="items">
+		<Form.MultiField {config} name="numbers">
 			<Form.Label>Random Num</Form.Label>
 			<Form.MultiSelect>
 				<option value={1}>1</option>
@@ -61,42 +61,28 @@
 			</Form.MultiSelect>
 			<Form.Validation />
 		</Form.MultiField>
-		{#each $form.urls as _, i}
-			<Form.Field {config} name="urls[{i}]" inputId="input-{i}" let:tainted>
-				<div class="flex flex-col gap-2">
-					<Form.Label class={cn(i !== 0 && "sr-only")}>URL</Form.Label>
-					<Form.Description class={cn(i !== 0 && "sr-only")}
-						>Add links to your website, blog, or social media profiles.</Form.Description
-					>
-					<Form.Input type="url" />
-					{#if tainted}
-						<Form.Validation />
-					{/if}
-				</div>
-			</Form.Field>
-		{/each}
-		<Button
-			type="button"
-			variant="outline"
-			size="sm"
-			class="mt-2"
-			on:click={() => {
-				tainted.update((currTainted) => {
-					form.update((curr) => ({ ...curr, urls: [...curr.urls, ""] }));
-					const newInputId = $form.urls.length - 1;
-					if (currTainted && currTainted.urls) {
-						delete currTainted.urls[newInputId];
-					}
+		<Form.MultiField {config} name="items">
+			<Form.Label>Select Items</Form.Label>
+			<div class="flex flex-col gap-4">
+				{#each items as item, i (i)}
+					<Form.Field {config} name="items[{i}]" let:attrs>
+						<div class="flex items-center gap-2">
+							<input
+								{...attrs.group}
+								type="checkbox"
+								bind:group={$form.items}
+								value={item}
+								name="items"
+							/>
+							<Form.Label>{item}</Form.Label>
+						</div>
+					</Form.Field>
+				{/each}
+			</div>
+			<Form.Validation />
+			<Form.Description>Select the items you want</Form.Description>
+		</Form.MultiField>
 
-					tick().then(() => document.getElementById(`input-${newInputId}`)?.focus());
-					return currTainted;
-				});
-			}}
-		>
-			Add URL
-		</Button>
 		<Button type="submit">Submit</Button>
-		<SuperDebug data={$tainted} label="Tainted" />
-		<SuperDebug data={$errors} label="Errors" />
 	</Form.Root>
 </div>

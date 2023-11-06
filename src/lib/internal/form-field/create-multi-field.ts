@@ -10,6 +10,8 @@ import type { ErrorsStore, GetFieldAttrsProps } from "@/lib/internal/index.js";
 import type { CreateFormFieldReturn, FieldAttrStore, FieldContext, FieldIds } from "./types.js";
 import { setContext } from "svelte";
 
+export const FORM_MULTIFIELD_CONTEXT = "MultiField";
+
 export function createMultiField<
 	T extends ZodValidation<AnyZodObject>,
 	Path extends FormPath<z.infer<T>>
@@ -52,6 +54,7 @@ export function createMultiField<
 	};
 
 	setContext(FORM_FIELD_CONTEXT, context);
+	setContext(FORM_MULTIFIELD_CONTEXT, context);
 
 	function getFieldAttrs<T>(props: GetFieldAttrsProps<T>) {
 		const { val, errors, constraints, hasValidation, hasDescription } = props;
