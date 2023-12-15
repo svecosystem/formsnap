@@ -5,7 +5,7 @@
 	type $$Props = RadioProps;
 	const { actions, errors, attrStore } = getFormField();
 	$: attrs = {
-		"data-fs-select": "",
+		"data-fs-radio": "",
 		"data-fs-error": $errors ? "" : undefined,
 		...$attrStore
 	};

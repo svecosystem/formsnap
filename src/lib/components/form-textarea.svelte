@@ -5,7 +5,7 @@
 	type $$Props = TextareaProps;
 	const { actions, errors, attrStore } = getFormField();
 	$: attrs = {
-		"data-fs-select": "",
+		"data-fs-textarea": "",
 		"data-fs-error": $errors ? "" : undefined,
 		...$attrStore
 	};
