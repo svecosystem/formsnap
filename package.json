@@ -1,6 +1,6 @@
 {
 	"name": "formsnap",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"scripts": {
 		"dev": "concurrently \"pnpm:dev:content\" \"pnpm:dev:svelte\"",
 		"dev:content": "contentlayer dev",
