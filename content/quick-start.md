@@ -31,8 +31,8 @@ import { z } from "zod";
 const settingsSchema = z.object({
 	email: z.string().email("Please enter a valid email."),
 	bio: z.string().optional(),
-	theme: z.eum(["light", "dark"]).default("light"),
-	language: z.eum(["en", "es", "fr"]).default("en"),
+	theme: z.enum(["light", "dark"]).default("light"),
+	language: z.enum(["en", "es", "fr"]).default("en"),
 	marketingEmails: z.boolean().default(true)
 });
 ```
