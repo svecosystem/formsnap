@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.4.2
+
+### Patch Changes
+
+- fix: apply correct `data-fs` attributes to elements ([#96](https://github.com/huntabyte/formsnap/pull/96))
+
 ## 0.4.1
 
 ### Patch Changes
