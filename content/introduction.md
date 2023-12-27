@@ -68,7 +68,7 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import { superForm } from "sveltekit-superforms/client";
-	import { signupFormSchema } from "./schemas.ts";
+	import { signupFormSchema } from "./schema.ts";
 	export let data: PageData;
 
 	const { form, errors, enhance } = superForm(data.form, {
@@ -137,7 +137,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 <script lang="ts">
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
-	import { signupFormSchema } from "./schemas.ts";
+	import { signupFormSchema } from "./schema.ts";
 	export let data: PageData;
 </script>
 
