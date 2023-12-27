@@ -50,9 +50,9 @@ import type { PageServerLoad } from "./$types";
 import { settingsSchema } from "./schema";
 import { superValidate } from "sveltekit-superforms/server";
 
-export const load: PageServerLoad = () => {
+export const load: PageServerLoad = async () => {
 	return {
-		form: superValidate(settingsSchema)
+		form: await superValidate(settingsSchema)
 	};
 };
 ```
