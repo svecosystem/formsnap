@@ -28,7 +28,7 @@ This schema will represent the shape of our form data. It's used to validate the
 ```ts title="src/routes/settings/schema.ts" showLineNumbers
 import { z } from "zod";
 
-const settingsSchema = z.object({
+export const settingsSchema = z.object({
 	email: z.string().email("Please enter a valid email."),
 	bio: z.string().optional(),
 	theme: z.enum(["light", "dark"]).default("light"),
@@ -65,7 +65,7 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 <script lang="ts">
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
-	import { settingsSchema } from "./schemas.ts";
+	import { settingsSchema } from "./schema";
 	export let data: PageData;
 </script>
 
@@ -90,7 +90,7 @@ You can think of form fields as the building blocks of your form. Each input wil
 <script lang="ts">
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
-	import { settingsSchema } from "./schemas.ts";
+	import { settingsSchema } from "./schema";
 	export let data: PageData;
 </script>
 
@@ -109,7 +109,7 @@ Now that we have our field and the context has been setup under the hood, we can
 <script lang="ts">
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
-	import { settingsSchema } from "./schemas.ts";
+	import { settingsSchema } from "./schema";
 	export let data: PageData;
 </script>
 
@@ -137,7 +137,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 <script lang="ts">
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
-	import { settingsSchema } from "./schemas.ts";
+	import { settingsSchema } from "./schema";
 	export let data: PageData;
 </script>
 
