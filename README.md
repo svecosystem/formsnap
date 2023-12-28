@@ -36,7 +36,7 @@ import { settingsFormSchema } from "./schemas";
 
 export const load: PageServerLoad = async () => {
 	return {
-		form: superValidate(settingsFormSchema)
+		form: await superValidate(settingsFormSchema)
 	};
 };
 ```
