@@ -180,6 +180,10 @@ And that's really all it takes to setup a form field. Let's continue on with the
 		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
+	<Form.Field {config} name="marketingEmails">
+		<Form.Label>Opt in for marketing emails</Form.Label>
+		<Form.Checkbox />
+	</Form.Field>
 	<button type="submit"> Save </button>
 </Form.Root>
 ```
