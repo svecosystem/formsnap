@@ -29,4 +29,4 @@
 </script>
 
 <slot {attrs} />
-<input {name} bind:value={$value} style={hiddenInputStyles} />
+<input type="hidden" {name} bind:value={$value} style={hiddenInputStyles} />
