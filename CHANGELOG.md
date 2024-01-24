@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.4.3
+
+### Patch Changes
+
+- Changes input type to "hidden" in hidden form control inputs ([#121](https://github.com/huntabyte/formsnap/pull/121))
+
 ## 0.4.2
 
 ### Patch Changes
