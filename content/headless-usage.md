@@ -215,7 +215,7 @@ Of course, there's a lot more going on, but here's a high-level example of what 
 {/if}
 ```
 
-Even though we're intentionally opting our of the provided `<form />` element, we still want the same functionality. To achieve this, we can use the slot props provided by `<Form.Root />` to wire up our form. Keep in mind you'll still need to pass the `schema` & `form` props to `<Form.Root />` for validation and state management to work.
+Even though we're intentionally opting out of the provided `<form />` element, we still want the same functionality. To achieve this, we can use the slot props provided by `<Form.Root />` to wire up our form. Keep in mind you'll still need to pass the `schema` & `form` props to `<Form.Root />` for validation and state management to work.
 
 ```svelte showLineNumbers
 <Form.Root form={data.form} schema={someSchema} let:config let:enhance asChild>
