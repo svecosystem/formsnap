@@ -13,6 +13,8 @@ export type CreateFormFieldReturn = {
 	context: FieldContext;
 };
 
+export type SuperformsValidationError = { _errors?: string[] } | string[] | undefined;
+
 export type FieldContext = {
 	/**
 	 * The name of the field in the form schema.
@@ -32,7 +34,7 @@ export type FieldContext = {
 	 * if they exist, or undefined if they don't. Useful for displaying
 	 * errors in a custom validation message component.
 	 */
-	errors: Writable<{ _errors?: string[] } | string[] | undefined>;
+	errors: Writable<SuperformsValidationError>;
 
 	/**
 	 * A writable store containing the current value of the field.

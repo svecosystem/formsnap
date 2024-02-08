@@ -1,16 +1,12 @@
 <script lang="ts">
-	import { getFormField } from "@/lib/index.js";
+	import { getFormField, getCleansedErrors } from "@/lib/index.js";
 	import type { ValidationProps } from "../types.js";
 
 	type $$Props = ValidationProps;
 	export let tag = "p";
 	const { actions, errors, ids } = getFormField();
 
-	$: internalErrors = Array.isArray($errors)
-		? $errors
-		: $errors?._errors
-		? $errors._errors
-		: undefined;
+	$: internalErrors = getCleansedErrors($errors);
 
 	$: attrs = {
 		"data-fs-validation": "",
