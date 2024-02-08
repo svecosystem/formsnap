@@ -10,7 +10,7 @@
 
 	$: attrs = {
 		"data-fs-validation": "",
-		"data-fs-error": $errors ? "" : undefined,
+		"data-fs-error": internalErrors ? "" : undefined,
 		id: $ids.validation
 	};
 </script>
