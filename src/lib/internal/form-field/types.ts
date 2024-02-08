@@ -32,7 +32,7 @@ export type FieldContext = {
 	 * if they exist, or undefined if they don't. Useful for displaying
 	 * errors in a custom validation message component.
 	 */
-	errors: Writable<string[] | undefined>;
+	errors: Writable<{ _errors?: string[] } | string[] | undefined>;
 
 	/**
 	 * A writable store containing the current value of the field.

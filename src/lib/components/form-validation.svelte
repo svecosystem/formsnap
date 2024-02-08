@@ -5,6 +5,13 @@
 	type $$Props = ValidationProps;
 	export let tag = "p";
 	const { actions, errors, ids } = getFormField();
+
+	$: internalErrors = Array.isArray($errors)
+		? $errors
+		: $errors?._errors
+		? $errors._errors
+		: undefined;
+
 	$: attrs = {
 		"data-fs-validation": "",
 		"data-fs-error": $errors ? "" : undefined,
@@ -13,7 +20,7 @@
 </script>
 
 <svelte:element this={tag} use:actions.validation {...attrs} {...$$restProps}>
-	{#if $errors}
-		{$errors}
+	{#if internalErrors}
+		{internalErrors}
 	{/if}
 </svelte:element>
