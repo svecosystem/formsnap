@@ -22,7 +22,7 @@ export function slugFromPath(path: string) {
 
 export async function getDoc(slug: string): Promise<TDoc> {
 	if (slug === "components") {
-		throw redirect(303, "/docs/components/accordion");
+		redirect(303, "/docs/components/accordion");
 	}
 
 	const modules = import.meta.glob(`/content/**/*.md`);
@@ -39,7 +39,7 @@ export async function getDoc(slug: string): Promise<TDoc> {
 	const doc = await match?.resolver?.();
 
 	if (!doc || !doc.metadata) {
-		throw error(404);
+		error(404);
 	}
 
 	return {
