@@ -13,6 +13,7 @@ const FORM_FIELD = Symbol('formFieldCtx');
 export type FormFieldCtx<T extends Record<string, unknown>> = {
 	form: SuperForm<T>;
 	ids: Writable<FieldIdObj>;
+	name: Writable<keyof T>;
 };
 
 export function setFormFieldCtx<T extends Record<string, unknown>>(props: FormFieldCtx<T>) {

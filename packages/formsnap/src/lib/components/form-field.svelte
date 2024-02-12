@@ -12,7 +12,7 @@
 
 	import type { SuperForm } from 'sveltekit-superforms';
 
-	export let config: SuperForm<T>;
+	export let form: SuperForm<T>;
 	export let name: U;
 	export let id = generateId();
 
@@ -20,13 +20,20 @@
 		field: id
 	});
 
-	setFormFieldCtx<T>({ form: config, ids: fieldIdStore });
+	const fieldNameStore = writable<U>(name);
 
-	$: ({ form } = config);
+	$: if (name) {
+		fieldNameStore.set(name);
+	}
+
+	$: setFormFieldCtx<T>({ form: form, ids: fieldIdStore, name: fieldNameStore });
+
+	$: ({ form: theForm } = form);
 
 	$: attrs = {
-		id
+		id,
+		name
 	};
 </script>
 
-<slot value={$form[name]} {attrs} />
+<slot value={$theForm[name]} {attrs} />

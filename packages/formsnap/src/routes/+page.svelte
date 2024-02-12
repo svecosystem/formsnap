@@ -1,38 +1,44 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
-	import Form from '$lib/components/form.svelte';
 	import FormField from '$lib/components/form-field.svelte';
 	import FormLabel from '$lib/components/form-label.svelte';
+	import FormValidation from '$lib/components/form-validation.svelte';
 
 	export let data;
 
-	const superFrm = superForm(data.form);
-	const { form } = superFrm;
+	const form = superForm(data.form);
+	const { form: formStore } = form;
 </script>
 
-<Form form={superFrm} let:config>
-	<FormField {config} name="name" let:attrs>
+<form use:form.enhance class="flex flex-col max-w-md mx-auto" method="POST">
+	<FormField {form} name="name" let:attrs>
 		<FormLabel>Name</FormLabel>
-		<input {...attrs} bind:value={$form.name} />
+		<input {...attrs} bind:value={$formStore.name} />
+		<FormValidation />
 	</FormField>
-	<FormField {config} name="age" let:attrs>
+	<FormField {form} name="age" let:attrs>
 		<FormLabel>Age</FormLabel>
-		<input {...attrs} type="number" bind:value={$form.name} />
+		<input {...attrs} type="number" bind:value={$formStore.age} />
+		<FormValidation />
 	</FormField>
-	<FormField {config} name="email" let:attrs>
+	<FormField {form} name="email" let:attrs>
 		<FormLabel>Email</FormLabel>
-		<input {...attrs} type="email" bind:value={$form.email} />
+		<input {...attrs} type="email" bind:value={$formStore.email} />
+		<FormValidation />
 	</FormField>
-	<FormField {config} name="terms" let:attrs>
+	<FormField {form} name="terms" let:attrs>
 		<FormLabel>Terms</FormLabel>
-		<input {...attrs} type="checkbox" bind:value={$form.terms} />
+		<input {...attrs} type="checkbox" bind:value={$formStore.terms} />
+		<FormValidation />
 	</FormField>
-	<FormField {config} name="language" let:attrs>
+	<FormField {form} name="language" let:attrs>
 		<FormLabel>Language</FormLabel>
-		<select {...attrs} bind:value={$form.language}>
+		<select {...attrs} bind:value={$formStore.language}>
 			<option value="fr">French</option>
 			<option value="es">Spanish</option>
 			<option value="en">English</option>
 		</select>
+		<FormValidation />
 	</FormField>
-</Form>
+	<button>Submit</button>
+</form>
