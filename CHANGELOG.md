@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.4.4
+
+### Patch Changes
+
+- Adds support for superforms {\_errors?: string[]} syntax ([#129](https://github.com/huntabyte/formsnap/pull/129))
+
 ## 0.4.3
 
 ### Patch Changes
