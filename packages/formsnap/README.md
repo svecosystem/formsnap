@@ -1,98 +1,58 @@
-# Formsnap
+# create-svelte
 
-The goal of this library is to make working with the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) even more pleasant, by wrapping it with accessible form components.
+Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-## Installation
+Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+
+## Creating a project
+
+If you're seeing this, you've probably already done this step. Congrats!
 
 ```bash
-npm i formsnap sveltekit-superforms zod
+# create a new project in the current directory
+npm create svelte@latest
+
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-## Usage
+## Developing
 
-You'll handle the initial Superforms setup just as you normally would, where you define a schema and return the form from your load function. The magic happens once you have access to that form inside of your page component.
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-#### 1. Define a Zod schema
+```bash
+npm run dev
 
-```ts
-// schemas.ts
-import { z } from "zod";
-export const settingsFormSchema = z.object({
-	email: z.string().email(),
-	bio: z.string().max(250).optional(),
-	language: z.enum(["en", "es", "fr"]),
-	marketingEmails: z.boolean().default(true),
-	theme: z.enum(["light", "dark"]).default("light")
-});
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-#### 2. Return the form from your load function
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
 
-```ts
-// +page.server.ts
-import { superValidate } from "sveltekit-superforms/server";
-import type { PageServerLoad } from "./$types";
-import { settingsFormSchema } from "./schemas";
+## Building
 
-export const load: PageServerLoad = async () => {
-	return {
-		form: await superValidate(settingsFormSchema)
-	};
-};
+To build your library:
+
+```bash
+npm run package
 ```
 
-#### 3. Construct the form in your page
+To create a production version of your showcase app:
 
-```svelte
-<script lang="ts">
-	import { Form } from "@huntabyte/form";
-	import { settingsFormSchema } from "./schemas";
-	import type { PageData } from "./$types";
-	export let data: PageData;
-</script>
-
-<Form.Root
-	schema={settingsFormSchema}
-	form={data.form}
-	let:config
-	action="?/someAction"
->
-	<Form.Field {config} name="email">
-		<Form.Label>Email</Form.Label>
-		<Form.Input />
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="bio">
-		<Form.Label>Bio</Form.Label>
-		<Form.Textarea />
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="language">
-		<Form.Label>Language</Form.Label>
-		<Form.Select>
-			<option value="en">English</option>
-			<option value="es">Spanish</option>
-			<option value="fr">French</option>
-		</Form.Select>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="marketingEmails">
-		<Form.Checkbox />
-		<Form.Label>Receive marketing emails from us</Form.Label>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="theme">
-		<Form.RadioItem value="light" />
-		<Form.Label>Light</Form.Label>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="theme">
-		<Form.RadioItem value="dark" />
-		<Form.Label>Dark</Form.Label>
-		<Form.Validation />
-	</Form.Field>
-	<button type="submit">Submit</button>
-</Form.Root>
+```bash
+npm run build
 ```
 
-Check out [Formsnap.dev](https://formsnap.dev) for more documentation.
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Publishing
+
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+
+To publish your library to [npm](https://www.npmjs.com):
+
+```bash
+npm publish
+```
