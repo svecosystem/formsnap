@@ -1,8 +1,8 @@
 export { default as ArrowUpRight } from "phosphor-svelte/lib/ArrowUpRight";
 export { default as CaretRight } from "phosphor-svelte/lib/CaretRight";
 export { default as CaretLeft } from "phosphor-svelte/lib/CaretLeft";
-export { default as CaretUp } from "phosphor-svelte/lib/CaretLeft";
-export { default as CaretDown } from "phosphor-svelte/lib/CaretLeft";
+export { default as CaretUp } from "phosphor-svelte/lib/CaretUp";
+export { default as CaretDown } from "phosphor-svelte/lib/CaretDown";
 export { default as Check } from "phosphor-svelte/lib/Check";
 export { default as Circle } from "phosphor-svelte/lib/Circle";
 export { default as Code } from "phosphor-svelte/lib/Code";
@@ -20,3 +20,4 @@ export { default as WarningOctagon } from "phosphor-svelte/lib/WarningOctagon";
 export { default as Warning } from "phosphor-svelte/lib/Warning";
 export { default as XComIcon } from "./xcom-icon.svelte";
 export { default as ShadcnIcon } from "./shadcn-icon.svelte";
+export { default as Minus } from "phosphor-svelte/lib/Minus";

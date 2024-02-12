@@ -123,6 +123,9 @@ importers:
       svelte-interactions:
         specifier: ^0.2.0
         version: 0.2.0(svelte@4.2.10)
+      svelte-sonner:
+        specifier: ^0.3.17
+        version: 0.3.17(svelte@4.2.10)
       vaul-svelte:
         specifier: ^0.0.7
         version: 0.0.7(svelte@4.2.10)
@@ -7031,6 +7034,14 @@ packages:
       svelte: 4.2.10
       typescript: 5.3.3
     dev: true
+
+  /svelte-sonner@0.3.17(svelte@4.2.10):
+    resolution: {integrity: sha512-jociRGESILpHi6fIIcqGYE1bWAfK4ZeTLHuXxNgGMhG1FwhNRIK1bsCbXEl8/AjRV8aiNXtkS/+IlQtvb2jR9g==}
+    peerDependencies:
+      svelte: '>=3 <5'
+    dependencies:
+      svelte: 4.2.10
+    dev: false
 
   /svelte2tsx@0.7.1(svelte@4.2.10)(typescript@5.3.3):
     resolution: {integrity: sha512-0lKa6LrqJxRan0bDmBd/uFsVzYSXnoFUDaczaH0znke/XI79oy1JjFaF51J9EsOvpn8lXPlrUc3n/MA/ORNxBg==}

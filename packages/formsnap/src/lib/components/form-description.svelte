@@ -7,23 +7,17 @@
 		id?: string;
 	};
 
-	const { validationId, errors } = getFormField();
+	const { descriptionId, errors } = getFormField();
 
 	export let id = generateId();
 
-	$: validationId.set(id);
+	$: descriptionId.set(id);
 	$: attrs = {
-		id: $validationId,
-		'data-error': $errors.length > 0 ? '' : undefined,
-		'data-fs-validation': '',
-		'aria-live': 'assertive' as const
+		id: $descriptionId,
+		'data-error': $errors.length > 0 ? '' : undefined
 	};
 </script>
 
 <div {...attrs} {...$$restProps}>
-	<slot errors={$errors}>
-		{#each $errors as error}
-			<p>{error}</p>
-		{/each}
-	</slot>
+	<slot />
 </div>

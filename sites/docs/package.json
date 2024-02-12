@@ -76,6 +76,7 @@
 		"mode-watcher": "^0.1.2",
 		"rehype-slug": "^6.0.0",
 		"svelte-interactions": "^0.2.0",
+		"svelte-sonner": "^0.3.17",
 		"vaul-svelte": "^0.0.7"
 	}
 }
