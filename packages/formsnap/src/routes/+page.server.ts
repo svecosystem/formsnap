@@ -7,7 +7,8 @@ const schema = z.object({
 	name: z.string().default('Hello world!'),
 	email: z.string().email(),
 	age: z.number().min(18).max(22),
-	terms: z.boolean().default(true)
+	terms: z.boolean().default(true),
+	language: z.enum(['en', 'es', 'fr']).default('en')
 });
 
 export const load = async () => {

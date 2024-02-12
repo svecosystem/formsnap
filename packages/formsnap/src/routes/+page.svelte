@@ -3,7 +3,6 @@
 	import Form from '$lib/components/form.svelte';
 	import FormField from '$lib/components/form-field.svelte';
 	import FormLabel from '$lib/components/form-label.svelte';
-	import FormInput from '$lib/components/form-input.svelte';
 
 	export let data;
 
@@ -12,20 +11,28 @@
 </script>
 
 <Form form={superFrm} let:config>
-	<FormField {config} name="name">
+	<FormField {config} name="name" let:attrs>
 		<FormLabel>Name</FormLabel>
-		<FormInput type="text" bind:value={$form.name} />
+		<input {...attrs} bind:value={$form.name} />
 	</FormField>
-	<FormField {config} name="age">
+	<FormField {config} name="age" let:attrs>
 		<FormLabel>Age</FormLabel>
-		<FormInput type="number" bind:value={$form.age} />
+		<input {...attrs} type="number" bind:value={$form.name} />
 	</FormField>
-	<FormField {config} name="email">
+	<FormField {config} name="email" let:attrs>
 		<FormLabel>Email</FormLabel>
-		<FormInput type="email" bind:value={$form.email} />
+		<input {...attrs} type="email" bind:value={$form.email} />
 	</FormField>
-	<FormField {config} name="terms">
+	<FormField {config} name="terms" let:attrs>
 		<FormLabel>Terms</FormLabel>
-		<FormInput type="checkbox" bind:value={$form.terms} />
+		<input {...attrs} type="checkbox" bind:value={$form.terms} />
+	</FormField>
+	<FormField {config} name="language" let:attrs>
+		<FormLabel>Language</FormLabel>
+		<select {...attrs} bind:value={$form.language}>
+			<option value="fr">French</option>
+			<option value="es">Spanish</option>
+			<option value="en">English</option>
+		</select>
 	</FormField>
 </Form>

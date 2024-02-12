@@ -23,6 +23,10 @@
 	setFormFieldCtx<T>({ form: config, ids: fieldIdStore });
 
 	$: ({ form } = config);
+
+	$: attrs = {
+		id
+	};
 </script>
 
-<slot value={$form[name]} />
+<slot value={$form[name]} {attrs} />
