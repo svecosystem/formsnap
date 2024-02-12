@@ -80,6 +80,9 @@ importers:
       vitest:
         specifier: ^1.2.0
         version: 1.2.2
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
 
   sites/docs:
     dependencies:
@@ -89,6 +92,9 @@ importers:
       bits-ui:
         specifier: ^0.14.0
         version: 0.14.0(svelte@4.2.10)
+      formsnap:
+        specifier: workspace:*
+        version: link:../../packages/formsnap
       mode-watcher:
         specifier: ^0.1.2
         version: 0.1.2(svelte@4.2.10)
@@ -189,6 +195,9 @@ importers:
       svelte-check:
         specifier: ^3.6.0
         version: 3.6.4(postcss-load-config@5.0.3)(postcss@8.4.35)(svelte@4.2.10)
+      sveltekit-superforms:
+        specifier: ^2.0.0
+        version: 2.0.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10)
       tailwind-merge:
         specifier: ^2.2.0
         version: 2.2.1
@@ -219,6 +228,9 @@ importers:
       vitest:
         specifier: ^1.2.0
         version: 1.2.2
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
 
 packages:
 
