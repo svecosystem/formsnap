@@ -11,14 +11,23 @@
 		}),
 		bio: z.string().max(250, "Bio must be at most 250 characters").optional(),
 		website: z.string().url("Invalid URL").optional(),
-		usage: z.boolean().default(true)
+		usage: z.boolean().default(true),
+		multiSelect: z.array(z.string()).nonempty()
 	});
+
+	const multiSelectItems = [
+		{ label: "First", value: "first" },
+		{ label: "Second", value: "second" },
+		{ label: "Third", value: "third" },
+		{ label: "Fourth", value: "fourth" }
+	];
 </script>
 
 <script lang="ts">
 	import { Form } from "@/lib/index.js";
 	import type { PageData } from "./$types.js";
 	import { Button } from "@/components/ui/button/index.js";
+	import { Select } from "bits-ui";
 
 	export let data: PageData;
 </script>
@@ -102,6 +111,43 @@
 				<Form.Validation data-testid="usage-validation" class="text-destructive" />
 				<Form.Description data-testid="usage-description">usage description</Form.Description>
 			</div>
+		</Form.Field>
+		<Form.Field {config} name="multiSelect" let:setValue let:value>
+			<Form.Label>Multi-select</Form.Label>
+			<Select.Root
+				items={multiSelectItems}
+				let:ids
+				multiple={true}
+				onSelectedChange={(selected) => {
+					setValue(selected?.map((opt) => opt.value));
+				}}
+			>
+				<Select.Input />
+				<Form.Control let:attrs id={ids.trigger}>
+					<Select.Trigger
+						{...attrs}
+						class="flex h-9 w-full items-center justify-between rounded-md border-0 bg-white px-3 py-1.5 text-gray-900 shadow-sm outline-none ring-1 ring-inset ring-gray-300 transition-opacity placeholder:text-gray-400 hover:opacity-90 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-sm sm:leading-6"
+					>
+						<Select.Value placeholder="Select one or more" class="truncate" />
+						&downarrow;
+					</Select.Trigger>
+					<Select.Content
+						class="z-10 flex max-h-72 select-none flex-col overflow-y-auto rounded-md bg-white shadow outline-none focus:ring-2 focus:ring-violet-700"
+					>
+						{#each multiSelectItems as option}
+							<Select.Item
+								value={option.value}
+								label={option.label}
+								class="flex cursor-pointer select-none items-center justify-between px-4 py-1 text-gray-800 outline-none data-[highlighted]:!bg-violet-900 data-[selected]:bg-violet-100 data-[highlighted]:!text-violet-100 data-[selected]:text-violet-900"
+							>
+								{option.label}
+								<Select.ItemIndicator>&check;</Select.ItemIndicator>
+							</Select.Item>
+						{/each}
+					</Select.Content>
+				</Form.Control>
+			</Select.Root>
+			<Form.Validation class="text-destructive" />
 		</Form.Field>
 		<Button type="submit" data-testid="submit">Submit</Button>
 	</Form.Root>

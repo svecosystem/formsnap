@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getCleansedErrors } from "..";
+
 	import { formFieldProxy } from "sveltekit-superforms/client";
 	import { writable } from "svelte/store";
 	import { createFormField, createIds } from "@/lib/internal/index.js";
@@ -18,16 +20,18 @@
 	export let name: Path;
 
 	const attrStore: FieldAttrStore = writable({});
-	$: ({ errors, value, constraints } = formFieldProxy<T, Path>(config.form, name));
+	$: ({ errors: rawErrors, value, constraints } = formFieldProxy<T, Path>(config.form, name));
+
+	$: errors = getCleansedErrors($rawErrors);
 
 	const ids = writable(createIds());
 
 	$: ({ getFieldAttrs, actions, hasValidation, hasDescription, handlers, setValue } =
-		createFormField<T, Path>(name, attrStore, value, errors, ids));
+		createFormField<T, Path>(name, attrStore, value, rawErrors, ids));
 
 	$: inputAttrs = getFieldAttrs({
 		val: $value,
-		errors: $errors,
+		errors: errors,
 		constraints: $constraints,
 		hasValidation: $hasValidation,
 		hasDescription: $hasDescription
@@ -56,7 +60,7 @@
 
 <slot
 	{stores}
-	errors={$errors}
+	{errors}
 	value={$value}
 	constraints={$constraints}
 	{handlers}
