@@ -1,18 +1,28 @@
 <script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	type T = Record<string, unknown>;
 	type U = unknown;
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends keyof T">
+	import { setFormFieldCtx, type FieldIdObj } from '$lib/context.js';
+
+	import { writable } from 'svelte/store';
+
+	import { generateId } from '$lib/internal/utils/id.js';
+
 	import type { SuperForm } from 'sveltekit-superforms';
 
 	export let config: SuperForm<T>;
-	const { form } = config;
-
 	export let name: U;
+	export let id = generateId();
 
-	const value = $form[name] as T[U];
+	const fieldIdStore = writable<FieldIdObj>({
+		field: id
+	});
+
+	setFormFieldCtx<T>({ form: config, ids: fieldIdStore });
+
+	$: ({ form } = config);
 </script>
 
-<slot {value} />
+<slot value={$form[name]} />

@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	type T = Record<string, unknown>;
 </script>
 
