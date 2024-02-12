@@ -45,6 +45,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.0.0
         version: 6.21.0(eslint@8.56.0)(typescript@5.3.3)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.17(postcss@8.4.35)
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -54,12 +57,21 @@ importers:
       eslint-plugin-svelte:
         specifier: ^2.35.1
         version: 2.35.1(eslint@8.56.0)(svelte@4.2.10)
+      postcss:
+        specifier: ^8.4.32
+        version: 8.4.35
+      postcss-load-config:
+        specifier: ^5.0.2
+        version: 5.0.3(postcss@8.4.35)
       prettier:
         specifier: ^3.1.1
         version: 3.2.5
       prettier-plugin-svelte:
         specifier: ^3.1.2
         version: 3.1.2(prettier@3.2.5)(svelte@4.2.10)
+      prettier-plugin-tailwindcss:
+        specifier: ^0.5.9
+        version: 0.5.11(prettier-plugin-svelte@3.1.2)(prettier@3.2.5)
       publint:
         specifier: ^0.1.9
         version: 0.1.16
@@ -72,6 +84,9 @@ importers:
       sveltekit-superforms:
         specifier: ^2.0.0
         version: 2.0.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10)
+      tailwindcss:
+        specifier: ^3.3.6
+        version: 3.4.1
       tslib:
         specifier: ^2.4.1
         version: 2.6.2
