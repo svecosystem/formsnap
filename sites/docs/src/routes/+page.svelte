@@ -18,16 +18,22 @@
 	<h1
 		class="text-balance text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
 	>
-		Documentation doesn't need to be so difficult
+		Making forms a breeze
 	</h1>
 	<p class="mx-auto mt-6 max-w-3xl text-balance text-center text-base sm:text-lg">
-		An opinionated template for documentation sites with SvelteKit and Markdown. Built and
-		maintained by the <a
+		Accessible form components and helpers that take <a
+			target="_blank"
+			href="https://superforms.rocks"
+			class="text-brand hover:text-brand/95 font-medium underline underline-offset-4 transition-all hover:underline-offset-[6px]"
+			>Superforms</a
+		>
+		to the next level. Built and maintained by the
+		<a
 			href="https://github.com/svecosystem"
 			target="_blank"
-			class="font-medium text-brand underline underline-offset-4 transition-all hover:text-brand/95 hover:underline-offset-[6px]"
+			class="text-brand hover:text-brand/95 font-medium underline underline-offset-4 transition-all hover:underline-offset-[6px]"
 			>Svecosystem</a
-		> team for our own use, but we hope you find it useful too!
+		> team.
 	</p>
 	<div class="mt-8 flex items-center justify-center gap-4">
 		<Button href="/docs/guide" variant="brand" size="lg">Get Started</Button>

@@ -2,7 +2,7 @@
 	"name": "formsnap",
 	"version": "0.4.3",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "pnpm watch",
 		"build": "vite build && pnpm run package",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package && publint",

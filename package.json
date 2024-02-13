@@ -7,7 +7,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "pnpm -r test",
-		"dev": "pnpm -F \"./packages/**\" --parallel dev",
+		"dev": "pnpm -r --parallel dev",
 		"build": "pnpm -r build",
 		"build:packages": "pnpm -F \"./packages/**\" --parallel build",
 		"ci:publish": "pnpm build:packages && changeset publish",
