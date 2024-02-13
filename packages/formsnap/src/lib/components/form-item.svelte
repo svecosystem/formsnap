@@ -3,6 +3,9 @@
 	import { getAriaDescribedBy } from '$lib/internal/utils/aria.js';
 	import { generateId } from '$lib/internal/utils/id.js';
 	import { writable } from 'svelte/store';
+	import type { ItemProps } from './types.js';
+
+	type $$Props = ItemProps;
 
 	export let id = generateId();
 
@@ -14,6 +17,8 @@
 
 	setFormItem({ id: itemIdStore });
 
+	$: hasErrors = $errors.length > 0;
+
 	$: attrs = {
 		name: $name,
 		id: $itemIdStore,
@@ -22,8 +27,8 @@
 			descriptionId: $descriptionId,
 			errors: $errors
 		}),
-		'aria-invalid': $errors.length > 0 ? ('true' as const) : undefined,
-		'data-invalid': $errors.length > 0 ? '' : undefined
+		'aria-invalid': hasErrors ? ('true' as const) : undefined,
+		'data-error': hasErrors ? '' : undefined
 	};
 </script>
 

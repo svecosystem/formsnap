@@ -12,18 +12,19 @@
 	export let id = generateId();
 
 	$: validationId.set(id);
-	$: attrs = {
+	$: validationAttrs = {
 		id: $validationId,
 		'data-error': $errors.length > 0 ? '' : undefined,
 		'data-fs-validation': '',
-		'aria-live': 'assertive' as const
+		'aria-live': 'assertive' as const,
+		...$$restProps
 	};
 </script>
 
-<div {...attrs} {...$$restProps}>
+<div {...validationAttrs}>
 	<slot errors={$errors}>
 		{#each $errors as error}
-			<p>{error}</p>
+			<div>{error}</div>
 		{/each}
 	</slot>
 </div>

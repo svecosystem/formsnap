@@ -1,19 +1,26 @@
 <script lang="ts">
 	import { getFormField, getFormItem } from '$lib/context.js';
-	import type { HTMLLabelAttributes } from 'svelte/elements';
+	import type { LabelProps } from './types.js';
 
-	type $$Props = HTMLLabelAttributes;
+	type $$Props = LabelProps;
+
+	export let asChild: $$Props['asChild'] = false;
 
 	const { errors } = getFormField();
 	const { id } = getFormItem();
 
-	$: attrs = {
+	$: labelAttrs = {
 		for: $id,
 		'data-fs-label': '',
-		'data-error': $errors.length > 0 ? '' : undefined
+		'data-error': $errors.length > 0 ? '' : undefined,
+		...$$restProps
 	};
 </script>
 
-<label {...attrs} {...$$restProps}>
-	<slot {attrs} />
-</label>
+{#if asChild}
+	<slot {labelAttrs} />
+{:else}
+	<label {...labelAttrs}>
+		<slot {labelAttrs} />
+	</label>
+{/if}

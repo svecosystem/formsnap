@@ -1,23 +1,28 @@
 <script lang="ts">
 	import { getFormField } from '$lib/context.js';
 	import { generateId } from '$lib/internal/utils/id.js';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { DescriptionProps } from './types.js';
 
-	type $$Props = HTMLAttributes<HTMLDivElement> & {
-		id?: string;
-	};
+	type $$Props = DescriptionProps;
 
 	const { descriptionId, errors } = getFormField();
 
-	export let id = generateId();
+	export let id: $$Props['id'] = generateId();
+	export let asChild: $$Props['asChild'] = false;
 
 	$: descriptionId.set(id);
-	$: attrs = {
+	$: descriptionAttrs = {
 		id: $descriptionId,
-		'data-error': $errors.length > 0 ? '' : undefined
+		'data-error': $errors.length > 0 ? '' : undefined,
+		'data-fs-description': '',
+		...$$restProps
 	};
 </script>
 
-<div {...attrs} {...$$restProps}>
-	<slot />
-</div>
+{#if asChild}
+	<slot {descriptionAttrs} />
+{:else}
+	<div {...descriptionAttrs}>
+		<slot {descriptionAttrs} />
+	</div>
+{/if}
