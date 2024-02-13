@@ -21,11 +21,8 @@
 		Making forms a breeze
 	</h1>
 	<p class="mx-auto mt-6 max-w-3xl text-balance text-center text-base sm:text-lg">
-		Accessible form components that take <a
-			target="_blank"
-			href="https://superforms.rocks"
-			class="text-brand hover:text-brand/95 font-medium underline underline-offset-4 transition-all hover:underline-offset-[6px]"
-			>Superforms</a
+		Accessible form components that take <A target="_blank" href="https://superforms.rocks"
+			>Superforms</A
 		>
 		to the next level.
 	</p>
