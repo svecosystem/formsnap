@@ -7,25 +7,27 @@ description: What is this?
 	import { Steps, Callout } from "$lib/components"
 </script>
 
-Formsnap takes the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) (winner of [Svelte Hack 2023](https://hack.sveltesociety.dev/winners) for best library), made by the brilliant [Andreas Söderlund](https://github.com/ciscoheat) and adds a component layer of abstraction to make it even simpler to use while also providing more accessible forms by default.
+Formsnap takes the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) (winner of [Svelte Hack 2023](https://hack.sveltesociety.dev/winners) for best library), made by the brilliant [Andreas Söderlund](https://github.com/ciscoheat) and wraps it with components that make it simpler to use while making your forms accessible by default.
 
-By design, [Superforms](https://superforms.rocks) is a very low-level library that gives you the tools to build and customize the behavior of your forms to your liking. Unfortunately, this also comes at the cost of writing some boilerplate code to get a form up and running. Since most applications are form heavy, this can become quite tedious, time consuming, and error prone.
+By design, [Superforms](https://superforms.rocks) is a lower-level library that gives you the tools to build and customize the behavior of your forms to your liking. Unfortunately, this comes at the cost of writing some boilerplate code to get a form up and running. Since most applications are form heavy, this can become quite tedious, time consuming, and error prone.
 
-Formsnap aims to solve this by providing you with a set of components that _automagically_ handle a lot of the boilerplate, while still giving you the ability to customize the behavior of your forms. Additionally, your forms will be accessible by default. You don't even have to think about it. Everyone wins!
+Formsnap aims to improve this experience by providing you with a set of components that handle a bit of the boilerplate, while still giving you flexibility with the behavior of your forms. Your forms will also be more accessible by default. Everyone wins!
 
 To better demonstrate the value-add, let's look at what it takes to build an accessible signup form that has custom client-side validation using _only_ Superforms, and compare it to the same when you combine it with Formsnap.
 
 ## Initializing a Superform
 
-Since the following steps are the same whether you're just using Superforms, or combining it with Formsnap, we'll use this same initialization code for both examples.
+The following steps are the same whether you're just using Superforms, or combining it with Formsnap, so we'll use this same initialization code for both examples.
 
-If you aren't already familiar with Superforms, it's highly recommended that you check out the [documentation](https://superforms.rocks) before continuing. It's a fantastic library that you'll need to understand the basics of in order to get the most out of this project.
+If you aren't already familiar with Superforms, it's **_highly_** recommended that you check out the [documentation](https://superforms.rocks) before continuing. It's a fantastic library that you'll need to understand to get the most out of this project.
 
 <Steps>
 
-### Define a Zod schema
+### Define a schema
 
-Superforms requires us to define a [Zod](https://zod.dev) schema that describes the shape of our form. This schema is then used to validate the form data on the client (optional) and server, along with some other useful things.
+Superforms requires us to define a schema to represent our form. They have adapters for a few popular schema libraries, but we'll be using [Zod](https://zod.dev) for this example. However, you could use any of the other supported libraries, or even write your own adapter.
+
+This schema is used to validate the form data on the client (optional) and server, as well as provide a bit of type safety to our form data.
 
 ```ts title="src/routes/sign-up/schema.ts"
 import { z } from "zod";
@@ -33,7 +35,7 @@ import { z } from "zod";
 const signupFormSchema = z.object({
 	name: z.string().min(2).max(100),
 	email: z.string().email(),
-	password: z.string().min(10)
+	password: z.string().min(10),
 });
 ```
 
@@ -48,7 +50,7 @@ import { superValidate } from "sveltekit-superforms/server";
 
 export const load: PageServerLoad = () => {
 	return {
-		form: superValidate(signupFormSchema)
+		form: superValidate(signupFormSchema),
 	};
 };
 ```
@@ -69,7 +71,7 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 	export let data: PageData;
 
 	const { form, errors, enhance } = superForm(data.form, {
-		validators: signupFormSchema
+		validators: signupFormSchema,
 	});
 </script>
 
