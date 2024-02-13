@@ -5,8 +5,10 @@
 	import { ModeWatcher } from "mode-watcher";
 	import { Metadata } from "$lib/components/index.js";
 	import { Footer } from "$lib/components/layout";
+	import { Toaster } from "$lib/components/ui/sonner";
 </script>
 
+<Toaster />
 <TwIndicator />
 <Metadata />
 <ModeWatcher />

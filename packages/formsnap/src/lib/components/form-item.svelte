@@ -11,17 +11,22 @@
 
 	const { name, validationId, descriptionId, errors } = getFormField();
 
-	const itemIdStore = writable(id);
+	const itemContext = {
+		id: writable(id),
+		attrs: writable<Record<string, unknown>>({}),
+		labelAttrs: writable<Record<string, unknown>>({})
+	};
+	const { id: idStore } = itemContext;
 
-	$: itemIdStore.set(id);
+	$: itemContext.id.set(id);
 
-	setFormItem({ id: itemIdStore });
+	setFormItem(itemContext);
 
 	$: hasErrors = $errors.length > 0;
 
 	$: attrs = {
 		name: $name,
-		id: $itemIdStore,
+		id: $idStore,
 		'aria-describedBy': getAriaDescribedBy({
 			validationId: $validationId,
 			descriptionId: $descriptionId,
@@ -30,6 +35,15 @@
 		'aria-invalid': hasErrors ? ('true' as const) : undefined,
 		'data-error': hasErrors ? '' : undefined
 	};
+
+	$: labelAttrs = {
+		for: $idStore,
+		'data-fs-label': '',
+		'data-error': hasErrors ? '' : undefined
+	};
+
+	$: itemContext.attrs.set(attrs);
+	$: itemContext.labelAttrs.set(labelAttrs);
 </script>
 
 <slot {attrs} />

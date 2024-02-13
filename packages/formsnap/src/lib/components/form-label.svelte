@@ -1,26 +1,23 @@
 <script lang="ts">
-	import { getFormField, getFormItem } from '$lib/context.js';
+	import { getFormItem } from '$lib/context.js';
 	import type { LabelProps } from './types.js';
 
 	type $$Props = LabelProps;
 
 	export let asChild: $$Props['asChild'] = false;
 
-	const { errors } = getFormField();
-	const { id } = getFormItem();
+	const { labelAttrs: labelAttrsStore } = getFormItem();
 
-	$: labelAttrs = {
-		for: $id,
-		'data-fs-label': '',
-		'data-error': $errors.length > 0 ? '' : undefined,
+	$: localLabelAttrs = {
+		...$labelAttrsStore,
 		...$$restProps
 	};
 </script>
 
 {#if asChild}
-	<slot {labelAttrs} />
+	<slot labelAttrs={localLabelAttrs} />
 {:else}
-	<label {...labelAttrs}>
-		<slot {labelAttrs} />
+	<label {...localLabelAttrs}>
+		<slot labelAttrs={localLabelAttrs} />
 	</label>
 {/if}

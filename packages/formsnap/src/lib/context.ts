@@ -36,6 +36,8 @@ export function getFormField<T extends Record<string, unknown>>(): FormFieldCont
 
 export type FormItemContext = {
 	id: Writable<string>;
+	labelAttrs: Writable<Record<string, unknown>>;
+	attrs: Writable<Record<string, unknown>>;
 };
 
 const FORM_ITEM = Symbol('FORM_ITEM_CTX');
