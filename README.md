@@ -5,7 +5,7 @@ The goal of this library is to make working with the already incredible [sveltek
 ## Installation
 
 ```bash
-npm i formsnap sveltekit-superforms zod
+npm i formsnap sveltekit-superforms <your-schema-library>
 ```
 
 ## Usage
@@ -16,13 +16,13 @@ You'll handle the initial Superforms setup just as you normally would, where you
 
 ```ts
 // schemas.ts
-import { z } from 'zod';
+import { z } from "zod";
 export const settingsFormSchema = z.object({
 	email: z.string().email(),
 	bio: z.string().max(250).optional(),
-	language: z.enum(['en', 'es', 'fr']),
+	language: z.enum(["en", "es", "fr"]),
 	marketingEmails: z.boolean().default(true),
-	theme: z.enum(['light', 'dark']).default('light')
+	theme: z.enum(["light", "dark"]).default("light"),
 });
 ```
 
@@ -30,13 +30,13 @@ export const settingsFormSchema = z.object({
 
 ```ts
 // +page.server.ts
-import { superValidate } from 'sveltekit-superforms/server';
-import type { PageServerLoad } from './$types';
-import { settingsFormSchema } from './schemas';
+import { superValidate } from "sveltekit-superforms/server";
+import type { PageServerLoad } from "./$types";
+import { settingsFormSchema } from "./schemas";
 
 export const load: PageServerLoad = async () => {
 	return {
-		form: await superValidate(settingsFormSchema)
+		form: await superValidate(settingsFormSchema),
 	};
 };
 ```
@@ -45,13 +45,18 @@ export const load: PageServerLoad = async () => {
 
 ```svelte
 <script lang="ts">
-	import { Form } from '@huntabyte/form';
-	import { settingsFormSchema } from './schemas';
-	import type { PageData } from './$types';
+	import { Form } from "@huntabyte/form";
+	import { settingsFormSchema } from "./schemas";
+	import type { PageData } from "./$types";
 	export let data: PageData;
 </script>
 
-<Form.Root schema={settingsFormSchema} form={data.form} let:config action="?/someAction">
+<Form.Root
+	schema={settingsFormSchema}
+	form={data.form}
+	let:config
+	action="?/someAction"
+>
 	<Form.Field {config} name="email">
 		<Form.Label>Email</Form.Label>
 		<Form.Input />
