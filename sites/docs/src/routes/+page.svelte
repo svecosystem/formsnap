@@ -21,23 +21,22 @@
 		Making forms a breeze
 	</h1>
 	<p class="mx-auto mt-6 max-w-3xl text-balance text-center text-base sm:text-lg">
-		Accessible form components and helpers that take <a
+		Accessible form components that take <a
 			target="_blank"
 			href="https://superforms.rocks"
 			class="text-brand hover:text-brand/95 font-medium underline underline-offset-4 transition-all hover:underline-offset-[6px]"
 			>Superforms</a
 		>
-		to the next level. Built and maintained by the
-		<a
-			href="https://github.com/svecosystem"
-			target="_blank"
-			class="text-brand hover:text-brand/95 font-medium underline underline-offset-4 transition-all hover:underline-offset-[6px]"
-			>Svecosystem</a
-		> team.
+		to the next level.
 	</p>
 	<div class="mt-8 flex items-center justify-center gap-4">
-		<Button href="/docs/guide" variant="brand" size="lg">Get Started</Button>
-		<Button href="https://github.com/svecosystem/svecodocs" variant="outline" size="lg">
+		<Button href="/docs" variant="brand" size="lg">Get Started</Button>
+		<Button
+			href="https://github.com/huntabyte/formsnap"
+			target="_blank"
+			variant="outline"
+			size="lg"
+		>
 			<GitHubIcon class="mr-2 h-4 w-4" />
 			View on GitHub
 		</Button>
