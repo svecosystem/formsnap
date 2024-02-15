@@ -9,23 +9,19 @@ description: What is this?
 
 Formsnap takes the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) (winner of [Svelte Hack 2023](https://hack.sveltesociety.dev/winners) for best library), made by the brilliant [Andreas Söderlund](https://github.com/ciscoheat) and wraps it with components that make it simpler to use while making your forms accessible by default.
 
-By design, [Superforms](https://superforms.rocks) is a lower-level library that gives you the tools to build and customize the behavior of your forms to your liking. Unfortunately, this comes at the cost of writing some boilerplate code to get a form up and running. Since most applications are form heavy, this can become quite tedious, time consuming, and error prone.
-
-Formsnap aims to improve this experience by providing you with a set of components that handle a bit of the boilerplate, while still giving you flexibility with the behavior of your forms. Your forms will also be more accessible by default. Everyone wins!
-
-To better demonstrate the value-add, let's look at what it takes to build an accessible signup form that has custom client-side validation using _only_ Superforms, and compare it to the same when you combine it with Formsnap.
+To better demonstrate the value-add, let's take a look at a simple form using Superforms, and then the same form using Formsnap.
 
 ## Initializing a Superform
 
 The following steps are the same whether you're just using Superforms, or combining it with Formsnap, so we'll use this same initialization code for both examples.
 
-If you aren't already familiar with Superforms, it's **_highly_** recommended that you check out the [documentation](https://superforms.rocks) before continuing. It's a fantastic library that you'll need to understand to get the most out of this project.
+If you aren't already familiar with Superforms, it's **_highly_** recommended that you check out the [documentation](https://superforms.rocks) before continuing. You'll need to understand Superforms to use this project effectively.
 
 <Steps>
 
 ### Define a schema
 
-Superforms requires us to define a schema to represent our form. They have adapters for a few popular schema libraries, but we'll be using [Zod](https://zod.dev) for this example. However, you could use any of the other supported libraries, or even write your own adapter.
+Superforms requires us to define a schema to represent our form. They have adapters for a few popular schema libraries, but we'll be using [Zod](https://zod.dev) for this example. However, you can use any of the other supported libraries, or even write your own adapter.
 
 This schema is used to validate the form data on the client (optional) and server, as well as provide a bit of type safety to our form data.
 
@@ -50,7 +46,7 @@ import { superValidate } from "sveltekit-superforms/server";
 
 export const load: PageServerLoad = () => {
 	return {
-		form: superValidate(signupFormSchema),
+		form: superValidate(zod(signupFormSchema)),
 	};
 };
 ```
@@ -59,19 +55,20 @@ export const load: PageServerLoad = () => {
 
 Before we dive into the following code examples, it's important to note that we're intentionally opting out of the native form validation provided by the browser, and instead using our own client-side validation. The reason for this is quite simple. Native browser validation while accessible, is not very customizable, and certainly not pretty.
 
-Having this in mind, we now have the responsibility of ensuring our form is still accessible to users who may be using assistive technology. We'll be using the [WAI ARIA](https://www.w3.org/WAI/standards-guidelines/aria/) spec to help us with this. If you discover any accessibility issues with the code in this guide or with Formsnap in general, please [open an issue](https://github.com/huntabyte/formsnap/issues/new) so we can address it.
+Having this in mind, we now have the responsibility of ensuring our form is still accessible to users using assistive technology. We'll use the [WAI ARIA](https://www.w3.org/WAI/standards-guidelines/aria/) spec to help us with this. If you discover any accessibility issues with the code in this guide or with Formsnap in general, please [open an issue](https://github.com/huntabyte/formsnap/issues/new) and it will be promptly addressed.
 
 ## Using _only_ Superforms
 
 ```svelte title="src/routes/sign-up/+page.svelte"
 <script lang="ts">
 	import type { PageData } from "./$types";
-	import { superForm } from "sveltekit-superforms/client";
-	import { signupFormSchema } from "./schema.ts";
+	import { superForm } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
+	import { signupFormSchema } from "./schema";
 	export let data: PageData;
 
-	const { form, errors, enhance } = superForm(data.form, {
-		validators: signupFormSchema,
+	const { form, errors, enhance, constraints } = superForm(data.form, {
+		validators: zodClient(signupFormSchema),
 	});
 </script>
 
@@ -82,12 +79,15 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 		name="name"
 		aria-describedby={$errors.name ? "name-error name-desc" : "name-desc"}
 		aria-invalid={$errors.name ? "true" : undefined}
+		aria-required={$constraints.name?.required ? "true" : undefined}
 		bind:value={$form.name}
 	/>
 	<span id="name-desc">Be sure to use your real name.</span>
 	<span id="name-error" aria-live="assertive">
-		{#if $errors.name}
-			{$errors.name}
+		{#if $errors.name.length}
+			{#each $errors.name as err}
+				{err}
+			{/each}
 		{/if}
 	</span>
 	<label for="email">Email</label>
@@ -97,12 +97,15 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 		type="email"
 		aria-describedby={$errors.email ? "email-error email-desc" : "email-desc"}
 		aria-invalid={$errors.email ? "true" : undefined}
+		aria-required={$constraints.email?.required ? "true" : undefined}
 		bind:value={$form.email}
 	/>
 	<span id="email-desc">It's preferred that you use your company email.</span>
 	<span id="email-error" aria-live="assertive">
-		{#if $errors.email}
-			{$errors.email}
+		{#if $errors.email.length}
+			{#each $errors.email as err}
+				{err}
+			{/each}
 		{/if}
 	</span>
 	<label for="password">Password</label>
@@ -114,21 +117,24 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 			? "password-error password-desc"
 			: "password-desc"}
 		aria-invalid={$errors.password ? "true" : undefined}
+		aria-required={$constraints.password?.required ? "true" : undefined}
 		bind:value={$form.password}
 	/>
 	<span id="password-desc">Ensure the password is at least 10 characters.</span>
 	<span id="password-error" aria-live="assertive">
-		{#if $errors.password}
-			{$errors.password}
+		{#if $errors.password.length}
+			{#each $errors.password as err}
+				{err}
+			{/each}
 		{/if}
 	</span>
 	<button>Submit</button>
 </form>
 ```
 
-That's quite a bit of code required to get a simple, accessible form up and running. While clearly possible, we can't move as quickly as we'd like to, it's not very DRY, and it's a bit ugly to look at.
+That's quite a bit of code required to get a simple, accessible form up and running. While clearly possible, we can't move as quickly as we'd like to, it's not very DRY, and is ripe for some copy-paste errors.
 
-All is not lost though, as the whole idea behind Formsnap is to make this process simpler, without sacrificing too much of the flexibility that Superforms provides.
+All is not lost though, as the whole idea behind Formsnap is to make this process simpler, without sacrificing the flexibility that Superforms provides.
 
 ## Using Superforms _and_ Formsnap
 
@@ -137,27 +143,40 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 	import { Form } from "formsnap";
 	import type { PageData } from "./$types";
 	import { signupFormSchema } from "./schema.ts";
+	import { zodClient } from "sveltekit-superforms/adapters";
+	import { superForm } from "sveltekit-superforms";
 	export let data: PageData;
+
+	const form = superForm(data.form, {
+		validators: zodClient(signupFormSchema),
+	});
+	const { form: formData } = form;
 </script>
 
 <Form.Root form={data.form} schema={signupFormSchema} let:config>
 	<Form.Field {config} name="name">
-		<Form.Label>Name</Form.Label>
-		<Form.Input />
+		<Form.Item let:attrs>
+			<Form.Label>Name</Form.Label>
+			<input {...attrs} bind:value={$formData.name} />
+		</Form.Item>
 		<Form.Description>Be sure to use your real name.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {config} name="email">
-		<Form.Label>Email</Form.Label>
-		<Form.Input type="email" />
+		<Form.Item let:attrs>
+			<Form.Label>Email</Form.Label>
+			<input {...attrs} type="email" bind:value={$formData.email} />
+		</Form.Item>
 		<Form.Description>
 			It's preferred that you use your company email.
 		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {config} name="password">
-		<Form.Label>Password</Form.Label>
-		<Form.Input type="password" />
+		<Form.Item let:attrs>
+			<Form.Label>Password</Form.Label>
+			<input {...attrs} type="password" bind:value={$formData.password} />
+		</Form.Item>
 		<Form.Description>
 			Ensure the password is at least 10 characters.
 		</Form.Description>
@@ -171,18 +190,16 @@ That's it! We just condensed a bunch of code, while retaining the same functiona
 You can alias the names to whatever floats your boat, here's an example:
 
 ```ts title="src/lib/no-form-form.ts"
-import { Form as FormSnap } from "formsnap";
+import { Form as Formsnap } from "formsnap";
 
-const Form = FormSnap.Root;
-const Field = FormSnap.Field;
-const Label = FormSnap.Label;
-const Input = FormSnap.Input;
-const Description = FormSnap.Description;
-const Validation = FormSnap.Validation;
+const Form = Formsnap.Root;
+const Field = Formsnap.Field;
+const Label = Formsnap.Label;
+const Item = Formsnap.Item;
+const Description = Formsnap.Description;
+const Validation = Formsnap.Validation;
 
-export { Form, Field, Label, Input, Description, Validation };
+export { Form, Field, Label, Item, Description, Validation };
 ```
-
-If aliasing isn't your cup of tea either, there are alternative ways to use Formsnap that while a bit more verbose, still provide the same functionality, while giving you the ability to use native HTML elements or your own custom components. You can read more about this in the [Headless usage](/docs/headless-usage) section of the docs.
 
 To get started using Formsnap, head over to the [Quick start](/docs/quick-start) section of the docs, where you'll learn how to install and use the library.

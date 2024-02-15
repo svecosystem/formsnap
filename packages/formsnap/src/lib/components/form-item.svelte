@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getFormField, setFormItem } from '$lib/context.js';
-	import { getAriaDescribedBy } from '$lib/internal/utils/aria.js';
+	import { getAriaDescribedBy, getAriaRequired } from '$lib/internal/utils/aria.js';
 	import { generateId } from '$lib/internal/utils/id.js';
 	import { writable } from 'svelte/store';
 	import type { ItemProps } from './types.js';
@@ -9,7 +9,7 @@
 
 	export let id = generateId();
 
-	const { name, validationId, descriptionId, errors } = getFormField();
+	const { name, validationId, descriptionId, errors, constraints } = getFormField();
 
 	const itemContext = {
 		id: writable(id),
@@ -33,7 +33,8 @@
 			errors: $errors
 		}),
 		'aria-invalid': hasErrors ? ('true' as const) : undefined,
-		'data-error': hasErrors ? '' : undefined
+		'data-error': hasErrors ? '' : undefined,
+		'aria-required': getAriaRequired($constraints)
 	};
 
 	$: labelAttrs = {
