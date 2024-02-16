@@ -150,11 +150,11 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 	const form = superForm(data.form, {
 		validators: zodClient(signupFormSchema),
 	});
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
-<Form.Root form={data.form} schema={signupFormSchema} let:config>
-	<Form.Field {config} name="name">
+<form method="POST" use:enhance>
+	<Form.Field {form} name="name">
 		<Form.Item let:attrs>
 			<Form.Label>Name</Form.Label>
 			<input {...attrs} bind:value={$formData.name} />
@@ -162,7 +162,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 		<Form.Description>Be sure to use your real name.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {config} name="email">
+	<Form.Field {form} name="email">
 		<Form.Item let:attrs>
 			<Form.Label>Email</Form.Label>
 			<input {...attrs} type="email" bind:value={$formData.email} />
@@ -172,7 +172,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {config} name="password">
+	<Form.Field {form} name="password">
 		<Form.Item let:attrs>
 			<Form.Label>Password</Form.Label>
 			<input {...attrs} type="password" bind:value={$formData.password} />
@@ -182,7 +182,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 		</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-</Form.Root>
+</form>
 ```
 
 That's it! We just condensed a bunch of code, while retaining the same functionality. Now I know some of you might be thinking, "gross, how many times do I have to type Form?", and I hear you.

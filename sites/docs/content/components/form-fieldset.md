@@ -13,7 +13,7 @@ The `<Form.Fieldset />` component is used to follow the [W3C Grouping Controls](
 
 When you have a group of radio buttons related to a single field, you should use a fieldset to group them together.
 
-```svelte {2-3,12}
+```svelte {2-3,14}
 <Form.Field name="theme">
 	<Form.Fieldset>
 		<Form.Legend>Select your theme</Form.Legend>
