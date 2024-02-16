@@ -6,6 +6,8 @@ import Validation from "./form-validation.svelte";
 import Button from "./form-button.svelte";
 
 const Field = FormPrimitive.Field;
+const Fieldset = FormPrimitive.Fieldset;
+const Legend = FormPrimitive.Legend;
 
 export {
 	Field,
@@ -14,6 +16,8 @@ export {
 	Button,
 	Validation,
 	Description,
+	Fieldset,
+	Legend,
 	//
 	Field as FormField,
 	Item as FormItem,
@@ -21,4 +25,6 @@ export {
 	Label as FormLabel,
 	Validation as FormValidation,
 	Button as FormButton,
+	Fieldset as FormFieldset,
+	Legend as FormLegend,
 };

@@ -98,23 +98,25 @@
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="favoriteColors">
-		<legend>Select your favorite colors</legend>
-		{#each colors as color}
-			<Form.Item let:attrs class="flex-row items-center gap-4">
-				<Checkbox
-					{...attrs}
-					checked={$formData.favoriteColors.includes(color)}
-					onCheckedChange={(checked) => {
-						if (checked === true) {
-							$formData.favoriteColors = [...$formData.favoriteColors, color];
-						} else {
-							$formData.favoriteColors = $formData.favoriteColors.filter((c) => c !== color);
-						}
-					}}
-				/>
-				<Form.Label>{color}</Form.Label>
-			</Form.Item>
-		{/each}
+		<Form.Fieldset>
+			<Form.Legend>Select your favorite colors</Form.Legend>
+			{#each colors as color}
+				<Form.Item let:attrs class="flex-row items-center gap-4">
+					<Checkbox
+						{...attrs}
+						checked={$formData.favoriteColors.includes(color)}
+						onCheckedChange={(checked) => {
+							if (checked === true) {
+								$formData.favoriteColors = [...$formData.favoriteColors, color];
+							} else {
+								$formData.favoriteColors = $formData.favoriteColors.filter((c) => c !== color);
+							}
+						}}
+					/>
+					<Form.Label>{color}</Form.Label>
+				</Form.Item>
+			{/each}
+		</Form.Fieldset>
 	</Form.Field>
 	<button>Submit</button>
 </form>
