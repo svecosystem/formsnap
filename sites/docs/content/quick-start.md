@@ -105,10 +105,10 @@ You can think of form fields as the building blocks of your form. Each property 
 
 We'll start with the `email` field and work our way down.
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers {18,20}
+```svelte title="src/routes/settings/+page.svelte" showLineNumbers
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Form } from "formsnap";
+	import { Field } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
@@ -123,9 +123,9 @@ We'll start with the `email` field and work our way down.
 </script>
 
 <form method="POST" use:enhance>
-	<Form.Field {form} name="email">
+	<Field {form} name="email">
 		<!-- ... -->
-	</Form.Field>
+	</Field>
 </form>
 <SuperDebug data={$formData} />
 ```
@@ -134,10 +134,10 @@ We pass the `form` and `name` to the `Field` component, which will be used to se
 
 Now let's add the remaining parts of the field:
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers {16-19}
+```svelte title="src/routes/settings/+page.svelte" showLineNumbers
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Form } from "formsnap";
+	import { Field, Control, Label, Description, ValidationError } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
@@ -152,23 +152,23 @@ Now let's add the remaining parts of the field:
 </script>
 
 <form method="POST" use:enhance>
-	<Form.Field {form} name="email">
-		<Form.Item let:attrs>
-			<Form.Label>Email</Form.Label>
+	<Field {form} name="email">
+		<Control let:attrs>
+			<Label>Email</Label>
 			<input {...attrs} type="email" bind:value={$formData.email} />
-		</Form.Item>
-		<Form.Description>Use your company email if you have one.</Form.Description>
-		<Form.Validation />
-	</Form.Field>
+		</Control>
+		<Description>Use your company email if you have one.</Description>
+		<ValidationError />
+	</Field>
 </form>
 <SuperDebug data={$formData} />
 ```
 
-We've first added the `Item` component. `Item`s are used to represent a form control and its label. They keep the control and label in sync via the `attrs` slot prop, which is spread onto the control. Inside the `Item`, we've added the `Label` component, which will automatically associate itself with the control the `attrs` are spread onto. We've also added the control itself, which is an `input` that we're binding to the `email` property of the form data.
+We've first added the [Control](/docs/components/control) component. `Control`s are used to represent a form control and its label. They keep the control and label in sync via the `attrs` slot prop, which is spread onto the control. Inside the `Control`, we've added the [Label](/docs/components/label) component, which will automatically associate itself with the control the `attrs` are spread onto. We've also added the control itself, which is an `input` that we're binding to the `email` property of the form data.
 
-The `Description` component is optional, but it's useful for providing additional context to the user about the field. It'll be synced with the `aria-describedby` attribute on the input, so it's accessible to screen readers.
+The [Description](/docs/components/description) component is optional, but it's useful for providing additional context to the user about the field. It'll be synced with the `aria-describedby` attribute on the input, so it's accessible to screen readers.
 
-The `Validation` component is used to display validation errors to the user. It also is synced with the `aria-describedby` attribute on the input, which can receive multiple IDs, so that screen readers are able to read the error messages in addition to the description.
+The [ValidationError](/docs/components/validation-error) component is used to display validation errors to the user. It also is synced with the `aria-describedby` attribute on the input, which can receive multiple IDs, so that screen readers are able to read the error messages in addition to the description.
 
 And that's really all it takes to setup a form field. Let's continue on with the rest of the fields.
 
@@ -177,7 +177,15 @@ And that's really all it takes to setup a form field. Let's continue on with the
 ```svelte title="src/routes/settings/+page.svelte" showLineNumbers
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Form } from "formsnap";
+	import {
+		Field,
+		Control,
+		Label,
+		Description,
+		ValidationError,
+		Fieldset,
+		Legend,
+	} from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
@@ -192,90 +200,75 @@ And that's really all it takes to setup a form field. Let's continue on with the
 </script>
 
 <form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
-	<Form.Field {form} name="email">
-		<Form.Item let:attrs>
-			<Form.Label>Email</Form.Label>
+	<Field {form} name="email">
+		<Control let:attrs>
+			<Label>Email</Label>
 			<input {...attrs} type="email" bind:value={$formData.email} />
-		</Form.Item>
-		<Form.Description>Company email is preferred</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="bio">
-		<Form.Item let:attrs>
-			<Form.Label>Bio</Form.Label>
+		</Control>
+		<Description>Company email is preferred</Description>
+		<ValidationError />
+	</Field>
+	<Field {form} name="bio">
+		<Control let:attrs>
+			<Label>Bio</Label>
 			<textarea {...attrs} bind:value={$formData.bio} />
-		</Form.Item>
-		<Form.Description>Tell us a bit about yourself.</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="language">
-		<Form.Item let:attrs>
-			<Form.Label>Language</Form.Label>
+		</Control>
+		<Description>Tell us a bit about yourself.</Description>
+		<ValidationError />
+	</Field>
+	<Field {form} name="language">
+		<Control let:attrs>
+			<Label>Language</Label>
 			<select {...attrs} bind:value={$formData.language}>
 				<option value="fr">French</option>
 				<option value="es">Spanish</option>
 				<option value="en">English</option>
 			</select>
-		</Form.Item>
-		<Form.Description>Help us address you properly.</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="theme">
-		<Form.Group>
-			<Form.GroupTitle>Select your theme</Form.GroupTitle>
-			{#each themes as theme}
-				<Form.Item let:attrs>
-					<Form.Label>{theme}</Form.Label>
-					<input
-						{...attrs}
-						type="radio"
-						value={theme}
-						bind:group={$formData.theme}
-					/>
-				</Form.Item>
-			{/each}
-			<Form.Description
-				>We prefer dark mode, but the choice is yours.</Form.Description
-			>
-			<Form.Validation />
-		</Form.Group>
-	</Form.Field>
-	<Form.Field {form} name="marketingEmails">
-		<Form.Item let:attrs>
+		</Control>
+		<Description>Help us address you properly.</Description>
+		<ValidationError />
+	</Field>
+	<Fieldset {form} name="theme">
+		<Legend>Select your theme</Legend>
+		{#each themes as theme}
+			<Control let:attrs>
+				<Label>{theme}</Label>
+				<input {...attrs} type="radio" value={theme} bind:group={$formData.theme} />
+			</Control>
+		{/each}
+		<Description>We prefer dark mode, but the choice is yours.</Description>
+		<ValidationError />
+	</Fieldset>
+	<Field {form} name="marketingEmails">
+		<Control let:attrs>
 			<input {...attrs} type="checkbox" bind:checked={$formData.marketingEmails} />
-			<Form.Label>I want to receive marketing emails</Form.Label>
-		</Form.Item>
-		<Form.Description
-			>Stay up to date with our latest news and offers.</Form.Description
-		>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="allergies">
-		<Form.Group>
-			<Form.GroupTitle>Food allergies</Form.GroupTitle>
-			{#each allergies as allergy}
-				<Form.Item let:attrs>
-					<input
-						{...attrs}
-						type="checkbox"
-						bind:group={$formData.allergies}
-						value={allergy}
-					/>
-					<Form.Label>{allergy}</Form.Label>
-				</Form.Item>
-			{/each}
-			<Form.Description
-				>When we provide lunch, we'll accommodate your needs.</Form.Description
-			>
-			<Form.Validation />
-		</Form.Group>
-	</Form.Field>
+			<Label>I want to receive marketing emails</Label>
+		</Control>
+		<Description>Stay up to date with our latest news and offers.</Description>
+		<ValidationError />
+	</Field>
+	<Fieldset {form} name="allergies">
+		<Legend>Food allergies</Legend>
+		{#each allergies as allergy}
+			<Control let:attrs>
+				<input
+					{...attrs}
+					type="checkbox"
+					bind:group={$formData.allergies}
+					value={allergy}
+				/>
+				<Label>{allergy}</Label>
+			</Control>
+		{/each}
+		<Description>When we provide lunch, we'll accommodate your needs.</Description>
+		<ValidationError />
+	</Fieldset>
 	<button>Submit</button>
 </form>
 <SuperDebug data={$formData} />
 ```
 
-You may have noticed for the `allergies` and `theme` fields, we used the `Group` and `GroupTitle` components. These are used to group related fields together and provide a title for the group, which is great for accessibility and organization. Additionally, we only use a single `Validation` and `Description` component for the entire group, and use an `Item` for each field in the group to associate the label with the control.
+You may have noticed for the `allergies` and `theme` fields, we used the [Fieldset](/docs/components/fieldset) and [Legend](/docs/components/legend) components. These are used to group related fields together and provide a title for the group, which is great for accessibility and organization. Additionally, we only use a single [ValidationError](/docs/components/validation-error) and [Description](/docs/components/description) component for the entire group, and use an [Control](/docs/components/control) for each field in the group to associate the label with the control.
 
 </Steps>
 

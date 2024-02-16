@@ -1,29 +1,29 @@
 ---
-title: <Form.Description />
-description: A component that provides an accessible description for a form field.
+title: Description
+description: Provides an accessible description for a form field.
 ---
 
-The `<Form.Description />` component provides an accessible description for a form field. It renders a `<div />` element and should be used to provide additional context or instructions for a form field.
+The `Description` component provides an accessible description for a field. It renders a `<div />` element and should be used to provide additional context or instructions for a form field.
 
-It must be used within the context of a `<Form.Field />` component and will automatically be linked to the control of the field using the `aria-describedby` attribute.
+Descriptions must be used within the context of a [Field](/docs/components/field) or [Fieldset](/docs/components/fieldset) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
 
 ## Usage
 
 ```svelte {6-8}
-<Form.Field name="name">
-	<Form.Item let:attrs>
-		<Form.Label>Name</Form.Label>
+<Field name="name">
+	<Control let:attrs>
+		<Label>Name</Label>
 		<input type="text" {...attrs} />
-	</Form.Item>
-	<Form.Description>
+	</Control>
+	<Description>
 		Your full name, including your middle name if you have one.
-	</Form.Description>
-</Form.Field>
+	</Description>
+</Field>
 ```
 
 ## Props
 
-The `<Form.Description />` component renders a `<div />` element and accepts all props that a standard HTML `<div />` element would accept along with a few additional props.
+The `Description` component accepts all props that a standard HTML `<div />` element would accept along with a few additional props:
 
 ```ts
 export type DescriptionProps = {
@@ -53,7 +53,7 @@ export type DescriptionProps = {
 
 ## Slot Props
 
-The `<Form.Description />` component provides a single slot prop, `descriptionAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
+The `Description` component provides a single slot prop, `descriptionAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
 
 ```ts
 type SlotProps = {
@@ -69,7 +69,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the element rendered by the `<Form.Description />` component. This is also the shape of the `descriptionAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the element rendered by the `Description` component. This is also the shape of the `descriptionAttrs` slot prop when using the [asChild](/docs/aschild) prop.
 
 ```ts
 export type DescriptionAttrs = {

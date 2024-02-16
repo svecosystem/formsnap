@@ -1,19 +1,18 @@
 ---
-title: <Form.Field />
-description: A component that provides necessary context for a field.
+title: Field
+description: Provides the necessary context for a form field.
 ---
 
-The `<Form.Field/>` component provides the necessary context for its children to react
+The `Field` component provides the necessary context for its children to react
 to changes in the form state, as well as provides necessary information about the field,
 such as the ids needed for aria attributes, and a lot more.
 
-Each `<Form.Field/>` creates its own context, and the children of the field only access
-the immediate parent's context. This means that if you have nested fields, the children
-of the nested field will not have access to the parent field's context.
+Each `Field` creates its own context, and the children of the field only access
+the immediate parent's context.
 
 ## Props
 
-The `<Form.Field/>` component doesn't render an element itself, it strictly provides context.
+The `Field` component doesn't render an element, it strictly provides context.
 
 ```ts
 export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
@@ -27,7 +26,7 @@ export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>>
 
 ## Slot Props
 
-The following slot props are provided for convenience and ease of composition when using the `<Form.Field />` component.
+The following slot props are provided for convenience and ease of composition when using the `Field` component.
 
 ```ts
 type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
@@ -47,9 +46,9 @@ type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 
 ## Composition
 
-Since the `<Form.Field />` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
+Since the `Field` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
-For example, you may always want to render the `<Form.Validation />` component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
+For example, you may always want to render the [ValidationError](/docs/components/validation-error) component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
 
 To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
 
@@ -68,19 +67,19 @@ To maintain the type safety of the component, we'll need to use some generics, w
 	lang="ts"
 	generics="T extends Record<string, unknown>, U extends FormPath<T>"
 >
-	import type { Form } from "formsnap";
+	import { Field, type FieldProps, ValidationError } from "formsnap";
 	import type { SuperForm } from "sveltekit-superforms";
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	type $$Props = Form.FieldProps<T, U>;
+	type $$Props = FieldProps<T, U>;
 
 	export let form: SuperForm<T>;
 	export let name: U;
 </script>
 
 <!-- passing the slot props down are optional -->
-<Form.Field {form} {name} let:value let:errors let:tainted let:contraints>
+<Field {form} {name} let:value let:errors let:tainted let:contraints>
 	<slot {value} {errors} {tainted} {constraints} />
-	<Form.Validation />
-</Form.Field>
+	<ValidationError />
+</Field>
 ```

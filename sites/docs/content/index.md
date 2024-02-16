@@ -140,7 +140,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 
 ```svelte title="src/routes/sign-up/+page.svelte"
 <script lang="ts">
-	import { Form } from "formsnap";
+	import { Field, Control, Label, ValidationError, Description } from "formsnap";
 	import type { PageData } from "./$types";
 	import { signupFormSchema } from "./schema.ts";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -154,53 +154,35 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 </script>
 
 <form method="POST" use:enhance>
-	<Form.Field {form} name="name">
-		<Form.Item let:attrs>
-			<Form.Label>Name</Form.Label>
+	<Field {form} name="name">
+		<Control let:attrs>
+			<Label>Name</Label>
 			<input {...attrs} bind:value={$formData.name} />
-		</Form.Item>
-		<Form.Description>Be sure to use your real name.</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="email">
-		<Form.Item let:attrs>
-			<Form.Label>Email</Form.Label>
+		</Control>
+		<Description>Be sure to use your real name.</Description>
+		<ValidationError />
+	</Field>
+	<Field {form} name="email">
+		<Control let:attrs>
+			<Label>Email</Label>
 			<input {...attrs} type="email" bind:value={$formData.email} />
-		</Form.Item>
-		<Form.Description>
-			It's preferred that you use your company email.
-		</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="password">
-		<Form.Item let:attrs>
-			<Form.Label>Password</Form.Label>
+		</Control>
+		<Description>It's preferred that you use your company email.</Description>
+		<ValidationError />
+	</Field>
+	<Field {form} name="password">
+		<Control let:attrs>
+			<Label>Password</Label>
 			<input {...attrs} type="password" bind:value={$formData.password} />
-		</Form.Item>
-		<Form.Description>
-			Ensure the password is at least 10 characters.
-		</Form.Description>
-		<Form.Validation />
-	</Form.Field>
+		</Control>
+		<Description>Ensure the password is at least 10 characters.</Description>
+		<ValidationError />
+	</Field>
 </form>
 ```
 
-That's it! We just condensed a bunch of code, while retaining the same functionality. Now I know some of you might be thinking, "gross, how many times do I have to type Form?", and I hear you.
+That's it! We just condensed a bunch of code, while retaining the same functionality.
 
-You can alias the names to whatever floats your boat, here's an example:
-
-```ts title="src/lib/no-form-form.ts"
-import { Form as Formsnap } from "formsnap";
-
-const Field = Formsnap.Field;
-const Label = Formsnap.Label;
-const Item = Formsnap.Item;
-const Description = Formsnap.Description;
-const Validation = Formsnap.Validation;
-const Fieldset = Formsnap.Fieldset;
-const Legend = Formsnap.Legend;
-
-export { Field, Label, Item, Description, Validation, Fieldset, Legend };
-```
+## Next Steps
 
 To get started using Formsnap, head over to the [Quick start](/docs/quick-start) section of the docs, where you'll learn how to install and use the library.
