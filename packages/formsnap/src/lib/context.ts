@@ -5,7 +5,8 @@ import type { ControlAttrs, LabelAttrs } from './attrs.types.js';
 
 /**
  * Context for the current form field.
- * The type argument `T` represents the the shape of the form object.
+ * The type argument `T` represents the the shape of the form object,
+ * and `U` represents the path to the field in the form object.
  *
  * @see https://formsnap.dev/docs/functions/get-form-field
  */
