@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Form } from "formsnap";
+	import { Field, Control, ValidationError, Label, Description } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { flavors, schema, toppings } from "./schema.js";
@@ -18,32 +18,32 @@
 			toast.error(`There was an error submitting the form!`);
 		},
 	});
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
-<form use:form.enhance class="mx-auto flex max-w-md flex-col" method="POST">
-	<Form.Field {form} name="flavors">
-		<Form.Item let:attrs>
-			<Form.Label>Flavors</Form.Label>
+<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
+	<Field {form} name="flavors">
+		<Control let:attrs>
+			<Label>Flavors</Label>
 			<select {...attrs} bind:value={$formData.flavors} multiple>
 				{#each flavors as flavor}
 					<option value={flavor} selected={$formData.flavors.includes(flavor)}>{flavor}</option>
 				{/each}
 			</select>
-		</Form.Item>
-		<Form.Description>Choose which flavors you'd like</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="toppings">
+		</Control>
+		<Description>Choose which flavors you'd like</Description>
+		<ValidationError />
+	</Field>
+	<Field {form} name="toppings">
 		{#each toppings as topping}
-			<Form.Item let:attrs>
-				<Form.Label>{topping}</Form.Label>
+			<Control let:attrs>
+				<Label>{topping}</Label>
 				<input {...attrs} bind:group={$formData.toppings} type="checkbox" value={topping} />
-			</Form.Item>
+			</Control>
 		{/each}
-		<Form.Description>Choose which toppings you'd like.</Form.Description>
-		<Form.Validation />
-	</Form.Field>
+		<Description>Choose which toppings you'd like.</Description>
+		<ValidationError />
+	</Field>
 	<button>Submit</button>
 </form>
 

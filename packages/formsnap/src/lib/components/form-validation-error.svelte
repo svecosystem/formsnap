@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { getFormField } from '$lib/context.js';
 	import { getDataFsError, generateId } from '$lib/internal/utils/index.js';
-	import type { ValidationProps } from './types.js';
+	import type { ValidationErrorProps } from './types.js';
 	import type { ValidationAttrs, ValidationErrorAttrs } from '$lib/attrs.types.js';
 
-	type $$Props = ValidationProps;
+	type $$Props = ValidationErrorProps;
 
 	const { validationId, errors } = getFormField();
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getFormField, getFormItem, Form } from "formsnap";
+	import { getFormField, getFormControl, Form } from "formsnap";
 	import { cn } from "$lib/utils";
 	import { Label } from "$lib/components/ui/label";
 
@@ -8,15 +8,14 @@
 	let className: $$Props["class"] = undefined;
 	export { className as class };
 
-	const { id, labelAttrs } = getFormItem();
+	const { labelAttrs } = getFormControl();
 	const { errors } = getFormField();
 </script>
 
 <Label
-	for={$id}
 	class={cn($errors.length > 0 && "text-destructive", className)}
-	{...$labelAttrs}
 	{...$$restProps}
+	{...$labelAttrs}
 >
 	<slot />
 </Label>

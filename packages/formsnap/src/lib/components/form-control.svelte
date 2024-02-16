@@ -1,32 +1,33 @@
 <script lang="ts">
-	import { getFormField, setFormItem, type FormItemContext } from '$lib/context.js';
+	import { getFormField, setFormControl, type FormControlContext } from '$lib/context.js';
 	import type { LabelAttrs, ControlAttrs } from '$lib/attrs.types.js';
 	import {
 		getAriaDescribedBy,
 		getAriaRequired,
 		getDataFsError,
-		generateId
+		generateId,
+		getAriaInvalid
 	} from '$lib/internal/utils/index.js';
 	import { writable } from 'svelte/store';
-	import type { ItemProps } from './types.js';
+	import type { ControlProps } from './types.js';
 
-	type $$Props = ItemProps;
+	type $$Props = ControlProps;
 
 	export let id = generateId();
 
 	const { name, validationId, descriptionId, errors, constraints } = getFormField();
 
-	const itemContext: FormItemContext = {
+	const controlContext: FormControlContext = {
 		id: writable(id),
 		attrs: writable<ControlAttrs>(),
 		labelAttrs: writable<LabelAttrs>()
 	};
 
-	const { id: idStore } = itemContext;
+	const { id: idStore } = controlContext;
 
-	$: itemContext.id.set(id);
+	$: controlContext.id.set(id);
 
-	setFormItem(itemContext);
+	setFormControl(controlContext);
 
 	$: errorAttr = getDataFsError($errors);
 
@@ -39,7 +40,7 @@
 			descriptionId: $descriptionId,
 			errors: $errors
 		}),
-		'aria-invalid': getAriaRequired($constraints),
+		'aria-invalid': getAriaInvalid($errors),
 		'aria-required': getAriaRequired($constraints),
 		'data-fs-control': ''
 	} satisfies ControlAttrs;
@@ -50,8 +51,8 @@
 		'data-fs-error': errorAttr
 	} satisfies LabelAttrs;
 
-	$: itemContext.attrs.set(attrs);
-	$: itemContext.labelAttrs.set(labelAttrs);
+	$: controlContext.attrs.set(attrs);
+	$: controlContext.labelAttrs.set(labelAttrs);
 </script>
 
 <slot {attrs} />

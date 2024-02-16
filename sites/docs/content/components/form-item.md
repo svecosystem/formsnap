@@ -11,7 +11,7 @@ The `<Form.Item/>` component is used associate a label with a control, and provi
 
 In the context of a form, a **_control_** refers to any interactive element such as an input field, select dropdown, or button. This includes custom components like select dropdowns or checkboxes that function as buttons but still serve as form inputs, typically activated by clicking on a label or pressing a key.
 
-Each control should be wrapped in its own `<Form.Item />` component. This is important for accessibility, as it ensures that the label is associated with the control, and that the control is announced to screen readers when the label is focused.
+Each control should be wrapped in its own `<Form.Item />` component. This is important for accessibility, as it ensures that the label is associated with the control, and that the label is announced to screen readers when the control receives focus.
 
 ## Why a separate component?
 

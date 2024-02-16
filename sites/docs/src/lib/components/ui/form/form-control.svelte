@@ -8,8 +8,8 @@
 	export { className as class };
 </script>
 
-<FormPrimitive.Item let:attrs>
+<FormPrimitive.Control let:attrs>
 	<div class={cn("flex flex-col gap-2", className)} {...$$restProps}>
 		<slot {attrs} />
 	</div>
-</FormPrimitive.Item>
+</FormPrimitive.Control>

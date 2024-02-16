@@ -1,5 +1,5 @@
 import { Form as FormPrimitive } from "formsnap";
-import Item from "./form-item.svelte";
+import Control from "./form-control.svelte";
 import Description from "./form-description.svelte";
 import Label from "./form-label.svelte";
 import Validation from "./form-validation.svelte";
@@ -11,7 +11,7 @@ const Legend = FormPrimitive.Legend;
 
 export {
 	Field,
-	Item,
+	Control,
 	Label,
 	Button,
 	Validation,
@@ -20,7 +20,7 @@ export {
 	Legend,
 	//
 	Field as FormField,
-	Item as FormItem,
+	Control as FormControl,
 	Description as FormDescription,
 	Label as FormLabel,
 	Validation as FormValidation,

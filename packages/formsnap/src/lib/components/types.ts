@@ -44,11 +44,46 @@ export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>>
 };
 
 /**
- * Props for the `Form.Item` component.
+ * Props for the `Form.Fieldset` component. This component is used to group
+ * form controls together and if used, should always have a child `Form.Legend`
+ * component to provide an accessible label for the group.
+ *
+ * @see https://www.w3.org/WAI/tutorials/forms/grouping/
  */
-export type ItemProps = {
+export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 	/**
-	 * Optionally provide a unique id for the form item/control.
+	 * The form object returned from calling `superForm` in your component.
+	 */
+	form: SuperForm<T>;
+
+	/**
+	 * The path to the field in the form object.
+	 */
+	name: U;
+
+	/**
+	 * If `true`, Formsnap won't render the default `div` element
+	 * and will expect you to spread the `groupAttrs` slot prop into
+	 * a custom label element/component of your choosing.
+	 *
+	 * @see https://formsnap.dev/docs/asChild
+	 * @defaultValue `false`
+	 */
+	asChild?: boolean;
+
+	/**
+	 * You can bind to this prop to receive a reference to the
+	 * underling HTML element rendered for the group.
+	 */
+	el?: HTMLFieldSetElement;
+} & Omit<HTMLFieldsetAttributes, 'form'>;
+
+/**
+ * Props for the `<Control />` component.
+ */
+export type ControlProps = {
+	/**
+	 * Optionally provide a unique id for the form control.
 	 * If not provided, a unique ID will be generated for you.
 	 */
 	id?: string;
@@ -74,31 +109,6 @@ export type LabelProps = {
 	 */
 	el?: HTMLLabelElement;
 } & HTMLLabelAttributes;
-
-/**
- * Props for the `Form.Group` component. This component is used to group
- * form controls together and if used, should always have a child `Form.GroupTitle`
- * component to provide an accessible label for the group.
- *
- * @see https://www.w3.org/WAI/tutorials/forms/grouping/
- */
-export type FieldsetProps = {
-	/**
-	 * If `true`, Formsnap won't render the default `div` element
-	 * and will expect you to spread the `groupAttrs` slot prop into
-	 * a custom label element/component of your choosing.
-	 *
-	 * @see https://formsnap.dev/docs/asChild
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
-
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the group.
-	 */
-	el?: HTMLFieldSetElement;
-} & HTMLFieldsetAttributes;
 
 /**
  * Props for the `Form.GroupTitle` component. This component is used to
@@ -127,7 +137,7 @@ export type LegendProps = {
 /**
  * Props for the `Form.Validation` component.
  */
-export type ValidationProps = {
+export type ValidationErrorProps = {
 	/**
 	 * Optionally provide a unique id for the validation message.
 	 * If not provided, a unique ID will be generated for you.

@@ -62,7 +62,7 @@ export function getFormField<
  *
  * @see https://formsnap.dev/docs/functions/get-form-item
  */
-export type FormItemContext = {
+export type FormControlContext = {
 	/** A store containing the ID of the form control. */
 	id: Writable<string>;
 
@@ -73,10 +73,10 @@ export type FormItemContext = {
 	attrs: Writable<ControlAttrs>;
 };
 
-const FORM_ITEM = Symbol('FORM_ITEM_CTX');
+const FORM_CONTROL = Symbol('FORM_CONTROL_CTX');
 
-export function setFormItem(props: FormItemContext) {
-	setContext(FORM_ITEM, props);
+export function setFormControl(props: FormControlContext) {
+	setContext(FORM_CONTROL, props);
 	return props;
 }
 
@@ -85,11 +85,11 @@ export function setFormItem(props: FormItemContext) {
  *
  * @see https://formsnap.dev/docs/functions/get-form-item
  */
-export function getFormItem(): FormItemContext {
-	if (!hasContext(FORM_ITEM)) {
-		ctxError('Form.Item');
+export function getFormControl(): FormControlContext {
+	if (!hasContext(FORM_CONTROL)) {
+		ctxError('<Control />');
 	}
-	return getContext(FORM_ITEM);
+	return getContext(FORM_CONTROL);
 }
 
 function ctxError(ctx: string) {

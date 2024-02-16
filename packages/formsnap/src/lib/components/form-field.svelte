@@ -10,6 +10,7 @@
 
 	import { setFormField, type FormFieldContext } from '$lib/context.js';
 	import { writable } from 'svelte/store';
+	import { extractErrorArray } from '$lib/internal/utils/index.js';
 
 	import type { SuperForm } from 'sveltekit-superforms';
 
@@ -36,21 +37,19 @@
 		form
 	};
 
-	const { tainted } = field;
+	const { tainted, errors } = field;
 
 	$: field.name.set(name);
-	$: field.errors.set($formErrors[name] ?? []);
+	$: field.errors.set(extractErrorArray($formErrors[name]));
 	$: field.constraints.set($formConstraints[name] ?? {});
 	$: field.tainted.set($formTainted ? isTainted($formTainted[name]) : false);
 
-	setFormField<T, U>({
-		...field
-	});
+	setFormField<T, U>(field);
 </script>
 
 <slot
 	value={$formData[name]}
-	errors={$formErrors[name]}
+	errors={$errors}
 	tainted={$tainted}
 	constraints={$formConstraints[name]}
 />

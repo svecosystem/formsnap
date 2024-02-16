@@ -8,7 +8,7 @@
 	export { className as class };
 </script>
 
-<FormPrimitive.Validation
-	class={cn("text-sm font-medium text-destructive", className)}
+<FormPrimitive.ValidationError
+	class={cn("text-destructive text-sm font-medium", className)}
 	{...$$restProps}
 />

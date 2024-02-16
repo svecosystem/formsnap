@@ -44,7 +44,7 @@
 
 <form method="POST" use:form.enhance class="flex flex-col gap-4">
 	<Form.Field {form} name="username">
-		<Form.Item let:attrs>
+		<Form.Control let:attrs>
 			<Form.Label>Username</Form.Label>
 			<Input {...attrs} bind:value={$formData.username} />
 			<Form.Description>
@@ -52,10 +52,10 @@
 				change this once every 30 days.
 			</Form.Description>
 			<Form.Validation />
-		</Form.Item>
+		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="email">
-		<Form.Item let:attrs>
+		<Form.Control let:attrs>
 			<Form.Label>Email</Form.Label>
 			<Select.Root
 				selected={{ label: $formData.email, value: $formData.email }}
@@ -75,25 +75,25 @@
 			</Select.Root>
 			<Form.Description></Form.Description>
 			<Form.Validation />
-		</Form.Item>
+		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="bio">
-		<Form.Item let:attrs>
+		<Form.Control let:attrs>
 			<Form.Label>Bio</Form.Label>
 			<Textarea {...attrs} bind:value={$formData.bio} class="resize-none" rows={2} />
 			<Form.Description>
 				You can @mention other users and organizations to link to them.
 			</Form.Description>
 			<Form.Validation />
-		</Form.Item>
+		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="website">
-		<Form.Item let:attrs>
+		<Form.Control let:attrs>
 			<Form.Label>Website</Form.Label>
 			<Input {...attrs} bind:value={$formData.website} />
 			<Form.Description>Your personal website, blog, or portfolio.</Form.Description>
 			<Form.Validation />
-		</Form.Item>
+		</Form.Control>
 	</Form.Field>
 	<Form.Button>Submit</Form.Button>
 </form>
