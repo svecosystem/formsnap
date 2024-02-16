@@ -9,7 +9,7 @@ Formsnap doesn't ship with any styles by default, but it does provide a number o
 
 Data attributes are applied to the various parts of your form so that you can easily style them using those attributes as selectors on a parent element or at the global level.
 
-- `data-error` - Applied to all the formsnap components within a field if the field has a validation error. Using this attribute, you can customize the appearance of the input, label, etc. when the field has a validation error.
+- `data-fs-error` - Applied to all the formsnap components within a field if the field has a validation error. Using this attribute, you can customize the appearance of the input, label, etc. when the field has a validation error.
 - `data-fs-label` - Applied to the `<Form.Label />` component.
 - `data-fs-validation` - Applied to the `<Form.Validation />` component.
 - `data-fs-validation-error` - Applied to the default rendered `div` element for each of the validations errors in the `<Form.Validation />` component.

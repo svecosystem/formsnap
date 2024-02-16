@@ -13,7 +13,7 @@
 	$: descriptionId.set(id);
 	$: descriptionAttrs = {
 		id: $descriptionId,
-		'data-error': $errors.length > 0 ? '' : undefined,
+		'data-fs-error': $errors.length > 0 ? '' : undefined,
 		'data-fs-description': '',
 		...$$restProps
 	};

@@ -1,6 +1,6 @@
 ---
 title: <Form.Field />
-description: The component used to define a form field.
+description: A component that provides necessary context for a field
 ---
 
 The `<Form.Field/>` component provides the necessary context for it's children to react

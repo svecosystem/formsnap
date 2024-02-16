@@ -11,10 +11,12 @@
 
 	export let id = generateId();
 
+	$: errorAttr = $errors.length > 0 ? '' : undefined;
+
 	$: validationId.set(id);
 	$: validationAttrs = {
 		id: $validationId,
-		'data-error': $errors.length > 0 ? '' : undefined,
+		'data-fs-error': errorAttr,
 		'data-fs-validation': '',
 		'aria-live': 'assertive' as const,
 		...$$restProps
@@ -24,7 +26,7 @@
 <div {...validationAttrs}>
 	<slot errors={$errors}>
 		{#each $errors as error}
-			<div data-fs-validation-error="">{error}</div>
+			<div data-fs-validation-error="" data-fs-error={errorAttr}>{error}</div>
 		{/each}
 	</slot>
 </div>

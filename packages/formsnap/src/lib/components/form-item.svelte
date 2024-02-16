@@ -40,7 +40,7 @@
 	$: labelAttrs = {
 		for: $idStore,
 		'data-fs-label': '',
-		'data-error': hasErrors ? '' : undefined
+		'data-fs-error': hasErrors ? '' : undefined
 	};
 
 	$: itemContext.attrs.set(attrs);
