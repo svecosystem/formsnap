@@ -3,7 +3,7 @@ title: <Form.Field />
 description: A component that provides necessary context for a field.
 ---
 
-The `<Form.Field/>` component provides the necessary context for it's children to react
+The `<Form.Field/>` component provides the necessary context for its children to react
 to changes in the form state, as well as provides necessary information about the field,
 such as the ids needed for aria attributes, and a lot more.
 
