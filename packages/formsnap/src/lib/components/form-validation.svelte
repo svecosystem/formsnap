@@ -21,12 +21,17 @@
 		'aria-live': 'assertive' as const,
 		...$$restProps
 	};
+
+	$: validationErrorAttrs = {
+		'data-fs-validation-error': '',
+		'data-fs-error': errorAttr
+	};
 </script>
 
 <div {...validationAttrs}>
 	<slot errors={$errors}>
 		{#each $errors as error}
-			<div data-fs-validation-error="" data-fs-error={errorAttr}>{error}</div>
+			<div {...validationErrorAttrs}>{error}</div>
 		{/each}
 	</slot>
 </div>

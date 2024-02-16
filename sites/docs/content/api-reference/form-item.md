@@ -48,65 +48,41 @@ Don't forget to spread the `attrs` prop onto the control element/component. Forg
 </Callout>
 
 ```ts
-type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
-	/**
-	 * The value of the value store of the field.
-	 */
-	value: T[U];
-
-	/**
-	 * The value of the errors store for the field.
-	 */
-	errors: string[] | undefined;
-
-	/**
-	 * The constraints for the field.
-	 */
-	constraints: Record<string, unknown>;
-
-	/**
-	 * Whether the field is tainted or not.
-	 */
-	tainted: boolean;
+type SlotProps = {
+	attrs: {
+		name: string;
+		id: string;
+		"data-fs-error": string | undefined;
+		"aria-describedBy": string | undefined;
+		"aria-invalid": "true" | undefined;
+		"aria-required": "true" | undefined;
+	};
 };
 ```
 
 ## Composition
 
-Since the `<Form.Field />` component doesn't render anything itself, it's a common practice to create a wrapper component around it.
+Since the `<Form.Item />` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
-For example, you may always want to render the `<Form.Validation />` component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
+For example, you may want to automatically include the `<Form.Label />` for each item, and you want the label and slot content to be wrapped in a `div`.
 
-To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
+Here's how you might do just that:
 
-```svelte title="CustomField.svelte"
-<script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	import type { FormPath } from "sveltekit-superforms";
-
-	// the form object
-	type T = Record<string, unknown>;
-	// the path/name of the field in the form object
-	type U = unknown;
-</script>
-
-<script
-	lang="ts"
-	generics="T extends Record<string, unknown>, U extends FormPath<T>"
->
+```svelte title="CustomItem.svelte"
+<script lang="ts">
 	import type { Form } from "formsnap";
-	import type { SuperForm } from "sveltekit-superforms";
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	type $$Props = FieldProps<T, U>;
+	type $$Props = Form.ItemProps & {
+		label: string;
+	};
 
-	export let form: SuperForm<T>;
-	export let name: U;
+	export let label: string;
 </script>
 
-<!-- passing the slot props down are optional -->
-<Form.Field {form} {name} let:value let:errors let:tainted let:contraints>
-	<slot {value} {errors} {tainted} {constraints} />
-	<Form.Validation />
-</Form.Field>
+<Form.Item let:attrs {...$$restProps}>
+	<div class="flex flex-col gap-2">
+		<Form.Label>{label}</Form.Label>
+		<slot {attrs} />
+	</div>
+</Form.Item>
 ```

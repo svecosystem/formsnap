@@ -27,13 +27,13 @@
 	$: attrs = {
 		name: $name,
 		id: $idStore,
+		'data-fs-error': hasErrors ? '' : undefined,
 		'aria-describedBy': getAriaDescribedBy({
 			validationId: $validationId,
 			descriptionId: $descriptionId,
 			errors: $errors
 		}),
 		'aria-invalid': hasErrors ? ('true' as const) : undefined,
-		'data-error': hasErrors ? '' : undefined,
 		'aria-required': getAriaRequired($constraints)
 	};
 

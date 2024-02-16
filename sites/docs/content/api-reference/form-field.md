@@ -59,7 +59,7 @@ type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 
 ## Composition
 
-Since the `<Form.Field />` component doesn't render anything itself, it's a common practice to create a wrapper component around it.
+Since the `<Form.Field />` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
 For example, you may always want to render the `<Form.Validation />` component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
 
@@ -84,7 +84,7 @@ To maintain the type safety of the component, we'll need to use some generics, w
 	import type { SuperForm } from "sveltekit-superforms";
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	type $$Props = FieldProps<T, U>;
+	type $$Props = Form.FieldProps<T, U>;
 
 	export let form: SuperForm<T>;
 	export let name: U;
