@@ -1,6 +1,6 @@
 ---
 title: <Form.Item />
-description: The component responsible for associating a label with a control.
+description: Responsible for associating a label with a control and providing necessary attributes for the control.
 ---
 
 <script>

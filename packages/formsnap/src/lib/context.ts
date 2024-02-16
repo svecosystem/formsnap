@@ -64,27 +64,3 @@ function ctxError(ctx: string) {
 		`Unable to find \`${ctx}\` context. Did you forget to wrap the component in a \`${ctx}\`?`
 	);
 }
-
-export type FormGroupContext = {
-	id: Writable<string>;
-};
-
-const FORM_GROUP = Symbol('FORM_GROUP_CTX');
-
-export function setFormGroup(props: FormGroupContext) {
-	setContext(FORM_GROUP, props);
-	return props;
-}
-
-/**
- * Gets context related to the current form item.
- *
- * @see https://formsnap.dev/docs/api-reference/get-form-group
- */
-export function getFormGroup(onError?: () => void): FormGroupContext {
-	if (!hasContext(FORM_GROUP)) {
-		ctxError('Form.Group');
-		onError?.();
-	}
-	return getContext(FORM_GROUP);
-}

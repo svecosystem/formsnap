@@ -81,13 +81,13 @@ export const navigation: Navigation = {
 					items: [],
 				},
 				{
-					title: "<Form.Group />",
-					href: "/docs/api-reference/form-group",
+					title: "<Form.Fieldset />",
+					href: "/docs/api-reference/form-fieldset",
 					items: [],
 				},
 				{
-					title: "<Form.GroupTitle />",
-					href: "/docs/api-reference/form-group-title",
+					title: "<Form.Legend />",
+					href: "/docs/api-reference/form-legend",
 					items: [],
 				},
 				{

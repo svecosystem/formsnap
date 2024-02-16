@@ -1,7 +1,5 @@
-import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from 'svelte/elements';
 import type { FormPath, SuperForm } from 'sveltekit-superforms';
-
-type HTMLDivAttributes = HTMLAttributes<HTMLDivElement>;
 
 /**
  * Props for the `Form.Description` component.
@@ -28,7 +26,7 @@ export type DescriptionProps = {
 	 * underling HTML element rendered for the description.
 	 */
 	el?: HTMLDivElement;
-} & HTMLDivAttributes;
+} & HTMLAttributes<HTMLDivElement>;
 
 /**
  * Props for the `Form.Field` component.
@@ -84,7 +82,7 @@ export type LabelProps = {
  *
  * @see https://www.w3.org/WAI/tutorials/forms/grouping/
  */
-export type GroupProps = {
+export type FieldsetProps = {
 	/**
 	 * If `true`, Formsnap won't render the default `div` element
 	 * and will expect you to spread the `groupAttrs` slot prop into
@@ -99,8 +97,8 @@ export type GroupProps = {
 	 * You can bind to this prop to receive a reference to the
 	 * underling HTML element rendered for the group.
 	 */
-	el?: HTMLDivElement;
-} & HTMLDivAttributes;
+	el?: HTMLFieldSetElement;
+} & HTMLFieldsetAttributes;
 
 /**
  * Props for the `Form.GroupTitle` component. This component is used to
@@ -108,7 +106,7 @@ export type GroupProps = {
  *
  * @see https://www.w3.org/WAI/tutorials/forms/grouping/
  */
-export type GroupTitleProps = {
+export type LegendProps = {
 	/**
 	 * If `true`, Formsnap won't render the default `div` element
 	 * and will expect you to spread the `groupTitleAttrs` slot prop into
@@ -130,5 +128,5 @@ export type GroupTitleProps = {
 	 * You can bind to this prop to receive a reference to the
 	 * underling HTML element rendered for the group title.
 	 */
-	el?: HTMLDivElement;
-} & HTMLDivAttributes;
+	el?: HTMLLegendElement;
+} & HTMLAttributes<HTMLLegendElement>;

@@ -26,7 +26,7 @@ function findMatch(slug: string, modules: Modules) {
 	let match: { path?: string; resolver?: DocResolver } = {};
 
 	for (const [path, resolver] of Object.entries(modules)) {
-		if (slugFromPath(path) === slug) {
+		if (slugFromPath(path).toLowerCase() === slug.toLowerCase()) {
 			match = { path, resolver: resolver as unknown as DocResolver };
 			break;
 		}
