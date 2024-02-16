@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getFormField } from '$lib/context.js';
+	import { getDataFsError } from '$lib/internal/utils/attributes.js';
 	import type { FieldsetProps } from './types.js';
+	import type { FieldsetAttrs } from '$lib/attrs.types.js';
 
 	type $$Props = FieldsetProps;
 
@@ -11,9 +13,9 @@
 
 	$: fieldsetAttrs = {
 		'data-fs-fieldset': '',
-		'data-fs-error': $errors.length > 0 ? '' : undefined,
+		'data-fs-error': getDataFsError($errors),
 		...$$restProps
-	};
+	} satisfies FieldsetAttrs;
 </script>
 
 {#if asChild}

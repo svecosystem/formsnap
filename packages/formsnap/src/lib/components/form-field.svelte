@@ -8,7 +8,7 @@
 <script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
 	import type { FieldProps } from './types.js';
 
-	import { setFormField } from '$lib/context.js';
+	import { setFormField, type FormFieldContext } from '$lib/context.js';
 	import { writable } from 'svelte/store';
 
 	import type { SuperForm } from 'sveltekit-superforms';
@@ -26,14 +26,16 @@
 		isTainted
 	} = form);
 
-	const field = {
+	const field: FormFieldContext<T, U> = {
 		name: writable<U>(name),
 		errors: writable<string[]>([]),
 		constraints: writable<Record<string, unknown>>({}),
 		tainted: writable(false),
-		validationId: writable<string | undefined>(undefined),
-		descriptionId: writable<string | undefined>(undefined)
+		validationId: writable<string>(),
+		descriptionId: writable<string>(),
+		form
 	};
+
 	const { tainted } = field;
 
 	$: field.name.set(name);
@@ -41,8 +43,7 @@
 	$: field.constraints.set($formConstraints[name] ?? {});
 	$: field.tainted.set($formTainted ? isTainted($formTainted[name]) : false);
 
-	setFormField<T>({
-		form,
+	setFormField<T, U>({
 		...field
 	});
 </script>

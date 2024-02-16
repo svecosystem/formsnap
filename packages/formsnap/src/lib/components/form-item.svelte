@@ -1,7 +1,12 @@
 <script lang="ts">
-	import { getFormField, setFormItem } from '$lib/context.js';
-	import { getAriaDescribedBy, getAriaRequired } from '$lib/internal/utils/aria.js';
-	import { generateId } from '$lib/internal/utils/id.js';
+	import { getFormField, setFormItem, type FormItemContext } from '$lib/context.js';
+	import type { LabelAttrs, ControlAttrs } from '$lib/attrs.types.js';
+	import {
+		getAriaDescribedBy,
+		getAriaRequired,
+		getDataFsError,
+		generateId
+	} from '$lib/internal/utils/index.js';
 	import { writable } from 'svelte/store';
 	import type { ItemProps } from './types.js';
 
@@ -11,37 +16,39 @@
 
 	const { name, validationId, descriptionId, errors, constraints } = getFormField();
 
-	const itemContext = {
+	const itemContext: FormItemContext = {
 		id: writable(id),
-		attrs: writable<Record<string, unknown>>({}),
-		labelAttrs: writable<Record<string, unknown>>({})
+		attrs: writable<ControlAttrs>(),
+		labelAttrs: writable<LabelAttrs>()
 	};
+
 	const { id: idStore } = itemContext;
 
 	$: itemContext.id.set(id);
 
 	setFormItem(itemContext);
 
-	$: hasErrors = $errors.length > 0;
+	$: errorAttr = getDataFsError($errors);
 
 	$: attrs = {
 		name: $name,
 		id: $idStore,
-		'data-fs-error': hasErrors ? '' : undefined,
-		'aria-describedBy': getAriaDescribedBy({
+		'data-fs-error': errorAttr,
+		'aria-describedby': getAriaDescribedBy({
 			validationId: $validationId,
 			descriptionId: $descriptionId,
 			errors: $errors
 		}),
-		'aria-invalid': hasErrors ? ('true' as const) : undefined,
-		'aria-required': getAriaRequired($constraints)
-	};
+		'aria-invalid': getAriaRequired($constraints),
+		'aria-required': getAriaRequired($constraints),
+		'data-fs-control': ''
+	} satisfies ControlAttrs;
 
 	$: labelAttrs = {
 		for: $idStore,
 		'data-fs-label': '',
-		'data-fs-error': hasErrors ? '' : undefined
-	};
+		'data-fs-error': errorAttr
+	} satisfies LabelAttrs;
 
 	$: itemContext.attrs.set(attrs);
 	$: itemContext.labelAttrs.set(labelAttrs);

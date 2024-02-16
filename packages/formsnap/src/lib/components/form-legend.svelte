@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getFormField } from '$lib/context.js';
+	import { getDataFsError } from '$lib/internal/utils/attributes.js';
 	import type { LegendProps } from './types.js';
+	import type { LegendAttrs } from '$lib/attrs.types.js';
 
 	type $$Props = LegendProps;
 
@@ -11,9 +13,9 @@
 
 	$: legendAttrs = {
 		'data-fs-legend': '',
-		'data-fs-error': $errors.length > 0 ? '' : undefined,
+		'data-fs-error': getDataFsError($errors),
 		...$$restProps
-	};
+	} satisfies LegendAttrs;
 </script>
 
 {#if asChild}
