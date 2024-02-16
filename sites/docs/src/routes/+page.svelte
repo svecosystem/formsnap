@@ -44,7 +44,7 @@
 		What's included
 	</h2>
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-		<FeatureCard title="Markdown Support" icon={MarkdownIcon}>
+		<!-- <FeatureCard title="Markdown Support" icon={MarkdownIcon}>
 			Nothing beats the simplicity of Markdown for documenting your projects.
 		</FeatureCard>
 		<FeatureCard title="Syntax Highlighting" icon={Code}>
@@ -65,6 +65,6 @@
 		<FeatureCard title="Unified Plugins" icon={Plug}>
 			Leverage the power of the <A href="https://github.com/unifiedjs">Unified</A> ecosystem with remark
 			and rehype plugins.
-		</FeatureCard>
+		</FeatureCard> -->
 	</div>
 </section>
