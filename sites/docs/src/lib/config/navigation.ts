@@ -55,13 +55,8 @@ export const navigation: Navigation = {
 					items: [],
 				},
 				{
-					title: "Headless Usage",
-					href: "/docs/headless-usage",
-					items: [],
-				},
-				{
-					title: "Options",
-					href: "/docs/options",
+					title: "asChild",
+					href: "/docs/asChild",
 					items: [],
 				},
 				{
@@ -76,33 +71,38 @@ export const navigation: Navigation = {
 			collapsible: true,
 			items: [
 				{
-					title: "Common Types",
-					href: "/docs/api-reference/common-types",
-					items: [],
-				},
-				{
-					title: "<Form.Root />",
-					href: "/docs/api-reference/form-root",
-					items: [],
-				},
-				{
 					title: "<Form.Field />",
 					href: "/docs/api-reference/form-field",
 					items: [],
 				},
 				{
-					title: "<Form.Control />",
-					href: "/docs/api-reference/form-control",
+					title: "<Form.Item />",
+					href: "/docs/api-reference/form-item",
 					items: [],
 				},
 				{
-					title: "getForm",
-					href: "/docs/api-reference/get-form",
+					title: "<Form.Group />",
+					href: "/docs/api-reference/form-group",
+					items: [],
+				},
+				{
+					title: "<Form.GroupTitle />",
+					href: "/docs/api-reference/form-group-title",
 					items: [],
 				},
 				{
 					title: "getFormField",
 					href: "/docs/api-reference/get-form-field",
+					items: [],
+				},
+				{
+					title: "getFormItem",
+					href: "/docs/api-reference/get-form-item",
+					items: [],
+				},
+				{
+					title: "getFormGroup",
+					href: "/docs/api-reference/get-form-group",
 					items: [],
 				},
 			],

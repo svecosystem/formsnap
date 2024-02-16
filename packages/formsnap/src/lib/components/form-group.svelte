@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { setFormGroup } from '$lib/context.js';
 	import { writable } from 'svelte/store';
+	import type { GroupProps } from './types.js';
+
+	type $$Props = GroupProps;
 
 	export let asChild = false;
+	export let el: $$Props['el'] = undefined;
 
 	const formGroupId = writable<string>();
 
@@ -21,7 +25,7 @@
 {#if asChild}
 	<slot {groupAttrs} />
 {:else}
-	<div {...groupAttrs}>
+	<div {...groupAttrs} bind:this={el}>
 		<slot {groupAttrs} />
 	</div>
 {/if}

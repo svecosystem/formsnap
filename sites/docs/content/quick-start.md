@@ -88,7 +88,7 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
 <form method="POST" use:enhance>
@@ -105,7 +105,7 @@ You can think of form fields as the building blocks of your form. Each property 
 
 We'll start with the `email` field and work our way down.
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers {15,17}
+```svelte title="src/routes/settings/+page.svelte" showLineNumbers {18,20}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { Form } from "formsnap";
@@ -119,7 +119,7 @@ We'll start with the `email` field and work our way down.
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
 <form method="POST" use:enhance>
@@ -148,7 +148,7 @@ Now let's add the remaining parts of the field:
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
 <form method="POST" use:enhance>
@@ -188,10 +188,10 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
-	const { form: formData } = form;
+	const { form: formData, enhance } = form;
 </script>
 
-<form use:form.enhance class="mx-auto flex max-w-md flex-col" method="POST">
+<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
 	<Form.Field {form} name="email">
 		<Form.Item let:attrs>
 			<Form.Label>Email</Form.Label>
@@ -221,8 +221,8 @@ And that's really all it takes to setup a form field. Let's continue on with the
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="theme">
-		<fieldset>
-			<legend>Select your theme</legend>
+		<Form.Group>
+			<Form.GroupTitle>Select your theme</Form.GroupTitle>
 			{#each themes as theme}
 				<Form.Item let:attrs>
 					<Form.Label>{theme}</Form.Label>
@@ -238,7 +238,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 				>We prefer dark mode, but the choice is yours.</Form.Description
 			>
 			<Form.Validation />
-		</fieldset>
+		</Form.Group>
 	</Form.Field>
 	<Form.Field {form} name="marketingEmails">
 		<Form.Item let:attrs>
@@ -251,30 +251,31 @@ And that's really all it takes to setup a form field. Let's continue on with the
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="allergies">
-		{#each allergies as allergy}
-			<Form.Item let:attrs>
-				<input
-					{...attrs}
-					type="checkbox"
-					bind:group={$formData.allergies}
-					value={allergy}
-				/>
-				<Form.Label>{allergy}</Form.Label>
-			</Form.Item>
-		{/each}
-		<Form.Description
-			>When we provide lunch, we'll accommodate your needs.</Form.Description
-		>
-		<Form.Validation />
+		<Form.Group>
+			<Form.GroupTitle>Food allergies</Form.GroupTitle>
+			{#each allergies as allergy}
+				<Form.Item let:attrs>
+					<input
+						{...attrs}
+						type="checkbox"
+						bind:group={$formData.allergies}
+						value={allergy}
+					/>
+					<Form.Label>{allergy}</Form.Label>
+				</Form.Item>
+			{/each}
+			<Form.Description
+				>When we provide lunch, we'll accommodate your needs.</Form.Description
+			>
+			<Form.Validation />
+		</Form.Group>
 	</Form.Field>
 	<button>Submit</button>
 </form>
 <SuperDebug data={$formData} />
 ```
 
-You likely noticed for the `theme` field, we only used one `Field` component, but we used an `Item` component for each radio input. This is because the `Item` component is used to represent a form control and its label, and the `Field` component is used to setup the context for the field. Since the radio inputs are related to the same field, we only need one `Field` component to setup the context for the field, and then we can use an `Item` component for each radio input.
-
-The validation and description components are shared across all the radio inputs in that field, so we only need to include them once.
+You may have noticed for the `allergies` and `theme` fields, we used the `Group` and `GroupTitle` components. These are used to group related fields together and provide a title for the group, which is great for accessibility and organization. Additionally, we only use a single `Validation` and `Description` component for the entire group, and use an `Item` for each field in the group to associate the label with the control.
 
 </Steps>
 

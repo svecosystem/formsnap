@@ -13,29 +13,32 @@ of the nested field will not have access to the parent field's context.
 
 ## Props
 
+The `<Form.Field/>` component doesn't render an element itself, it strictly provides context.
+
 ```ts
-type Props<T extends AnyZodObject, Name extends FormPathLeaves<T>> = {
+export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 	/**
-	 * The configuration object for the form, which is passed as a
-	 * slot prop to the `<Form.Root />` component.
+	 * The form object returned from calling `superForm` in your component.
 	 */
-	config: Form<T>;
+	form: SuperForm<T>;
 
 	/**
-	 * The key of the field in the form schema.
+	 * The path to the field in the form object.
 	 */
-	name: Name;
+	name: U;
 };
 ```
 
 ## Slot Props
 
-````ts
-type SlotProps<T extends AnyZodObject, Name extends FormPathLeaves<T>> = {
+The following slot props are provided for convenience when using the `<Form.Field />` component. None of these props are required, but you can use them as you see fit.
+
+```ts
+type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 	/**
-	 * The stores that are used to track the state of the field.
+	 * The value of the value store of the field.
 	 */
-	stores: FormField;
+	value: T[U];
 
 	/**
 	 * The value of the errors store for the field.
@@ -43,199 +46,53 @@ type SlotProps<T extends AnyZodObject, Name extends FormPathLeaves<T>> = {
 	errors: string[] | undefined;
 
 	/**
-	 * The value of the field.
-	 */
-	value: S[Name];
-
-	/**
 	 * The constraints for the field.
 	 */
-	constraints: InputConstraints<S[Name]>;
+	constraints: Record<string, unknown>;
 
 	/**
-	 * An object containing handler helpers for the field for when
-	 * not using the provided components for the field and instead
-	 * using the library in a headless fashion.
-	 *
-	 * NOTE: These handlers are automatically applied when using the
-	 * provided field components, as well as when using the actions.
+	 * Whether the field is tainted or not.
 	 */
-	handlers: {
-		/**
-		 * A helper for the `on:input` events, which will update
-		 * the field's value store with the value of the event's
-		 * current target.
-		 *
-		 * @example
-		 * ```
-		 * <input on:input={handlers.input} />
-		 * ```
-		 */
-		input: (e: Event) => void;
-
-		/**
-		 * A helper for `on:change` events that occur on checkbox
-		 * input elements, which will update the field's value store
-		 * with the `checked` status of the event's current target.
-		 *
-		 * @example
-		 * ```
-		 * <input type="checkbox" on:change={handlers.checkbox} />
-		 * ```
-		 */
-		checkbox: (e: Event) => void;
-
-		/**
-		 * A helper for `on:change` events that occur on radio
-		 * input elements, which will update the field's value store
-		 * with the `value` of the currently checked radio input.
-		 *
-		 * @example
-		 * ```
-		 * <input type="radio" value="hello" on:change={handlers.radio} />
-		 * <input type="radio" value="world" on:change={handlers.radio} />
-		 * ```
-		 */
-		radio: (e: Event) => void;
-
-		/**
-		 * A helper for `on:change` events that occur on select elements
-		 * which will update the field's value store with the `value` of * the currently selected option.
-		 *
-		 * @example
-		 * ```
-		 * <select on:change={handlers.select}>
-		 * 	<option value="en">English</option>
-		 * 	<option value="es">Spanish</option>
-		 * </select>
-		 * ```
-		 */
-		select: (e: Event) => void;
-	};
-
-	/**
-	 * An object containing the attributes for the elements
-	 * that are used to compose the field when not using the provided
-	 * components for the field and instead using the library in
-	 * a headless fashion.
-	 *
-	 * NOTE: These attributes are automatically applied when using
-	 * the provided field components, as well as when using the actions.
-	 */
-	attrs: {
-		/**
-		 * Attributes that should be applied to the input/select
-		 * element for accessibility & functionality.
-		 */
-		input: {
-			"aria-invalid"?: boolean;
-			"aria-describedby"?: string;
-			name: string;
-			id: string;
-			value: S[Name];
-		};
-
-		/**
-		 * Attributes that should be applied to the label element.
-		 */
-		label: {
-			for: string; // the id of the input
-		};
-
-		/**
-		 * Attributes that should be applied to the description element.
-		 */
-		description: {
-			id: string;
-		};
-
-		/**
-		 * Attributes that should be applied to the validation element.
-		 */
-		validation: {
-			id: string;
-			"aria-live": "assertive";
-		};
-	};
-
-	/**
-	 * An object of actions that can be used to automatically
-	 * apply attributes and handle events for elements when not
-	 * using the provided components for the field and instead
-	 * using the library in a headless fashion.
-	 *
-	 * NOTE: These actions are not required when using the provided
-	 * field components, and automatically apply the attributes,
-	 * event handlers, and state for the field.
-	 */
-	actions: {
-		/**
-		 * An action for setting the attributes and event handlers for
-		 * a checkbox element.
-		 *
-		 * @usage `<input type="checkbox" use:actions.checkbox />`
-		 */
-		checkbox: Action<HTMLInputElement>;
-
-		/**
-		 * An action for setting up the attributes & state for an
-		 * element acting as the description for the field.
-		 *
-		 * @usage `<span use:actions.description>...</span>`
-		 */
-		description: Action<HTMLElement>;
-
-		/**
-		 * An action for setting up the attributes & event handlers for a standard input component.
-		 *
-		 * @usage `<input use:actions.input />`
-		 */
-		input: Action<HTMLInputElement>;
-
-		/**
-		 * An action for setting up the attributes for a label element.
-		 *
-		 * @usage `<label use:actions.label>...</label>`
-		 */
-		label: Action<HTMLLabelElement>;
-
-		/**
-		 * An action for setting up the attributes & event handlers
-		 * for a radio input element.
-		 *
-		 * @usage `<input type="radio" use:actions.radio />`
-		 */
-		radio: Action<HTMLInputElement>;
-
-		/**
-		 * An action for setting up the attributes & event handlers
-		 * for a select element.
-		 *
-		 * @usage `<select use:actions.select>...</select>`
-		 */
-		select: Action<HTMLSelectElement>;
-
-		/**
-		 * An action for setting up the attributes & event handlers
-		 * for a textarea element.
-		 *
-		 * @usage `<textarea use:actions.textarea />`
-		 */
-		textarea: Action<HTMLTextAreaElement>;
-
-		/**
-		 * An action for setting up the attributes & state for an
-		 * element acting as the validation message for the field.
-		 *
-		 * @usage `<p use:actions.validation>...</p>`
-		 */
-		validation: Action<HTMLElement>;
-	};
-
-	/**
-	 * A function which updates the field's `value` store with
-	 * the provided value.
-	 */
-	setValue: (value: unknown) => void;
+	tainted: boolean;
 };
-````
+```
+
+## Composition
+
+Since the `<Form.Field />` component doesn't render anything itself, it's a common practice to create a wrapper component around it.
+
+For example, you may always want to render the `<Form.Validation />` component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
+
+To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
+
+```svelte title="CustomField.svelte"
+<script lang="ts" context="module">
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	import type { FormPath } from "sveltekit-superforms";
+
+	// the form object
+	type T = Record<string, unknown>;
+	// the path/name of the field in the form object
+	type U = unknown;
+</script>
+
+<script
+	lang="ts"
+	generics="T extends Record<string, unknown>, U extends FormPath<T>"
+>
+	import type { Form } from "formsnap";
+	import type { SuperForm } from "sveltekit-superforms";
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	type $$Props = FieldProps<T, U>;
+
+	export let form: SuperForm<T>;
+	export let name: U;
+</script>
+
+<!-- passing the slot props down are optional -->
+<Form.Field {form} {name} let:value let:errors let:tainted let:contraints>
+	<slot {value} {errors} {tainted} {constraints} />
+	<Form.Validation />
+</Form.Field>
+```

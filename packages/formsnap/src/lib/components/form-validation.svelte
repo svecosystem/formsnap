@@ -24,7 +24,7 @@
 <div {...validationAttrs}>
 	<slot errors={$errors}>
 		{#each $errors as error}
-			<div>{error}</div>
+			<div data-fs-validation-error="">{error}</div>
 		{/each}
 	</slot>
 </div>

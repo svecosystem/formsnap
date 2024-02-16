@@ -7,6 +7,7 @@
 
 	export let id = generateId();
 	export let asChild = false;
+	export let el: $$Props['el'] = undefined;
 
 	const { id: groupId } = getFormGroup();
 
@@ -22,7 +23,7 @@
 {#if asChild}
 	<slot {groupTitleAttrs} />
 {:else}
-	<div {...$$restProps}>
+	<div {...$$restProps} bind:this={el}>
 		<slot {groupTitleAttrs} />
 	</div>
 {/if}

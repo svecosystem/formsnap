@@ -22,6 +22,12 @@ export type DescriptionProps = {
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
+
+	/**
+	 * You can bind to this prop to receive a reference to the
+	 * underling HTML element rendered for the description.
+	 */
+	el?: HTMLDivElement;
 } & HTMLDivAttributes;
 
 /**
@@ -63,6 +69,12 @@ export type LabelProps = {
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
+
+	/**
+	 * You can bind to this prop to receive a reference to the
+	 * underling HTML element rendered for the label.
+	 */
+	el?: HTMLLabelElement;
 } & HTMLLabelAttributes;
 
 /**
@@ -82,6 +94,12 @@ export type GroupProps = {
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
+
+	/**
+	 * You can bind to this prop to receive a reference to the
+	 * underling HTML element rendered for the group.
+	 */
+	el?: HTMLDivElement;
 } & HTMLDivAttributes;
 
 /**
@@ -107,4 +125,10 @@ export type GroupTitleProps = {
 	 * If not provided, a unique ID will be generated for you.
 	 */
 	id?: string;
+
+	/**
+	 * You can bind to this prop to receive a reference to the
+	 * underling HTML element rendered for the group title.
+	 */
+	el?: HTMLDivElement;
 } & HTMLDivAttributes;

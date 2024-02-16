@@ -5,6 +5,7 @@
 	type $$Props = LabelProps;
 
 	export let asChild: $$Props['asChild'] = false;
+	export let el: $$Props['el'] = undefined;
 
 	const { labelAttrs: labelAttrsStore } = getFormItem();
 
@@ -17,7 +18,7 @@
 {#if asChild}
 	<slot labelAttrs={localLabelAttrs} />
 {:else}
-	<label {...localLabelAttrs}>
+	<label {...localLabelAttrs} bind:this={el}>
 		<slot labelAttrs={localLabelAttrs} />
 	</label>
 {/if}
