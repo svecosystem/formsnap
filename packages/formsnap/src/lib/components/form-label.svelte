@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getFormItem } from '$lib/context.js';
+	import { getFormControl } from '$lib/context.js';
 	import type { LabelProps } from './types.js';
 	import type { LabelAttrs } from '$lib/attrs.types.js';
 
@@ -8,7 +8,7 @@
 	export let asChild = false;
 	export let el: $$Props['el'] = undefined;
 
-	const { labelAttrs: labelAttrsStore } = getFormItem();
+	const { labelAttrs: labelAttrsStore } = getFormControl();
 
 	$: localLabelAttrs = {
 		...$labelAttrsStore,
