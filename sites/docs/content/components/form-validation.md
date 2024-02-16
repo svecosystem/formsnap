@@ -99,3 +99,43 @@ type SlotProps = {
 	errors: string[];
 };
 ```
+
+## Attributes
+
+### Validation Element
+
+The following attributes are automatically applied to the element rendered by the `<Form.Validation />` component. This is also the shape of the `validationAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+
+```ts
+export type ValidationAttrs = {
+	/** The ID of the validation element, used to describe the control. */
+	id: string;
+
+	/** Present when a validation error exists on the field. */
+	"data-fs-error": string | undefined;
+
+	/** Used for selection during styling or otherwise */
+	"data-fs-validation": string;
+
+	/** Notifies screen readers when a validation error occurs */
+	"aria-live": "assertive" | "polite";
+
+	/** Any additional props provided to `<Form.Validation />` */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+};
+```
+
+### Error Elements
+
+The following attributes are automatically applied to the individual error elements rendered by the `<Form.Validation />` component. This is also the shape of the `validationErrorAttrs` slot prop.
+
+```ts
+export type ValidationErrorAttrs = {
+	/** Used for selection during styling or otherwise */
+	"data-fs-validation-error": string;
+
+	/** Present when a validation error exists on the field. */
+	"data-fs-error": string | undefined;
+};
+```

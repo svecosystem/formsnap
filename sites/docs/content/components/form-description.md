@@ -66,3 +66,23 @@ type SlotProps = {
 	};
 };
 ```
+
+## Attributes
+
+The following attributes are automatically applied to the element rendered by the `<Form.Description />` component. This is also the shape of the `descriptionAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+
+```ts
+export type DescriptionAttrs = {
+	/** The ID of the description element, used to describe the control. */
+	id: string;
+
+	/** Used for selection during styling or otherwise */
+	"data-fs-description": string;
+
+	/** Present when a validation error exists on the field. */
+	"data-fs-error": string | undefined;
+
+	/* Any additional props provided to `<Form.Description />` */
+	[key: string]: any;
+};
+```

@@ -57,3 +57,23 @@ type SlotProps = {
 	};
 };
 ```
+
+## Attributes
+
+The following attributes are automatically applied to the element rendered by the `<Form.Label />` component. This is also the shape of the `labelAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+
+```ts
+export type LabelAttrs = {
+	/** The ID of the control, used for label association. */
+	for: string;
+
+	/** Present when a validation error exists on the field. */
+	"data-fs-error": string | undefined;
+
+	/** Used for selection during styling or otherwise */
+	"data-fs-label": string;
+
+	/** Any additional props provided to the `<Form.Label />` component */
+	[key: string]: any;
+};
+```

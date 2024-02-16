@@ -47,3 +47,20 @@ type SlotProps = {
 	};
 };
 ```
+
+## Attributes
+
+The following attributes are automatically applied to the element rendered by the `<Form.Legend />` component. This is also the shape of the `legendAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+
+```ts
+export type LegendAttrs = {
+	/** Used for selection during styling or otherwise */
+	"data-fs-legend": string;
+
+	/** Present when a validation error exists on the field. */
+	"data-fs-error": string | undefined;
+
+	/* Any additional props provided to `<Form.Legend />` */
+	[key: string]: any;
+};
+```

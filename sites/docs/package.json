@@ -1,5 +1,5 @@
 {
-	"name": "docs-starter-template",
+	"name": "docs",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
@@ -19,7 +19,7 @@
 	"license": "MIT",
 	"author": {
 		"name": "Huntabyte",
-		"url": "https://x.com/huntabyte"
+		"url": "https://github.com/huntabyte"
 	},
 	"repository": {
 		"type": "git",
