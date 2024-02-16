@@ -3,7 +3,8 @@
 	import { Form } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
-	import { schema } from "./schema.js";
+	import { allergies, schema, themes } from "./schema.js";
+	import SuperDebug from "sveltekit-superforms";
 
 	export let data: PageData;
 
@@ -14,22 +15,6 @@
 </script>
 
 <form use:form.enhance class="mx-auto flex max-w-md flex-col" method="POST">
-	<Form.Field {form} name="name">
-		<Form.Item let:attrs>
-			<Form.Label>Name</Form.Label>
-			<input {...attrs} bind:value={$formData.name} />
-		</Form.Item>
-		<Form.Description>Your full legal name</Form.Description>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {form} name="age">
-		<Form.Item let:attrs>
-			<Form.Label>Age</Form.Label>
-			<input {...attrs} type="number" bind:value={$formData.age} />
-		</Form.Item>
-		<Form.Description>Enter your age</Form.Description>
-		<Form.Validation />
-	</Form.Field>
 	<Form.Field {form} name="email">
 		<Form.Item let:attrs>
 			<Form.Label>Email</Form.Label>
@@ -38,12 +23,12 @@
 		<Form.Description>Company email is preferred</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {form} name="terms">
+	<Form.Field {form} name="bio">
 		<Form.Item let:attrs>
-			<Form.Label>Terms</Form.Label>
-			<input {...attrs} type="checkbox" bind:value={$formData.terms} />
+			<Form.Label>Bio</Form.Label>
+			<textarea {...attrs} bind:value={$formData.bio} />
 		</Form.Item>
-		<Form.Description>If you don't accept the terms, we can't move forward.</Form.Description>
+		<Form.Description>Tell us a bit about yourself.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 	<Form.Field {form} name="language">
@@ -58,26 +43,35 @@
 		<Form.Description>Help us address you properly.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
-	<Form.Field {form} name="notifications">
-		<legend>Select your notification preferences</legend>
+	<Form.Field {form} name="theme">
+		<legend>Select your theme</legend>
+		{#each themes as theme}
+			<Form.Item let:attrs>
+				<Form.Label>{theme}</Form.Label>
+				<input {...attrs} type="radio" value={theme} bind:group={$formData.theme} />
+			</Form.Item>
+		{/each}
+		<Form.Description>We prefer dark mode, but the choice is yours.</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+	<Form.Field {form} name="marketingEmails">
 		<Form.Item let:attrs>
-			<input type="radio" {...attrs} bind:group={$formData.notifications} value="all" />
-			<Form.Label>All</Form.Label>
+			<input {...attrs} type="checkbox" bind:checked={$formData.marketingEmails} />
+			<Form.Label>I want to receive marketing emails</Form.Label>
 		</Form.Item>
-		<Form.Item let:attrs>
-			<input type="radio" {...attrs} bind:group={$formData.notifications} value="mentions" />
-			<Form.Label>Mentions</Form.Label>
-		</Form.Item>
-		<Form.Item let:attrs>
-			<input type="radio" {...attrs} bind:group={$formData.notifications} value="important" />
-			<Form.Label>Important</Form.Label>
-		</Form.Item>
-		<Form.Item let:attrs>
-			<input type="radio" {...attrs} bind:group={$formData.notifications} value="none" />
-			<Form.Label>None</Form.Label>
-		</Form.Item>
-		<Form.Description>We'll only spam your inbox once per hour, don't worry!</Form.Description>
+		<Form.Description>Stay up to date with our latest news and offers.</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+	<Form.Field {form} name="allergies">
+		{#each allergies as allergy}
+			<Form.Item let:attrs>
+				<input {...attrs} type="checkbox" bind:group={$formData.allergies} value={allergy} />
+				<Form.Label>{allergy}</Form.Label>
+			</Form.Item>
+		{/each}
+		<Form.Description>When we provide lunch, we'll accommodate your needs.</Form.Description>
 		<Form.Validation />
 	</Form.Field>
 	<button>Submit</button>
 </form>
+<SuperDebug data={$formData} />
