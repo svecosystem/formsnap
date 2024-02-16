@@ -7,6 +7,7 @@
 		"dev:content": "contentlayer dev",
 		"dev:svelte": "vite dev",
 		"build": "contentlayer build && vite build",
+		"build:all": "pnpm -w build",
 		"build:content": "contentlayer build",
 		"build:content-cachebust": "contentlayer build --clearCache",
 		"preview": "vite preview",

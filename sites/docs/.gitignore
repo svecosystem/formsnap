@@ -11,3 +11,4 @@ vite.config.ts.timestamp-*
 .contentlayer
 .contentlayer/
 /.contentlayer
+.vercel
