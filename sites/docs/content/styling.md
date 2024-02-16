@@ -14,8 +14,8 @@ Data attributes are applied to the various parts of your form so that you can ea
 - `data-fs-validation` - Applied to the `<Form.Validation />` component.
 - `data-fs-validation-error` - Applied to the default rendered `div` element for each of the validations errors in the `<Form.Validation />` component.
 - `data-fs-description` - Applied to the `<Form.Description />` component.
-- `data-fs-group` - Applied to the `<Form.Group />` component.
-- `data-fs-group-title` - Applied to the `<Form.GroupTitle />` component.
+- `data-fs-fieldset` - Applied to the `<Form.Fieldset />` component.
+- `data-fs-legend` - Applied to the `<Form.Legend />` component.
 
 ## CSS Frameworks
 

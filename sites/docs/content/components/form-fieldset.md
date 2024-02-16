@@ -13,7 +13,7 @@ The `<Form.Fieldset />` component is used to follow the [W3C Grouping Controls](
 
 When you have a group of radio buttons related to a single field, you should use a fieldset to group them together.
 
-```svelte showLineNumbers {2-3,12}
+```svelte {2-3,12}
 <Form.Field name="theme">
 	<Form.Fieldset>
 		<Form.Legend>Select your theme</Form.Legend>
@@ -35,7 +35,7 @@ When you have a group of radio buttons related to a single field, you should use
 
 When you have a group of checkboxes related to a single field, typically used for multiple selections, you should use a fieldset to group them together.
 
-```svelte showLineNumbers {2-3,19}
+```svelte {2-3,19}
 <Form.Field name="theme">
 	<Form.Fieldset>
 		<Form.Legend>Any food allergies?</Form.Legend>
@@ -106,9 +106,9 @@ The `<Form.Fieldset />` component provides a single slot prop, `fieldsetAttrs`, 
 ```ts
 type SlotProps = {
 	fieldsetAttrs: {
-		role: string;
 		"data-fs-group": string;
 		"data-fs-error": string | undefined;
+		// any other props you pass to `<Form.Fieldset />`
 		[key: string]: any;
 	};
 };

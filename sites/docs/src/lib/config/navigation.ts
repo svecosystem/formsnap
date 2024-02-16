@@ -67,42 +67,58 @@ export const navigation: Navigation = {
 			],
 		},
 		{
-			title: "API Reference",
+			title: "Components",
 			collapsible: true,
 			items: [
 				{
-					title: "<Form.Field />",
-					href: "/docs/api-reference/form-field",
+					title: "<Form.Description />",
+					href: "/docs/components/form-description",
 					items: [],
 				},
 				{
-					title: "<Form.Item />",
-					href: "/docs/api-reference/form-item",
+					title: "<Form.Field />",
+					href: "/docs/components/form-field",
 					items: [],
 				},
 				{
 					title: "<Form.Fieldset />",
-					href: "/docs/api-reference/form-fieldset",
+					href: "/docs/components/form-fieldset",
+					items: [],
+				},
+				{
+					title: "<Form.Item />",
+					href: "/docs/components/form-item",
+					items: [],
+				},
+				{
+					title: "<Form.Label />",
+					href: "/docs/components/form-label",
 					items: [],
 				},
 				{
 					title: "<Form.Legend />",
-					href: "/docs/api-reference/form-legend",
+					href: "/docs/components/form-legend",
 					items: [],
 				},
 				{
+					title: "<Form.Validation />",
+					href: "/docs/components/form-validation",
+					items: [],
+				},
+			],
+		},
+		{
+			title: "Functions",
+			collapsible: true,
+			items: [
+				{
 					title: "getFormField",
-					href: "/docs/api-reference/get-form-field",
+					href: "/docs/functions/get-form-field",
 					items: [],
 				},
 				{
 					title: "getFormItem",
-					href: "/docs/api-reference/get-form-item",
-					items: [],
-				},
-				{
-					title: "getFormGroup",
-					href: "/docs/api-reference/get-form-group",
+					href: "/docs/functions/get-form-item",
 					items: [],
 				},
 			],

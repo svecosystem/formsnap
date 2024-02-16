@@ -192,14 +192,15 @@ You can alias the names to whatever floats your boat, here's an example:
 ```ts title="src/lib/no-form-form.ts"
 import { Form as Formsnap } from "formsnap";
 
-const Form = Formsnap.Root;
 const Field = Formsnap.Field;
 const Label = Formsnap.Label;
 const Item = Formsnap.Item;
 const Description = Formsnap.Description;
 const Validation = Formsnap.Validation;
+const Fieldset = Formsnap.Fieldset;
+const Legend = Formsnap.Legend;
 
-export { Form, Field, Label, Item, Description, Validation };
+export { Field, Label, Item, Description, Validation, Fieldset, Legend };
 ```
 
 To get started using Formsnap, head over to the [Quick start](/docs/quick-start) section of the docs, where you'll learn how to install and use the library.

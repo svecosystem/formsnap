@@ -118,15 +118,35 @@ export type LegendProps = {
 	asChild?: boolean;
 
 	/**
-	 * Optionally provide a unique id for the group title, which will be
-	 * used as the `aria-labelledby` attribute for the parent `Form.Group`.
-	 * If not provided, a unique ID will be generated for you.
-	 */
-	id?: string;
-
-	/**
 	 * You can bind to this prop to receive a reference to the
 	 * underling HTML element rendered for the group title.
 	 */
 	el?: HTMLLegendElement;
 } & HTMLAttributes<HTMLLegendElement>;
+
+/**
+ * Props for the `Form.Validation` component.
+ */
+export type ValidationProps = {
+	/**
+	 * Optionally provide a unique id for the validation message.
+	 * If not provided, a unique ID will be generated for you.
+	 */
+	id?: string;
+
+	/**
+	 * If `true`, Formsnap won't render the default `div` element
+	 * and will expect you to spread the `validationAttrs` slot prop into
+	 * a custom element/component of your choosing.
+	 *
+	 * @see https://formsnap.dev/docs/asChild
+	 * @defaultValue `false`
+	 */
+	asChild?: boolean;
+
+	/**
+	 * You can bind to this prop to receive a reference to the
+	 * underling HTML element rendered for the validation message.
+	 */
+	el?: HTMLDivElement;
+} & HTMLAttributes<HTMLDivElement>;

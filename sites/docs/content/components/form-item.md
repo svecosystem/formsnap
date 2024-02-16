@@ -68,7 +68,7 @@ For example, you may want to automatically include the `<Form.Label />` for each
 
 Here's how you might do just that:
 
-```svelte title="CustomItem.svelte"
+```svelte showLineNumbers title="CustomItem.svelte"
 <script lang="ts">
 	import type { Form } from "formsnap";
 

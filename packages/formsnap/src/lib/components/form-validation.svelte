@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { getFormField } from '$lib/context.js';
 	import { generateId } from '$lib/internal/utils/id.js';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { ValidationProps } from './types.js';
 
-	type $$Props = HTMLAttributes<HTMLDivElement> & {
-		id?: string;
-	};
+	type $$Props = ValidationProps
 
 	const { validationId, errors } = getFormField();
 
 	export let id = generateId();
+	export let asChild: $$Props["asChild"] = false
 
 	$: errorAttr = $errors.length > 0 ? '' : undefined;
 
@@ -28,6 +27,9 @@
 	};
 </script>
 
+{#if asChild}
+	<slot errors={$errors} />
+{:else}
 <div {...validationAttrs}>
 	<slot errors={$errors}>
 		{#each $errors as error}
@@ -35,3 +37,4 @@
 		{/each}
 	</slot>
 </div>
+{/if}

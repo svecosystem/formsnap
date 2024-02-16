@@ -10,8 +10,7 @@
 	const { errors } = getFormField();
 
 	$: fieldsetAttrs = {
-		role: 'group',
-		'data-fs-group': '',
+		'data-fs-fieldset': '',
 		'data-fs-error': $errors.length > 0 ? '' : undefined,
 		...$$restProps
 	};

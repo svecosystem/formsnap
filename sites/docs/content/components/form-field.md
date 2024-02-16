@@ -1,6 +1,6 @@
 ---
 title: <Form.Field />
-description: A component that provides necessary context for a field
+description: A component that provides necessary context for a field.
 ---
 
 The `<Form.Field/>` component provides the necessary context for it's children to react
@@ -17,42 +17,30 @@ The `<Form.Field/>` component doesn't render an element itself, it strictly prov
 
 ```ts
 export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
-	/**
-	 * The form object returned from calling `superForm` in your component.
-	 */
+	/** The form object returned from calling `superForm` in your component. */
 	form: SuperForm<T>;
 
-	/**
-	 * The path to the field in the form object.
-	 */
+	/** The path to the field in the form object. */
 	name: U;
 };
 ```
 
 ## Slot Props
 
-The following slot props are provided for convenience when using the `<Form.Field />` component. None of these props are required, but you can use them as you see fit.
+The following slot props are provided for convenience and ease of composition when using the `<Form.Field />` component.
 
 ```ts
 type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
-	/**
-	 * The value of the value store of the field.
-	 */
+	/** The value of the value store of the field. */
 	value: T[U];
 
-	/**
-	 * The value of the errors store for the field.
-	 */
+	/** The value of the errors store for the field. */
 	errors: string[] | undefined;
 
-	/**
-	 * The constraints for the field.
-	 */
+	/** The constraints for the field. */
 	constraints: Record<string, unknown>;
 
-	/**
-	 * Whether the field is tainted or not.
-	 */
+	/** Whether the field is tainted or not. */
 	tainted: boolean;
 };
 ```
@@ -65,7 +53,7 @@ For example, you may always want to render the `<Form.Validation />` component f
 
 To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
 
-```svelte title="CustomField.svelte"
+```svelte showLineNumbers title="CustomField.svelte"
 <script lang="ts" context="module">
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	import type { FormPath } from "sveltekit-superforms";
