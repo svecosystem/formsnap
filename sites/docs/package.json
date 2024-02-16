@@ -71,6 +71,7 @@
 	"type": "module",
 	"dependencies": {
 		"@melt-ui/svelte": "^0.70.0",
+		"@sveltejs/adapter-vercel": "^5.1.0",
 		"bits-ui": "^0.14.0",
 		"formsnap": "workspace:*",
 		"mode-watcher": "^0.1.2",
