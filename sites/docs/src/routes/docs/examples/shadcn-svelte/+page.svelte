@@ -4,7 +4,7 @@
 	import { Input } from "$lib/components/ui/input/index.js";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
-	import { schema } from "./schema.js";
+	import { colors, schema } from "./schema.js";
 	import Checkbox from "$lib/components/ui/checkbox/checkbox.svelte";
 	import SuperDebug from "sveltekit-superforms";
 	import * as RadioGroup from "$lib/components/ui/radio-group/index.js";
@@ -96,6 +96,25 @@
 
 		<Form.Description>We'll only spam your inbox once per hour, don't worry!</Form.Description>
 		<Form.Validation />
+	</Form.Field>
+	<Form.Field {form} name="favoriteColors">
+		<legend>Select your favorite colors</legend>
+		{#each colors as color}
+			<Form.Item let:attrs class="flex-row items-center gap-4">
+				<Checkbox
+					{...attrs}
+					checked={$formData.favoriteColors.includes(color)}
+					onCheckedChange={(checked) => {
+						if (checked === true) {
+							$formData.favoriteColors = [...$formData.favoriteColors, color];
+						} else {
+							$formData.favoriteColors = $formData.favoriteColors.filter((c) => c !== color);
+						}
+					}}
+				/>
+				<Form.Label>{color}</Form.Label>
+			</Form.Item>
+		{/each}
 	</Form.Field>
 	<button>Submit</button>
 </form>
