@@ -32,13 +32,13 @@
 							<Button on:click={() => removeUrlByIndex(i)}>Remove</Button>
 						</div>
 					</Form.Control>
-					<Form.Validation />
+					<Form.FieldErrors />
 				</Form.ArrayField>
 			{/each}
 		</div>
 
 		<Form.Description>Your URLs will be displayed on your public profile.</Form.Description>
-		<Form.Validation />
+		<Form.FieldErrors />
 	</Form.Fieldset>
 
 	<Button on:click={() => ($formData.urls = [...$formData.urls, ""])}>Add URL</Button>

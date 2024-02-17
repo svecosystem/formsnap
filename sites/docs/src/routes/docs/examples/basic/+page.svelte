@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Field, Fieldset, Control, Label, Description, ValidationError, Legend } from "formsnap";
+	import { Field, Fieldset, Control, Label, Description, FieldErrors, Legend } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
@@ -21,7 +21,7 @@
 			<input {...attrs} type="email" bind:value={$formData.email} />
 		</Control>
 		<Description>Company email is preferred</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="bio">
 		<Control let:attrs>
@@ -29,7 +29,7 @@
 			<textarea {...attrs} bind:value={$formData.bio} />
 		</Control>
 		<Description>Tell us a bit about yourself.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="language">
 		<Control let:attrs>
@@ -41,7 +41,7 @@
 			</select>
 		</Control>
 		<Description>Help us address you properly.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="theme">
 		<legend>Select your theme</legend>
@@ -52,7 +52,7 @@
 			</Control>
 		{/each}
 		<Description>We prefer dark mode, but the choice is yours.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="marketingEmails">
 		<Control let:attrs>
@@ -60,7 +60,7 @@
 			<Label>I want to receive marketing emails</Label>
 		</Control>
 		<Description>Stay up to date with our latest news and offers.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Fieldset {form} name="allergies">
 		<Legend>Select your allergies</Legend>
@@ -71,7 +71,7 @@
 			</Control>
 		{/each}
 		<Description>When we provide lunch, we'll accommodate your needs.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Fieldset>
 	<button>Submit</button>
 </form>

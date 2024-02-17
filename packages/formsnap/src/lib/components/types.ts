@@ -2,7 +2,7 @@ import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from
 import type { FormPath, FormPathLeaves, SuperForm } from 'sveltekit-superforms';
 
 /**
- * Props for the `Form.Description` component.
+ * Props for the `Description` component.
  */
 export type DescriptionProps = {
 	/**
@@ -59,9 +59,9 @@ export type ArrayFieldProps<T extends Record<string, unknown>, U extends FormPat
 };
 
 /**
- * Props for the `Form.Fieldset` component. This component is used to group
- * form controls together and if used, should always have a child `Form.Legend`
- * component to provide an accessible label for the group.
+ * Props for the `Fieldset` component. This component is used to group
+ * form controls together and if used, should always have a child `Legend`
+ * component to provide an accessible title for the group.
  *
  * @see https://www.w3.org/WAI/tutorials/forms/grouping/
  */
@@ -94,7 +94,7 @@ export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<
 } & Omit<HTMLFieldsetAttributes, 'form'>;
 
 /**
- * Props for the `<Control />` component.
+ * Props for the `Control` component.
  */
 export type ControlProps = {
 	/**
@@ -105,7 +105,7 @@ export type ControlProps = {
 };
 
 /**
- * Props for the `Form.Label` component.
+ * Props for the `Label` component.
  */
 export type LabelProps = {
 	/**
@@ -126,8 +126,8 @@ export type LabelProps = {
 } & HTMLLabelAttributes;
 
 /**
- * Props for the `Form.GroupTitle` component. This component is used to
- * provide an accessible label for a group of form controls.
+ * Props for the `Legend` component. This component is used to
+ * provide an accessible title for a group of form controls.
  *
  * @see https://www.w3.org/WAI/tutorials/forms/grouping/
  */
@@ -150,9 +150,9 @@ export type LegendProps = {
 } & HTMLAttributes<HTMLLegendElement>;
 
 /**
- * Props for the `Form.Validation` component.
+ * Props for the `FieldErrors` component.
  */
-export type ValidationErrorProps = {
+export type FieldErrorsProps = {
 	/**
 	 * Optionally provide a unique id for the validation message.
 	 * If not provided, a unique ID will be generated for you.

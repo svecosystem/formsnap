@@ -51,7 +51,7 @@
 				This is your public display name. It can be your real name or a pseudonym. You can only
 				change this once every 30 days.
 			</Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="email">
@@ -74,7 +74,7 @@
 				</Select.Content>
 			</Select.Root>
 			<Form.Description></Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="bio">
@@ -84,7 +84,7 @@
 			<Form.Description>
 				You can @mention other users and organizations to link to them.
 			</Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="website">
@@ -92,7 +92,7 @@
 			<Form.Label>Website</Form.Label>
 			<Input {...attrs} bind:value={$formData.website} />
 			<Form.Description>Your personal website, blog, or portfolio.</Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Button>Submit</Form.Button>

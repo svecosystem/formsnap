@@ -36,7 +36,7 @@
 <form method="POST" use:form.enhance class="flex flex-col gap-4">
 	<Form.Field {form} name="language" let:value>
 		<Form.Control let:attrs>
-			<Form.Label>Email</Form.Label>
+			<Form.Label>Language</Form.Label>
 			<Select.Root
 				selected={{ label: languages[$formData.language], value: $formData.language }}
 				onSelectedChange={(s) => {
@@ -53,8 +53,8 @@
 					{/each}
 				</Select.Content>
 			</Select.Root>
-			<Form.Description></Form.Description>
-			<Form.Validation />
+			<Form.Description>Help us address you properly.</Form.Description>
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Button>Submit</Form.Button>

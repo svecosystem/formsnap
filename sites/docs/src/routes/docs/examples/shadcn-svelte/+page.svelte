@@ -30,7 +30,7 @@
 			<Form.Label>Name</Form.Label>
 			<Input {...attrs} bind:value={$formData.name} />
 			<Form.Description>Your full legal name</Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="age">
@@ -38,7 +38,7 @@
 			<Form.Label>Age</Form.Label>
 			<input {...attrs} type="number" bind:value={$formData.age} />
 			<Form.Description>Enter your age</Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="email">
@@ -46,7 +46,7 @@
 			<Form.Label>Email</Form.Label>
 			<Input {...attrs} type="email" bind:value={$formData.email} />
 			<Form.Description>Company email is preferred</Form.Description>
-			<Form.Validation />
+			<Form.FieldErrors />
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="terms">
@@ -55,7 +55,7 @@
 			<Form.Label>I accept the terms and conditions</Form.Label>
 		</Form.Control>
 		<Form.Description>If you don't accept the terms, we can't move forward.</Form.Description>
-		<Form.Validation />
+		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="language">
 		<Form.Control let:attrs>
@@ -79,7 +79,7 @@
 			</Select.Root>
 		</Form.Control>
 		<Form.Description>Help us address you properly.</Form.Description>
-		<Form.Validation />
+		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Field {form} name="notifications">
 		<Form.Control let:attrs>
@@ -95,7 +95,7 @@
 		</Form.Control>
 
 		<Form.Description>We'll only spam your inbox once per hour, don't worry!</Form.Description>
-		<Form.Validation />
+		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Fieldset {form} name="favoriteColors">
 		<Form.Legend>Select your favorite colors</Form.Legend>

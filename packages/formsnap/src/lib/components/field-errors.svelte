@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { getFormField } from '$lib/context.js';
 	import { getDataFsError, generateId } from '$lib/internal/utils/index.js';
-	import type { ValidationErrorProps } from './types.js';
+	import type { FieldErrorsProps } from './types.js';
 	import type { FieldErrorsAttrs, ErrorAttrs } from '$lib/attrs.types.js';
 
-	type $$Props = ValidationErrorProps;
+	type $$Props = FieldErrorsProps;
 
 	const { fieldErrorsId, errors } = getFormField();
 
@@ -15,6 +15,7 @@
 	$: errorAttr = getDataFsError($errors);
 
 	$: fieldErrorsId.set(id);
+
 	$: fieldErrorsAttrs = {
 		id: $fieldErrorsId,
 		'data-fs-error': errorAttr,

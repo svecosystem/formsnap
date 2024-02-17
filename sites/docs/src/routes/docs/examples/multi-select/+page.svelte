@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Field, Control, ValidationError, Label, Description } from "formsnap";
+	import { Field, Control, FieldErrors, Label, Description } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { flavors, schema, toppings } from "./schema.js";
@@ -32,7 +32,7 @@
 			</select>
 		</Control>
 		<Description>Choose which flavors you'd like</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="toppings">
 		{#each toppings as topping}
@@ -42,7 +42,7 @@
 			</Control>
 		{/each}
 		<Description>Choose which toppings you'd like.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<button>Submit</button>
 </form>

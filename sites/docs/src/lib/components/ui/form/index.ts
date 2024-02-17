@@ -2,7 +2,7 @@ import { Form as FormPrimitive } from "formsnap";
 import Control from "./form-control.svelte";
 import Description from "./form-description.svelte";
 import Label from "./form-label.svelte";
-import Validation from "./form-validation.svelte";
+import FieldErrors from "./form-field-errors.svelte";
 import Button from "./form-button.svelte";
 
 const Field = FormPrimitive.Field;
@@ -15,7 +15,7 @@ export {
 	Control,
 	Label,
 	Button,
-	Validation,
+	FieldErrors,
 	Description,
 	ArrayField,
 	Fieldset,
@@ -25,7 +25,7 @@ export {
 	Control as FormControl,
 	Description as FormDescription,
 	Label as FormLabel,
-	Validation as FormValidation,
+	FieldErrors as FormFieldErrors,
 	Button as FormButton,
 	Fieldset as FormFieldset,
 	Legend as FormLegend,
