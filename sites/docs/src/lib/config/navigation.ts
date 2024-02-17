@@ -128,5 +128,31 @@ export const navigation: Navigation = {
 				},
 			],
 		},
+		{
+			title: "Guides",
+			collapsible: true,
+			items: [
+				{
+					title: "Checkbox Groups",
+					href: "/docs/guides/checkbox-groups",
+					items: [],
+				},
+				{
+					title: "Custom Components",
+					href: "/docs/guides/custom-components",
+					items: [],
+				},
+				{
+					title: "Dynamic Fields",
+					href: "/docs/guides/dynamic-fields",
+					items: [],
+				},
+				{
+					title: "Radio Groups",
+					href: "/docs/guides/radio-groups",
+					items: [],
+				},
+			],
+		},
 	],
 };

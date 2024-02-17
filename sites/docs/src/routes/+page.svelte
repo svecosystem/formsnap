@@ -18,7 +18,7 @@
 	<h1
 		class="text-balance text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
 	>
-		Making forms a breeze
+		Forms can be a pain, but they don't have to be.
 	</h1>
 	<p class="mx-auto mt-6 max-w-3xl text-balance text-center text-base sm:text-lg">
 		Accessible form components that take <A target="_blank" href="https://superforms.rocks"
