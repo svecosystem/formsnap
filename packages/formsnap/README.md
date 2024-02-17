@@ -5,12 +5,12 @@ The goal of this library is to make working with the already incredible [sveltek
 ## Installation
 
 ```bash
-npm i formsnap sveltekit-superforms zod
+npm i formsnap sveltekit-superforms <your-schema-library>
 ```
 
 ## Usage
 
-You'll handle the initial Superforms setup just as you normally would, where you define a schema and return the form from your load function. The magic happens once you have access to that form inside of your page component.
+You'll handle the initial Superforms setup just as you normally would, where you define a schema and return the form from your load function.
 
 #### 1. Define a Zod schema
 
@@ -20,9 +20,9 @@ import { z } from 'zod';
 export const settingsFormSchema = z.object({
 	email: z.string().email(),
 	bio: z.string().max(250).optional(),
-	language: z.enum(['en', 'es', 'fr']),
 	marketingEmails: z.boolean().default(true),
-	theme: z.enum(['light', 'dark']).default('light')
+	language: z.enum(['en', 'es', 'fr']).default(['en']),
+	theme: z.enum(['light', 'dark']).default(['light'])
 });
 ```
 
@@ -30,13 +30,14 @@ export const settingsFormSchema = z.object({
 
 ```ts
 // +page.server.ts
-import { superValidate } from 'sveltekit-superforms/server';
+import { superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad } from './$types';
 import { settingsFormSchema } from './schemas';
 
 export const load: PageServerLoad = async () => {
 	return {
-		form: await superValidate(settingsFormSchema)
+		form: await superValidate(zod(settingsFormSchema))
 	};
 };
 ```
@@ -45,49 +46,71 @@ export const load: PageServerLoad = async () => {
 
 ```svelte
 <script lang="ts">
-	import { Form } from '@huntabyte/form';
+	import { Field, Label, FieldErrors, Control, Description, Fieldset, Legend } from 'formsnap';
 	import { settingsFormSchema } from './schemas';
-	import type { PageData } from './$types';
-	export let data: PageData;
+	import { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+
+	export let data;
+
+	const form = superForm(data.form, {
+		validators: zodClient(settingsFormSchema)
+	});
+
+	const { form: formData, enhance } = form;
 </script>
 
-<Form.Root schema={settingsFormSchema} form={data.form} let:config action="?/someAction">
-	<Form.Field {config} name="email">
-		<Form.Label>Email</Form.Label>
-		<Form.Input />
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="bio">
-		<Form.Label>Bio</Form.Label>
-		<Form.Textarea />
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="language">
-		<Form.Label>Language</Form.Label>
-		<Form.Select>
-			<option value="en">English</option>
-			<option value="es">Spanish</option>
-			<option value="fr">French</option>
-		</Form.Select>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="marketingEmails">
-		<Form.Checkbox />
-		<Form.Label>Receive marketing emails from us</Form.Label>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="theme">
-		<Form.RadioItem value="light" />
-		<Form.Label>Light</Form.Label>
-		<Form.Validation />
-	</Form.Field>
-	<Form.Field {config} name="theme">
-		<Form.RadioItem value="dark" />
-		<Form.Label>Dark</Form.Label>
-		<Form.Validation />
-	</Form.Field>
+<form method="POST" use:enhance>
+	<Field {form} name="email">
+		<Control let:attrs>
+			<Label>Email</Label>
+			<input type="email" {...attrs} bind:value={$formData.email} />
+		</Control>
+		<Description>We'll provide critical updates about your account via email.</Description>
+		<FieldErrors />
+	</Field>
+
+	<Field {form} name="bio">
+		<Control let:attrs>
+			<Label>Bio</Label>
+			<textarea bind:value={$formData.bio} {...attrs} />
+		</Control>
+		<FieldErrors />
+	</Field>
+
+	<Field {form} name="language">
+		<Control let:attrs>
+			<Label>Language</Label>
+			<select {...attrs} bind:value={$formData.language}>
+				<option value="en">English</option>
+				<option value="es">Spanish</option>
+				<option value="fr">French</option>
+			</select>
+		</Control>
+		<FieldErrors />
+	</Field>
+
+	<Field {form} name="marketingEmails">
+		<Control let:attrs>
+			<Label>Receive marketing emails from us</Label>
+			<input type="checkbox" {...attrs} bind:checked={$formData.marketingEmails} />
+		</Control>
+		<FieldErrors />
+	</Field>
+
+	<Fieldset {form} name="theme">
+		<Legend>Select your theme</Legend>
+		{#each ['light', 'dark'] as theme}
+			<Control let:attrs>
+				<input {...attrs} type="radio" bind:group={$formData.theme} value={theme} />
+				<Label>{theme}</Label>
+			</Control>
+		{/each}
+		<FieldErrors />
+	</Fieldset>
+
 	<button type="submit">Submit</button>
-</Form.Root>
+</form>
 ```
 
 Check out [Formsnap.dev](https://formsnap.dev) for more documentation.
