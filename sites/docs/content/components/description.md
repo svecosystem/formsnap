@@ -6,7 +6,7 @@ tagline: Components
 
 The `Description` component provides an accessible description for a field. It renders a `<div />` element and should be used to provide additional context or instructions for a form field.
 
-Descriptions must be used within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ArrayField](/docs/components/array-field) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
+Descriptions must be used within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
 
 ## Usage
 

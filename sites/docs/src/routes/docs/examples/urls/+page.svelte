@@ -25,7 +25,7 @@
 		<Form.Legend class="pb-2">Enter your URLS</Form.Legend>
 		<div class="flex flex-col gap-2">
 			{#each $formData.urls as _, i}
-				<Form.ArrayField {form} name="urls[{i}]">
+				<Form.ElementField {form} name="urls[{i}]">
 					<Form.Control let:attrs>
 						<div class="flex items-center gap-2">
 							<Input type="url" bind:value={$formData.urls[i]} {...attrs} class="w-full" />
@@ -33,7 +33,7 @@
 						</div>
 					</Form.Control>
 					<Form.FieldErrors />
-				</Form.ArrayField>
+				</Form.ElementField>
 			{/each}
 		</div>
 

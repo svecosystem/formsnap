@@ -71,13 +71,13 @@ export const navigation: Navigation = {
 			collapsible: true,
 			items: [
 				{
-					title: "ArrayField",
-					href: "/docs/components/array-field",
+					title: "Description",
+					href: "/docs/components/description",
 					items: [],
 				},
 				{
-					title: "Description",
-					href: "/docs/components/description",
+					title: "ElementField",
+					href: "/docs/components/element-field",
 					items: [],
 				},
 				{

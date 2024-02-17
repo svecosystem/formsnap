@@ -1,6 +1,6 @@
 ---
 title: FieldErrors
-description: The container for validation errors for a Field, Fieldset, or ArrayField.
+description: The container for validation errors for a Field, Fieldset, or ElementField.
 tagline: Components
 ---
 
@@ -16,7 +16,7 @@ By default, the `FieldErrors` component renders the following structure by defau
 </div>
 ```
 
-The `errors` are the errors for the [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ArrayField](/docs/components/array-field) that the `FieldErrors` component is associated with and must be used within the context of a `Field`,`Fieldset`, or `ArrayField` component.
+The `errors` are the errors for the [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) that the `FieldErrors` component is associated with and must be used within the context of a `Field`,`Fieldset`, or `ElementField` component.
 
 The errors are automatically linked to the control of the field using the `aria-describedby` attribute when errors are present.
 

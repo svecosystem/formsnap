@@ -8,7 +8,7 @@ import Button from "./form-button.svelte";
 const Field = FormPrimitive.Field;
 const Fieldset = FormPrimitive.Fieldset;
 const Legend = FormPrimitive.Legend;
-const ArrayField = FormPrimitive.ArrayField;
+const ElementField = FormPrimitive.ElementField;
 
 export {
 	Field,
@@ -17,7 +17,7 @@ export {
 	Button,
 	FieldErrors,
 	Description,
-	ArrayField,
+	ElementField,
 	Fieldset,
 	Legend,
 	//
@@ -29,5 +29,5 @@ export {
 	Button as FormButton,
 	Fieldset as FormFieldset,
 	Legend as FormLegend,
-	ArrayField as FormArrayField,
+	ElementField as FormElementField,
 };
