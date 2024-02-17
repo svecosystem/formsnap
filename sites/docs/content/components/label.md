@@ -1,14 +1,14 @@
 ---
 title: Label
-description: Renders a label for a form control.
+description: Renders a label element for a control.
 tagline: Components
 ---
 
-The `Label` component must be used as a child of a [Control](/docs/components/control) component. It renders a `<label />` element and is automatically linked to the control of the item using the `for` attribute.
+The `Label` component must be used as a child of a [Control](/docs/components/control) component. It renders a `<label />` element and includes the necessary attributes to associate it with the control.
 
 ## Usage
 
-The `Label` component handles the `for` attribute for you. Just make sure to use it within the context of a [Control](/docs/components/control) component.
+When using a `Label` inside a [Control](/docs/components/control), you don't need to worry about the `for` attribute. Formsnap handles that for you. Just don't forget to spread the `attrs` slot prop into the control element.
 
 ```svelte {3}
 <Field {form} name="name">

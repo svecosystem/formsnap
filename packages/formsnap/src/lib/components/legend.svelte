@@ -21,7 +21,7 @@
 {#if asChild}
 	<slot {legendAttrs} />
 {:else}
-	<legend {...$$restProps} bind:this={el}>
+	<legend {...legendAttrs} bind:this={el}>
 		<slot {legendAttrs} />
 	</legend>
 {/if}

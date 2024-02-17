@@ -82,8 +82,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.4(postcss-load-config@5.0.3)(postcss@8.4.35)(svelte@4.2.10)
       sveltekit-superforms:
-        specifier: ^2.2.0
-        version: 2.2.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10)
+        specifier: ^2.2.1
+        version: 2.2.1(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10)
       tailwindcss:
         specifier: ^3.3.6
         version: 3.4.1
@@ -7747,8 +7747,8 @@ packages:
       magic-string: 0.30.7
       periscopic: 3.1.0
 
-  /sveltekit-superforms@2.2.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10):
-    resolution: {integrity: sha512-a0oceymCqJyBnT53prNOn/wnFfrzahOsM78lk0LFrN/fhk7aV7JURiWLkPvrAwDP6QPkzc5PPHmBcK/7Qjzljw==}
+  /sveltekit-superforms@2.2.1(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10):
+    resolution: {integrity: sha512-BVqIbw6NA1BSuuDR99wG60d4/RLH3kd3CSq6MsXTYjV4yKPT3yJL0iiLim0XBZSIntSCgL2ZZ4KW+WSTrMlinQ==}
     requiresBuild: true
     peerDependencies:
       '@sveltejs/kit': 1.x || 2.x

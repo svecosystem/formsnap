@@ -17,5 +17,5 @@
 	<PageHeader.Description>{doc.description}</PageHeader.Description>
 </PageHeader.Root>
 <div class="markdown prose dark:prose-invert relative max-w-3xl pt-4" id="sveco-content">
-	<svelte:component this={component} />
+	<svelte:component this={component} {data} />
 </div>
