@@ -1,6 +1,7 @@
 ---
 title: getFormField
 description: Use the form field's state for advanced composition with custom form components.
+tagline: Functions
 ---
 
 You can use `getFormField` within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ArrayField](/docs/components/array-field) component to access the state of the field and use it to build more advanced form components.

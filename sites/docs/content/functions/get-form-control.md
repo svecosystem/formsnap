@@ -1,6 +1,7 @@
 ---
 title: getFormControl
 description: Use the form control's state for more advanced composition.
+tagline: Functions
 ---
 
 You can use `getFormControl` within the context of a [Control](/docs/components/control) component to access the state of the control and use it as you see fit.

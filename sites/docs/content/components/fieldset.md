@@ -1,6 +1,7 @@
 ---
 title: Fieldset
 description: Groups related form controls or fields and extends the Field component.
+tagline: Components
 ---
 
 The `Fieldset` component is used to follow the [W3C Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/#associating-related-controls-with-wai-aria) recommendation for associating related form controls. It renders a `<fieldset />` element and should always be used in conjunction with the [Legend](/docs/components/legend) component to provide a title for the group.

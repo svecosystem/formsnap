@@ -1,6 +1,7 @@
 ---
 title: FieldErrors
 description: The container for validation errors for a Field, Fieldset, or ArrayField.
+tagline: Components
 ---
 
 By default, the `FieldErrors` component renders the following structure by default (attributes omitted for brevity):

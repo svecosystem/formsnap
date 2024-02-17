@@ -1,6 +1,7 @@
 ---
 title: ArrayField
 description: Treat each index of an array as a separate form field.
+tagline: Components
 ---
 
 The `ArrayField` component is used to treat each index of an array as a separate form field. It's useful when you have a dynamic list of items that you want to treat as separate fields in your form.

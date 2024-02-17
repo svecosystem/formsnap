@@ -1,6 +1,7 @@
 ---
 title: Control
 description: Associates a label with and provides necessary attributes for a form control.
+tagline: Components
 ---
 
 <script>

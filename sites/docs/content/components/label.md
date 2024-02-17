@@ -1,6 +1,7 @@
 ---
 title: Label
 description: Renders a label for a form control.
+tagline: Components
 ---
 
 The `Label` component must be used as a child of a [Control](/docs/components/control) component. It renders a `<label />` element and is automatically linked to the control of the item using the `for` attribute.

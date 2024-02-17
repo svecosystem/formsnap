@@ -148,6 +148,11 @@ export const navigation: Navigation = {
 					items: [],
 				},
 				{
+					title: "Multiple Select",
+					href: "/docs/guides/multiple-select",
+					items: [],
+				},
+				{
 					title: "Radio Groups",
 					href: "/docs/guides/radio-groups",
 					items: [],

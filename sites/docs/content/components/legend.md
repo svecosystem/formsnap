@@ -1,6 +1,7 @@
 ---
 title: Legend
 description: Provides a title for a group of related form controls.
+tagline: Components
 ---
 
 You should always use the `Legend` component in conjunction with the [Fieldset](/docs/components/fieldset) component to provide a title for a group of related form controls. See the the `Fieldset` component's [documentation](/docs/components/fieldset) for more information on when to use a fieldset.

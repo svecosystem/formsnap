@@ -1,6 +1,7 @@
 ---
 title: Description
 description: Provides an accessible description for a form field.
+tagline: Components
 ---
 
 The `Description` component provides an accessible description for a field. It renders a `<div />` element and should be used to provide additional context or instructions for a form field.
