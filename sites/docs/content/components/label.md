@@ -20,7 +20,7 @@ The `Label` component handles the `for` attribute for you. Just make sure to use
 
 ## Props
 
-A `Label` accepts all props that a standard HTML `<label />` element would accept along with a few additional props.
+A `Label` accepts all props that a standard HTML `<label />` element would accept along with a few additional props:
 
 ```ts
 export type LabelProps = {

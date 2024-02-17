@@ -2,11 +2,11 @@
 	import { getFormField } from '$lib/context.js';
 	import { getDataFsError, generateId } from '$lib/internal/utils/index.js';
 	import type { ValidationErrorProps } from './types.js';
-	import type { ValidationAttrs, ValidationErrorAttrs } from '$lib/attrs.types.js';
+	import type { FieldErrorsAttrs, ErrorAttrs } from '$lib/attrs.types.js';
 
 	type $$Props = ValidationErrorProps;
 
-	const { validationId, errors } = getFormField();
+	const { fieldErrorsId, errors } = getFormField();
 
 	export let id = generateId();
 	export let asChild: $$Props['asChild'] = false;
@@ -14,28 +14,28 @@
 
 	$: errorAttr = getDataFsError($errors);
 
-	$: validationId.set(id);
-	$: validationAttrs = {
-		id: $validationId,
+	$: fieldErrorsId.set(id);
+	$: fieldErrorsAttrs = {
+		id: $fieldErrorsId,
 		'data-fs-error': errorAttr,
-		'data-fs-validation': '',
+		'data-fs-field-errors': '',
 		'aria-live': 'assertive' as const,
 		...$$restProps
-	} satisfies ValidationAttrs;
+	} satisfies FieldErrorsAttrs;
 
-	$: validationErrorAttrs = {
-		'data-fs-validation-error': '',
+	$: errorAttrs = {
+		'data-fs-field-error': '',
 		'data-fs-error': errorAttr
-	} satisfies ValidationErrorAttrs;
+	} satisfies ErrorAttrs;
 </script>
 
 {#if asChild}
-	<slot errors={$errors} {validationAttrs} {validationErrorAttrs} />
+	<slot errors={$errors} {fieldErrorsAttrs} {errorAttrs} />
 {:else}
-	<div {...validationAttrs} bind:this={el}>
-		<slot errors={$errors} {validationAttrs} {validationErrorAttrs}>
+	<div {...fieldErrorsAttrs} bind:this={el}>
+		<slot errors={$errors} {fieldErrorsAttrs} {errorAttrs}>
 			{#each $errors as error}
-				<div {...validationErrorAttrs}>{error}</div>
+				<div {...errorAttrs}>{error}</div>
 			{/each}
 		</slot>
 	</div>

@@ -3,22 +3,18 @@ title: Legend
 description: Provides a title for a group of related form controls.
 ---
 
-You should always use the `Legend` component in conjunction with the [Fieldset](/docs/components/fieldset) component to provide a title for a group of related form controls.
-
-## When to use a legend
-
-See the the [Fieldset](/docs/components/fieldset) component's documentation for more information on when to use a fieldset.
+You should always use the `Legend` component in conjunction with the [Fieldset](/docs/components/fieldset) component to provide a title for a group of related form controls. See the the `Fieldset` component's [documentation](/docs/components/fieldset) for more information on when to use a fieldset.
 
 ## Props
 
-The `Legend` component renders a `<legend />` element and accepts all props that a standard HTML `legend` element would accept along with a few additional props.
+The `Legend` component renders a `<legend />` element and accepts all props that a standard HTML `legend` element would accept along with a few additional props:
 
 ```ts
 export type LegendProps = {
 	/**
-	 * If `true`, Formsnap won't render the default `div` element
-	 * and will expect you to spread the `groupTitleAttrs` slot prop into
-	 * a custom label element/component of your choosing.
+	 * If `true`, Formsnap won't render the default `legend` element
+	 * and will expect you to spread the `legendAttrs` slot prop into
+	 * a custom legend element/component of your choosing.
 	 *
 	 * @see https://formsnap.dev/docs/asChild
 	 * @defaultValue `false`

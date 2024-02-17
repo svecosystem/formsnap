@@ -15,7 +15,7 @@
 
 	export let id = generateId();
 
-	const { name, validationId, descriptionId, errors, constraints } = getFormField();
+	const { name, fieldErrorsId, descriptionId, errors, constraints } = getFormField();
 
 	const controlContext: FormControlContext = {
 		id: writable(id),
@@ -36,7 +36,7 @@
 		id: $idStore,
 		'data-fs-error': errorAttr,
 		'aria-describedby': getAriaDescribedBy({
-			validationId: $validationId,
+			fieldErrorsId: $fieldErrorsId,
 			descriptionId: $descriptionId,
 			errors: $errors
 		}),

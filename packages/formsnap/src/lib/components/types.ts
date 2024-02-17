@@ -1,5 +1,5 @@
 import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from 'svelte/elements';
-import type { FormPath, SuperForm } from 'sveltekit-superforms';
+import type { FormPath, FormPathLeaves, SuperForm } from 'sveltekit-superforms';
 
 /**
  * Props for the `Form.Description` component.
@@ -29,9 +29,24 @@ export type DescriptionProps = {
 } & HTMLAttributes<HTMLDivElement>;
 
 /**
- * Props for the `Form.Field` component.
+ * Props for the `Field` component.
  */
 export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
+	/**
+	 * The form object returned from calling `superForm` in your component.
+	 */
+	form: SuperForm<T>;
+
+	/**
+	 * The path to the field in the form object.
+	 */
+	name: U;
+};
+
+/**
+ * Props for the `ArrayField` component.
+ */
+export type ArrayFieldProps<T extends Record<string, unknown>, U extends FormPathLeaves<T>> = {
 	/**
 	 * The form object returned from calling `superForm` in your component.
 	 */

@@ -71,6 +71,11 @@ export const navigation: Navigation = {
 			collapsible: true,
 			items: [
 				{
+					title: "ArrayField",
+					href: "/docs/components/array-field",
+					items: [],
+				},
+				{
 					title: "Description",
 					href: "/docs/components/description",
 					items: [],
@@ -86,6 +91,11 @@ export const navigation: Navigation = {
 					items: [],
 				},
 				{
+					title: "FieldErrors",
+					href: "/docs/components/field-errors",
+					items: [],
+				},
+				{
 					title: "Control",
 					href: "/docs/components/control",
 					items: [],
@@ -98,11 +108,6 @@ export const navigation: Navigation = {
 				{
 					title: "Legend",
 					href: "/docs/components/legend",
-					items: [],
-				},
-				{
-					title: "ValidationError",
-					href: "/docs/components/validation-error",
 					items: [],
 				},
 			],

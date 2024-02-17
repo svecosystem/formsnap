@@ -3,7 +3,7 @@ title: getFormField
 description: Use the form field's state for advanced composition with custom form components.
 ---
 
-You can use `getFormField` within the context of a `Field` or `Fieldset` component to access the state of the field and use it to build more advanced form components.
+You can use `getFormField` within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ArrayField](/docs/components/array-field) component to access the state of the field and use it to build more advanced form components.
 
 ## Usage
 
@@ -35,8 +35,8 @@ export type FormFieldContext<
 	/** The original form object returned from the load function. */
 	form: SuperForm<T>;
 
-	/** A store containing the ID of the validation element for the field. */
-	validationId: Writable<string>;
+	/** A store containing the ID of the field errors container for the field. */
+	fieldErrorsId: Writable<string>;
 
 	/** A store containing the ID of the description element for the field. */
 	descriptionId: Writable<string>;

@@ -5,7 +5,7 @@ description: Provides an accessible description for a form field.
 
 The `Description` component provides an accessible description for a field. It renders a `<div />` element and should be used to provide additional context or instructions for a form field.
 
-Descriptions must be used within the context of a [Field](/docs/components/field) or [Fieldset](/docs/components/fieldset) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
+Descriptions must be used within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ArrayField](/docs/components/array-field) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
 
 ## Usage
 
@@ -57,13 +57,7 @@ The `Description` component provides a single slot prop, `descriptionAttrs`, whi
 
 ```ts
 type SlotProps = {
-	descriptionAttrs: {
-		id: string | undefined;
-		"data-fs-error": string | undefined;
-		"data-fs-description": string;
-		// any other props you pass to `<Form.Description />`
-		[key: string]: any;
-	};
+	descriptionAttrs: DescriptionAttrs;
 };
 ```
 

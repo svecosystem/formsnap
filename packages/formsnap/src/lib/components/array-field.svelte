@@ -1,12 +1,12 @@
 <script lang="ts" context="module">
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	import type { FormPath, FormPathArrays, FormPathLeaves } from 'sveltekit-superforms';
+	import type { FormPathArrays, FormPathLeaves } from 'sveltekit-superforms';
 	type T = Record<string, unknown>;
 	type U = unknown;
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends FormPathLeaves<T>">
-	import type { FieldProps } from './types.js';
+	import type { ArrayFieldProps } from './types.js';
 	import type { PrimitiveFromIndex } from '$lib/internal/types.js';
 
 	import { setFormField, type FormFieldContext, getFormField } from '$lib/context.js';
@@ -15,7 +15,7 @@
 
 	import type { SuperForm } from 'sveltekit-superforms';
 
-	type $$Props = FieldProps<T, U>;
+	type $$Props = ArrayFieldProps<T, U>;
 
 	export let form: SuperForm<T>;
 	export let name: U;
@@ -38,7 +38,7 @@
 		errors: writable<string[]>([]),
 		constraints: writable<Record<string, unknown>>({}),
 		tainted: writable(false),
-		validationId: writable<string>(),
+		fieldErrorsId: writable<string>(),
 		descriptionId: writable<string>($parentDescriptionId),
 		form
 	};

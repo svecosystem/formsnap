@@ -25,7 +25,7 @@ When you have a group of radio buttons related to a single field, you should use
 	<Description>
 		Help us understand your preferences by selecting a theme.
 	</Description>
-	<ValidationError />
+	<FieldErrors />
 </Fieldset>
 ```
 
@@ -48,7 +48,7 @@ When you have a group of checkboxes related to a single field, typically used fo
 		</Control>
 	{/each}
 	<Description>We'll make sure to accommodate your dietary needs.</Description>
-	<ValidationError />
+	<FieldErrors />
 </Fieldset>
 ```
 
@@ -108,7 +108,7 @@ export type FieldsetProps<
 
 ## Slot Props
 
-The `<Form.Fieldset />` component provides a single slot prop, `fieldsetAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
+The `Fieldset` component provides a single slot prop, `fieldsetAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
 
 ```ts
 type SlotProps = {
@@ -118,7 +118,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the `<fieldset />` element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/aschild) prop.
 
 ```ts
 export type FieldsetAttrs = {

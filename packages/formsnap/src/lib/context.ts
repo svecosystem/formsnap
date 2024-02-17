@@ -14,8 +14,8 @@ export type FormFieldContext<T extends Record<string, unknown>, U extends FormPa
 	/** The original form object returned from the load function. */
 	form: SuperForm<T>;
 
-	/** A store containing the ID of the validation element for the field. */
-	validationId: Writable<string>;
+	/** A store containing the ID of the field errors container for the field. */
+	fieldErrorsId: Writable<string>;
 
 	/** A store containing the ID of the description element for the field. */
 	descriptionId: Writable<string>;

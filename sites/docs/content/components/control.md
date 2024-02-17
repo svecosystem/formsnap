@@ -13,13 +13,13 @@ Each control and its label should be wrapped in its own `Control` component. Thi
 
 ## Why a separate component?
 
-A common question is _"why we can't just include this logic in the `Field` component?"_.
+A common question is _"why we can't just include this logic in the various `Field` components?"_.
 
-While we could, doing so would limit the `Field` component to a single control, which would limit the ability to use it for checkbox groups, radio groups, and other multi-control components.
+Doing so would limit the `Field` component to a single control, which would limit the ability to use it for checkbox groups, radio groups, and other multi-control components.
 
 ## Props
 
-The `Control` component doesn't render an element itself, it strictly provides context and attributes for the control via a slot prop.
+The `Control` component doesn't render an element itself, it strictly provides context and attributes for the control via a slot prop and state for the [Label](/docs/components/label).
 
 ```ts
 export type ControlProps = {
@@ -82,7 +82,7 @@ export type ControlAttrs = {
 
 Since the `Control` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
-For example, you may want to automatically include the `Label` for each item, and you want the label and slot content to be wrapped in a `div`.
+For example, you may want to automatically include the [Label](/docs/components/label) for each item, and you want the label and slot content to be wrapped in a `div`.
 
 Here's how you might do just that:
 

@@ -3,7 +3,7 @@
  */
 type AriaDescribedByParams = {
 	/** The ID of the validation element for the field. */
-	validationId: string | undefined;
+	fieldErrorsId: string | undefined;
 
 	/** The ID of the description element for the field. */
 	descriptionId: string | undefined;
@@ -17,7 +17,7 @@ type AriaDescribedByParams = {
  * given the existence of a description and/or validation message.
  */
 export function getAriaDescribedBy({
-	validationId = undefined,
+	fieldErrorsId = undefined,
 	descriptionId = undefined,
 	errors
 }: AriaDescribedByParams) {
@@ -26,8 +26,8 @@ export function getAriaDescribedBy({
 	if (descriptionId) {
 		describedBy += descriptionId + ' ';
 	}
-	if (errors.length && validationId) {
-		describedBy += validationId;
+	if (errors.length && fieldErrorsId) {
+		describedBy += fieldErrorsId;
 	}
 	return describedBy ? describedBy.trim() : undefined;
 }

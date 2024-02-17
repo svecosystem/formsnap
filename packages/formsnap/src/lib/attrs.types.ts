@@ -1,5 +1,5 @@
 /**
- * Attributes provided via the `attrs` slot prop of the `<Form.Item>`
+ * Attributes provided via the `attrs` slot prop of the `<Control/>`
  * component to spread onto the form control element.
  *
  * @see https://formsnap.dev/docs/components/form-item
@@ -28,7 +28,7 @@ export type ControlAttrs = {
 };
 
 /**
- * Attributes provided via the slot prop of the `<Form.Label />` component
+ * Attributes provided via the slot prop of the `<Label />` component
  * when used with the `asChild` prop to spread onto the label element.
  *
  * @see https://formsnap.dev/docs/aschild
@@ -50,13 +50,13 @@ export type LabelAttrs = {
 };
 
 /**
- * Attributes provided via the slot prop `<Form.Validation />` when used
- * with the `asChild` prop to spread onto the validation element.
+ * Attributes provided via the slot prop `fieldErrorsAttrs` when used
+ * with the `asChild` prop to spread onto the `FieldErrors` element.
  *
  * @see https://formsnap.dev/docs/aschild
  * @see https://formsnap.dev/docs/components/form-validation
  */
-export type ValidationAttrs = {
+export type FieldErrorsAttrs = {
 	/** The ID of the validation element, used to describe the control. */
 	id: string;
 
@@ -64,7 +64,7 @@ export type ValidationAttrs = {
 	'data-fs-error': string | undefined;
 
 	/** Used for selection during styling or otherwise */
-	'data-fs-validation': string;
+	'data-fs-field-errors': string;
 
 	/** Notifies screen readers when a validation error occurs */
 	'aria-live': 'assertive' | 'polite';
@@ -75,13 +75,13 @@ export type ValidationAttrs = {
 };
 
 /**
- * Attributes provided via the `validationErrorAttrs` slot prop
- * of the `<Form.Validation />` component to be spread onto
- * the individual validation error elements.
+ * Attributes provided via the `errorAttrs` slot prop
+ * of the `<FieldErrors />` component to be spread onto
+ * the individual error elements.
  */
-export type ValidationErrorAttrs = {
+export type ErrorAttrs = {
 	/** Used for selection during styling or otherwise */
-	'data-fs-validation-error': string;
+	'data-fs-field-error': string;
 
 	/** Present when a validation error exists on the field. */
 	'data-fs-error': string | undefined;
@@ -89,7 +89,7 @@ export type ValidationErrorAttrs = {
 
 /**
  * Attributes provided via the `legendAttrs` slot prop of the
- * `<Form.Legend />` component to be spread onto the legend element when
+ * `<Legend />` component to be spread onto the legend element when
  * used with the `asChild` prop.
  *
  * @see https://formsnap.dev/docs/aschild
@@ -109,7 +109,7 @@ export type LegendAttrs = {
 
 /**
  * Attributes provided via the `descriptionAttrs` slot prop of the
- * `<Form.Description />` component to be spread onto the description
+ * `<Description />` component to be spread onto the description
  * element when used with the `asChild` prop.
  *
  * @see https://formsnap.dev/docs/aschild
@@ -132,7 +132,7 @@ export type DescriptionAttrs = {
 
 /**
  * Attributes provided via the `fieldsetAttrs` slot prop of the
- * `<Form.Fieldset />` component to be spread onto the `<fieldset>`
+ * `<Fieldset />` component to be spread onto the `<fieldset>`
  * element when used with the `asChild` prop.
  *
  * @see https://formsnap.dev/docs/aschild
@@ -145,7 +145,7 @@ export type FieldsetAttrs = {
 	/** Present when a validation error exists on the field. */
 	'data-fs-error': string | undefined;
 
-	/* Any additional props provided to `<Form.Fieldset />` */
+	/* Any additional props provided to `<Fieldset />` */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 };

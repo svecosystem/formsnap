@@ -67,7 +67,7 @@ To maintain the type safety of the component, we'll need to use some generics, w
 	lang="ts"
 	generics="T extends Record<string, unknown>, U extends FormPath<T>"
 >
-	import { Field, type FieldProps, ValidationError } from "formsnap";
+	import { Field, type FieldProps, FieldErrors } from "formsnap";
 	import type { SuperForm } from "sveltekit-superforms";
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -80,6 +80,6 @@ To maintain the type safety of the component, we'll need to use some generics, w
 <!-- passing the slot props down are optional -->
 <Field {form} {name} let:value let:errors let:tainted let:contraints>
 	<slot {value} {errors} {tainted} {constraints} />
-	<ValidationError />
+	<FieldErrors />
 </Field>
 ```
