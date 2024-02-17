@@ -6,6 +6,8 @@ tagline: Guides
 
 <script>
 	import { Steps, Callout } from '$lib/components'
+	import DynamicFieldsForm from '$lib/components/examples/dynamic-fields.svelte'
+	export let data;
 </script>
 
 To create a dynamic field, you'll want to use the [ElementField](/docs/components/element-field) component, which allows you to treat each element of an array as a separate field with its own state and validation.
@@ -24,11 +26,14 @@ Here's the schema we'll use for the form we'll build in this guide. We'll assume
 import { z } from "zod";
 
 export const schema = z.object({
-	urls: z.array(z.string().url().min(1)).min(2).default(["", ""]),
+	urls: z
+		.array(z.string().url({ message: "Please enter a valid URL." }))
+		.min(2, "You must include at least two URLs on your profile.")
+		.default(["", ""]),
 });
 ```
 
-We've defined an array named `urls` that contains strings that must be valid URLs and have a minimum length of 1. We've also set a minimum length of 2 for the array itself, and provided two default values to start with. The minimum length of 2 may sounds strange, but we're only doing so to demonstrate different validation errors for the array and its elements.
+We've defined an array named `urls` that contains strings that must be valid URLs. We've also set a minimum length of 2 for the array itself, and provided two default values to start with. The minimum length of 2 may sounds strange, but we're only doing so to demonstrate different validation errors for the array and its elements.
 
 ### Create the Form
 
@@ -216,6 +221,20 @@ That's it! 🎉
 
 You've created a dynamic field that allows users to add and remove URLs from their profile. With some custom styles and finesse, you can make the form look something like this:
 
+{#await data.dynamicFieldsForm}
+
+Loading example....
+
+{:then form}
+
+<DynamicFieldsForm data={form} />
+
+{:catch}
+
+An error occurred while loading the example.
+
+{/await}
+
 </Steps>
 
 ## TLDR - Show Me the Code
@@ -226,7 +245,10 @@ Here's the complete code for the form we built in this guide:
 import { z } from "zod";
 
 export const schema = z.object({
-	urls: z.array(z.string().url().min(1)).min(2).default(["", ""]),
+	urls: z
+		.array(z.string().url({ message: "Please enter a valid URL." }))
+		.min(2, "You must include at least two URLs on your profile.")
+		.default(["", ""]),
 });
 ```
 

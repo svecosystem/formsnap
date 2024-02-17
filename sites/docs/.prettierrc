@@ -5,7 +5,10 @@
 	"printWidth": 100,
 	"plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
 	"overrides": [
-		{ "files": "*.svelte", "options": { "parser": "svelte" } },
+		{
+			"files": "*.svelte",
+			"options": { "parser": "svelte", "svelteBracketNewLine": false, "bracketSameLine": false }
+		},
 		{ "files": "*.md", "options": { "parser": "markdown", "printWidth": 85 } }
 	]
 }

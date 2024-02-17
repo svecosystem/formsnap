@@ -26,3 +26,5 @@ export { default as Circuitry } from "phosphor-svelte/lib/Circuitry";
 export { default as FileTS } from "phosphor-svelte/lib/FileTs";
 export { default as UsersThree } from "phosphor-svelte/lib/UsersThree";
 export { default as Hammer } from "phosphor-svelte/lib/Hammer";
+export { default as Trash } from "phosphor-svelte/lib/Trash";
+export { default as Plus } from "phosphor-svelte/lib/Plus";
