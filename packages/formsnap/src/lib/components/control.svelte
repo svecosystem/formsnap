@@ -55,4 +55,23 @@
 	$: controlContext.labelAttrs.set(labelAttrs);
 </script>
 
+<!--
+@component
+## Control
+Associates a [Label](https://formsnap.dev/docs/components/label) with and provides necessary attributes for a form control.
+
+- [Control Documentation](https://formsnap.dev/docs/components/label)
+
+@example
+```svelte
+<Control let:attrs>
+	<Label>Name</Label>
+	<input type="text" {...attrs} bind:value={$formData.name} />
+</Control>
+```
+
+### Slot Props
+- `attrs` - A spreadable object of attributes that must be applied to the form control element.
+-->
+
 <slot {attrs} />

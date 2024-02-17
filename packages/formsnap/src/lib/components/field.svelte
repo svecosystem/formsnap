@@ -47,6 +47,23 @@
 	setFormField<T, U>(field);
 </script>
 
+<!--
+@component
+## Field
+A component that provides the necessary context for a form field.
+
+- [Field Documentation](https://formsnap.dev/docs/components/field)
+
+### Slot Props
+- `value` - The value of the field.
+- `errors` - The errors of the field.
+- `tainted` - The tainted state of the field.
+- `constraints` - The constraints of the field.
+
+@param {SuperForm} form - The form object.
+@param {FormPath<T>} name - The name of the field.
+-->
+
 <slot
 	value={$formData[name]}
 	errors={$errors}

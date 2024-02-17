@@ -18,6 +18,19 @@
 	} satisfies LegendAttrs;
 </script>
 
+<!--
+@component
+## Legend
+A component that provides a title for a group of related form controls and should be used within a [Fieldset](https://formsnap.dev/docs/components/fieldset) component.
+
+- [Legend Documentation](https://formsnap.dev/docs/components/legend)
+
+### Slot Props
+- `legendAttrs` - A spreadable object of attributes for the legend element if `asChild` is `true`.
+
+@param {boolean} [asChild=false] - Whether to opt out of rendering the legend element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+-->
+
 {#if asChild}
 	<slot {legendAttrs} />
 {:else}

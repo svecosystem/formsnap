@@ -25,6 +25,26 @@
 	};
 </script>
 
+<!--
+@component
+## Fieldset
+A component that groups related form controls or fields and extends the [Field](https://formsnap.dev/docs/components/field) component.
+
+- [Fieldset Documentation](https://formsnap.dev/docs/components/fieldset)
+- [Field Documentation](https://formsnap.dev/docs/components/field)
+
+### Slot Props
+- `value` - The value of the field.
+- `errors` - The errors of the field.
+- `tainted` - The tainted state of the field.
+- `constraints` - The constraints of the field.
+- `fieldsetAttrs` - A spreadable object of attributes for the fieldset element if `asChild` is `true`.
+
+@param {SuperForm} form - The form object.
+@param {FormPath<T>} name - The name of the field.
+@param {boolean} [asChild=false] - Whether to opt out of rendering the fieldset element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+-->
+
 <Field {form} {name} let:value let:errors let:tainted let:constraints>
 	{#if asChild}
 		<slot {fieldsetAttrs} {value} {errors} {tainted} {constraints} />

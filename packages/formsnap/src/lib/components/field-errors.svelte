@@ -30,6 +30,23 @@
 	} satisfies ErrorAttrs;
 </script>
 
+<!--
+@component
+## FieldErrors
+A component that renders the container for validation errors for a [Field](https://formsnap.dev/docs/components/field), [Fieldset](https://formsnap.dev/docs/components/fieldset), or [ElementField](https://formsnap.dev/docs/components/element-field).
+
+- [FieldErrors Documentation](https://formsnap.dev/docs/components/field-errors)
+
+### Slot Props
+- `errors` - An array of errors for the associated field.
+- `fieldErrorsAttrs` - A spreadable object of attributes for the container element if `asChild` is `true`.
+- `errorAttrs` - A spreadable object of attributes for the individual error elements if `asChild` is `true`.
+
+@param {string} [id] - The id of the field errors container.
+@param {el} [HTMLElement] - Bind to the field errors container element.
+@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+-->
+
 {#if asChild}
 	<slot errors={$errors} {fieldErrorsAttrs} {errorAttrs} />
 {:else}

@@ -5,5 +5,5 @@ export { default as Label } from './label.svelte';
 export { default as FieldErrors } from './field-errors.svelte';
 export { default as Fieldset } from './fieldset.svelte';
 export { default as Legend } from './legend.svelte';
-export { default as ArrayField } from './array-field.svelte';
+export { default as ElementField } from './element-field.svelte';
 export type * from './types.js';

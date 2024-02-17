@@ -44,9 +44,9 @@ export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>>
 };
 
 /**
- * Props for the `ArrayField` component.
+ * Props for the `ElementField` component.
  */
-export type ArrayFieldProps<T extends Record<string, unknown>, U extends FormPathLeaves<T>> = {
+export type ElementFieldProps<T extends Record<string, unknown>, U extends FormPathLeaves<T>> = {
 	/**
 	 * The form object returned from calling `superForm` in your component.
 	 */
