@@ -5,6 +5,7 @@
 	export let title: string = siteConfig.name;
 
 	$: title = $page.data?.title ? `${$page.data.title} - ${siteConfig.name}` : siteConfig.name;
+	$: description = $page.data?.description ?? siteConfig.description;
 </script>
 
 <svelte:head>
@@ -15,7 +16,7 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content={siteConfig.url} />
 	<meta name="twitter:title" content={title} />
-	<meta name="twitter:description" content={siteConfig.description} />
+	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={siteConfig.ogImage.url} />
 	<meta name="twitter:image:alt" content={siteConfig.name} />
 	<meta name="twitter:creator" content={siteConfig.author} />
