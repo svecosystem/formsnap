@@ -21,3 +21,8 @@ export { default as Warning } from "phosphor-svelte/lib/Warning";
 export { default as XComIcon } from "./xcom-icon.svelte";
 export { default as ShadcnIcon } from "./shadcn-icon.svelte";
 export { default as Minus } from "phosphor-svelte/lib/Minus";
+export { default as PersonArmsSpread } from "phosphor-svelte/lib/PersonArmsSpread";
+export { default as Circuitry } from "phosphor-svelte/lib/Circuitry";
+export { default as FileTS } from "phosphor-svelte/lib/FileTs";
+export { default as UsersThree } from "phosphor-svelte/lib/UsersThree";
+export { default as Hammer } from "phosphor-svelte/lib/Hammer";

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import {
 		GitHubIcon,
-		Code,
-		MarkdownIcon,
-		ShadcnIcon,
-		MoonStars,
+		PersonArmsSpread,
 		FileHTML,
-		Plug,
+		Circuitry,
+		FileTS,
+		UsersThree,
+		Hammer,
 	} from "$lib/icons/index.js";
 	import { Button } from "$lib/components/ui/button/index.js";
 	import FeatureCard from "$lib/components/feature-card.svelte";
@@ -44,27 +44,31 @@
 		What's included
 	</h2>
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-		<!-- <FeatureCard title="Markdown Support" icon={MarkdownIcon}>
-			Nothing beats the simplicity of Markdown for documenting your projects.
+		<FeatureCard title="Accessible Defaults" icon={PersonArmsSpread}>
+			ARIA-attributes and wiring are included by default, following the <A
+				href="https://www.w3.org/TR/wai-aria-practices-1.2/">WAI-ARIA Authoring Practices</A
+			>.
 		</FeatureCard>
-		<FeatureCard title="Syntax Highlighting" icon={Code}>
-			Powered by <A href="https://shikiji.netlify.app/">Shikiji</A>, and enhanced by <A
-				href="https://rehype-pretty-code.netlify.app/">Pretty Code</A
-			> to provide the same syntax highlighting as VSCode.
+		<FeatureCard title="Composable APIs" icon={Circuitry}>
+			Designed with composition in mind, enabling you to extend and bend the components to your
+			will.
 		</FeatureCard>
-		<FeatureCard title="Pre-built Components" icon={ShadcnIcon}>
-			Simple to use components for common doc site elements, powered by shadcn-svelte.
+		<FeatureCard title="HTML Standard" icon={FileHTML}>
+			Leverages the right HTML elements to maintain compatibility and accessibility.
 		</FeatureCard>
-		<FeatureCard title="Light and Dark Mode" icon={MoonStars}>
-			Stop forcing your users to use one or the other. Out of the box light/dark mode lets them
-			choose.
+		<FeatureCard title="Fully Typed" icon={FileTS}>
+			Each component is fully typed with TypeScript, so you can move fast without breaking things.
 		</FeatureCard>
-		<FeatureCard title="Meta Tags" icon={FileHTML}>
-			All the meta tags you need to make your site look good when shared on social media.
+		<FeatureCard title="Dope Community" icon={UsersThree}>
+			A community of developers who are always willing to lend a helping hand. Join the <A
+				href="https://discord.gg/8z3rPdJ">Discord</A
+			> to get involved.
 		</FeatureCard>
-		<FeatureCard title="Unified Plugins" icon={Plug}>
-			Leverage the power of the <A href="https://github.com/unifiedjs">Unified</A> ecosystem with remark
-			and rehype plugins.
-		</FeatureCard> -->
+		<FeatureCard title="Built by Builders" icon={Hammer}>
+			Built & maintained by the same team responsible for <A href="https://shadcn-svelte.com"
+				>shadcn-svelte</A
+			>, <A href="https://bits-ui.com">Bits UI</A>, <A href="https://melt-ui.com">Melt UI</A>, and
+			more!
+		</FeatureCard>
 	</div>
 </section>
