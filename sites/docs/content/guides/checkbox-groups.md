@@ -226,3 +226,98 @@ An error occurred while loading the example.
 {/await}
 
 </Steps>
+
+## TLDR - Show Me the Code
+
+For those who prefer to skip the guide and get straight to the code, here's the code required to create a checkbox group with Formsnap.
+
+```ts title="+page.server.ts" showLineNumbers
+import { superValidate } from "sveltekit-superforms";
+import type { Actions, PageServerLoad } from "./$types";
+import { schema } from "./+page.svelte";
+import { zod } from "sveltekit-superforms/adapters";
+import { fail } from "@sveltejs/kit";
+
+export const load: PageServerLoad = async () => {
+	return {
+		form: await superValidate(zod(schema)),
+	};
+};
+
+export const actions: Actions = {
+	default: async (event) => {
+		const form = await superValidate(event, zod(schema));
+
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+
+		return { form };
+	},
+};
+```
+
+```svelte title="+page.svelte" showLineNumbers
+<script lang="ts" context="module">
+	import { z } from "zod";
+
+	export const allergies = [
+		"None",
+		"Peanuts",
+		"Shellfish",
+		"Lactose",
+		"Gluten",
+	] as const;
+
+	export const schema = z.object({
+		allergies: z
+			.array(z.enum(allergies))
+			.min(1, "If you don't have any allergies, select 'None'.")
+			.refine((v) => {
+				return v.includes("None") ? v.length === 1 : true;
+			}, "If you select 'None', you can't select any other allergies."),
+	});
+</script>
+
+<script lang="ts">
+	import { superForm } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
+
+	import {
+		Fieldset,
+		Legend,
+		Label,
+		Control,
+		FieldErrors,
+		Description,
+	} from "formsnap";
+
+	export let data;
+
+	const form = superForm(data, {
+		validators: zodClient(schema),
+	});
+	const { form: formData, enhance } = form;
+</script>
+
+<form method="POST" action="?/checkboxGroup" use:enhance>
+	<Fieldset {form} name="allergies">
+		<Legend>Select any allergies you may have</Legend>
+		{#each allergies as allergy}
+			<Control let:attrs>
+				<input
+					class="accent-brand"
+					type="checkbox"
+					{...attrs}
+					bind:group={$formData.allergies}
+					value={allergy}
+				/>
+				<Label>{allergy}</Label>
+			</Control>
+		{/each}
+		<Description>We'll ensure to accommodate your dietary restrictions.</Description>
+		<FieldErrors />
+	</Fieldset>
+	<button type="submit">Submit</button>
+</form>
+```
