@@ -9,7 +9,7 @@
 	import { getDataFsError } from '$lib/internal/utils/attributes.js';
 	import type { FieldsetProps } from './types.js';
 	import type { SuperForm } from 'sveltekit-superforms';
-	import FormField from './form-field.svelte';
+	import Field from './field.svelte';
 
 	type $$Props = FieldsetProps<T, U>;
 
@@ -25,7 +25,7 @@
 	};
 </script>
 
-<FormField {form} {name} let:value let:errors let:tainted let:constraints>
+<Field {form} {name} let:value let:errors let:tainted let:constraints>
 	{#if asChild}
 		<slot {fieldsetAttrs} {value} {errors} {tainted} {constraints} />
 	{:else}
@@ -33,4 +33,4 @@
 			<slot {fieldsetAttrs} {value} {errors} {tainted} {constraints} />
 		</fieldset>
 	{/if}
-</FormField>
+</Field>
