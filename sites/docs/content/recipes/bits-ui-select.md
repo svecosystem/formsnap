@@ -11,7 +11,7 @@ tagline: Recipes
 	export let data;
 </script>
 
-The `<Select />` component from [Bits UI](https://bits-ui.com/docs/components/select) is a simple, yet powerful component for building a custom select menu. It powers the `<Select />` component for [shadcn-svelte](https://shadcn-svelte.com/docs/components/select), which is one of the most popular UI projects for Svelte. This recipe will demonstrate how to integrate that component with Formsnap.
+The `Select` component from [Bits UI](https://bits-ui.com/docs/components/select) is a simple, yet powerful component for building a custom select menu. It powers the `Select` component for [shadcn-svelte](https://shadcn-svelte.com/docs/components/select), which is one of the most popular UI projects for Svelte. This recipe will demonstrate how to integrate that component with Formsnap.
 
 ## Single Select
 
