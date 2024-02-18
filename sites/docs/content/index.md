@@ -41,8 +41,8 @@ To seamlessly merge `PageData` and `ActionData`, we need to return the form from
 
 ```ts title="src/routes/sign-up/+page.server.ts" showLineNumbers
 import type { PageServerLoad } from "./$types";
-import { signupFormSchema } from "./schema";
-import { superValidate } from "sveltekit-superforms/server";
+import { signupFormSchema } from "./schema.js";
+import { superValidate } from "sveltekit-superforms";
 
 export const load: PageServerLoad = () => {
 	return {

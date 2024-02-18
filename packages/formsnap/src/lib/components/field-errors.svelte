@@ -44,7 +44,7 @@ A component that renders the container for validation errors for a [Field](https
 
 @param {string} [id] - The id of the field errors container.
 @param {el} [HTMLElement] - Bind to the field errors container element.
-@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
 
 {#if asChild}

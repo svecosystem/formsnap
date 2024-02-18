@@ -34,7 +34,7 @@
 </script>
 
 <form method="POST" use:form.enhance class="flex flex-col gap-4">
-	<Form.Field {form} name="language" let:value>
+	<Form.Field {form} name="language">
 		<Form.Control let:attrs>
 			<Form.Label>Language</Form.Label>
 			<Select.Root
@@ -43,7 +43,7 @@
 					s && ($formData.language = s.value);
 				}}
 			>
-				<Select.Input {value} name={attrs.name} />
+				<Select.Input name={attrs.name} />
 				<Select.Trigger {...attrs}>
 					<Select.Value placeholder="Select a language" />
 				</Select.Trigger>

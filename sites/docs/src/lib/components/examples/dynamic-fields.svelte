@@ -18,11 +18,19 @@
 	import { Button } from "$lib/components/ui/button";
 	import { Trash, Plus } from "$icons/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
+	import { toast } from "svelte-sonner";
 
 	export let data: SuperValidated<Infer<typeof schema>>;
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
+		onUpdated: ({ form: fd }) => {
+			if (fd.valid) {
+				toast.success(JSON.stringify(fd.data, null, 2));
+			} else {
+				toast.error("Please fix the errors in the form.");
+			}
+		},
 	});
 	const { form: formData } = form;
 

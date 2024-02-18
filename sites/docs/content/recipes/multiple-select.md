@@ -20,7 +20,7 @@ In the following guide, you'll learn how to setup and validate multiple select f
 
 Here's the schema we'll use for the form we'll build in this guide. We're assuming you know how to setup the load function and actions, and have already created a `+page.svelte` and `+page.server.ts` file.
 
-```ts title="schema.ts" showLineNumbers
+```ts title="schema.ts"
 import { z } from "zod";
 
 export const flavors = [
@@ -57,7 +57,7 @@ The schema represents an ice cream order form with a `scoops` field, a `flavors`
 
 Let's initialize our SuperForm with the form returned from the `load` function and setup the basic structure of our form. We'll also want to import the `schema`, `flavors`, and `toppings` from the schema file.
 
-```svelte title="+page.svelte" showLineNumbers
+```svelte title="+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -82,7 +82,7 @@ Let's initialize our SuperForm with the form returned from the `load` function a
 
 At a minimum we need to import the [Field](/docs/components/field), [Control](/docs/components/control), [Label](/docs/components/label), and [FieldErrors](/docs/components/field-errors) components from Formsnap.
 
-```svelte title="+page.svelte" showLineNumbers {4}
+```svelte title="+page.svelte"  {4}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -108,7 +108,7 @@ At a minimum we need to import the [Field](/docs/components/field), [Control](/d
 
 The first field we'll create is the `scoops` field, which will be a regular select input with a range of 1 to 5 scoops.
 
-```svelte title="+page.svelte" showLineNumbers {3-17}
+```svelte title="+page.svelte"  {3-17}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Field {form} name="scoops">
@@ -134,7 +134,7 @@ The first field we'll create is the `scoops` field, which will be a regular sele
 
 Next, let's create the `flavors` field. This field will be a multiple select input with the available flavors as options.
 
-```svelte title="+page.svelte" showLineNumbers {18-32}
+```svelte title="+page.svelte"  {18-32}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Field {form} name="scoops">
@@ -177,7 +177,7 @@ Notice that we're using the `multiple` attribute on the `select` element to allo
 
 Finally, let's create the `toppings` field. This field will also be a multiple select input with the available toppings as options.
 
-```svelte title="+page.svelte" showLineNumbers {33-47}
+```svelte title="+page.svelte"  {33-47}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Field {form} name="scoops">

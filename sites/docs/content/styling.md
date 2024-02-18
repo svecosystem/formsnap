@@ -9,18 +9,21 @@ Formsnap doesn't ship with any styles by default, but it does provide a number o
 
 Data attributes are applied to the various parts of your form so that you can easily style them using those attributes as selectors on a parent element or at the global level.
 
-- `data-fs-error` - Applied to all the formsnap components within a field if the field has a validation error. Using this attribute, you can customize the appearance of the input, label, etc. when the field has a validation error.
-- `data-fs-control` - Applied to the form control elements used within a [Control](/docs/components/control) context.
-- `data-fs-label` - Applied to the [Label](/docs/components/label) component.
-- `data-fs-field-errors` - Applied to the [FieldErrors](/docs/components/validation-error) container.
-- `data-fs-field-error` - Applied to the individually rendered `div` elements for each of the errors in the [FieldErrors](/docs/components/validation-error) component.
-- `data-fs-description` - Applied to the [Description](/docs/components/description) component.
-- `data-fs-fieldset` - Applied to the [Fieldset](/docs/components/fieldset) component.
-- `data-fs-legend` - Applied to the [Legend](/docs/components/legend) component.
+<!-- prettier-ignore -->
+| Attribute | Description |
+| --------- | ----------- |
+| `data-fs-error` | Applied to all the formsnap elements within a field if the field has a validation error. Using this attribute, you can customize the appearance of the input, label, etc. when the field has a validation error. |
+| `data-fs-control` | Applied to the form control element used within a [Control](/docs/components/control) context. |
+| `data-fs-label` | Applied to the `<label>` element rendered by the [Label](/docs/components/label) component. |
+| `data-fs-field-errors` | Applied to the [FieldErrors](/docs/components/validation-error) container `<div>` element. |
+| `data-fs-field-error` | Applied to the individually rendered `<div>` elements for each of the errors in the [FieldErrors](/docs/components/validation-error) component. |
+| `data-fs-description` | Applied to the `<div>` element rendered by the [Description](/docs/components/description) component. |
+| `data-fs-fieldset` | Applied to the `<fieldset>` element rendered by the [Fieldset](/docs/components/fieldset) component. |
+| `data-fs-legend` | Applied to the `<legend>` element rendered by the [Legend](/docs/components/legend) component. |
 
 Here's an example of how you might use these data attributes to style the various parts of your form:
 
-```css title="app.pcss" showLineNumbers
+```css title="app.pcss"
 [data-fs-error] {
 	color: red;
 }

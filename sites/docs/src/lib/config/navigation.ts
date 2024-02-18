@@ -54,11 +54,7 @@ export const navigation: Navigation = {
 					href: "/docs/quick-start",
 					items: [],
 				},
-				{
-					title: "asChild",
-					href: "/docs/asChild",
-					items: [],
-				},
+
 				{
 					title: "Styling",
 					href: "/docs/styling",
@@ -113,43 +109,48 @@ export const navigation: Navigation = {
 			],
 		},
 		{
-			title: "Functions",
+			title: "Composition",
 			collapsible: true,
 			items: [
 				{
+					title: "asChild",
+					href: "/docs/composition/aschild",
+					items: [],
+				},
+				{
 					title: "getFormField",
-					href: "/docs/functions/get-form-field",
+					href: "/docs/composition/get-form-field",
 					items: [],
 				},
 				{
 					title: "getFormControl",
-					href: "/docs/functions/get-form-control",
+					href: "/docs/composition/get-form-control",
 					items: [],
 				},
 			],
 		},
 		{
-			title: "Guides",
+			title: "Recipes",
 			collapsible: true,
 			items: [
 				{
 					title: "Checkbox Groups",
-					href: "/docs/guides/checkbox-groups",
+					href: "/docs/recipes/checkbox-groups",
 					items: [],
 				},
-				// {
-				// 	title: "Custom Components",
-				// 	href: "/docs/guides/custom-components",
-				// 	items: [],
-				// },
 				{
 					title: "Dynamic Fields",
-					href: "/docs/guides/dynamic-fields",
+					href: "/docs/recipes/dynamic-fields",
 					items: [],
 				},
 				{
 					title: "Multiple Select",
-					href: "/docs/guides/multiple-select",
+					href: "/docs/recipes/multiple-select",
+					items: [],
+				},
+				{
+					title: "Bits UI Select",
+					href: "/docs/recipes/bits-ui-select",
 					items: [],
 				},
 			],

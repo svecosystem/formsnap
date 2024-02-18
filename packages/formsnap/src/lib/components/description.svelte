@@ -33,7 +33,7 @@ A component that provides additional context for a field and is associated with 
 
 @param {string} [id] - The id of the description element.
 @param {el} [HTMLElement] - Bind to the description element.
-@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
 
 {#if asChild}

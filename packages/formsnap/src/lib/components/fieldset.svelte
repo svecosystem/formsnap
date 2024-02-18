@@ -42,7 +42,7 @@ A component that groups related form controls or fields and extends the [Field](
 
 @param {SuperForm} form - The form object.
 @param {FormPath<T>} name - The name of the field.
-@param {boolean} [asChild=false] - Whether to opt out of rendering the fieldset element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+@param {boolean} [asChild=false] - Whether to opt out of rendering the fieldset element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
 
 <Field {form} {name} let:value let:errors let:tainted let:constraints>

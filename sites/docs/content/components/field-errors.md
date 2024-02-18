@@ -4,7 +4,7 @@ description: The container for validation errors for a Field, Fieldset, or Eleme
 tagline: Components
 ---
 
-By default, the `FieldErrors` component renders the following structure by default (attributes omitted for brevity):
+The `FieldErrors` component renders the following structure by default (attributes omitted for brevity):
 
 ```svelte
 <div>
@@ -16,9 +16,11 @@ By default, the `FieldErrors` component renders the following structure by defau
 </div>
 ```
 
-The `errors` are the errors for the [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) that the `FieldErrors` component is associated with and must be used within the context of a `Field`,`Fieldset`, or `ElementField` component.
+Notice that we're populating the fallback slot, so if you don't provide a slot for the `FieldErrors` component, it will render a `<div />` element for each error in the `errors` array.
 
-The errors are automatically linked to the control of the field using the `aria-describedby` attribute when errors are present.
+The `errors` are the errors for the [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) that the `FieldErrors` component is associated with and must be used within the context of one of those components.
+
+The errors container is automatically linked to the control of the field using the `aria-describedby` attribute when errors are present.
 
 ## Usage
 
@@ -71,7 +73,7 @@ export type FieldErrorsProps = {
 	 * and will expect you to spread the `fieldErrorAttrs` slot prop into
 	 * a custom element/component of your choosing.
 	 *
-	 * @see https://formsnap.dev/docs/asChild
+	 * @see https://formsnap.dev/docs/composition/aschild
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -86,7 +88,7 @@ export type FieldErrorsProps = {
 
 ## Slot Props
 
-The `FieldErrors` component provides three slot props, `fieldErrorsAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop, `errors`, which is an array representing the errors for the field that the `FieldErrors` component is associated with, and `errorAttrs`, which are attributes that can (optionally) be spread onto each individual error element being rendered.
+The `FieldErrors` component provides three slot props, `fieldErrorsAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop, `errors`, which is an array representing the errors for the field that the `FieldErrors` component is associated with, and `errorAttrs`, which are attributes that can (optionally) be spread onto each individual error element being rendered.
 
 ```ts
 type SlotProps = {
@@ -100,7 +102,7 @@ type SlotProps = {
 
 ### Field Errors Container
 
-The following attributes are automatically applied to the container rendered by the `FieldErrors` component. This is also the shape of the `fieldErrorsAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the container rendered by the `FieldErrors` component. This is also the shape of the `fieldErrorsAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 export type FieldErrorsAttrs = {

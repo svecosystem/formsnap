@@ -12,7 +12,7 @@ The `ElementField` component is used to treat each index of an array as a separa
 
 Here's an example of how you might use the `ElementField` component to create a dynamic list of URLs in a form.
 
-```svelte showLineNumbers
+```svelte
 <script lang="ts">
 	import {
 		ElementField,
@@ -41,16 +41,11 @@ Here's an example of how you might use the `ElementField` component to create a 
 
 <form use:enhance method="POST">
 	<Fieldset {form} name="urls">
-		<Legend class="pb-2">Enter your URLS</Legend>
+		<Legend>Enter your URLS</Legend>
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
 				<Control let:attrs>
-					<Input
-						type="url"
-						bind:value={$formData.urls[i]}
-						{...attrs}
-						class="w-full"
-					/>
+					<Input type="url" bind:value={$formData.urls[i]} {...attrs} />
 				</Control>
 				<FieldErrors />
 			</ElementField>
@@ -63,6 +58,8 @@ Here's an example of how you might use the `ElementField` component to create a 
 ```
 
 As you can see, we're able to display errors for each index within the array, as well as array-level errors for the entire fieldset.
+
+Check out the [Dynamic Fields](/docs/recipes/dynamic-fields) recipe for more advanced usage of the `ElementField` component.
 
 ## Props
 
@@ -113,7 +110,7 @@ For example, you may always want to render the [FieldErrors](/docs/components/fi
 
 To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
 
-```svelte showLineNumbers title="CustomElementField.svelte"
+```svelte title="CustomElementField.svelte"
 <script lang="ts" context="module">
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	import type { FormPathArrays, FormPathLeaves } from "sveltekit-superforms";

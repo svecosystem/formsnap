@@ -25,7 +25,7 @@ For the purposes of this guide, we'll assume you're using the `zod` and `zodClie
 
 Let's start by defining a schema that contains an `array` to hold the selected options. We'll create this inside the `context="module"` script tag of our Svelte component so we can access it in our component and `+page.server.ts` file.
 
-```svelte title="+page.svelte" showLineNumbers
+```svelte title="+page.svelte"
 <script lang="ts" context="module">
 	import { z } from "zod";
 
@@ -45,7 +45,7 @@ We've defined an array named `allergies` that holds the possible enum values, an
 
 Next, we'll create a `+page.server.ts` file where we'll define our `load` function and `actions` to handle the form submission.
 
-```ts title="+page.server.ts" showLineNumbers
+```ts title="+page.server.ts"
 import { superValidate } from "sveltekit-superforms";
 import type { Actions, PageServerLoad } from "./$types";
 import { schema } from "./+page.svelte";
@@ -77,7 +77,7 @@ Notice we're importing that schema we defined in our `+page.svelte` file and usi
 
 Now that we have our schema defined and our `load` function and `actions` set up, we can initialize the SuperForm in our Svelte component.
 
-```svelte showLineNumbers title="+page.svelte"
+```svelte title="+page.svelte"
 <!-- script context="module" tag -->
 
 <script lang="ts">
@@ -102,7 +102,7 @@ Now that our SuperForm is initialized, we can use it to construct our checkbox g
 
 We'll first import the components we'll need from Formsnap, and then setup a `form` element with the `enhance` action to progressively enhance the form with client-side validation.
 
-```svelte showLineNumbers title="+page.svelte" {7-14,24-27}
+```svelte title="+page.svelte" {7-14,24-27}
 <!-- script context="module" tag  -->
 
 <script lang="ts">
@@ -136,7 +136,7 @@ We'll first import the components we'll need from Formsnap, and then setup a `fo
 
 Since each checkbox in the group is related to a single field, we'll use a `Fieldset` component with a `Legend` to group them together. We'll use the `Description` component to provide more context about the fieldset and the `FieldErrors` component to display validation errors.
 
-```svelte showLineNumbers {4-5,7-11}
+```svelte {4-5,7-11}
 <!-- script tags -->
 
 <form method="POST" use:enhance>
@@ -154,7 +154,7 @@ Since each checkbox in the group is related to a single field, we'll use a `Fiel
 
 Next, we'll iterate over the `allergies` array and create a [Control](/docs/components/control) that includes a [Label](/docs/components/label) and a checkbox input for each option.
 
-```svelte showLineNumbers {6-16}
+```svelte {6-16}
 <!-- script tags -->
 
 <form method="POST" use:enhance>
@@ -186,7 +186,7 @@ We now have a functional checkbox group that allows users to select multiple opt
 
 You may have noticed that users can select `"None"` and another allergy at the same time, which doesn't make sense. We can address this by adding a refinement to our schema to ensure that if `"None"` is selected, no other allergies can be selected.
 
-```svelte title="+page.svelte" showLineNumbers {10-12}
+```svelte title="+page.svelte"  {10-12}
 <script lang="ts" context="module">
 	import { z } from "zod";
 
@@ -231,7 +231,7 @@ An error occurred while loading the example.
 
 For those who prefer to skip the guide and get straight to the code, here's the code required to create a checkbox group with Formsnap.
 
-```ts title="+page.server.ts" showLineNumbers
+```ts title="+page.server.ts"
 import { superValidate } from "sveltekit-superforms";
 import type { Actions, PageServerLoad } from "./$types";
 import { schema } from "./+page.svelte";
@@ -257,7 +257,7 @@ export const actions: Actions = {
 };
 ```
 
-```svelte title="+page.svelte" showLineNumbers
+```svelte title="+page.svelte"
 <script lang="ts" context="module">
 	import { z } from "zod";
 

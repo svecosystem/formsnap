@@ -4,7 +4,7 @@ description: Groups related form controls or fields and extends the Field compon
 tagline: Components
 ---
 
-The `Fieldset` component is used to follow the [W3C Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/#associating-related-controls-with-wai-aria) recommendation for associating related form controls. It renders a `<fieldset />` element and should always be used in conjunction with the [Legend](/docs/components/legend) component to provide a title for the group.
+The `Fieldset` component is used to follow the [W3C Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/#associating-related-controls-with-fieldset) recommendation for associating related form controls. It renders a `<fieldset />` element and should always be used in conjunction with the [Legend](/docs/components/legend) component to provide a title for the group.
 
 This component automatically includes the [Field](/docs/components/field) component, so you don't need to worry about wrapping it yourself, just be sure to pass the `form` and `name` props to the `Fieldset` as you would with the `Field` component.
 
@@ -94,7 +94,7 @@ export type FieldsetProps<
 	 * and will expect you to spread the `groupAttrs` slot prop into
 	 * a custom label element/component of your choosing.
 	 *
-	 * @see https://formsnap.dev/docs/asChild
+	 * @see https://formsnap.dev/docs/composition/aschild
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -109,7 +109,7 @@ export type FieldsetProps<
 
 ## Slot Props
 
-The `Fieldset` component provides a single slot prop, `fieldsetAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
+The `Fieldset` component provides a single slot prop, `fieldsetAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 type SlotProps = {
@@ -119,7 +119,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the `<fieldset />` element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the `<fieldset />` element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 export type FieldsetAttrs = {

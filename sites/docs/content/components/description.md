@@ -39,7 +39,7 @@ export type DescriptionProps = {
 	 * instead expect you to spread the `descriptionAttrs` slot prop into an
 	 * element of your choosing.
 	 *
-	 * @see https://formsnap.dev/docs/asChild
+	 * @see https://formsnap.dev/docs/composition/aschild
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -54,7 +54,7 @@ export type DescriptionProps = {
 
 ## Slot Props
 
-The `Description` component provides a single slot prop, `descriptionAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
+The `Description` component provides a single slot prop, `descriptionAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 type SlotProps = {
@@ -64,7 +64,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the element rendered by the `Description` component. This is also the shape of the `descriptionAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the element rendered by the `Description` component. This is also the shape of the `descriptionAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 export type DescriptionAttrs = {

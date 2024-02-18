@@ -12,7 +12,7 @@ tagline: Guides
 
 To create a dynamic field, you'll need to use the [ElementField](/docs/components/element-field) component, that allows you to treat each element of an array as it's own field.
 
-In this guide, we'll create a URLs field where users can add and remove URLs from their profile.
+In this recipe, we'll create a URLs field where users can add and remove URLs from their profile.
 
 ## Create Dynamic Fields
 
@@ -20,7 +20,7 @@ In this guide, we'll create a URLs field where users can add and remove URLs fro
 
 ### Define the Schema
 
-Here's the schema we'll use for the form we'll build in this guide. We'll assume you know how to setup the load function and actions, and have already created a `+page.svelte` and `+page.server.ts` file.
+Here's the schema we'll use for the form we'll build in this guide. We'll assume you know how to setup the load function and actions in the `+page.server.ts` file.
 
 ```ts title="schema.ts"
 import { z } from "zod";
@@ -39,7 +39,7 @@ We've defined an array named `urls` that contains strings that must be valid URL
 
 We'll need to initialize our SuperForm with the form returned from the `load` function, and then setup the basic structure of our form.
 
-```svelte title="+page.svelte" showLineNumbers
+```svelte title="+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -64,7 +64,7 @@ We'll need to initialize our SuperForm with the form returned from the `load` fu
 
 We have a few components we need to import to build the form.
 
-```svelte title="+page.svelte" showLineNumbers {4-12}
+```svelte title="+page.svelte"  {4-12}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -98,7 +98,7 @@ We have a few components we need to import to build the form.
 
 Since our individual URL inputs will be part of the same field, we'll use a [Fieldset](/docs/components/fieldset) component to group them together and a [Legend](/docs/components/legend) to provide a title.
 
-```svelte title="+page.svelte" showLineNumbers {3-10}
+```svelte title="+page.svelte"  {3-10}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Fieldset {form} name="urls">
@@ -121,7 +121,7 @@ The [Description](/docs/components/description) component will provide additiona
 
 Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.urls` array to render the individual URL fields, which are represented by the [ElementField](/docs/components/element-field) component.
 
-```svelte title="+page.svelte" showLineNumbers {5-12}
+```svelte title="+page.svelte"  {5-12}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Fieldset {form} name="urls">
@@ -155,7 +155,7 @@ You should always include a label for each input for accessibility purposes. In 
 
 At the moment, the user can only have two URLs in their profile. We want to allow them to add and remove URLs as needed. We can achieve this by adding buttons to add and remove URLs.
 
-```svelte title="+page.svelte" showLineNumbers {23-29,40-42,50}
+```svelte title="+page.svelte"  {23-29,40-42,50}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -253,7 +253,7 @@ export const schema = z.object({
 });
 ```
 
-```svelte title="+page.svelte" showLineNumbers
+```svelte title="+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";

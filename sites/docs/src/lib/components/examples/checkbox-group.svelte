@@ -20,11 +20,19 @@
 	import { buttonVariants } from "$lib/components/ui/button/index.js";
 	import { cn } from "$lib/utils/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
+	import { toast } from "svelte-sonner";
 
 	export let data: SuperValidated<Infer<typeof schema>>;
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
+		onUpdated: ({ form: fd }) => {
+			if (fd.valid) {
+				toast.success(JSON.stringify(fd.data, null, 2));
+			} else {
+				toast.error("Please fix the errors in the form.");
+			}
+		},
 	});
 	const { form: formData, enhance } = form;
 </script>
@@ -33,7 +41,7 @@
 	<Card.Content class="pt-6">
 		<form method="POST" action="?/checkboxGroup" use:enhance class="flex flex-col gap-4">
 			<Fieldset {form} name="allergies">
-				<Legend class="pb-2 font-medium text-foreground data-[fs-error]:text-destructive"
+				<Legend class="text-foreground data-[fs-error]:text-destructive pb-2 font-medium"
 					>Select any allergies you may have</Legend
 				>
 				<div class="flex flex-col gap-1 pb-2">

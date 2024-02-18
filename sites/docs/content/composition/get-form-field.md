@@ -1,21 +1,22 @@
 ---
 title: getFormField
 description: Use the form field's state for advanced composition with custom form components.
-tagline: Functions
+tagline: Composition
 ---
 
 You can use `getFormField` within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component to access the state of the field and use it to build more advanced form components.
 
 ## Usage
 
-```svelte showLineNumbers
+```svelte
 <script lang="ts">
 	import { getFormField } from "formsnap";
 	import { schema } from "./schema.js";
+	import type { Infer } from "sveltekit-superforms";
 	// whatever your validation library is
 	import { z } from "zod";
 
-	const field = getFormField<z.infer<typeof schema>, "name">();
+	const field = getFormField<Infer<typeof schema>, "name">();
 </script>
 ```
 

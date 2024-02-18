@@ -30,7 +30,7 @@ export type LabelProps = {
 	 * and will expect you to spread the `labelAttrs` slot prop into
 	 * a custom label element/component of your choosing.
 	 *
-	 * @see https://formsnap.dev/docs/asChild
+	 * @see https://formsnap.dev/docs/composition/aschild
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -45,7 +45,7 @@ export type LabelProps = {
 
 ## Slot Props
 
-`Label` provides a single slot prop, `labelAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
+`Label` provides a single slot prop, `labelAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 type SlotProps = {
@@ -55,7 +55,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the element rendered by the `Label` component. This is also the shape of the `labelAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the element rendered by the `Label` component. This is also the shape of the `labelAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 export type LabelAttrs = {

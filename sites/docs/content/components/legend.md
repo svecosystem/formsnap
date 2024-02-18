@@ -17,7 +17,7 @@ export type LegendProps = {
 	 * and will expect you to spread the `legendAttrs` slot prop into
 	 * a custom legend element/component of your choosing.
 	 *
-	 * @see https://formsnap.dev/docs/asChild
+	 * @see https://formsnap.dev/docs/composition/aschild
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -32,7 +32,7 @@ export type LegendProps = {
 
 ## Slot Props
 
-The `Legend` component provides a single slot prop, `legendAttrs`, which is only necessary when using the [asChild](/docs/aschild) prop.
+The `Legend` component provides a single slot prop, `legendAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 type SlotProps = {
@@ -42,7 +42,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the element rendered by the `Legend` component. This is also the shape of the `legendAttrs` slot prop when using the [asChild](/docs/aschild) prop.
+The following attributes are automatically applied to the element rendered by the `Legend` component. This is also the shape of the `legendAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 export type LegendAttrs = {

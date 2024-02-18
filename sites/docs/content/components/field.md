@@ -53,7 +53,7 @@ For example, you may always want to render the [ValidationError](/docs/component
 
 To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
 
-```svelte showLineNumbers title="CustomField.svelte"
+```svelte title="CustomField.svelte"
 <script lang="ts" context="module">
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	import type { FormPath } from "sveltekit-superforms";

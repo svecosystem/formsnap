@@ -34,7 +34,7 @@ A component that renders a label element associated with a form control, and mus
 ### Slot Props
 - `labelAttrs` - A spreadable object of attributes for the label element if `asChild` is `true`.
 
-@param {boolean} [asChild=false] - Whether to opt out of rendering the label element. [[asChild Docs](https://formsnap.dev/docs/aschild)]
+@param {boolean} [asChild=false] - Whether to opt out of rendering the label element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
 
 {#if asChild}

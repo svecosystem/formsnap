@@ -39,7 +39,7 @@ export type ControlAttrs = {
  *
  * @category Label
  *
- * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
  * @see {@link https://formsnap.dev/docs/components/label Label Documentation}
  */
 export type LabelAttrs = {
@@ -67,7 +67,7 @@ export type LabelAttrs = {
  *
  * @category FieldErrors
  *
- * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
  * @see {@link https://formsnap.dev/docs/components/field-errors FieldErrors Documentation}
  */
 export type FieldErrorsAttrs = {
@@ -116,7 +116,7 @@ export type ErrorAttrs = {
  *
  * @category Legend
  *
- * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
  * @see {@link https://formsnap.dev/docs/components/legend Legend Documentation}
  */
 export type LegendAttrs = {
@@ -141,7 +141,7 @@ export type LegendAttrs = {
  *
  * @category Description
  *
- * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
  * @see {@link https://formsnap.dev/docs/components/description Description Documentation}
  */
 export type DescriptionAttrs = {
@@ -169,7 +169,7 @@ export type DescriptionAttrs = {
  *
  * @category Fieldset
  *
- * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
  * @see {@link https://formsnap.dev/docs/components/fieldset Fieldset Documentation}
  */
 export type FieldsetAttrs = {

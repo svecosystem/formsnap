@@ -27,7 +27,7 @@ export type DescriptionProps = {
 	 * instead expect you to spread the {@link DescriptionAttrs descriptionAttrs} slot prop
 	 * into an element of your choosing.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -101,7 +101,7 @@ export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<
 	 * and will expect you to spread the {@link FieldsetSlotProps fieldsetAttrs} slot prop into
 	 * a custom label element/component of your choosing.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -137,7 +137,7 @@ export type LabelProps = {
 	 * and will expect you to spread the {@link LabelAttrs labelAttrs}
 	 * slot prop into a custom label element/component of your choosing.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -163,7 +163,7 @@ export type LegendProps = {
 	 * and will expect you to spread the {@link LegendAttrs legendAttrs} slot
 	 * prop into a custom legend element/component of your choosing.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -192,7 +192,7 @@ export type FieldErrorsProps = {
 	 * and will expect you to spread the {@link FieldErrorsAttrs fieldErrorsAttrs} slot prop into
 	 * a custom element/component of your choosing.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 * @defaultValue `false`
 	 */
 	asChild?: boolean;
@@ -260,7 +260,7 @@ export type FieldsetSlotProps<T extends Record<string, unknown>, U extends FormP
 	/**
 	 * The attributes to apply to the element if using the {@link FieldsetProps asChild} prop.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 */
 	fieldsetAttrs: FieldsetAttrs;
 };
@@ -285,7 +285,7 @@ export type FieldErrorsSlotProps = {
 	 * The attributes to apply to the field errors container element
 	 * if using the {@link FieldErrorsProps asChild} prop.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 */
 	fieldErrorsAttrs: FieldErrorsAttrs;
 
@@ -310,7 +310,7 @@ export type LabelSlotProps = {
 	 * The attributes to apply to the label element if using the
 	 * {@link LabelProps asChild} prop.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 */
 	labelAttrs: LabelAttrs;
 };
@@ -325,7 +325,7 @@ export type DescriptionSlotProps = {
 	 * The attributes to apply to the description element if using the
 	 * {@link DescriptionProps asChild} prop.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 */
 	descriptionAttrs: DescriptionAttrs;
 };
@@ -340,7 +340,7 @@ export type LegendSlotProps = {
 	 * The attributes to apply to the description element if using the
 	 * {@link LegendProps asChild} prop.
 	 *
-	 * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
 	 */
 	legendAttrs: LegendAttrs;
 };
