@@ -1,14 +1,9 @@
-import { Form as FormPrimitive } from "formsnap";
+import { Field, Fieldset, Legend, ElementField } from "formsnap";
 import Control from "./form-control.svelte";
 import Description from "./form-description.svelte";
 import Label from "./form-label.svelte";
 import FieldErrors from "./form-field-errors.svelte";
 import Button from "./form-button.svelte";
-
-const Field = FormPrimitive.Field;
-const Fieldset = FormPrimitive.Fieldset;
-const Legend = FormPrimitive.Legend;
-const ElementField = FormPrimitive.ElementField;
 
 export {
 	Field,

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
-	import { Form as FormPrimitive } from "formsnap";
+	import { Control } from "formsnap";
 	import type { HTMLAttributes } from "svelte/elements";
 
 	type $$Props = HTMLAttributes<HTMLDivElement>;
@@ -8,8 +8,8 @@
 	export { className as class };
 </script>
 
-<FormPrimitive.Control let:attrs>
+<Control let:attrs>
 	<div class={cn("flex flex-col gap-2", className)} {...$$restProps}>
 		<slot {attrs} />
 	</div>
-</FormPrimitive.Control>
+</Control>

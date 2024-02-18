@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { getFormField, getFormControl, Form } from "formsnap";
+	import { getFormField, getFormControl, type LabelProps as PrimitiveLabelProps } from "formsnap";
 	import { cn } from "$lib/utils";
 	import { Label } from "$lib/components/ui/label";
 
-	type $$Props = Form.LabelProps;
+	type $$Props = PrimitiveLabelProps;
 
 	let className: $$Props["class"] = undefined;
 	export { className as class };
