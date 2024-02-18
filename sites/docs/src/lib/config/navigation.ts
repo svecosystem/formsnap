@@ -137,11 +137,11 @@ export const navigation: Navigation = {
 					href: "/docs/guides/checkbox-groups",
 					items: [],
 				},
-				{
-					title: "Custom Components",
-					href: "/docs/guides/custom-components",
-					items: [],
-				},
+				// {
+				// 	title: "Custom Components",
+				// 	href: "/docs/guides/custom-components",
+				// 	items: [],
+				// },
 				{
 					title: "Dynamic Fields",
 					href: "/docs/guides/dynamic-fields",
@@ -150,11 +150,6 @@ export const navigation: Navigation = {
 				{
 					title: "Multiple Select",
 					href: "/docs/guides/multiple-select",
-					items: [],
-				},
-				{
-					title: "Radio Groups",
-					href: "/docs/guides/radio-groups",
 					items: [],
 				},
 			],

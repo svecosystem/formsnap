@@ -39,7 +39,7 @@ const signupFormSchema = z.object({
 
 To seamlessly merge `PageData` and `ActionData`, we need to return the form from a load function. While this may seem a bit strange, if you've ever tried to wrangle `PageData` and `ActionData` together manually, then you know why this is necessary.
 
-```ts title="src/routes/sign-up/+page.server.ts"
+```ts title="src/routes/sign-up/+page.server.ts" showLineNumbers
 import type { PageServerLoad } from "./$types";
 import { signupFormSchema } from "./schema";
 import { superValidate } from "sveltekit-superforms/server";
@@ -59,7 +59,7 @@ Having this in mind, we now have the responsibility of ensuring our form is stil
 
 ## Using _only_ Superforms
 
-```svelte title="src/routes/sign-up/+page.svelte"
+```svelte title="src/routes/sign-up/+page.svelte" showLineNumbers
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import { superForm } from "sveltekit-superforms";
@@ -138,7 +138,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 
 ## Using Superforms _and_ Formsnap
 
-```svelte title="src/routes/sign-up/+page.svelte"
+```svelte title="src/routes/sign-up/+page.svelte" showLineNumbers
 <script lang="ts">
 	import { Field, Control, Label, FieldErrors, Description } from "formsnap";
 	import type { PageData } from "./$types";

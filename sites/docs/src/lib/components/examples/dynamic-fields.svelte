@@ -41,7 +41,8 @@
 			use:form.enhance
 			class="mx-auto flex max-w-md flex-col gap-4"
 			method="POST"
-			action="?/dynamicFields">
+			action="?/dynamicFields"
+		>
 			<Form.Fieldset {form} name="urls">
 				<Form.Legend class="inline pb-2">Public URLs</Form.Legend>
 				<div class="flex flex-none flex-col gap-2">
@@ -54,7 +55,8 @@
 										on:click={() => removeUrlByIndex(i)}
 										variant="destructive"
 										size="icon"
-										aria-label="Delete URL {i}">
+										aria-label="Delete URL {i}"
+									>
 										<Trash class="size-5" />
 									</Button>
 								</div>

@@ -64,7 +64,8 @@
 							<select multiple bind:value={$formData.flavors} {...attrs} class="w-[200px]">
 								{#each flavors as flavor}
 									<option value={flavor} selected={$formData.flavors.includes(flavor)}
-										>{flavor}</option>
+										>{flavor}</option
+									>
 								{/each}
 							</select>
 						</div>
@@ -80,7 +81,8 @@
 						<select multiple bind:value={$formData.toppings} {...attrs} class="w-[200px]">
 							{#each toppings as topping}
 								<option value={topping} selected={$formData.toppings.includes(topping)}
-									>{topping}</option>
+									>{topping}</option
+								>
 							{/each}
 						</select>
 					</div>

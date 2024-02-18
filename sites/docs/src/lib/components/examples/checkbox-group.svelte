@@ -33,8 +33,9 @@
 	<Card.Content class="pt-6">
 		<form method="POST" action="?/checkboxGroup" use:enhance class="flex flex-col gap-4">
 			<Fieldset {form} name="allergies">
-				<Legend class="data-[fs-error]:text-destructive text-foreground pb-2 font-medium"
-					>Select any allergies you may have</Legend>
+				<Legend class="pb-2 font-medium text-foreground data-[fs-error]:text-destructive"
+					>Select any allergies you may have</Legend
+				>
 				<div class="flex flex-col gap-1 pb-2">
 					{#each allergies as allergy}
 						<div class="flex items-center gap-3">
@@ -44,7 +45,8 @@
 									type="checkbox"
 									{...attrs}
 									bind:group={$formData.allergies}
-									value={allergy} />
+									value={allergy}
+								/>
 								<Label>{allergy}</Label>
 							</Control>
 						</div>
@@ -56,7 +58,8 @@
 				<FieldErrors class="text-destructive" />
 			</Fieldset>
 			<button type="submit" class={cn(buttonVariants({ variant: "default" }), "self-start")}
-				>Submit</button>
+				>Submit</button
+			>
 		</form>
 	</Card.Content>
 </Card.Root>

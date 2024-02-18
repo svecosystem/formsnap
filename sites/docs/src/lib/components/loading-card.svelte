@@ -13,9 +13,10 @@
 <Card.Root>
 	<Card.Content
 		class={cn("flex flex-row items-center justify-center pt-6", className)}
-		{...$$restProps}>
+		{...$$restProps}
+	>
 		<div class="flex h-full w-full items-center justify-center">
-			<SpinnerGap class="animate-spin-slow text-muted h-1/6 w-1/6" />
+			<SpinnerGap class="h-1/6 w-1/6 animate-spin-slow text-muted" />
 		</div>
 	</Card.Content>
 </Card.Root>
