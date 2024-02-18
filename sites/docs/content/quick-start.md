@@ -25,7 +25,7 @@ Before diving into this tutorial, it's important to be confident with [Superform
 
 This schema will represent the shape of our form data. It's used to validate the form data on the client (optional) and server, along with some other useful things.
 
-```ts title="src/routes/settings/schema.ts" showLineNumbers
+```ts title="src/routes/settings/schema.ts"
 import { z } from "zod";
 
 export const themes = ["light", "dark"] as const;
@@ -57,7 +57,7 @@ Of course, there are other ways to represent the data, but this is the approach 
 
 In Superforms fashion, we'll return the form from a load function to seamlessly merge our `PageData` and `ActionData`.
 
-```ts title="src/routes/settings/+page.server.ts" showLineNumbers
+```ts title="src/routes/settings/+page.server.ts"
 import type { PageServerLoad } from "./$types";
 import { schema } from "./schema";
 import { superValidate } from "sveltekit-superforms/server";
@@ -74,7 +74,7 @@ export const load: PageServerLoad = async () => {
 
 Now that we have our form in the `PageData` object, we can use it, along with the schema we defined earlier, to setup the form in our page component.
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers
+```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { Form } from "formsnap";
@@ -105,7 +105,7 @@ You can think of form fields as the building blocks of your form. Each property 
 
 We'll start with the `email` field and work our way down.
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers
+```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { Field } from "formsnap";
@@ -134,7 +134,7 @@ We pass the `form` and `name` to the `Field` component, which will be used to se
 
 Now let's add the remaining parts of the field:
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers
+```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { Field, Control, Label, Description, ValidationError } from "formsnap";
@@ -174,7 +174,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 
 ### Add remaining form fields
 
-```svelte title="src/routes/settings/+page.svelte" showLineNumbers
+```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import {

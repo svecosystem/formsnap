@@ -57,7 +57,7 @@ When you have a group of checkboxes related to a single field, typically used fo
 
 When you have a large form with multiple sections containing related fields, such as a "Billing Address" and a "Shipping Address", you should use a fieldset to group the related fields together. You won't use the `Fieldset` component directly in this case, since it doesn't represent a field on the form.
 
-```svelte showLineNumbers
+```svelte
 <form>
 	<fieldset>
 		<legend>Billing Address</legend>
