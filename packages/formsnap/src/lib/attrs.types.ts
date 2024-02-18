@@ -1,8 +1,11 @@
 /**
- * Attributes provided via the `attrs` slot prop of the `<Control/>`
- * component to spread onto the form control element.
+ * Attributes provided via the {@link ControlSlotProps attrs} slot prop of the
+ * [Control](https://formsnap.dev/docs/components/control) component to
+ * spread onto the form control element.
  *
- * @see https://formsnap.dev/docs/components/form-item
+ * @category Control
+ *
+ * @see {@link https://formsnap.dev/docs/components/control Control Documentation}
  */
 export type ControlAttrs = {
 	/** The name of the control used for form submission. */
@@ -23,16 +26,21 @@ export type ControlAttrs = {
 	/** Present when the field is required. */
 	'aria-required': 'true' | undefined;
 
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-control': string;
 };
 
 /**
- * Attributes provided via the slot prop of the `<Label />` component
- * when used with the `asChild` prop to spread onto the label element.
+ * Attributes provided via the slot prop of the [Label](https://formsnap.dev/docs/components/label) component
+ * when used with the {@link LabelProps asChild} prop to spread onto the label element.
  *
- * @see https://formsnap.dev/docs/aschild
- * @see https://formsnap.dev/docs/components/form-label
+ * @category Label
+ *
+ * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/components/label Label Documentation}
  */
 export type LabelAttrs = {
 	/** The ID of the control, used for label association. */
@@ -41,7 +49,10 @@ export type LabelAttrs = {
 	/** Present when a validation error exists on the field. */
 	'data-fs-error': string | undefined;
 
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-label': string;
 
 	/** Any additional props provided to the `<Form.Label />` component */
@@ -50,11 +61,14 @@ export type LabelAttrs = {
 };
 
 /**
- * Attributes provided via the slot prop `fieldErrorsAttrs` when used
- * with the `asChild` prop to spread onto the `FieldErrors` element.
+ * Attributes provided via the slot prop {@link FieldErrorsSlotProps fieldErrorsAttrs}
+ * when used with the {@link FieldErrorsProps asChild} prop to spread onto the
+ * field error container element.
  *
- * @see https://formsnap.dev/docs/aschild
- * @see https://formsnap.dev/docs/components/form-validation
+ * @category FieldErrors
+ *
+ * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/components/field-errors FieldErrors Documentation}
  */
 export type FieldErrorsAttrs = {
 	/** The ID of the validation element, used to describe the control. */
@@ -63,7 +77,10 @@ export type FieldErrorsAttrs = {
 	/** Present when a validation error exists on the field. */
 	'data-fs-error': string | undefined;
 
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-field-errors': string;
 
 	/** Notifies screen readers when a validation error occurs */
@@ -75,12 +92,17 @@ export type FieldErrorsAttrs = {
 };
 
 /**
- * Attributes provided via the `errorAttrs` slot prop
- * of the `<FieldErrors />` component to be spread onto
- * the individual error elements.
+ * Attributes provided via the {@link FieldErrorsSlotProps errorAttrs} slot prop
+ * of the [FieldErrors](https://formsnap.dev/docs/components/field-errors) component
+ * to be spread onto the individual error elements.
+ *
+ * @category FieldErrors
  */
 export type ErrorAttrs = {
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-field-error': string;
 
 	/** Present when a validation error exists on the field. */
@@ -88,15 +110,20 @@ export type ErrorAttrs = {
 };
 
 /**
- * Attributes provided via the `legendAttrs` slot prop of the
- * `<Legend />` component to be spread onto the legend element when
- * used with the `asChild` prop.
+ * Attributes provided via the {@link LegendSlotProps legendAttrs} slot prop of
+ * the [Legend](https://formsnap.dev/docs/components/legend) component to be spread
+ * onto the legend element when used with the {@link LegendProps asChild} prop.
  *
- * @see https://formsnap.dev/docs/aschild
- * @see https://formsnap.dev/docs/components/form-legend
+ * @category Legend
+ *
+ * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/components/legend Legend Documentation}
  */
 export type LegendAttrs = {
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-legend': string;
 
 	/** Present when a validation error exists on the field. */
@@ -108,18 +135,23 @@ export type LegendAttrs = {
 };
 
 /**
- * Attributes provided via the `descriptionAttrs` slot prop of the
- * `<Description />` component to be spread onto the description
- * element when used with the `asChild` prop.
+ * Attributes provided via the {@link DescriptionSlotProps descriptionAttrs} slot prop
+ * of the [Description](https://formsnap.dev/docs/components/description) component to be
+ * spread onto the description element when used with the {@link DescriptionProps asChild} prop.
  *
- * @see https://formsnap.dev/docs/aschild
- * @see https://formsnap.dev/docs/components/form-description
+ * @category Description
+ *
+ * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/components/description Description Documentation}
  */
 export type DescriptionAttrs = {
 	/** The ID of the description element, used to describe the control. */
 	id: string;
 
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-description': string;
 
 	/** Present when a validation error exists on the field. */
@@ -131,15 +163,20 @@ export type DescriptionAttrs = {
 };
 
 /**
- * Attributes provided via the `fieldsetAttrs` slot prop of the
- * `<Fieldset />` component to be spread onto the `<fieldset>`
- * element when used with the `asChild` prop.
+ * Attributes provided via the {@link FieldsetSlotProps fieldsetAttrs} slot prop
+ * of the [Fieldset](https://formsnap.dev/docs/components/fieldset) component to be
+ * spread onto the `<fieldset>` element when used with the {@link FieldsetProps asChild} prop.
  *
- * @see https://formsnap.dev/docs/aschild
- * @see https://formsnap.dev/docs/components/form-fieldset
+ * @category Fieldset
+ *
+ * @see {@link https://formsnap.dev/docs/aschild asChild Documentation}
+ * @see {@link https://formsnap.dev/docs/components/fieldset Fieldset Documentation}
  */
 export type FieldsetAttrs = {
-	/** Used for selection during styling or otherwise */
+	/**
+	 * Used for selection during styling or otherwise
+	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
+	 */
 	'data-fs-fieldset': string;
 
 	/** Present when a validation error exists on the field. */

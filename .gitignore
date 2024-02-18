@@ -75,3 +75,4 @@ web_modules/
 .env.local
 
 sites/docs/.vercel
+packages/formsnap/doc

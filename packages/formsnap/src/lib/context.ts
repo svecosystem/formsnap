@@ -4,13 +4,19 @@ import type { FormPath, SuperForm } from 'sveltekit-superforms';
 import type { ControlAttrs, LabelAttrs } from './attrs.types.js';
 
 /**
- * Context for the current form field.
- * The type argument `T` represents the the shape of the form object,
- * and `U` represents the path to the field in the form object.
+ * Context for the current form field. Use {@link getFormField} to
+ * retrieve the context in your component.
  *
- * @see https://formsnap.dev/docs/functions/get-form-field
+ * @category Field
+ * @category ElementField
+ * @category Fieldset
+ *
+ * @typeParam T - The shape of the form object.
+ * @typeParam U - The path to the field in the form object.
+ *
+ * @see {@link https://formsnap.dev/docs/functions/get-form-field getFormField Documentation}
  */
-export type FormFieldContext<T extends Record<string, unknown>, U extends FormPath<T>> = {
+export type FieldContext<T extends Record<string, unknown>, U extends FormPath<T>> = {
 	/** The original form object returned from the load function. */
 	form: SuperForm<T>;
 
@@ -35,8 +41,11 @@ export type FormFieldContext<T extends Record<string, unknown>, U extends FormPa
 
 const FORM_FIELD = Symbol('FORM_FIELD_CTX');
 
+/**
+ * @private
+ */
 export function setFormField<T extends Record<string, unknown>, U extends FormPath<T>>(
-	props: FormFieldContext<T, U>
+	props: FieldContext<T, U>
 ) {
 	setContext(FORM_FIELD, props);
 	return props;
@@ -44,13 +53,17 @@ export function setFormField<T extends Record<string, unknown>, U extends FormPa
 
 /**
  * Gets context for the closest form field in the component tree.
+ * Use this function for more advanced component composition.
  *
- * @see https://formsnap.dev/docs/functions/get-form-field
+ * @category Field
+ * @category ElementField
+ * @category Fieldset
+ * @see {@link https://formsnap.dev/docs/functions/get-form-field getFormField Documentation}
  */
 export function getFormField<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>
->(): FormFieldContext<T, U> {
+>(): FieldContext<T, U> {
 	if (!hasContext(FORM_FIELD)) {
 		ctxError('Form.Field');
 	}
@@ -58,9 +71,10 @@ export function getFormField<
 }
 
 /**
- * Context for the current form item.
+ * Context for a form control.
  *
- * @see https://formsnap.dev/docs/functions/get-form-item
+ * @category Control
+ * @see {@link https://formsnap.dev/docs/functions/get-form-control getFormControl Documentation}
  */
 export type FormControlContext = {
 	/** A store containing the ID of the form control. */
@@ -75,6 +89,9 @@ export type FormControlContext = {
 
 const FORM_CONTROL = Symbol('FORM_CONTROL_CTX');
 
+/**
+ * @private
+ */
 export function setFormControl(props: FormControlContext) {
 	setContext(FORM_CONTROL, props);
 	return props;
@@ -83,7 +100,8 @@ export function setFormControl(props: FormControlContext) {
 /**
  * Gets context for the closest form item in the component tree.
  *
- * @see https://formsnap.dev/docs/functions/get-form-item
+ * @category Control
+ * @see {@link https://formsnap.dev/docs/functions/get-form-control getFormControl Documentation}
  */
 export function getFormControl(): FormControlContext {
 	if (!hasContext(FORM_CONTROL)) {

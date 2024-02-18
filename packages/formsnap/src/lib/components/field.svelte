@@ -8,7 +8,7 @@
 <script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
 	import type { FieldProps } from './types.js';
 
-	import { setFormField, type FormFieldContext } from '$lib/context.js';
+	import { setFormField, type FieldContext } from '$lib/context.js';
 	import { writable } from 'svelte/store';
 	import { extractErrorArray } from '$lib/internal/utils/index.js';
 
@@ -27,7 +27,7 @@
 		isTainted
 	} = form);
 
-	const field: FormFieldContext<T, U> = {
+	const field: FieldContext<T, U> = {
 		name: writable<U>(name),
 		errors: writable<string[]>([]),
 		constraints: writable<Record<string, unknown>>({}),

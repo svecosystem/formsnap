@@ -9,7 +9,7 @@
 	import type { ElementFieldProps } from './types.js';
 	import type { PrimitiveFromIndex } from '$lib/internal/types.js';
 
-	import { setFormField, type FormFieldContext, getFormField } from '$lib/context.js';
+	import { setFormField, type FieldContext, getFormField } from '$lib/context.js';
 	import { writable } from 'svelte/store';
 	import { extractErrorArray } from '$lib/internal/utils/index.js';
 
@@ -33,7 +33,7 @@
 
 	$: [path, index] = splitArrayPath(name);
 
-	const elementField: FormFieldContext<T, U> = {
+	const elementField: FieldContext<T, U> = {
 		name: writable<U>(path as U),
 		errors: writable<string[]>([]),
 		constraints: writable<Record<string, unknown>>({}),
