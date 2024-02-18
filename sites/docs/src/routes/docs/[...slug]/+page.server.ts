@@ -4,6 +4,7 @@ import { schema as checkboxGroupSchema } from "$lib/components/examples/checkbox
 import { schema as dynamicFieldsSchema } from "$lib/components/examples/dynamic-fields.svelte";
 import { schema as multipleSelectSchema } from "$lib/components/examples/multiple-select.svelte";
 import { schema as bitsSelectSchema } from "$lib/components/examples/bits-ui-select.svelte";
+import { schema as bitsMultiSelectSchema } from "$lib/components/examples/bits-ui-multi-select.svelte";
 import { zod } from "sveltekit-superforms/adapters";
 import { fail } from "@sveltejs/kit";
 
@@ -13,6 +14,7 @@ export const load: PageServerLoad = async () => {
 		dynamicFieldsForm: superValidate(zod(dynamicFieldsSchema)),
 		multipleSelectForm: superValidate(zod(multipleSelectSchema)),
 		bitsSelectForm: superValidate(zod(bitsSelectSchema)),
+		bitsMultiSelectForm: superValidate(zod(bitsMultiSelectSchema)),
 	};
 };
 
@@ -52,5 +54,14 @@ export const actions: Actions = {
 		}
 
 		return { bitsSelectForm: form };
+	},
+	bitsMultiSelect: async (event) => {
+		const form = await superValidate(event, zod(bitsMultiSelectSchema));
+
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+
+		return { bitsMultiSelectForm: form };
 	},
 };
