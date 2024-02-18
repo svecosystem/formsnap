@@ -78,6 +78,9 @@ const config = {
 			scale: {
 				98: ".98",
 			},
+			animation: {
+				"spin-slow": "spin 4s linear infinite",
+			},
 		},
 	},
 	plugins: [typography],

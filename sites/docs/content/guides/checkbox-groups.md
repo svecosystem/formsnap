@@ -5,7 +5,7 @@ tagline: Guides
 ---
 
 <script>
-	import { Steps } from '$lib/components'
+	import { Steps, LoadingCard } from '$lib/components'
 	import CheckboxGroup from '$lib/components/examples/checkbox-group.svelte'
 
 	export let data
@@ -213,7 +213,7 @@ That's it! You've successfully created a checkbox group with Formsnap. With some
 
 {#await data.checkboxGroupForm}
 
-Loading example....
+<LoadingCard class="h-[331px]" />
 
 {:then form}
 

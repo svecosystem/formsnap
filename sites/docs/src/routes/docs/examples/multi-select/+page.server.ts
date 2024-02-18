@@ -1,6 +1,6 @@
 import { superValidate } from "sveltekit-superforms";
 import type { Actions, PageServerLoad } from "./$types";
-import { schema } from "./schema.js";
+import { schema } from "$lib/components/examples/multiple-select.svelte";
 import { zod } from "sveltekit-superforms/adapters";
 import { fail } from "@sveltejs/kit";
 
@@ -11,7 +11,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	default: async (event) => {
+	multipleSelect: async (event) => {
 		const form = await superValidate(event, zod(schema));
 
 		if (!form.valid) {

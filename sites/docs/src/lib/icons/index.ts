@@ -28,3 +28,4 @@ export { default as UsersThree } from "phosphor-svelte/lib/UsersThree";
 export { default as Hammer } from "phosphor-svelte/lib/Hammer";
 export { default as Trash } from "phosphor-svelte/lib/Trash";
 export { default as Plus } from "phosphor-svelte/lib/Plus";
+export { default as SpinnerGap } from "phosphor-svelte/lib/SpinnerGap";

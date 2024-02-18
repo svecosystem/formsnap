@@ -5,14 +5,14 @@ tagline: Guides
 ---
 
 <script>
-	import { Steps, Callout } from '$lib/components'
+	import { Steps, Callout, LoadingCard } from '$lib/components'
 	import DynamicFieldsForm from '$lib/components/examples/dynamic-fields.svelte'
 	export let data;
 </script>
 
-To create a dynamic field, you'll want to use the [ElementField](/docs/components/element-field) component, which allows you to treat each element of an array as a separate field with its own state and validation.
+To create a dynamic field, you'll need to use the [ElementField](/docs/components/element-field) component, that allows you to treat each element of an array as it's own field.
 
-In this guide, we'll create a URLs field that allows users to add and remove URLs from their profile.
+In this guide, we'll create a URLs field where users can add and remove URLs from their profile.
 
 ## Create Dynamic Fields
 
@@ -56,12 +56,13 @@ We'll need to initialize our SuperForm with the form returned from the `load` fu
 
 <form use:enhance method="POST">
 	<!-- ... -->
+	<button type="submit">Submit</button>
 </form>
 ```
 
 ### Import the Components
 
-We'll start by importing the various components we'll need to build the form.
+We have a few components we need to import to build the form.
 
 ```svelte title="+page.svelte" showLineNumbers {4-12}
 <script lang="ts">
@@ -223,7 +224,7 @@ You've created a dynamic field that allows users to add and remove URLs from the
 
 {#await data.dynamicFieldsForm}
 
-Loading example....
+<LoadingCard class="h-[292px]" />
 
 {:then form}
 
