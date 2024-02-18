@@ -80,10 +80,5 @@
 		"rehype-slug": "^6.0.0",
 		"svelte-sonner": "^0.3.17",
 		"vaul-svelte": "^0.2.3"
-	},
-	"dependenciesMeta": {
-		"formsnap": {
-			"injected": true
-		}
 	}
 }

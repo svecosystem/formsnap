@@ -36,7 +36,7 @@
 	],
 	"peerDependencies": {
 		"svelte": "^4.0.0",
-		"sveltekit-superforms": "^2.0.0"
+		"sveltekit-superforms": "^2.3.0"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
