@@ -28,7 +28,7 @@
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success(JSON.stringify(fd.data, null, 2));
+				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}

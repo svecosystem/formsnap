@@ -29,8 +29,12 @@
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
-		onUpdated: ({ form: formResult }) => {
-			toast.success(JSON.stringify(formResult.data, null, 2));
+		onUpdated: ({ form: fd }) => {
+			if (fd.valid) {
+				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
+			} else {
+				toast.error("Please fix the errors in the form.");
+			}
 		},
 	});
 	const { form: formData } = form;

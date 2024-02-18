@@ -43,17 +43,16 @@
 		<Description>Help us address you properly.</Description>
 		<FieldErrors />
 	</Field>
-	<Field {form} name="theme">
-		<legend>Select your theme</legend>
+	<Fieldset {form} name="theme">
+		<Legend>Select your theme</Legend>
 		{#each themes as theme}
 			<Control let:attrs>
 				<Label>{theme}</Label>
 				<input {...attrs} type="radio" value={theme} bind:group={$formData.theme} />
 			</Control>
 		{/each}
-		<Description>We prefer dark mode, but the choice is yours.</Description>
 		<FieldErrors />
-	</Field>
+	</Fieldset>
 	<Field {form} name="marketingEmails">
 		<Control let:attrs>
 			<input {...attrs} type="checkbox" bind:checked={$formData.marketingEmails} />

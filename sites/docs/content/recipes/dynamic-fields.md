@@ -132,11 +132,12 @@ Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.url
 					<Label class="sr-only">URL {i + 1}</Label>
 					<input type="url" {...attrs} bind:value={$formData.urls[i]} />
 				</Control>
+				<Description class="sr-only">
+					This URL will be publicly available on your profile.
+				</Description>
+				<FieldErrors />
 			</ElementField>
 		{/each}
-		<Description>
-			Add URLs to your profile that you'd like to share with others.
-		</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>
@@ -199,11 +200,12 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 						Remove URL
 					</button>
 				</Control>
+				<Description class="sr-only">
+					This URL will be publicly available on your profile.
+				</Description>
+				<FieldErrors />
 			</ElementField>
 		{/each}
-		<Description>
-			Add URLs to your profile that you'd like to share with others.
-		</Description>
 		<FieldErrors />
 		<button type="button" on:click={addUrl}>Add URL</button>
 	</Fieldset>
@@ -297,11 +299,11 @@ export const schema = z.object({
 						Remove URL
 					</button>
 				</Control>
+				<Description class="sr-only">
+					This URL will be publicly available on your profile.
+				</Description>
 			</ElementField>
 		{/each}
-		<Description>
-			Add URLs to your profile that you'd like to share with others.
-		</Description>
 		<FieldErrors />
 		<button type="button" on:click={addUrl}>Add URL</button>
 	</Fieldset>

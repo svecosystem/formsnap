@@ -26,7 +26,7 @@
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success(JSON.stringify(fd.data, null, 2));
+				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}
@@ -69,18 +69,22 @@
 									</Button>
 								</div>
 							</Form.Control>
+							<Form.Description class="sr-only">
+								This URL will be displayed on your public profile.
+							</Form.Description>
 							<Form.FieldErrors />
 						</Form.ElementField>
 					{/each}
 				</div>
 				<div class="flex items-center justify-between pt-2">
-					<Form.Description>These will be displayed on your public profile.</Form.Description>
+					<div aria-hidden class="text-muted-foreground text-sm">
+						These URLs will be displayed on your public profile.
+					</div>
 					<Button on:click={addUrl} class="ml-auto" variant="outline">
 						<Plus class="mr-2 size-5" aria-label="Add" />
 						URL
 					</Button>
 				</div>
-
 				<Form.FieldErrors />
 			</Form.Fieldset>
 
