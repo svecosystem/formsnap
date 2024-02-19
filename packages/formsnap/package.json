@@ -1,6 +1,6 @@
 {
 	"name": "formsnap",
-	"version": "0.4.3",
+	"version": "0.4.4",
 	"scripts": {
 		"dev": "pnpm watch",
 		"build": "vite build && pnpm run package",
