@@ -137,7 +137,7 @@ Now let's add the remaining parts of the field:
 ```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Field, Control, Label, Description, ValidationError } from "formsnap";
+	import { Field, Control, Label, Description, FieldErrors } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
@@ -158,7 +158,7 @@ Now let's add the remaining parts of the field:
 			<input {...attrs} type="email" bind:value={$formData.email} />
 		</Control>
 		<Description>Use your company email if you have one.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 </form>
 <SuperDebug data={$formData} />
@@ -168,7 +168,7 @@ We've first added the [Control](/docs/components/control) component. `Control`s 
 
 The [Description](/docs/components/description) component is optional, but it's useful for providing additional context to the user about the field. It'll be synced with the `aria-describedby` attribute on the input, so it's accessible to screen readers.
 
-The [ValidationError](/docs/components/validation-error) component is used to display validation errors to the user. It also is synced with the `aria-describedby` attribute on the input, which can receive multiple IDs, so that screen readers are able to read the error messages in addition to the description.
+The [FieldErrors](/docs/components/field-errors) component is used to display validation errors to the user. It also is synced with the `aria-describedby` attribute on the input, which can receive multiple IDs, so that screen readers are able to read the error messages in addition to the description.
 
 And that's really all it takes to setup a form field. Let's continue on with the rest of the fields.
 
@@ -182,7 +182,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 		Control,
 		Label,
 		Description,
-		ValidationError,
+		FieldErrors,
 		Fieldset,
 		Legend,
 	} from "formsnap";
@@ -206,7 +206,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 			<input {...attrs} type="email" bind:value={$formData.email} />
 		</Control>
 		<Description>Company email is preferred</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="bio">
 		<Control let:attrs>
@@ -214,7 +214,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 			<textarea {...attrs} bind:value={$formData.bio} />
 		</Control>
 		<Description>Tell us a bit about yourself.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Field {form} name="language">
 		<Control let:attrs>
@@ -226,7 +226,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 			</select>
 		</Control>
 		<Description>Help us address you properly.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Fieldset {form} name="theme">
 		<Legend>Select your theme</Legend>
@@ -237,7 +237,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 			</Control>
 		{/each}
 		<Description>We prefer dark mode, but the choice is yours.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Fieldset>
 	<Field {form} name="marketingEmails">
 		<Control let:attrs>
@@ -245,7 +245,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 			<Label>I want to receive marketing emails</Label>
 		</Control>
 		<Description>Stay up to date with our latest news and offers.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Field>
 	<Fieldset {form} name="allergies">
 		<Legend>Food allergies</Legend>
@@ -261,14 +261,14 @@ And that's really all it takes to setup a form field. Let's continue on with the
 			</Control>
 		{/each}
 		<Description>When we provide lunch, we'll accommodate your needs.</Description>
-		<ValidationError />
+		<FieldErrors />
 	</Fieldset>
 	<button>Submit</button>
 </form>
 <SuperDebug data={$formData} />
 ```
 
-You may have noticed for the `allergies` and `theme` fields, we used the [Fieldset](/docs/components/fieldset) and [Legend](/docs/components/legend) components. These are used to group related fields together and provide a title for the group, which is great for accessibility and organization. Additionally, we only use a single [ValidationError](/docs/components/validation-error) and [Description](/docs/components/description) component for the entire group, and use an [Control](/docs/components/control) for each field in the group to associate the label with the control.
+You may have noticed for the `allergies` and `theme` fields, we used the [Fieldset](/docs/components/fieldset) and [Legend](/docs/components/legend) components. These are used to group related fields together and provide a title for the group, which is great for accessibility and organization. Additionally, we only use a single [FieldError](/docs/components/field-errors) and [Description](/docs/components/description) component for the entire group, and use an [Control](/docs/components/control) for each field in the group to associate the label with the control.
 
 </Steps>
 
