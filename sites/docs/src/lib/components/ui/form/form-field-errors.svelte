@@ -1,14 +1,26 @@
 <script lang="ts">
-	import { FieldErrors as FieldErrorsPrimitive } from "formsnap";
+	import * as FormPrimitive from "formsnap";
 	import { cn } from "$lib/utils";
-	import type { HTMLAttributes } from "svelte/elements";
 
-	type $$Props = HTMLAttributes<HTMLParagraphElement>;
-	let className: string | undefined | null = undefined;
+	type $$Props = FormPrimitive.FieldErrorsProps & {
+		errorClasses?: string | undefined | null;
+	};
+
+	let className: $$Props["class"] = undefined;
 	export { className as class };
+	export let errorClasses: $$Props["class"] = undefined;
 </script>
 
-<FieldErrorsPrimitive
-	class={cn("text-sm font-medium text-destructive", className)}
+<FormPrimitive.FieldErrors
+	class={cn("text-destructive text-sm font-medium", className)}
 	{...$$restProps}
-/>
+	let:errors
+	let:fieldErrorsAttrs
+	let:errorAttrs
+>
+	<slot {errors} {fieldErrorsAttrs} {errorAttrs}>
+		{#each errors as error}
+			<div {...errorAttrs} class={cn(errorClasses)}>{error}</div>
+		{/each}
+	</slot>
+</FormPrimitive.FieldErrors>
