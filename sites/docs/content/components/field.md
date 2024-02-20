@@ -51,7 +51,7 @@ Since the `Field` component doesn't render any HTML elements, it's a common prac
 
 For example, you may always want to render the [ValidationError](/docs/components/validation-error) component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
 
-To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
+To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a warning, it's likely a false positive and you can ignore it.
 
 ```svelte title="CustomField.svelte"
 <script lang="ts" context="module">

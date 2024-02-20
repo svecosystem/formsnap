@@ -22,7 +22,7 @@
 	</h1>
 	<p class="mx-auto mt-6 max-w-3xl text-balance text-center text-base sm:text-lg">
 		Accessible form components that take <A target="_blank" href="https://superforms.rocks"
-			>Superforms</A
+			>SvelteKit Superforms</A
 		>
 		to the next level.
 	</p>
@@ -54,7 +54,7 @@
 			will.
 		</FeatureCard>
 		<FeatureCard title="HTML Standard" icon={FileHTML}>
-			Leverages the right HTML elements to maintain compatibility and accessibility.
+			Utilizes appropriate HTML elements for compatibility and accessibility.
 		</FeatureCard>
 		<FeatureCard title="Fully Typed" icon={FileTS}>
 			Each component is fully typed with TypeScript, so you can move fast without breaking things.

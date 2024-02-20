@@ -6,9 +6,11 @@ tagline: Composition
 
 You can use `getFormField` within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component to access the state of the field and use it to build more advanced form components.
 
-## Usage
+## Usage Example
 
-```svelte
+The `getFormField` function is provided for more advanced use cases where you may need to access the entire state of a form field, as well as the form itself.
+
+```svelte title="CustomFieldErrors.svelte"
 <script lang="ts">
 	import { getFormField } from "formsnap";
 	import { schema } from "./schema.js";
@@ -16,8 +18,20 @@ You can use `getFormField` within the context of a [Field](/docs/components/fiel
 	// whatever your validation library is
 	import { z } from "zod";
 
-	const field = getFormField<Infer<typeof schema>, "name">();
+	export let id: string;
+
+	const { errors, fieldErrorsId } = getFormField<Infer<typeof schema>, "name">();
+
+	$: fieldErrorsId.set(id);
 </script>
+
+{#if $errors.length > 0}
+	<div class="error" {id}>
+		{#each $errors as error}
+			<p>{error}</p>
+		{/each}
+	</div>
+{/if}
 ```
 
 ## API
