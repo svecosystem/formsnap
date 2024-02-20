@@ -10,6 +10,6 @@
 	export { className as class };
 </script>
 
-<DescriptionPrimitive class={cn("text-muted-foreground text-sm", className)} {...$$restProps}>
+<DescriptionPrimitive class={cn("text-sm text-muted-foreground", className)} {...$$restProps}>
 	<slot />
 </DescriptionPrimitive>

@@ -152,11 +152,11 @@
   ```svelte
   <!-- CustomLabel.svelte -->
   <script lang="ts">
-  	import { Form, getFormField } from "formsnap";
+  	import { Form, getFormField } from 'formsnap';
   	const { errors } = getFormField();
   </script>
 
-  <Form.Label class={$errors ? "text-red-500" : "text-gray-800"}>
+  <Form.Label class={$errors ? 'text-red-500' : 'text-gray-800'}>
   	<slot />
   </Form.Label>
   ```
@@ -165,18 +165,18 @@
 
   ```ts
   export type FormFieldContext = {
-    name: string;
-    ids: {
-      input: string;
-      description: string;
-      validation: string;
-    };
-    errors: Writable<string[] | undefined>;
-    value: Writable<unknown>;
-    hasDescription: Writable<boolean>;
-    hasValidation: Writable<boolean>;
-    attrStore: AttrStore;
-    actions: ActionsObject;
+  	name: string;
+  	ids: {
+  		input: string;
+  		description: string;
+  		validation: string;
+  	};
+  	errors: Writable<string[] | undefined>;
+  	value: Writable<unknown>;
+  	hasDescription: Writable<boolean>;
+  	hasValidation: Writable<boolean>;
+  	attrStore: AttrStore;
+  	actions: ActionsObject;
   };
   ```
 

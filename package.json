@@ -10,11 +10,13 @@
 		"dev": "pnpm sync && pnpm --parallel dev",
 		"build": "pnpm -r build",
 		"build:packages": "pnpm -F \"./packages/**\" --parallel build",
+		"build:content": "pnpm -F \"./sites/**\" --parallel build:content",
 		"ci:publish": "pnpm build:packages && changeset publish",
 		"lint": "pnpm -r lint",
 		"format": "pnpm -r format",
 		"check": "pnpm -r check",
-		"sync": "pnpm -r sync"
+		"sync": "pnpm -r sync",
+		"postinstall": "pnpm -r sync"
 	},
 	"license": "MIT",
 	"devDependencies": {
