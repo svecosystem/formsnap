@@ -1,108 +1,24 @@
 {
-	"name": "formsnap",
-	"version": "0.4.4",
+	"name": "root",
+	"private": true,
+	"version": "0.0.0",
+	"description": "Monorepo for Formsnap.",
+	"author": "Hunter Johnston <https://github.com/huntabyte>",
+	"main": "index.js",
 	"scripts": {
-		"dev": "concurrently \"pnpm:dev:content\" \"pnpm:dev:svelte\"",
-		"dev:content": "contentlayer dev",
-		"dev:svelte": "vite dev",
-		"build": "contentlayer build && vite build && pnpm run package",
-		"build:content": "contentlayer build",
-		"build:content-cachebust": "contentlayer build --clearCache",
-		"preview": "vite preview",
-		"package": "svelte-kit sync && svelte-package && publint",
-		"prepare": "pnpm package",
-		"prepublishOnly": "pnpm run package",
-		"test": "vitest",
-		"test:pw": "playwright test",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"release": "changeset publish",
-		"changeset": "changeset"
-	},
-	"publishConfig": {
-		"access": "public"
+		"test": "pnpm -r test",
+		"dev": "pnpm sync && pnpm --parallel dev",
+		"build": "pnpm -r build",
+		"build:packages": "pnpm -F \"./packages/**\" --parallel build",
+		"ci:publish": "pnpm build:packages && changeset publish",
+		"lint": "pnpm -r lint",
+		"format": "pnpm -r format",
+		"check": "pnpm -r check",
+		"sync": "pnpm -r sync"
 	},
 	"license": "MIT",
-	"author": {
-		"name": "huntabyte",
-		"url": "https://twitter.com/huntabyte"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/huntabyte/formsnap.git",
-		"directory": "src/lib"
-	},
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		}
-	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
-	],
-	"peerDependencies": {
-		"svelte": "^4.0.0",
-		"sveltekit-superforms": "^1.7.1",
-		"zod": "^3.22.2"
-	},
 	"devDependencies": {
 		"@changesets/cli": "^2.26.2",
-		"@huntabyte/mdsvex": "^0.16.8",
-		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-vercel": "^3.0.3",
-		"@sveltejs/kit": "^1.24.0",
-		"@sveltejs/package": "^2.2.2",
-		"@svitejs/changesets-changelog-github-compact": "^1.1.0",
-		"@tailwindcss/typography": "^0.5.9",
-		"@testing-library/dom": "^9.3.3",
-		"@testing-library/jest-dom": "^6.1.4",
-		"@testing-library/svelte": "^4.0.4",
-		"@testing-library/user-event": "^14.5.1",
-		"@types/testing-library__jest-dom": "^6.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
-		"autoprefixer": "^10.4.14",
-		"bits-ui": "^0.17.0",
-		"clsx": "^2.0.0",
-		"concurrently": "^8.2.1",
-		"contentlayer": "^0.3.4",
-		"eslint": "^8.28.0",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte": "^2.30.0",
-		"esm-env": "^1.0.0",
-		"hast-util-to-html": "^9.0.0",
-		"jest-axe": "^8.0.0",
-		"jsdom": "^22.1.0",
-		"postcss": "^8.4.24",
-		"postcss-load-config": "^4.0.1",
-		"prettier": "^2.8.0",
-		"prettier-plugin-svelte": "^2.10.1",
-		"publint": "^0.1.9",
-		"radix-icons-svelte": "^1.2.1",
-		"rehype-pretty-code": "^0.10.1",
-		"remark-gfm": "^3.0.1",
-		"resize-observer-polyfill": "^1.5.1",
-		"svelte": "^4.0.5",
-		"svelte-check": "^3.4.3",
-		"svelte-wrap-balancer": "^0.0.4",
-		"sveltekit-superforms": "^1.8.0",
-		"tailwind-merge": "^1.14.0",
-		"tailwind-variants": "^0.1.13",
-		"tailwindcss": "^3.3.2",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"unist-builder": "^4.0.0",
-		"unist-util-visit": "^5.0.0",
-		"vite": "^4.4.2",
-		"vitest": "^0.33.0",
-		"zod": "^3.22.2"
-	},
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module"
+		"@svitejs/changesets-changelog-github-compact": "^1.1.0"
+	}
 }
