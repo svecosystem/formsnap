@@ -4,7 +4,7 @@ description: Groups related form controls or fields and extends the Field compon
 tagline: Components
 ---
 
-The `Fieldset` component is used to follow the [W3C Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/#associating-related-controls-with-fieldset) recommendation for associating related form controls. It renders a `<fieldset />` element and should always be used in conjunction with the [Legend](/docs/components/legend) component to provide a title for the group.
+The `Fieldset` component is used to follow the [W3C Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/#associating-related-controls-with-fieldset) recommendation for associating related form controls. It renders a `<fieldset>` element and should always be used in conjunction with the [Legend](/docs/components/legend) component to provide a title for the group.
 
 This component automatically includes the [Field](/docs/components/field) component, so you don't need to worry about wrapping it yourself, just be sure to pass the `form` and `name` props to the `Fieldset` as you would with the `Field` component.
 
@@ -12,7 +12,7 @@ This component automatically includes the [Field](/docs/components/field) compon
 
 ### Radio Groups
 
-When you have a group of radio buttons related to a single field, you should use a fieldset to group them together.
+When you have a group of radio buttons related to a single field, you should use a `Fieldset` to group them together.
 
 ```svelte {1-2,13}
 <Fieldset {form} name="theme">
@@ -32,7 +32,7 @@ When you have a group of radio buttons related to a single field, you should use
 
 ### Checkbox Groups
 
-When you have a group of checkboxes related to a single field, typically used for multiple selections, you should use a fieldset to group them together.
+When you have a group of checkboxes related to a single field, typically used for multiple selections, you should use a `Fieldset` to group them together.
 
 ```svelte {1-2,16}
 <Fieldset {form} name="allergies">
@@ -55,7 +55,7 @@ When you have a group of checkboxes related to a single field, typically used fo
 
 ### Grouped Form Sections
 
-When you have a large form with multiple sections containing related fields, such as a "Billing Address" and a "Shipping Address", you should use a fieldset to group the related fields together. You won't use the `Fieldset` component directly in this case, since it doesn't represent a field on the form.
+When you have a large form with multiple sections containing related fields, such as a "Billing Address" and a "Shipping Address", you should use a `<fieldset>` to group the related fields together. You won't use the `Fieldset` component directly in this case, since it doesn't represent a field on the form.
 
 ```svelte
 <form>
@@ -72,7 +72,7 @@ When you have a large form with multiple sections containing related fields, suc
 
 ## Props
 
-The `<Fieldset />` component renders a `<fieldset />` element and accepts the following props:
+The `Fieldset` component renders a `<fieldset>` element and accepts the following props:
 
 ```ts
 export type FieldsetProps<
@@ -119,7 +119,7 @@ type SlotProps = {
 
 ## Attributes
 
-The following attributes are automatically applied to the `<fieldset />` element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
+The following attributes are automatically applied to the `<fieldset>` element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
 
 ```ts
 export type FieldsetAttrs = {

@@ -14,7 +14,7 @@ The `asChild` prop is available on all components that render native HTML elemen
 
 ## Usage Example
 
-If you wanted to use your own custom `Label` component or use scoped styles with a `<label />` element, you can do so by passing the `asChild` prop to the [Label](/docs/components/label) component.
+If you wanted to use your own custom `Label` component or use scoped styles with a `<label>` element, you can do so by passing the `asChild` prop to the [Label](/docs/components/label) component.
 
 ```svelte {5-6}
 <script lang="ts">
@@ -31,8 +31,6 @@ If you wanted to use your own custom `Label` component or use scoped styles with
 	}
 </style>
 ```
-
-We expose the attributes that need to be applied to the element as a slot prop, so you can apply them to your own elements or components. This same pattern is used for all Formsnap components that render native HTML elements under the hood.
 
 <Callout type="tip">
 

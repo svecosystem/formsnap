@@ -4,9 +4,9 @@ description: Provides the necessary context for a form field that represents a s
 tagline: Components
 ---
 
-The `ElementField` component is used to treat each index of an array as a separate form field. It's useful when you have a dynamic list of items that you want to treat as separate fields in your form.
+The `ElementField` component is used to treat each element of an array as a separate form field. It's useful when you have a dynamic list of items that you want to treat as separate fields in your form.
 
-`ElementField`s should be used within the context of a [Field](/docs/components/field) or [Fieldset](/docs/components/fieldset) component and creates its own context to scope the errors and other state of the field.
+`ElementField`s should be used within the context of a [Field](/docs/components/field) or [Fieldset](/docs/components/fieldset) component. `ElementField`s create their own context to scope the errors and other states of the field.
 
 ## Usage
 
@@ -57,7 +57,7 @@ Here's an example of how you might use the `ElementField` component to create a 
 </form>
 ```
 
-As you can see, we're able to display errors for each index within the array, as well as array-level errors for the entire fieldset.
+We're able to display errors for each element of the array, as well as array-level errors for the entire fieldset.
 
 Check out the [Dynamic Fields](/docs/recipes/dynamic-fields) recipe for more advanced usage of the `ElementField` component.
 
@@ -104,11 +104,11 @@ type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 
 ## Composition
 
-Since the `ElementField` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
+Since the `ElementField` component doesn't render any HTML elements, it's common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
 For example, you may always want to render the [FieldErrors](/docs/components/field-errors) component for every field. Rather than manually including it each time, you can create a wrapper `<CustomElementField />` component that includes it automatically.
 
-To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a yellow squiggly line, it's likely a false positive and you can ignore it.
+To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a warning, it's likely a false positive and you can ignore it.
 
 ```svelte title="CustomElementField.svelte"
 <script lang="ts" context="module">

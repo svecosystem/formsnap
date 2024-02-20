@@ -8,7 +8,7 @@ You should always use the `Legend` component in conjunction with the [Fieldset](
 
 ## Props
 
-The `Legend` component renders a `<legend />` element and accepts all props that a standard HTML `legend` element would accept along with a few additional props:
+The `Legend` component renders a `<legend>` element and accepts all props that a standard HTML `<legend>` element would accept along with a few additional props:
 
 ```ts
 export type LegendProps = {

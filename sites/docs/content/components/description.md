@@ -4,7 +4,7 @@ description: Provides an accessible description for a form field.
 tagline: Components
 ---
 
-The `Description` component provides an accessible description for a field. It renders a `<div />` element and should be used to provide additional context or instructions for a form field.
+The `Description` component provides an accessible description for a field. It renders a `<div>` element and should be used to provide additional context or instructions for a form field.
 
 Descriptions must be used within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
 
@@ -24,7 +24,7 @@ Descriptions must be used within the context of a [Field](/docs/components/field
 
 ## Props
 
-The `Description` component accepts all props that a standard HTML `<div />` element would accept along with a few additional props:
+The `Description` component accepts all props that a standard HTML `<div>` element would accept along with a few additional props:
 
 ```ts
 export type DescriptionProps = {

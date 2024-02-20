@@ -16,7 +16,7 @@ The `FieldErrors` component renders the following structure by default (attribut
 </div>
 ```
 
-Notice that we're populating the fallback slot, so if you don't provide a slot for the `FieldErrors` component, it will render a `<div />` element for each error in the `errors` array.
+Notice that we're populating the fallback slot, so if you don't provide a slot for the `FieldErrors` component, it will render a `<div>` element for each error in the `errors` array.
 
 The `errors` are the errors for the [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) that the `FieldErrors` component is associated with and must be used within the context of one of those components.
 
@@ -26,7 +26,7 @@ The errors container is automatically linked to the control of the field using t
 
 ### Basic Usage
 
-By default, the `FieldErrors` component will render a `<div />` element with the errors for the field it is associated with.
+By default, the `FieldErrors` component will render a `<div>` element with the errors for the field it is associated with.
 
 ```svelte {6}
 <Field {form} name="name">
@@ -58,7 +58,7 @@ If you want to customize the rendering of the errors, you can access the errors 
 
 ## Props
 
-The `FieldErrors` component accepts all props that a standard HTML `<div />` element would accept along with a few additional props:
+The `FieldErrors` component accepts all props that a standard HTML `<div>` element would accept along with a few additional props:
 
 ```ts
 export type FieldErrorsProps = {

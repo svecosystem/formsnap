@@ -1,6 +1,6 @@
 ---
 title: Checkbox Groups
-description: Learn how to build radio group inputs with Formsnap.
+description: Learn how to build checkbox group inputs with Formsnap.
 tagline: Guides
 ---
 
@@ -17,7 +17,7 @@ In this guide, you'll learn how to build a checkbox group with Formsnap by build
 
 ## Create a Checkbox Group
 
-For the purposes of this guide, we'll assume you're using the `zod` and `zodClient` adapters from [Superforms](https://superforms.rocks), but the same principles apply to whatever adapter you're using.
+For the purposes of this guide, we'll assume you're using the `zod` and `zodClient` adapters from [Superforms](https://superforms.rocks), but the same principles apply to all adapters.
 
 <Steps>
 

@@ -8,7 +8,7 @@ tagline: Components
 	import { Callout } from '$lib/components'
 </script>
 
-In the context of a form, a **_control_** refers to any interactive element such as an input field, select dropdown, or button. This includes custom components like select dropdowns or checkboxes that function as buttons but still serve as form inputs, typically activated by clicking on a label or pressing a key.
+In the context of a form, a **_control_** refers to any interactive element such as an input field, a select dropdown, or a button. This includes custom components like select dropdowns or checkboxes that function as buttons but still serve as form inputs, typically activated by clicking on a label or pressing a key.
 
 Each control and its label should be wrapped in its own `Control` component. This is important for accessibility, as it ensures that the label is associated with the control, and that the label is announced to screen readers when the control receives focus.
 
@@ -87,7 +87,7 @@ export type ControlAttrs = {
 
 Since the `Control` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
-For example, you may want to automatically include the [Label](/docs/components/label) for each item, and you want the label and slot content to be wrapped in a `div`.
+For example, you may want to automatically include the [Label](/docs/components/label) for each item, and you want the label and slot content to be wrapped in a `<div>`.
 
 Here's how you might do just that:
 
