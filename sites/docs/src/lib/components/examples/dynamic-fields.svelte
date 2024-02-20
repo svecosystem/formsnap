@@ -77,7 +77,7 @@
 					{/each}
 				</div>
 				<div class="flex items-center justify-between pt-2">
-					<div aria-hidden class="text-muted-foreground text-sm">
+					<div aria-hidden class="text-sm text-muted-foreground">
 						These URLs will be displayed on your public profile.
 					</div>
 					<Button on:click={addUrl} class="ml-auto" variant="outline">

@@ -9,6 +9,6 @@
 </script>
 
 <FieldErrorsPrimitive
-	class={cn("text-destructive text-sm font-medium", className)}
+	class={cn("text-sm font-medium text-destructive", className)}
 	{...$$restProps}
 />

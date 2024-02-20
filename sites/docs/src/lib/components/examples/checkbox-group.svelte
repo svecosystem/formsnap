@@ -41,7 +41,7 @@
 	<Card.Content class="pt-6">
 		<form method="POST" action="?/checkboxGroup" use:enhance class="flex flex-col gap-4">
 			<Fieldset {form} name="allergies">
-				<Legend class="text-foreground data-[fs-error]:text-destructive pb-2 font-medium"
+				<Legend class="pb-2 font-medium text-foreground data-[fs-error]:text-destructive"
 					>Select any allergies you may have</Legend
 				>
 				<div class="flex flex-col gap-1 pb-2">
