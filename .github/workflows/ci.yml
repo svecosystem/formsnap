@@ -44,7 +44,10 @@ jobs:
               run: pnpm install
 
             - name: Build
-              run: pnpm build:content
+              run: pnpm build
+
+            - name: Sync
+              run: pnpm sync
 
             - name: Run svelte-check
               run: pnpm check
