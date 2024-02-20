@@ -10,6 +10,7 @@
 		"dev": "pnpm sync && pnpm --parallel dev",
 		"build": "pnpm -r build",
 		"build:packages": "pnpm -F \"./packages/**\" --parallel build",
+		"build:content": "pnpm -F \"./sites/**\" --parallel build:content",
 		"ci:publish": "pnpm build:packages && changeset publish",
 		"lint": "pnpm -r lint",
 		"format": "pnpm -r format",

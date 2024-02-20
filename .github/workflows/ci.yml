@@ -43,6 +43,9 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
+            - name: Build
+              run: pnpm build:content
+
             - name: Run svelte-check
               run: pnpm check
 
