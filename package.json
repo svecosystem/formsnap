@@ -14,7 +14,8 @@
 		"lint": "pnpm -r lint",
 		"format": "pnpm -r format",
 		"check": "pnpm -r check",
-		"sync": "pnpm -r sync"
+		"sync": "pnpm -r sync",
+		"postinstall": "pnpm -r sync"
 	},
 	"license": "MIT",
 	"devDependencies": {
