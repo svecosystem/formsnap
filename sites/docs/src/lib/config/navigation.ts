@@ -67,16 +67,6 @@ export const navigation: Navigation = {
 			collapsible: true,
 			items: [
 				{
-					title: "Description",
-					href: "/docs/components/description",
-					items: [],
-				},
-				{
-					title: "ElementField",
-					href: "/docs/components/element-field",
-					items: [],
-				},
-				{
 					title: "Field",
 					href: "/docs/components/field",
 					items: [],
@@ -84,6 +74,11 @@ export const navigation: Navigation = {
 				{
 					title: "Fieldset",
 					href: "/docs/components/fieldset",
+					items: [],
+				},
+				{
+					title: "ElementField",
+					href: "/docs/components/element-field",
 					items: [],
 				},
 				{
@@ -99,6 +94,11 @@ export const navigation: Navigation = {
 				{
 					title: "Label",
 					href: "/docs/components/label",
+					items: [],
+				},
+				{
+					title: "Description",
+					href: "/docs/components/description",
 					items: [],
 				},
 				{
