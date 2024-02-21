@@ -29,7 +29,6 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-cloudflare": "^4.1.0",
-		"@sveltejs/adapter-vercel": "^5.1.0",
 		"@sveltejs/kit": "^2.5.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
 		"@tailwindcss/typography": "^0.5.10",
@@ -46,7 +45,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"hast-util-to-html": "^9.0.0",
-		"mdsx": "^0.0.3",
+		"mdsx": "^0.0.5",
 		"phosphor-svelte": "^1.4.2",
 		"postcss": "^8.4.35",
 		"postcss-load-config": "^5.0.3",

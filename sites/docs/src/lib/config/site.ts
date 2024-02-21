@@ -4,7 +4,7 @@ export const siteConfig = {
 	description: "Accessible form components for SvelteKit.",
 	links: {
 		x: "https://x.com/huntabyte",
-		github: "https://github.com/huntabyte/formsnap",
+		github: "https://github.com/svecosystem/formsnap",
 	},
 	author: "Huntabyte",
 	keywords:
@@ -16,7 +16,7 @@ export const siteConfig = {
 	},
 	license: {
 		name: "MIT",
-		url: "https://github.com/huntabyte/formsnap/blob/main/LICENSE",
+		url: "https://github.com/svecosystem/formsnap/blob/main/LICENSE",
 	},
 };
 
