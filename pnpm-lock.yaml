@@ -179,8 +179,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       mdsx:
-        specifier: ^0.0.3
-        version: 0.0.3(svelte@4.2.11)
+        specifier: ^0.0.5
+        version: 0.0.5(svelte@4.2.11)
       phosphor-svelte:
         specifier: ^1.4.2
         version: 1.4.2(svelte@4.2.11)
@@ -5037,8 +5037,8 @@ packages:
   /mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
 
-  /mdsx@0.0.3(svelte@4.2.11):
-    resolution: {integrity: sha512-DjrWAAUT7/n16ZJ6zxzAG9X1fAQGDMsnUyAz1T5O8xhsOz/Otyp9bfBkgIHc9E5Cpfu9phTuIIkPXLWPRem8mQ==}
+  /mdsx@0.0.5(svelte@4.2.11):
+    resolution: {integrity: sha512-crYbZC0L5kQjaRABvHIXj9H2O1qikIw9KKqS3bo2En4XVgvHH7TO5bJ2X86PxJK7H6QEBAubjUma9+qpbsPC5A==}
     peerDependencies:
       svelte: ^4.0.0
     dependencies:

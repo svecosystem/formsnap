@@ -45,7 +45,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"hast-util-to-html": "^9.0.0",
-		"mdsx": "^0.0.3",
+		"mdsx": "^0.0.5",
 		"phosphor-svelte": "^1.4.2",
 		"postcss": "^8.4.35",
 		"postcss-load-config": "^5.0.3",
