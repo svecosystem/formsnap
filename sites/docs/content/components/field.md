@@ -49,7 +49,7 @@ type SlotProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 
 Since the `Field` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
-For example, you may always want to render the [ValidationError](/docs/components/validation-error) component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
+For example, you may always want to render the [FieldErrors](/docs/components/field-errors) component for every field. Instead of manually including it every time, you can create a wrapper `<CustomField />` component that includes it automatically.
 
 To maintain the type safety of the component, we'll need to use some generics, which eslint sometimes complains about, so if you see a warning, it's likely a false positive and you can ignore it.
 
