@@ -77,7 +77,7 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 ```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Form } from "formsnap";
+	import { Field } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
