@@ -108,7 +108,6 @@ We'll start with the `email` field and work our way down.
 ```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Field } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
