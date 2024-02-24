@@ -60,7 +60,7 @@ In Superforms fashion, we'll return the form from a load function to seamlessly 
 ```ts title="src/routes/settings/+page.server.ts"
 import type { PageServerLoad } from "./$types";
 import { schema } from "./schema";
-import { superValidate } from "sveltekit-superforms/server";
+import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 
 export const load: PageServerLoad = async () => {
