@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends FormPathLeaves<T>">
+	import { getValueAtPath } from '$lib/internal/utils/path.js';
+
 	import type { ElementFieldProps } from './types.js';
 	import type { PrimitiveFromIndex } from '$lib/internal/types.js';
 
@@ -24,8 +26,7 @@
 		errors: formErrors,
 		constraints: formConstraints,
 		tainted: formTainted,
-		form: formData,
-		isTainted
+		form: formData
 	} = form);
 
 	// If the individual array field doesn't have a description, use the parent's description
@@ -52,12 +53,18 @@
 		return [path, index] as [FormPathArrays<T>, string];
 	}
 
+	$: console.log('formErrors', $formErrors);
+
+	$: console.log('formData', $formData);
+
+	$: console.log(extractErrorArray(getValueAtPath(name, $formErrors)));
+
 	$: elementField.name.set(path as U);
-	//@ts-expect-error - this works but ideally we'd type this better
-	$: elementField.errors.set(extractErrorArray($formErrors?.[path]?.[index]));
-	$: elementField.constraints.set($formConstraints[path] ?? {});
-	// @ts-expect-error - this works but ideally we'd type this better
-	$: elementField.tainted.set($formTainted ? isTainted($formTainted?.[path]?.[index]) : false);
+	$: errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
+	$: elementField.constraints.set(getValueAtPath(name, $formConstraints) ?? {});
+	$: tainted.set(
+		$formTainted ? (getValueAtPath(name, $formTainted) === true ? true : false) : false
+	);
 
 	// If the individual array field doesn't have a description, use the parent's description
 	$: if (!$descriptionId && $parentDescriptionId) {
@@ -66,8 +73,7 @@
 
 	setFormField<T, U>(elementField);
 
-	// @ts-expect-error - this works but ideally we'd type this better though unsure how atm
-	$: value = $formData?.[path]?.[index] as PrimitiveFromIndex<T, U>;
+	$: value = getValueAtPath(name, $formData) as PrimitiveFromIndex<T, U>;
 </script>
 
 <!--
