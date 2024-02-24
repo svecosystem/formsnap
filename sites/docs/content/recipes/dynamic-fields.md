@@ -1,7 +1,7 @@
 ---
 title: Dynamic Fields
 description: Learn how to creating dynamic fields by building a URLs field with Formsnap.
-tagline: Guides
+tagline: Recipes
 ---
 
 <script>
