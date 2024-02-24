@@ -29,8 +29,8 @@ export const settingsFormSchema = z.object({
 	email: z.string().email(),
 	bio: z.string().max(250).optional(),
 	marketingEmails: z.boolean().default(true),
-	language: z.enum(["en", "es", "fr"]).default(["en"]),
-	theme: z.enum(["light", "dark"]).default(["light"]),
+	language: z.enum(["en", "es", "fr"]).default("en"),
+	theme: z.enum(["light", "dark"]).default("light"),
 });
 ```
 
