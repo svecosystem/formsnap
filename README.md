@@ -1,5 +1,13 @@
 # Formsnap
 
+<!-- automd:badges license name="formsnap" color="blue" github="svecosystem/formsnap" -->
+
+[![npm version](https://flat.badgen.net/npm/v/formsnap?color=blue)](https://npmjs.com/package/formsnap)
+[![npm downloads](https://flat.badgen.net/npm/dm/formsnap?color=blue)](https://npmjs.com/package/formsnap)
+[![license](https://flat.badgen.net/github/license/svecosystem/formsnap?color=blue)](https://github.com/svecosystem/formsnap/blob/main/LICENSE)
+
+<!-- /automd -->
+
 The goal of this library is to make working with the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) even more pleasant, by wrapping it with accessible form components.
 
 ## Installation
@@ -114,3 +122,26 @@ export const load: PageServerLoad = async () => {
 ```
 
 Check out [Formsnap.dev](https://formsnap.dev) for more documentation.
+
+## Sponsors
+
+This project is supported by the following beautiful people/organizations:
+
+<p align="center">
+  <a href="https://github.com/sponsors/huntabyte">
+    <img src='https://cdn.jsdelivr.net/gh/huntabyte/static/sponsors.svg' alt="Logos from Sponsors" />
+  </a>
+</p>
+
+## License
+
+<!-- automd:contributors license=MIT author="huntabyte" github="svecosystem/formsnap" -->
+
+Published under the [MIT](https://github.com/svecosystem/formsnap/blob/main/LICENSE) license.
+Made by [@huntabyte](https://github.com/huntabyte) and [community](https://github.com/svecosystem/formsnap/graphs/contributors) 💛
+<br><br>
+<a href="https://github.com/svecosystem/formsnap/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=svecosystem/formsnap" />
+</a>
+
+<!-- /automd -->
