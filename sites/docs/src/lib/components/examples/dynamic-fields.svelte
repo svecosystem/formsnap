@@ -35,7 +35,6 @@
 	});
 
 	const { form: formData, tainted } = form;
-	$: console.log("inside local component", $formData);
 
 	function removeUrlByIndex(index: number) {
 		$formData.urls = $formData.urls.filter((_, i) => i !== index);
