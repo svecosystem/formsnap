@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-	import SuperDebug, { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
+	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
 	import * as Form from "$lib/components/ui/form/index.js";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Input } from "$lib/components/ui/input";
@@ -18,7 +18,6 @@
 	import { Trash, Plus } from "$icons/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
 	import { toast } from "svelte-sonner";
-	import { browser } from "$app/environment";
 
 	export let data: SuperValidated<Infer<typeof schema>>;
 
@@ -33,7 +32,7 @@
 		},
 	});
 
-	const { form: formData, tainted } = form;
+	const { form: formData } = form;
 
 	function removeUrlByIndex(index: number) {
 		$formData.urls = $formData.urls.filter((_, i) => i !== index);
@@ -78,7 +77,7 @@
 					{/each}
 				</div>
 				<div class="flex items-center justify-between pt-2">
-					<div aria-hidden class="text-sm text-muted-foreground">
+					<div aria-hidden class="text-muted-foreground text-sm">
 						These URLs will be displayed on your public profile.
 					</div>
 					<Button on:click={addUrl} class="ml-auto" variant="outline">
@@ -93,7 +92,3 @@
 		</form>
 	</Card.Content>
 </Card.Root>
-
-{#if browser}
-	<SuperDebug data={$tainted} />
-{/if}
