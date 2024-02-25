@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
 	import { z } from "zod";
 
-	// Define outside the load function so the adapter can be cached
 	export const schema = z.object({
 		urls: z
 			.array(z.string().url({ message: "Please enter a valid URL." }))
@@ -79,7 +78,7 @@
 					{/each}
 				</div>
 				<div class="flex items-center justify-between pt-2">
-					<div aria-hidden class="text-sm text-muted-foreground">
+					<div aria-hidden class="text-muted-foreground text-sm">
 						These URLs will be displayed on your public profile.
 					</div>
 					<Button on:click={addUrl} class="ml-auto" variant="outline">
