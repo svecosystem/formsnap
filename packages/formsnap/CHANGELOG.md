@@ -1,5 +1,11 @@
 # formsnap
 
+## 0.5.1
+
+### Patch Changes
+
+- Fixed bug where `FieldErrors` wouldn't render errors for nested `dataType: "json"` `ElementField`s ([#151](https://github.com/svecosystem/formsnap/pull/151))
+
 ## 0.5.0
 
 ### Minor Changes
@@ -165,18 +171,18 @@
 
   ```ts
   export type FormFieldContext = {
-  	name: string;
-  	ids: {
-  		input: string;
-  		description: string;
-  		validation: string;
-  	};
-  	errors: Writable<string[] | undefined>;
-  	value: Writable<unknown>;
-  	hasDescription: Writable<boolean>;
-  	hasValidation: Writable<boolean>;
-  	attrStore: AttrStore;
-  	actions: ActionsObject;
+    name: string;
+    ids: {
+      input: string;
+      description: string;
+      validation: string;
+    };
+    errors: Writable<string[] | undefined>;
+    value: Writable<unknown>;
+    hasDescription: Writable<boolean>;
+    hasValidation: Writable<boolean>;
+    attrStore: AttrStore;
+    actions: ActionsObject;
   };
   ```
 
