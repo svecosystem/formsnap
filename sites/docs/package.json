@@ -13,9 +13,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"test": "vitest",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
+		"format": "prettier --write . --cache",
 		"sync": "svelte-kit sync"
 	},
 	"license": "MIT",

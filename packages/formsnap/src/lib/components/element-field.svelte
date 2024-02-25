@@ -32,7 +32,7 @@
 	// If the individual array field doesn't have a description, use the parent's description
 	const { descriptionId: parentDescriptionId } = getFormField();
 
-	$: [path, index] = splitArrayPath(name);
+	$: [path] = splitArrayPath(name);
 
 	const elementField: FieldContext<T, U> = {
 		name: writable<U>(path as U),
@@ -48,16 +48,12 @@
 
 	// takes a string like "urls[0]" and returns ["urls", "0"]
 	// so we can access the specific array index properties
+	// since datatype: json is not supported with regular form
+	// submission, this should be fine
 	function splitArrayPath(name: string) {
 		const [path, index] = name.split(/[[\]]/);
 		return [path, index] as [FormPathArrays<T>, string];
 	}
-
-	$: console.log('formErrors', $formErrors);
-
-	$: console.log('formData', $formData);
-
-	$: console.log(extractErrorArray(getValueAtPath(name, $formErrors)));
 
 	$: elementField.name.set(path as U);
 	$: errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
@@ -67,6 +63,8 @@
 	);
 
 	// If the individual array field doesn't have a description, use the parent's description
+	// this allows for `FieldSet` or `Field` to have a description and not require it on each
+	// child field.
 	$: if (!$descriptionId && $parentDescriptionId) {
 		elementField.descriptionId.set($parentDescriptionId);
 	}
