@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends FormPathLeaves<T>">
+	import { getValueAtPath } from '$lib/internal/utils/path.js';
+
 	import type { ElementFieldProps } from './types.js';
 	import type { PrimitiveFromIndex } from '$lib/internal/types.js';
 
@@ -24,14 +26,13 @@
 		errors: formErrors,
 		constraints: formConstraints,
 		tainted: formTainted,
-		form: formData,
-		isTainted
+		form: formData
 	} = form);
 
 	// If the individual array field doesn't have a description, use the parent's description
 	const { descriptionId: parentDescriptionId } = getFormField();
 
-	$: [path, index] = splitArrayPath(name);
+	$: [path] = splitArrayPath(name);
 
 	const elementField: FieldContext<T, U> = {
 		name: writable<U>(path as U),
@@ -47,27 +48,30 @@
 
 	// takes a string like "urls[0]" and returns ["urls", "0"]
 	// so we can access the specific array index properties
+	// since datatype: json is not supported with regular form
+	// submission, this should be fine
 	function splitArrayPath(name: string) {
 		const [path, index] = name.split(/[[\]]/);
 		return [path, index] as [FormPathArrays<T>, string];
 	}
 
 	$: elementField.name.set(path as U);
-	//@ts-expect-error - this works but ideally we'd type this better
-	$: elementField.errors.set(extractErrorArray($formErrors?.[path]?.[index]));
-	$: elementField.constraints.set($formConstraints[path] ?? {});
-	// @ts-expect-error - this works but ideally we'd type this better
-	$: elementField.tainted.set($formTainted ? isTainted($formTainted?.[path]?.[index]) : false);
+	$: errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
+	$: elementField.constraints.set(getValueAtPath(name, $formConstraints) ?? {});
+	$: tainted.set(
+		$formTainted ? (getValueAtPath(name, $formTainted) === true ? true : false) : false
+	);
 
 	// If the individual array field doesn't have a description, use the parent's description
+	// this allows for `FieldSet` or `Field` to have a description and not require it on each
+	// child field.
 	$: if (!$descriptionId && $parentDescriptionId) {
 		elementField.descriptionId.set($parentDescriptionId);
 	}
 
 	setFormField<T, U>(elementField);
 
-	// @ts-expect-error - this works but ideally we'd type this better though unsure how atm
-	$: value = $formData?.[path]?.[index] as PrimitiveFromIndex<T, U>;
+	$: value = getValueAtPath(name, $formData) as PrimitiveFromIndex<T, U>;
 </script>
 
 <!--

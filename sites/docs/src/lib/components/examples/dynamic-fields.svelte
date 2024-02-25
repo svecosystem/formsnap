@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
 	import { z } from "zod";
 
-	// Define outside the load function so the adapter can be cached
 	export const schema = z.object({
 		urls: z
 			.array(z.string().url({ message: "Please enter a valid URL." }))
@@ -11,7 +10,7 @@
 </script>
 
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
+	import SuperDebug, { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
 	import * as Form from "$lib/components/ui/form/index.js";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Input } from "$lib/components/ui/input";
@@ -19,6 +18,7 @@
 	import { Trash, Plus } from "$icons/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
 	import { toast } from "svelte-sonner";
+	import { browser } from "$app/environment";
 
 	export let data: SuperValidated<Infer<typeof schema>>;
 
@@ -32,7 +32,8 @@
 			}
 		},
 	});
-	const { form: formData } = form;
+
+	const { form: formData, tainted } = form;
 
 	function removeUrlByIndex(index: number) {
 		$formData.urls = $formData.urls.filter((_, i) => i !== index);
@@ -92,3 +93,7 @@
 		</form>
 	</Card.Content>
 </Card.Root>
+
+{#if browser}
+	<SuperDebug data={$tainted} />
+{/if}

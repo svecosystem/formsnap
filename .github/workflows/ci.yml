@@ -89,3 +89,14 @@ jobs:
               run: pnpm install
 
             - run: pnpm lint
+
+    Test:
+      name: Test
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: pnpm/action-setup@v2
+          with:
+            version: 8.6.3
+            run_install: true
+        - run: pnpm test
