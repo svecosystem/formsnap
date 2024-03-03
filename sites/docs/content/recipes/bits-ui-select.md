@@ -187,7 +187,7 @@ export const schema = z.object({
 <form method="POST" use:form.enhance class="flex flex-col gap-4">
 	<Field {form} name="colors">
 		<Control let:attrs>
-			<Label>Language</Label>
+			<Label>Favorite colors</Label>
 			<Select.Root
 				multiple
 				selected={selectedColors}
@@ -203,7 +203,7 @@ export const schema = z.object({
 					<input name={attrs.name} hidden value={color} />
 				{/each}
 				<Select.Trigger {...attrs}>
-					<Select.Value placeholder="Select a language" />
+					<Select.Value placeholder="Select colors" />
 				</Select.Trigger>
 				<Select.Content>
 					{#each Object.entries(colors) as [value, label]}
