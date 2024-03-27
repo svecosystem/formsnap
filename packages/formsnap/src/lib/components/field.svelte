@@ -13,7 +13,6 @@
 	import { setFormField, type FieldContext } from '$lib/context.js';
 	import { writable } from 'svelte/store';
 	import { extractErrorArray } from '$lib/internal/utils/index.js';
-	import { onMount } from 'svelte';
 
 	import type { SuperForm } from 'sveltekit-superforms';
 
@@ -40,12 +39,6 @@
 	};
 
 	const { tainted, errors } = field;
-
-	onMount(() => {
-		console.log('mounted');
-	});
-
-	$: console.log($formErrors);
 
 	$: field.name.set(name);
 	$: field.errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
