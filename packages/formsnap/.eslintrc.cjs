@@ -33,7 +33,8 @@ module.exports = {
 						argsIgnorePattern: '^_',
 						varsIgnorePattern: '^\\$\\$(Props|Events|Slots|Generic)$'
 					}
-				]
+				],
+				'no-console': 'error'
 			}
 		}
 	]
