@@ -29,12 +29,12 @@
 	} = form);
 
 	const field: FieldContext<T, U> = {
-		name: writable<U>(name),
-		errors: writable<string[]>([]),
-		constraints: writable<Record<string, unknown>>({}),
+		name: writable(name),
+		errors: writable([]),
+		constraints: writable({}),
 		tainted: writable(false),
-		fieldErrorsId: writable<string>(),
-		descriptionId: writable<string>(),
+		fieldErrorsId: writable(),
+		descriptionId: writable(),
 		form
 	};
 
@@ -43,9 +43,7 @@
 	$: field.name.set(name);
 	$: field.errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
 	$: field.constraints.set(getValueAtPath(name, $formConstraints) ?? {});
-	$: field.tainted.set(
-		$formTainted ? (getValueAtPath(name, $formTainted) === true ? true : false) : false
-	);
+	$: field.tainted.set($formTainted ? getValueAtPath(name, $formTainted) === true : false);
 
 	setFormField<T, U>(field);
 </script>
