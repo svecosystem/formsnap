@@ -37,7 +37,7 @@ module.exports = {
 			}
 		},
 		{
-			file: ['*.ts', '*.js', '*.svelte'],
+			files: ['*.ts', '*.js', '*.svelte'],
 			rules: {
 				'no-console': 'error'
 			}
