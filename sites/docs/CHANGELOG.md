@@ -1,5 +1,12 @@
 # docs
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`c8814cb0df871f75a6515714215acb927e42f7e8`](https://github.com/svecosystem/formsnap/commit/c8814cb0df871f75a6515714215acb927e42f7e8), [`a5966c115bdfe65cfbd14fc6c95c1b47415dec6c`](https://github.com/svecosystem/formsnap/commit/a5966c115bdfe65cfbd14fc6c95c1b47415dec6c)]:
+  - formsnap@1.0.0
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # formsnap
 
+## 1.0.0
+
+### Major Changes
+
+- v1 Stable release 🎉 ([#161](https://github.com/svecosystem/formsnap/pull/161))
+
+### Patch Changes
+
+- Fixed a bug where `FieldErrors` wouldn't render errors for nested fields with `dataType: 'json'` ([#159](https://github.com/svecosystem/formsnap/pull/159))
+
 ## 0.5.1
 
 ### Patch Changes
