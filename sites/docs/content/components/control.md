@@ -20,8 +20,6 @@ Doing so would limit the `Field` component to a single control, which would prev
 
 </Callout>
 
-## Why a separate component?
-
 ## Props
 
 The `Control` component doesn't render an element itself, it strictly provides context and attributes for the control via a slot prop and state for the [Label](/docs/components/label).
