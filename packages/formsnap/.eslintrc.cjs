@@ -33,7 +33,12 @@ module.exports = {
 						argsIgnorePattern: '^_',
 						varsIgnorePattern: '^\\$\\$(Props|Events|Slots|Generic)$'
 					}
-				],
+				]
+			}
+		},
+		{
+			file: ['*.ts', '*.js', '*.svelte'],
+			rules: {
 				'no-console': 'error'
 			}
 		}
