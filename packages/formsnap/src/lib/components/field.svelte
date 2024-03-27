@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
+	import { getValueAtPath } from '$lib/internal/utils/path.js';
+
 	import type { FieldProps } from './types.js';
 
 	import { setFormField, type FieldContext } from '$lib/context.js';
@@ -23,26 +25,25 @@
 		errors: formErrors,
 		constraints: formConstraints,
 		tainted: formTainted,
-		form: formData,
-		isTainted
+		form: formData
 	} = form);
 
 	const field: FieldContext<T, U> = {
-		name: writable<U>(name),
-		errors: writable<string[]>([]),
-		constraints: writable<Record<string, unknown>>({}),
+		name: writable(name),
+		errors: writable([]),
+		constraints: writable({}),
 		tainted: writable(false),
-		fieldErrorsId: writable<string>(),
-		descriptionId: writable<string>(),
+		fieldErrorsId: writable(),
+		descriptionId: writable(),
 		form
 	};
 
 	const { tainted, errors } = field;
 
 	$: field.name.set(name);
-	$: field.errors.set(extractErrorArray($formErrors[name]));
-	$: field.constraints.set($formConstraints[name] ?? {});
-	$: field.tainted.set($formTainted ? isTainted($formTainted[name]) : false);
+	$: field.errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
+	$: field.constraints.set(getValueAtPath(name, $formConstraints) ?? {});
+	$: field.tainted.set($formTainted ? getValueAtPath(name, $formTainted) === true : false);
 
 	setFormField<T, U>(field);
 </script>

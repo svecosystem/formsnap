@@ -35,6 +35,12 @@ module.exports = {
 					}
 				]
 			}
+		},
+		{
+			files: ['*.ts', '*.js', '*.svelte'],
+			rules: {
+				'no-console': 'error'
+			}
 		}
 	]
 };

@@ -111,7 +111,7 @@ export function getFormControl(): FormControlContext {
 }
 
 function ctxError(ctx: string) {
-	console.error(
+	throw new Error(
 		`Unable to find \`${ctx}\` context. Did you forget to wrap the component in a \`${ctx}\`?`
 	);
 }
