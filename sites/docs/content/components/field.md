@@ -79,7 +79,7 @@ To maintain the type safety of the component, we'll need to use some generics, w
 </script>
 
 <!-- passing the slot props down are optional -->
-<Field {form} {name} let:value let:errors let:tainted let:contraints>
+<Field {form} {name} let:value let:errors let:tainted let:constraints>
 	<slot {value} {errors} {tainted} {constraints} />
 	<FieldErrors />
 </Field>

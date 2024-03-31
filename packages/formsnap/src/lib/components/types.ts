@@ -217,7 +217,7 @@ export type FieldSlotProps<T extends Record<string, unknown>, U extends FormPath
 	errors: string[];
 
 	/**
-	 * The contraints for the field.
+	 * The constraints for the field.
 	 *
 	 * @see {@link https://superforms.rocks/concepts/client-validation#constraints Constraints Documentation}
 	 */
@@ -244,7 +244,7 @@ export type FieldsetSlotProps<T extends Record<string, unknown>, U extends FormP
 	errors: string[];
 
 	/**
-	 * The contraints for the field.
+	 * The constraints for the field.
 	 *
 	 * @see {@link https://superforms.rocks/concepts/client-validation#constraints Constraints Documentation}
 	 */
