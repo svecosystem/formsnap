@@ -1,5 +1,13 @@
 # Formsnap
 
+<!-- automd:badges license name="formsnap" color="blue" github="svecosystem/formsnap" -->
+
+[![npm version](https://flat.badgen.net/npm/v/formsnap?color=blue)](https://npmjs.com/package/formsnap)
+[![npm downloads](https://flat.badgen.net/npm/dm/formsnap?color=blue)](https://npmjs.com/package/formsnap)
+[![license](https://flat.badgen.net/github/license/svecosystem/formsnap?color=blue)](https://github.com/svecosystem/formsnap/blob/main/LICENSE)
+
+<!-- /automd -->
+
 The goal of this library is to make working with the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) even more pleasant, by wrapping it with accessible form components.
 
 ## Installation
@@ -16,13 +24,13 @@ You'll handle the initial Superforms setup just as you normally would, where you
 
 ```ts
 // schemas.ts
-import { z } from 'zod';
+import { z } from "zod";
 export const settingsFormSchema = z.object({
 	email: z.string().email(),
 	bio: z.string().max(250).optional(),
 	marketingEmails: z.boolean().default(true),
-	language: z.enum(['en', 'es', 'fr']).default(['en']),
-	theme: z.enum(['light', 'dark']).default(['light'])
+	language: z.enum(["en", "es", "fr"]).default("en"),
+	theme: z.enum(["light", "dark"]).default("light"),
 });
 ```
 
@@ -30,14 +38,14 @@ export const settingsFormSchema = z.object({
 
 ```ts
 // +page.server.ts
-import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
-import type { PageServerLoad } from './$types';
-import { settingsFormSchema } from './schemas';
+import { superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
+import type { PageServerLoad } from "./$types";
+import { settingsFormSchema } from "./schemas";
 
 export const load: PageServerLoad = async () => {
 	return {
-		form: await superValidate(zod(settingsFormSchema))
+		form: await superValidate(zod(settingsFormSchema)),
 	};
 };
 ```
@@ -46,16 +54,16 @@ export const load: PageServerLoad = async () => {
 
 ```svelte
 <script lang="ts">
-	import { Field, Label, FieldErrors, Control, Description, Fieldset, Legend } from 'formsnap';
-	import { settingsFormSchema } from './schemas';
-	import { superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { Field, Label, FieldErrors, Control, Description, Fieldset, Legend } from "formsnap";
+	import { settingsFormSchema } from "./schemas";
+	import { superForm } from "sveltekit-superforms"
+	import { zodClient } from "sveltekit-superforms/adapters"
 
 	export let data;
 
 	const form = superForm(data.form, {
-		validators: zodClient(settingsFormSchema)
-	});
+		validators: zodClient(settingsFormSchema),
+	})
 
 	const { form: formData, enhance } = form;
 </script>
@@ -100,7 +108,7 @@ export const load: PageServerLoad = async () => {
 
 	<Fieldset {form} name="theme">
 		<Legend>Select your theme</Legend>
-		{#each ['light', 'dark'] as theme}
+		{#each ["light", "dark"] as theme}
 			<Control let:attrs>
 				<input {...attrs} type="radio" bind:group={$formData.theme} value={theme} />
 				<Label>{theme}</Label>
@@ -114,3 +122,26 @@ export const load: PageServerLoad = async () => {
 ```
 
 Check out [Formsnap.dev](https://formsnap.dev) for more documentation.
+
+## Sponsors
+
+This project is supported by the following beautiful people/organizations:
+
+<p align="center">
+  <a href="https://github.com/sponsors/huntabyte">
+    <img src='https://github.com/huntabyte/static/blob/main/sponsors.svg?raw=true' alt="Logos from Sponsors" />
+  </a>
+</p>
+
+## License
+
+<!-- automd:contributors license=MIT author="huntabyte" github="svecosystem/formsnap" -->
+
+Published under the [MIT](https://github.com/svecosystem/formsnap/blob/main/LICENSE) license.
+Made by [@huntabyte](https://github.com/huntabyte) and [community](https://github.com/svecosystem/formsnap/graphs/contributors) 💛
+<br><br>
+<a href="https://github.com/svecosystem/formsnap/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=svecosystem/formsnap" />
+</a>
+
+<!-- /automd -->
