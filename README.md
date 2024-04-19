@@ -8,6 +8,8 @@
 
 <!-- /automd -->
 
+[![](https://dcbadge.vercel.app/api/server/fdXy3Sk8Gq?style=flat)](https://discord.gg/fdXy3Sk8Gq)
+
 The goal of this library is to make working with the already incredible [sveltekit-superforms](https://github.com/ciscoheat/sveltekit-superforms) even more pleasant, by wrapping it with accessible form components.
 
 ## Installation
@@ -145,3 +147,15 @@ Made by [@huntabyte](https://github.com/huntabyte) and [community](https://githu
 </a>
 
 <!-- /automd -->
+
+
+## Community
+
+Join the Discord server to ask questions, find collaborators, or just say hi!
+
+<a href="https://discord.gg/fdXy3Sk8Gq" alt="Svecosystem Discord community">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://invidget.switchblade.xyz/fdXy3Sk8Gq">
+  <img alt="Svecosystem Discord community" src="https://invidget.switchblade.xyz/fdXy3Sk8Gq?theme=light">
+</picture>
+</a>
