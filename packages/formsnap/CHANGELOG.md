@@ -1,5 +1,11 @@
 # formsnap
 
+## 1.0.1
+
+### Patch Changes
+
+- chore: support Svelte 5 as a peer dependency ([#173](https://github.com/svecosystem/formsnap/pull/173))
+
 ## 1.0.0
 
 ### Major Changes
