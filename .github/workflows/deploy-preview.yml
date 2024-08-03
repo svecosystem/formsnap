@@ -33,4 +33,5 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           projectName: formsnap
           directory: ./.svelte-kit/cloudflare
+          workingDirectory: sites/docs
           deploymentName: Preview
