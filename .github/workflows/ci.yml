@@ -1,102 +1,76 @@
 name: CI
 
 on:
-    push:
-        branches:
-            - main
-    pull_request:
+  push:
+    branches:
+      - main
+  pull_request:
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
 
 jobs:
-    Check:
-        name: Run svelte-check
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
+  Check:
+    name: Run svelte-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
 
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
+      - name: Install dependencies
+        run: pnpm install
 
-            # PNPM Store cache setup
-            - name: Get pnpm store directory
-              id: pnpm-cache
-              run: |
-                  echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-            - name: Setup pnpm cache
-              uses: actions/cache@v3
-              with:
-                  path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-store-
+      - name: Build
+        run: pnpm build
 
-            - name: Install dependencies
-              run: pnpm install
+      - name: Sync
+        run: pnpm sync
 
-            - name: Build
-              run: pnpm build
+      - name: Run svelte-check
+        run: pnpm check
 
-            - name: Sync
-              run: pnpm sync
+  Lint:
+    runs-on: ubuntu-latest
+    name: Lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-            - name: Run svelte-check
-              run: pnpm check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
 
-    Lint:
-        runs-on: ubuntu-latest
-        name: Lint
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Install Node.JS
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
+      - run: pnpm lint
 
-            - uses: pnpm/action-setup@v2
-              name: Install pnpm
-              id: pnpm-install
-              with:
-                  version: 8
+  Test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-            # PNPM Store cache setup
-            - name: Get pnpm store directory
-              id: pnpm-cache
-              run: |
-                  echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
 
-            - name: Setup pnpm cache
-              uses: actions/cache@v3
-              with:
-                  path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Install dependencies
-              run: pnpm install
-
-            - run: pnpm lint
-
-    Test:
-      name: Test
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: pnpm/action-setup@v2
-          with:
-            version: 8.6.3
-            run_install: true
-        - run: pnpm test
+      - run: pnpm test
