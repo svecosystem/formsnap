@@ -1,5 +1,7 @@
 import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from "svelte/elements";
 import type { FormPath, FormPathLeaves, SuperForm } from "sveltekit-superforms";
+import type { Snippet } from "svelte";
+import type { WithChild, Without } from "svelte-toolbelt";
 import type {
 	ControlAttrs,
 	DescriptionAttrs,
@@ -9,6 +11,10 @@ import type {
 	LabelAttrs,
 	LegendAttrs,
 } from "$lib/attrs.types.js";
+import type { Primitive } from "$lib/internal/types.js";
+
+type PrimitiveFieldSetAttributes = Primitive<HTMLFieldsetAttributes>;
+type PrimitiveDivAttributes = Primitive<HTMLAttributes<HTMLDivElement>>;
 
 /**
  * Props for the [Description](https://formsnap.dev/docs/components/description) component.
@@ -56,6 +62,20 @@ export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>>
 	 * @required
 	 */
 	name: U;
+
+	/**
+	 * The children of the field.
+	 */
+	children?: Snippet<
+		[
+			{
+				value: T[U];
+				errors: string[];
+				tainted: boolean;
+				constraints: Record<string, unknown>;
+			},
+		]
+	>;
 };
 
 /**
@@ -85,33 +105,34 @@ export type ElementFieldProps<T extends Record<string, unknown>, U extends FormP
  *
  * @see {@link https://www.w3.org/WAI/tutorials/forms/grouping/ W3C Grouping}
  */
-export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
-	/**
-	 * The form object returned from calling `superForm` in your component.
-	 */
-	form: SuperForm<T>;
+export type FieldsetPropsWithoutHTML<
+	T extends Record<string, unknown>,
+	U extends FormPath<T>,
+> = WithChild<
+	{
+		/**
+		 * The form object returned from calling `superForm` in your component.
+		 */
+		form: SuperForm<T>;
 
-	/**
-	 * The path to the field in the form object.
-	 */
-	name: U;
+		/**
+		 * The path to the field in the form object.
+		 */
+		name: U;
+	},
+	{
+		value: T[U];
+		errors: string[];
+		tainted: boolean;
+		constraints: Record<string, unknown>;
+	}
+>;
 
-	/**
-	 * If `true`, Formsnap won't render the default `div` element
-	 * and will expect you to spread the {@link FieldsetSlotProps fieldsetAttrs} slot prop into
-	 * a custom label element/component of your choosing.
-	 *
-	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
-
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the group.
-	 */
-	el?: HTMLFieldSetElement;
-} & Omit<HTMLFieldsetAttributes, "form">;
+export type FieldsetProps<
+	T extends Record<string, unknown>,
+	U extends FormPath<T>,
+> = FieldsetPropsWithoutHTML<T, U> &
+	Without<PrimitiveFieldSetAttributes, FieldsetPropsWithoutHTML<T, U>>;
 
 /**
  * Props for the [Control](https://formsnap.dev/docs/components/control) component.
@@ -180,29 +201,16 @@ export type LegendProps = {
  *
  * @category FieldErrors
  */
-export type FieldErrorsProps = {
-	/**
-	 * Optionally provide a unique id for the validation message.
-	 * If not provided, a unique ID will be generated for you.
-	 */
-	id?: string;
+export type FieldErrorsPropsWithoutHTML = WithChild<
+	{},
+	{
+		errors: string[];
+		errorProps: Record<string, unknown>;
+	}
+>;
 
-	/**
-	 * If `true`, Formsnap won't render the default `<div/>` element
-	 * and will expect you to spread the {@link FieldErrorsAttrs fieldErrorsAttrs} slot prop into
-	 * a custom element/component of your choosing.
-	 *
-	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
-
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the validation message.
-	 */
-	el?: HTMLDivElement;
-} & HTMLAttributes<HTMLDivElement>;
+export type FieldErrorsProps = FieldErrorsPropsWithoutHTML &
+	Without<PrimitiveDivAttributes, FieldErrorsPropsWithoutHTML>;
 
 /**
  * Slot props exposed by the [Field](https://formsnap.dev/docs/components/field) component.

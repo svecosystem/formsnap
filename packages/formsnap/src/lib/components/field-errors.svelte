@@ -1,33 +1,26 @@
 <script lang="ts">
+	import { box, mergeProps } from "svelte-toolbelt";
 	import type { FieldErrorsProps } from "./types.js";
-	import { getFormField } from "$lib/context.js";
-	import { getDataFsError, useId } from "$lib/internal/utils/index.js";
-	import type { ErrorAttrs, FieldErrorsAttrs } from "$lib/attrs.types.js";
+	import { useId } from "$lib/internal/utils/index.js";
+	import { useFieldErrors } from "$lib/formsnap.svelte.js";
 
-	type $$Props = FieldErrorsProps;
+	let {
+		id = useId(),
+		ref = $bindable(null),
+		children,
+		child,
+		...restProps
+	}: FieldErrorsProps = $props();
 
-	const { fieldErrorsId, errors } = getFormField();
+	const fieldErrorsState = useFieldErrors({
+		id: box.with(() => id),
+		ref: box.with(
+			() => ref,
+			(v) => (ref = v)
+		),
+	});
 
-	export let id = useId();
-	export let asChild: $$Props["asChild"] = false;
-	export let el: $$Props["el"] = undefined;
-
-	$: errorAttr = getDataFsError($errors);
-
-	$: fieldErrorsId.set(id);
-
-	$: fieldErrorsAttrs = {
-		id: $fieldErrorsId,
-		"data-fs-error": errorAttr,
-		"data-fs-field-errors": "",
-		"aria-live": "assertive" as const,
-		...$$restProps,
-	} satisfies FieldErrorsAttrs;
-
-	$: errorAttrs = {
-		"data-fs-field-error": "",
-		"data-fs-error": errorAttr,
-	} satisfies ErrorAttrs;
+	const mergedProps = $derived(mergeProps(restProps, fieldErrorsState.fieldErrorsProps));
 </script>
 
 <!--
@@ -37,7 +30,7 @@ A component that renders the container for validation errors for a [Field](https
 
 - [FieldErrors Documentation](https://formsnap.dev/docs/components/field-errors)
 
-### Slot Props
+### Snippet Props
 - `errors` - An array of errors for the associated field.
 - `fieldErrorsAttrs` - A spreadable object of attributes for the container element if `asChild` is `true`.
 - `errorAttrs` - A spreadable object of attributes for the individual error elements if `asChild` is `true`.
@@ -46,15 +39,23 @@ A component that renders the container for validation errors for a [Field](https
 @param {el} [HTMLElement] - Bind to the field errors container element.
 @param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
-
-{#if asChild}
-	<slot errors={$errors} {fieldErrorsAttrs} {errorAttrs} />
+{#if child}
+	{@render child({
+		props: mergedProps,
+		errors: fieldErrorsState.field.errors,
+		errorProps: fieldErrorsState.errorProps,
+	})}
 {:else}
-	<div {...fieldErrorsAttrs} bind:this={el}>
-		<slot errors={$errors} {fieldErrorsAttrs} {errorAttrs}>
-			{#each $errors as error}
-				<div {...errorAttrs}>{error}</div>
+	<div {...mergedProps}>
+		{#if children}
+			{@render children({
+				errorProps: fieldErrorsState.errorProps,
+				errors: fieldErrorsState.field.errors,
+			})}
+		{:else}
+			{#each fieldErrorsState.field.errors as error}
+				<div {...fieldErrorsState.errorProps}>{error}</div>
 			{/each}
-		</slot>
+		{/if}
 	</div>
 {/if}
