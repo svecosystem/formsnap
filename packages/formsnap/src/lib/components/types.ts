@@ -15,35 +15,18 @@ import type { Primitive } from "$lib/internal/types.js";
 
 type PrimitiveFieldSetAttributes = Primitive<HTMLFieldsetAttributes>;
 type PrimitiveDivAttributes = Primitive<HTMLAttributes<HTMLDivElement>>;
+type PrimitiveLabelAttributes = Primitive<HTMLLabelAttributes>;
+type PrimitiveLegendAttributes = Primitive<HTMLAttributes<HTMLLegendElement>>;
 
 /**
  * Props for the [Description](https://formsnap.dev/docs/components/description) component.
  *
  * @category Description
  */
-export type DescriptionProps = {
-	/**
-	 * Optionally provide a unique id for the description.
-	 * If not provided, a unique ID will be generated for you.
-	 */
-	id?: string;
+export type DescriptionPropsWithoutHTML = WithChild<{}>;
 
-	/**
-	 * If true, Formsnap won't render the default `div` element and will
-	 * instead expect you to spread the {@link DescriptionAttrs descriptionAttrs} slot prop
-	 * into an element of your choosing.
-	 *
-	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
-
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the description.
-	 */
-	el?: HTMLDivElement;
-} & HTMLAttributes<HTMLDivElement>;
+export type DescriptionProps = DescriptionPropsWithoutHTML &
+	Without<PrimitiveDivAttributes, DescriptionPropsWithoutHTML>;
 
 /**
  * Props for the [Field](https://formsnap.dev/docs/components/field) component.
@@ -91,8 +74,24 @@ export type ElementFieldProps<T extends Record<string, unknown>, U extends FormP
 
 	/**
 	 * The path to the field in the form object.
+	 *
+	 * @required
 	 */
 	name: U;
+
+	/**
+	 * The children of the field.
+	 */
+	children?: Snippet<
+		[
+			{
+				value: T[U];
+				errors: string[];
+				tainted: boolean;
+				constraints: Record<string, unknown>;
+			},
+		]
+	>;
 };
 
 /**
@@ -145,30 +144,21 @@ export type ControlProps = {
 	 * If not provided, a unique ID will be generated for you.
 	 */
 	id?: string;
+
+	children?: Snippet<[{ props: Record<string, unknown> }]>;
 };
+
+export type LabelPropsWithoutHTML = WithChild<{}>;
 
 /**
  * Props for the [Label](https://formsnap.dev/docs/components/label) component.
  *
  * @category Label
  */
-export type LabelProps = {
-	/**
-	 * If `true`, Formsnap won't render the default `<label/>` element
-	 * and will expect you to spread the {@link LabelAttrs labelAttrs}
-	 * slot prop into a custom label element/component of your choosing.
-	 *
-	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
+export type LabelProps = LabelPropsWithoutHTML &
+	Without<PrimitiveLabelAttributes, LabelPropsWithoutHTML>;
 
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the label.
-	 */
-	el?: HTMLLabelElement;
-} & HTMLLabelAttributes;
+export type LegendPropsWithoutHTML = WithChild<{}>;
 
 /**
  * Props for the [Legend](https://formsnap.dev/docs/components/legend) component.
@@ -178,23 +168,8 @@ export type LabelProps = {
  *
  * @see {@link https://www.w3.org/WAI/tutorials/forms/grouping/ W3C Grouping}
  */
-export type LegendProps = {
-	/**
-	 * If `true`, Formsnap won't render the default `<div/>` element
-	 * and will expect you to spread the {@link LegendAttrs legendAttrs} slot
-	 * prop into a custom legend element/component of your choosing.
-	 *
-	 * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
-
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the group title.
-	 */
-	el?: HTMLLegendElement;
-} & HTMLAttributes<HTMLLegendElement>;
+export type LegendProps = LegendPropsWithoutHTML &
+	Without<PrimitiveLegendAttributes, LegendPropsWithoutHTML>;
 
 /**
  * Props for the [FieldErrors](https://formsnap.dev/docs/components/field-errors) component.

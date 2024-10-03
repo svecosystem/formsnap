@@ -1,19 +1,26 @@
 <script lang="ts">
+	import { box, mergeProps } from "svelte-toolbelt";
 	import type { LabelProps } from "./types.js";
-	import { getFormControl } from "$lib/context.js";
-	import type { LabelAttrs } from "$lib/attrs.types.js";
+	import { useId } from "$lib/internal/utils/id.js";
+	import { useLabel } from "$lib/formsnap.svelte.js";
 
-	type $$Props = LabelProps;
+	let {
+		id = useId(),
+		ref = $bindable(null),
+		children,
+		child,
+		...restProps
+	}: LabelProps = $props();
 
-	export let asChild = false;
-	export let el: $$Props["el"] = undefined;
+	const labelState = useLabel({
+		id: box.with(() => id),
+		ref: box.with(
+			() => ref,
+			(v) => (ref = v)
+		),
+	});
 
-	const { labelAttrs: labelAttrsStore } = getFormControl();
-
-	$: localLabelAttrs = {
-		...$labelAttrsStore,
-		...$$restProps,
-	} satisfies LabelAttrs;
+	const mergedProps = $derived(mergeProps(restProps, labelState.props));
 </script>
 
 <!--
@@ -36,11 +43,10 @@ A component that renders a label element associated with a form control, and mus
 
 @param {boolean} [asChild=false] - Whether to opt out of rendering the label element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
-
-{#if asChild}
-	<slot labelAttrs={localLabelAttrs} />
+{#if child}
+	{@render child({ props: mergedProps })}
 {:else}
-	<label {...localLabelAttrs} bind:this={el}>
-		<slot labelAttrs={localLabelAttrs} />
+	<label {...mergedProps}>
+		{@render children?.()}
 	</label>
 {/if}
