@@ -1,21 +1,19 @@
 <script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	import type { FormPathArrays, FormPathLeaves } from 'sveltekit-superforms';
+	import type { FormPathArrays, FormPathLeaves as _FormPathLeaves } from "sveltekit-superforms";
 	type T = Record<string, unknown>;
 	type U = unknown;
 </script>
 
-<script lang="ts" generics="T extends Record<string, unknown>, U extends FormPathLeaves<T>">
-	import { getValueAtPath } from '$lib/internal/utils/path.js';
+<script lang="ts" generics="T extends Record<string, unknown>, U extends _FormPathLeaves<T>">
+	import { writable } from "svelte/store";
+	import type { SuperForm } from "sveltekit-superforms";
+	import type { ElementFieldProps } from "./types.js";
+	import { getValueAtPath } from "$lib/internal/utils/path.js";
 
-	import type { ElementFieldProps } from './types.js';
-	import type { PrimitiveFromIndex } from '$lib/internal/types.js';
+	import type { PrimitiveFromIndex } from "$lib/internal/types.js";
 
-	import { setFormField, type FieldContext, getFormField } from '$lib/context.js';
-	import { writable } from 'svelte/store';
-	import { extractErrorArray } from '$lib/internal/utils/index.js';
-
-	import type { SuperForm } from 'sveltekit-superforms';
+	import { type FieldContext, getFormField, setFormField } from "$lib/context.js";
+	import { extractErrorArray } from "$lib/internal/utils/index.js";
 
 	type $$Props = ElementFieldProps<T, U>;
 
@@ -26,7 +24,7 @@
 		errors: formErrors,
 		constraints: formConstraints,
 		tainted: formTainted,
-		form: formData
+		form: formData,
 	} = form);
 
 	// If the individual array field doesn't have a description, use the parent's description
@@ -41,7 +39,7 @@
 		tainted: writable(false),
 		fieldErrorsId: writable<string>(),
 		descriptionId: writable<string>($parentDescriptionId),
-		form
+		form,
 	};
 
 	const { tainted, errors, descriptionId } = elementField;
@@ -58,9 +56,7 @@
 	$: elementField.name.set(path as U);
 	$: errors.set(extractErrorArray(getValueAtPath(name, $formErrors)));
 	$: elementField.constraints.set(getValueAtPath(name, $formConstraints) ?? {});
-	$: tainted.set(
-		$formTainted ? (getValueAtPath(name, $formTainted) === true ? true : false) : false
-	);
+	$: tainted.set($formTainted ? getValueAtPath(name, $formTainted) === true : false);
 
 	// If the individual array field doesn't have a description, use the parent's description
 	// this allows for `FieldSet` or `Field` to have a description and not require it on each

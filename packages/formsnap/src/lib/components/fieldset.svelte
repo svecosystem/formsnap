@@ -1,27 +1,26 @@
 <script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	import type { FormPath } from 'sveltekit-superforms';
+	import type { FormPath as _FormPath } from "sveltekit-superforms";
 	type T = Record<string, unknown>;
 	type U = unknown;
 </script>
 
-<script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
-	import { getDataFsError } from '$lib/internal/utils/attributes.js';
-	import type { FieldsetProps } from './types.js';
-	import type { SuperForm } from 'sveltekit-superforms';
-	import Field from './field.svelte';
+<script lang="ts" generics="T extends Record<string, unknown>, U extends _FormPath<T>">
+	import type { SuperForm } from "sveltekit-superforms";
+	import type { FieldsetProps } from "./types.js";
+	import Field from "./field.svelte";
+	import { getDataFsError } from "$lib/internal/utils/attributes.js";
 
 	type $$Props = FieldsetProps<T, U>;
 
 	export let form: SuperForm<T>;
 	export let name: U;
 
-	export let asChild: $$Props['asChild'] = false;
-	export let el: $$Props['el'] = undefined;
+	export let asChild: $$Props["asChild"] = false;
+	export let el: $$Props["el"] = undefined;
 
 	$: fieldsetAttrs = {
-		'data-fs-fieldset': '',
-		...$$restProps
+		"data-fs-fieldset": "",
+		...$$restProps,
 	};
 </script>
 

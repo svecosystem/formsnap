@@ -1,3 +1,5 @@
+import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from "svelte/elements";
+import type { FormPath, FormPathLeaves, SuperForm } from "sveltekit-superforms";
 import type {
 	ControlAttrs,
 	DescriptionAttrs,
@@ -5,10 +7,8 @@ import type {
 	FieldErrorsAttrs,
 	FieldsetAttrs,
 	LabelAttrs,
-	LegendAttrs
-} from '$lib/attrs.types.js';
-import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from 'svelte/elements';
-import type { FormPath, FormPathLeaves, SuperForm } from 'sveltekit-superforms';
+	LegendAttrs,
+} from "$lib/attrs.types.js";
 
 /**
  * Props for the [Description](https://formsnap.dev/docs/components/description) component.
@@ -111,7 +111,7 @@ export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<
 	 * underling HTML element rendered for the group.
 	 */
 	el?: HTMLFieldSetElement;
-} & Omit<HTMLFieldsetAttributes, 'form'>;
+} & Omit<HTMLFieldsetAttributes, "form">;
 
 /**
  * Props for the [Control](https://formsnap.dev/docs/components/control) component.
@@ -272,7 +272,7 @@ export type FieldsetSlotProps<T extends Record<string, unknown>, U extends FormP
  */
 export type ElementFieldSlotProps<
 	T extends Record<string, unknown>,
-	U extends FormPathLeaves<T>
+	U extends FormPathLeaves<T>,
 > = FieldSlotProps<T, U>;
 
 /**

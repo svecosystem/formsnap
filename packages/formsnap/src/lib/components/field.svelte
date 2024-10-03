@@ -1,20 +1,17 @@
 <script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	import type { FormPath } from 'sveltekit-superforms';
+	import type { FormPath as _FormPath } from "sveltekit-superforms";
 	type T = Record<string, unknown>;
 	type U = unknown;
 </script>
 
-<script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
-	import { getValueAtPath } from '$lib/internal/utils/path.js';
+<script lang="ts" generics="T extends Record<string, unknown>, U extends _FormPath<T>">
+	import { writable } from "svelte/store";
+	import type { SuperForm } from "sveltekit-superforms";
+	import type { FieldProps } from "./types.js";
+	import { getValueAtPath } from "$lib/internal/utils/path.js";
 
-	import type { FieldProps } from './types.js';
-
-	import { setFormField, type FieldContext } from '$lib/context.js';
-	import { writable } from 'svelte/store';
-	import { extractErrorArray } from '$lib/internal/utils/index.js';
-
-	import type { SuperForm } from 'sveltekit-superforms';
+	import { type FieldContext, setFormField } from "$lib/context.js";
+	import { extractErrorArray } from "$lib/internal/utils/index.js";
 
 	type $$Props = FieldProps<T, U>;
 
@@ -25,7 +22,7 @@
 		errors: formErrors,
 		constraints: formConstraints,
 		tainted: formTainted,
-		form: formData
+		form: formData,
 	} = form);
 
 	const field: FieldContext<T, U> = {
@@ -35,7 +32,7 @@
 		tainted: writable(false),
 		fieldErrorsId: writable(),
 		descriptionId: writable(),
-		form
+		form,
 	};
 
 	const { tainted, errors } = field;

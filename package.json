@@ -7,20 +7,34 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "pnpm -r test",
-		"dev": "pnpm sync && pnpm --parallel dev",
+		"dev": "pnpm -F \"./packages/**\" svelte-kit sync && pnpm -r --parallel --reporter append-only --color dev",
 		"build": "pnpm -r build",
 		"build:packages": "pnpm -F \"./packages/**\" --parallel build",
 		"build:content": "pnpm -F \"./sites/**\" --parallel build:content",
 		"ci:publish": "pnpm build:packages && changeset publish",
-		"lint": "pnpm -r lint",
-		"format": "pnpm -r format",
-		"check": "pnpm -r check",
-		"sync": "pnpm -r sync",
-		"postinstall": "pnpm -r sync"
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"check": "pnpm build:packages && pnpm -r check"
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"@changesets/cli": "^2.26.2",
-		"@svitejs/changesets-changelog-github-compact": "^1.1.0"
-	}
+		"@changesets/cli": "^2.27.1",
+		"@huntabyte/eslint-config": "^0.3.2",
+		"@huntabyte/eslint-plugin": "^0.1.0",
+		"@svitejs/changesets-changelog-github-compact": "^1.1.0",
+		"eslint": "^9.0.0",
+		"eslint-plugin-svelte": "^2.44.0",
+		"prettier": "^3.2.5",
+		"prettier-plugin-svelte": "^3.2.2",
+		"prettier-plugin-tailwindcss": "0.5.13",
+		"svelte": "5.0.0-next.260",
+		"svelte-eslint-parser": "^0.41.1",
+		"wrangler": "^3.44.0"
+	},
+	"type": "module",
+	"engines": {
+		"pnpm": ">=8.7.0",
+		"node": ">=18.0.0"
+	},
+	"packageManager": "pnpm@9.6.0"
 }

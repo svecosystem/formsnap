@@ -1,7 +1,7 @@
-import { getContext, hasContext, setContext } from 'svelte';
-import type { Writable } from 'svelte/store';
-import type { FormPath, SuperForm } from 'sveltekit-superforms';
-import type { ControlAttrs, LabelAttrs } from './attrs.types.js';
+import { getContext, hasContext, setContext } from "svelte";
+import type { Writable } from "svelte/store";
+import type { FormPath, SuperForm } from "sveltekit-superforms";
+import type { ControlAttrs, LabelAttrs } from "./attrs.types.js";
 
 /**
  * Context for the current form field. Use {@link getFormField} to
@@ -39,7 +39,7 @@ export type FieldContext<T extends Record<string, unknown>, U extends FormPath<T
 	tainted: Writable<boolean>;
 };
 
-const FORM_FIELD = Symbol('FORM_FIELD_CTX');
+const FORM_FIELD = Symbol("FORM_FIELD_CTX");
 
 /**
  * @private
@@ -62,10 +62,10 @@ export function setFormField<T extends Record<string, unknown>, U extends FormPa
  */
 export function getFormField<
 	T extends Record<string, unknown>,
-	U extends FormPath<T>
+	U extends FormPath<T>,
 >(): FieldContext<T, U> {
 	if (!hasContext(FORM_FIELD)) {
-		ctxError('Form.Field');
+		ctxError("Form.Field");
 	}
 	return getContext(FORM_FIELD);
 }
@@ -87,7 +87,7 @@ export type FormControlContext = {
 	attrs: Writable<ControlAttrs>;
 };
 
-const FORM_CONTROL = Symbol('FORM_CONTROL_CTX');
+const FORM_CONTROL = Symbol("FORM_CONTROL_CTX");
 
 /**
  * @private
@@ -105,7 +105,7 @@ export function setFormControl(props: FormControlContext) {
  */
 export function getFormControl(): FormControlContext {
 	if (!hasContext(FORM_CONTROL)) {
-		ctxError('<Control />');
+		ctxError("<Control />");
 	}
 	return getContext(FORM_CONTROL);
 }

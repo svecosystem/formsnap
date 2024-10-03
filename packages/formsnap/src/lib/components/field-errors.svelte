@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { getFormField } from '$lib/context.js';
-	import { getDataFsError, generateId } from '$lib/internal/utils/index.js';
-	import type { FieldErrorsProps } from './types.js';
-	import type { FieldErrorsAttrs, ErrorAttrs } from '$lib/attrs.types.js';
+	import type { FieldErrorsProps } from "./types.js";
+	import { getFormField } from "$lib/context.js";
+	import { getDataFsError, useId } from "$lib/internal/utils/index.js";
+	import type { ErrorAttrs, FieldErrorsAttrs } from "$lib/attrs.types.js";
 
 	type $$Props = FieldErrorsProps;
 
 	const { fieldErrorsId, errors } = getFormField();
 
-	export let id = generateId();
-	export let asChild: $$Props['asChild'] = false;
-	export let el: $$Props['el'] = undefined;
+	export let id = useId();
+	export let asChild: $$Props["asChild"] = false;
+	export let el: $$Props["el"] = undefined;
 
 	$: errorAttr = getDataFsError($errors);
 
@@ -18,15 +18,15 @@
 
 	$: fieldErrorsAttrs = {
 		id: $fieldErrorsId,
-		'data-fs-error': errorAttr,
-		'data-fs-field-errors': '',
-		'aria-live': 'assertive' as const,
-		...$$restProps
+		"data-fs-error": errorAttr,
+		"data-fs-field-errors": "",
+		"aria-live": "assertive" as const,
+		...$$restProps,
 	} satisfies FieldErrorsAttrs;
 
 	$: errorAttrs = {
-		'data-fs-field-error': '',
-		'data-fs-error': errorAttr
+		"data-fs-field-error": "",
+		"data-fs-error": errorAttr,
 	} satisfies ErrorAttrs;
 </script>
 

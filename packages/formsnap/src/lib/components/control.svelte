@@ -1,26 +1,26 @@
 <script lang="ts">
-	import { getFormField, setFormControl, type FormControlContext } from '$lib/context.js';
-	import type { LabelAttrs, ControlAttrs } from '$lib/attrs.types.js';
+	import { writable } from "svelte/store";
+	import type { ControlProps } from "./types.js";
+	import { type FormControlContext, getFormField, setFormControl } from "$lib/context.js";
+	import type { ControlAttrs, LabelAttrs } from "$lib/attrs.types.js";
 	import {
 		getAriaDescribedBy,
+		getAriaInvalid,
 		getAriaRequired,
 		getDataFsError,
-		generateId,
-		getAriaInvalid
-	} from '$lib/internal/utils/index.js';
-	import { writable } from 'svelte/store';
-	import type { ControlProps } from './types.js';
+		useId,
+	} from "$lib/internal/utils/index.js";
 
 	type $$Props = ControlProps;
 
-	export let id = generateId();
+	export let id = useId();
 
 	const { name, fieldErrorsId, descriptionId, errors, constraints } = getFormField();
 
 	const controlContext: FormControlContext = {
 		id: writable(id),
 		attrs: writable<ControlAttrs>(),
-		labelAttrs: writable<LabelAttrs>()
+		labelAttrs: writable<LabelAttrs>(),
 	};
 
 	const { id: idStore } = controlContext;
@@ -34,21 +34,21 @@
 	$: attrs = {
 		name: $name,
 		id: $idStore,
-		'data-fs-error': errorAttr,
-		'aria-describedby': getAriaDescribedBy({
+		"data-fs-error": errorAttr,
+		"aria-describedby": getAriaDescribedBy({
 			fieldErrorsId: $fieldErrorsId,
 			descriptionId: $descriptionId,
-			errors: $errors
+			errors: $errors,
 		}),
-		'aria-invalid': getAriaInvalid($errors),
-		'aria-required': getAriaRequired($constraints),
-		'data-fs-control': ''
+		"aria-invalid": getAriaInvalid($errors),
+		"aria-required": getAriaRequired($constraints),
+		"data-fs-control": "",
 	} satisfies ControlAttrs;
 
 	$: labelAttrs = {
 		for: $idStore,
-		'data-fs-label': '',
-		'data-fs-error': errorAttr
+		"data-fs-label": "",
+		"data-fs-error": errorAttr,
 	} satisfies LabelAttrs;
 
 	$: controlContext.attrs.set(attrs);
