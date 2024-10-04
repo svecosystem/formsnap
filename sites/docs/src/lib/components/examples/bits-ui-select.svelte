@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { z } from "zod";
 
 	const languages = {
@@ -29,7 +29,11 @@
 	import * as Card from "$lib/components/ui/card/index.js";
 	import { toast } from "svelte-sonner";
 
-	export let data: SuperValidated<Infer<typeof schema>>;
+	let {
+		data,
+	}: {
+		data: SuperValidated<Infer<typeof schema>>;
+	} = $props();
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
@@ -42,11 +46,6 @@
 		},
 	});
 	const { form: formData, enhance } = form;
-
-	$: selectedLanguage = {
-		label: languages[$formData.language],
-		value: $formData.language,
-	};
 </script>
 
 <Card.Root>

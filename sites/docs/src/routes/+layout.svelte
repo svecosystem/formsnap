@@ -6,6 +6,8 @@
 	import { Metadata } from "$lib/components/index.js";
 	import { Footer } from "$lib/components/layout";
 	import { Toaster } from "$lib/components/ui/sonner";
+
+	let { children } = $props();
 </script>
 
 <Toaster />
@@ -15,7 +17,7 @@
 <Navbar />
 <div class="flex min-h-[calc(100vh-4rem)] flex-col">
 	<div class="flex-grow">
-		<slot />
+		{@render children?.()}
 	</div>
 	<Footer />
 </div>
