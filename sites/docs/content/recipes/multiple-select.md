@@ -23,27 +23,15 @@ Here's the schema we'll use for the form we'll build in this guide. We're assumi
 ```ts title="schema.ts"
 import { z } from "zod";
 
-export const flavors = [
-	"vanilla",
-	"chocolate",
-	"cookies and cream",
-	"strawberry",
-] as const;
+export const flavors = ["vanilla", "chocolate", "cookies and cream", "strawberry"] as const;
 
-export const toppings = [
-	"sprinkles",
-	"hot fudge",
-	"whipped cream",
-	"cherry",
-] as const;
+export const toppings = ["sprinkles", "hot fudge", "whipped cream", "cherry"] as const;
 
 export const schema = z
 	.object({
 		scoops: z.number().min(1).default(1),
 		flavors: z.array(z.enum(flavors)).min(1, "You must select at least one flavor."),
-		toppings: z
-			.array(z.enum(toppings))
-			.max(2, "You can only select up to two toppings."),
+		toppings: z.array(z.enum(toppings)).max(2, "You can only select up to two toppings."),
 	})
 	.refine((data) => (data.flavors.length > data.scoops ? false : true), {
 		message: "You can only select as many flavors as you have scoops.",

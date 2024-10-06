@@ -58,14 +58,14 @@ export const load: PageServerLoad = async () => {
 <script lang="ts">
 	import { Field, Label, FieldErrors, Control, Description, Fieldset, Legend } from "formsnap";
 	import { settingsFormSchema } from "./schemas";
-	import { superForm } from "sveltekit-superforms"
-	import { zodClient } from "sveltekit-superforms/adapters"
+	import { superForm } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
 
 	export let data;
 
 	const form = superForm(data.form, {
 		validators: zodClient(settingsFormSchema),
-	})
+	});
 
 	const { form: formData, enhance } = form;
 </script>
@@ -147,7 +147,6 @@ Made by [@huntabyte](https://github.com/huntabyte) and [community](https://githu
 </a>
 
 <!-- /automd -->
-
 
 ## Community
 

@@ -44,10 +44,7 @@ import type { FormPath } from "sveltekit-superforms";
 /**
  * State for the current form field.
  */
-export type FormFieldContext<
-	T extends Record<string, unknown>,
-	U extends FormPath<T>,
-> = {
+export type FormFieldContext<T extends Record<string, unknown>, U extends FormPath<T>> = {
 	/** The original form object returned from the load function. */
 	form: SuperForm<T>;
 

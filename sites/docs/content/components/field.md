@@ -64,10 +64,7 @@ To maintain the type safety of the component, we'll need to use some generics, w
 	type U = unknown;
 </script>
 
-<script
-	lang="ts"
-	generics="T extends Record<string, unknown>, U extends FormPath<T>"
->
+<script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
 	import { Field, type FieldProps, FieldErrors } from "formsnap";
 	import type { SuperForm } from "sveltekit-superforms";
 

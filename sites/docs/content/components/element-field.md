@@ -14,14 +14,7 @@ Here's an example of how you might use the `ElementField` component to create a 
 
 ```svelte
 <script lang="ts">
-	import {
-		ElementField,
-		FieldErrors,
-		Control,
-		Label,
-		Fieldset,
-		Description,
-	} from "formsnap";
+	import { ElementField, FieldErrors, Control, Label, Fieldset, Description } from "formsnap";
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { z } from "zod";
@@ -66,10 +59,7 @@ Check out the [Dynamic Fields](/docs/recipes/dynamic-fields) recipe for more adv
 The `ElementField` component doesn't render an element, it strictly provides context for its children. It accepts the following props:
 
 ```ts
-export type ElementFieldProps<
-	T extends Record<string, unknown>,
-	U extends FormPathLeaves<T>,
-> = {
+export type ElementFieldProps<T extends Record<string, unknown>, U extends FormPathLeaves<T>> = {
 	/**
 	 * The form object returned from calling `superForm` in your component.
 	 */
@@ -118,10 +108,7 @@ To maintain the type safety of the component, we'll need to use some generics, w
 	type U = unknown;
 </script>
 
-<script
-	lang="ts"
-	generics="T extends Record<string, unknown>, U extends FormPathLeaves<T>"
->
+<script lang="ts" generics="T extends Record<string, unknown>, U extends FormPathLeaves<T>">
 	import { ElementField, type ElementFieldProps, FieldErrors } from "formsnap";
 	import type { SuperForm } from "sveltekit-superforms";
 
