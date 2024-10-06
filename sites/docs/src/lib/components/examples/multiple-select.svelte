@@ -44,48 +44,70 @@
 	<Card.Content class="pt-6">
 		<form method="POST" action="?/multipleSelect" use:enhance class="flex flex-col gap-3">
 			<Field {form} name="scoops">
-				<Control let:attrs>
-					<div class="flex flex-col items-start gap-1.5">
-						<Form.Label>Number of scoops</Form.Label>
-						<select {...attrs} bind:value={$formData.scoops} class="w-[200px]">
-							{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-								<option value={num}>{num} {num === 1 ? "Scoop" : "Scoops"} </option>
-							{/each}
-						</select>
-					</div>
+				<Control>
+					{#snippet children({ props })}
+						<div class="flex flex-col items-start gap-1.5">
+							<Form.Label>Number of scoops</Form.Label>
+							<select {...props} bind:value={$formData.scoops} class="w-[200px]">
+								{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+									<option value={num}
+										>{num} {num === 1 ? "Scoop" : "Scoops"}
+									</option>
+								{/each}
+							</select>
+						</div>
+					{/snippet}
 				</Control>
 				<Form.FieldErrors />
 			</Field>
 			<Field {form} name="flavors">
 				<div class="flex flex-col gap-1">
-					<Control let:attrs>
-						<div class="flex flex-col items-start gap-1.5">
-							<Form.Label>Select your flavors</Form.Label>
-							<select multiple bind:value={$formData.flavors} {...attrs} class="w-[200px]">
-								{#each flavors as flavor}
-									<option value={flavor} selected={$formData.flavors.includes(flavor)}
-										>{flavor}</option
-									>
-								{/each}
-							</select>
-						</div>
+					<Control>
+						{#snippet children({ props })}
+							<div class="flex flex-col items-start gap-1.5">
+								<Form.Label>Select your flavors</Form.Label>
+								<select
+									multiple
+									bind:value={$formData.flavors}
+									{...props}
+									class="w-[200px]"
+								>
+									{#each flavors as flavor}
+										<option
+											value={flavor}
+											selected={$formData.flavors.includes(flavor)}
+											>{flavor}</option
+										>
+									{/each}
+								</select>
+							</div>
+						{/snippet}
 					</Control>
 					<Form.Description>Only select one flavor per scoop.</Form.Description>
 					<Form.FieldErrors />
 				</div>
 			</Field>
 			<Field {form} name="toppings">
-				<Control let:attrs>
-					<div class="flex flex-col items-start gap-1.5">
-						<Form.Label>Select your toppings</Form.Label>
-						<select multiple bind:value={$formData.toppings} {...attrs} class="w-[200px]">
-							{#each toppings as topping}
-								<option value={topping} selected={$formData.toppings.includes(topping)}
-									>{topping}</option
-								>
-							{/each}
-						</select>
-					</div>
+				<Control>
+					{#snippet children({ props })}
+						<div class="flex flex-col items-start gap-1.5">
+							<Form.Label>Select your toppings</Form.Label>
+							<select
+								multiple
+								bind:value={$formData.toppings}
+								{...props}
+								class="w-[200px]"
+							>
+								{#each toppings as topping}
+									<option
+										value={topping}
+										selected={$formData.toppings.includes(topping)}
+										>{topping}</option
+									>
+								{/each}
+							</select>
+						</div>
+					{/snippet}
 				</Control>
 				<Form.FieldErrors />
 			</Field>

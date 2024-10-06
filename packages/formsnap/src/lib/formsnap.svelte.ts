@@ -76,26 +76,6 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 					] ?? ({} as InputConstraint),
 			}) as const
 	);
-
-	createElementField(props: ElementFieldStateProps<T, U>) {
-		return new ElementFieldState(props, this);
-	}
-
-	createFieldErrors(props: FieldErrorsStateProps) {
-		return new FieldErrorsState(props, this);
-	}
-
-	createDescription(props: DescriptionStateProps) {
-		return new DescriptionState(props, this);
-	}
-
-	createControl(props: ControlStateProps) {
-		return new ControlState(props, this);
-	}
-
-	createLegend(props: LegendStateProps) {
-		return new LegendState(props, this);
-	}
 }
 
 type ElementFieldStateProps<
@@ -169,26 +149,6 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 					] ?? ({} as InputConstraint),
 			}) as const
 	);
-
-	createFieldErrors(props: FieldErrorsStateProps) {
-		return new FieldErrorsState(props, this);
-	}
-
-	createElementField(props: ElementFieldStateProps<T, U>) {
-		return new ElementFieldState(props, this);
-	}
-
-	createDescription(props: DescriptionStateProps) {
-		return new DescriptionState(props, this);
-	}
-
-	createControl(props: ControlStateProps) {
-		return new ControlState(props, this);
-	}
-
-	createLegend(props: LegendStateProps) {
-		return new LegendState(props, this);
-	}
 }
 
 type FieldErrorsStateProps = WithRefProps;
@@ -297,10 +257,6 @@ class ControlState {
 				"data-fs-control": "",
 			}) as const
 	);
-
-	createLabel(props: LabelStateProps) {
-		return new LabelState(props, this);
-	}
 }
 
 type LabelStateProps = WithRefProps;
@@ -372,10 +328,14 @@ export function useFormField<T extends Record<string, unknown>, U extends FormPa
 export function useElementField<T extends Record<string, unknown>, U extends FormPath<T>>(
 	props: ElementFieldStateProps<T, U>
 ) {
-	return setContext(FORM_FIELD_CTX, getFormField<T, U>().createElementField(props));
+	const formField = getFormField<T, U>();
+	return setContext(FORM_FIELD_CTX, new ElementFieldState(props, formField));
 }
 
-function getFormField<T extends Record<string, unknown>, U extends FormPath<T>>() {
+export function getFormField<
+	T extends Record<string, unknown> = Record<string, unknown>,
+	U extends FormPath<T> = FormPath<T>,
+>() {
 	return getContext<FieldState<T, U>>(FORM_FIELD_CTX);
 }
 
@@ -383,27 +343,27 @@ export function useFieldErrors<
 	T extends Record<string, unknown> = Record<string, unknown>,
 	U extends FormPath<T> = FormPath<T>,
 >(props: FieldErrorsStateProps) {
-	return getFormField<T, U>().createFieldErrors(props);
+	return new FieldErrorsState(props, getFormField<T, U>());
 }
 
 export function useDescription(props: DescriptionStateProps) {
-	return getFormField().createDescription(props);
+	return new DescriptionState(props, getFormField());
 }
 
 export function useControl(props: ControlStateProps) {
-	return setContext(FORM_CONTROL_CTX, getFormField().createControl(props));
+	return setContext(FORM_CONTROL_CTX, new ControlState(props, getFormField()));
 }
 
-function getControl() {
+export function getFormControl() {
 	return getContext<ControlState>(FORM_CONTROL_CTX);
 }
 
 export function useLabel(props: LabelStateProps) {
-	return getControl().createLabel(props);
+	return new LabelState(props, getFormControl());
 }
 
 export function useLegend(props: LegendStateProps) {
-	return getFormField().createLegend(props);
+	return new LegendState(props, getFormField());
 }
 
 // takes a string like "urls[0]" and returns ["urls", "0"]

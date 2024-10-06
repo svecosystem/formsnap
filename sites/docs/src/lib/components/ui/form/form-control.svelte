@@ -1,15 +1,22 @@
 <script lang="ts">
 	import { cn } from "$lib/utils";
-	import { Control } from "formsnap";
+	import type { WithoutChildren } from "bits-ui";
+	import { Control, type ControlProps } from "formsnap";
 	import type { HTMLAttributes } from "svelte/elements";
 
-	type $$Props = HTMLAttributes<HTMLDivElement>;
-	let className: string | undefined | null = undefined;
-	export { className as class };
+	let {
+		ref = $bindable(null),
+		class: className,
+		children: childrenProp,
+		...restProps
+	}: ControlProps &
+		WithoutChildren<HTMLAttributes<HTMLDivElement> & { ref?: HTMLElement | null }> = $props();
 </script>
 
-<Control let:attrs>
-	<div class={cn("flex flex-col gap-2", className)} {...$$restProps}>
-		<slot {attrs} />
-	</div>
+<Control>
+	{#snippet children(props)}
+		<div bind:this={ref} class={cn("flex flex-col gap-2", className)} {...restProps}>
+			{@render childrenProp?.(props)}
+		</div>
+	{/snippet}
 </Control>

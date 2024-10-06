@@ -52,28 +52,26 @@
 	<Card.Content class="pt-6">
 		<form method="POST" action="?/bitsSelect" use:enhance class="flex flex-col gap-4">
 			<Form.Field {form} name="language">
-				<Form.Control let:attrs>
-					<Form.Label>Language</Form.Label>
-					<Select.Root
-						selected={selectedLanguage}
-						onSelectedChange={(s) => {
-							s && ($formData.language = s.value);
-						}}
-					>
-						<Select.Input name={attrs.name} />
-						<Select.Trigger {...attrs} class="w-[180px]">
-							<Select.Value placeholder="Select a language" />
-						</Select.Trigger>
-						<Select.Content>
-							{#each Object.entries(languages) as [value, label]}
-								<Select.Item {value} {label} />
-							{/each}
-						</Select.Content>
-					</Select.Root>
-					<Form.Description>
-						The docs will be translated to your preferred language.
-					</Form.Description>
-					<Form.FieldErrors />
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>Language</Form.Label>
+						<Select.Root bind:value={$formData.language} name={props.name as string}>
+							<Select.Trigger {...props} class="w-[180px]">
+								<Select.Value placeholder="Select a language" />
+							</Select.Trigger>
+							<Select.Content>
+								{#each Object.entries(languages) as [value, label]}
+									<Select.Item {value}>
+										{label}
+									</Select.Item>
+								{/each}
+							</Select.Content>
+						</Select.Root>
+						<Form.Description>
+							The docs will be translated to your preferred language.
+						</Form.Description>
+						<Form.FieldErrors />
+					{/snippet}
 				</Form.Control>
 			</Form.Field>
 			<Form.Button class="self-start">Submit</Form.Button>

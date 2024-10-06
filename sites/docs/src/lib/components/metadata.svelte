@@ -3,10 +3,12 @@
 	import { page } from "$app/stores";
 	import { siteConfig } from "$lib/config/site";
 
-	export let title: string = siteConfig.name;
+	let { title }: { title?: string } = $props();
 
-	$: title = $page.data?.title ? `${$page.data.title} - ${siteConfig.name}` : siteConfig.name;
-	$: description = $page.data?.description ?? siteConfig.description;
+	const trueTitle = $derived(
+		$page.data?.title ? `${$page.data.title} - ${siteConfig.name}` : siteConfig.name
+	);
+	const description = $derived($page.data?.description ?? siteConfig.description);
 </script>
 
 <svelte:head>
@@ -16,12 +18,12 @@
 	<meta name="author" content={siteConfig.author} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content={siteConfig.url} />
-	<meta name="twitter:title" content={title} />
+	<meta name="twitter:title" content={trueTitle} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={siteConfig.ogImage.url} />
 	<meta name="twitter:image:alt" content={siteConfig.name} />
 	<meta name="twitter:creator" content={siteConfig.author} />
-	<meta property="og:title" content={title} />
+	<meta property="og:title" content={trueTitle} />
 	<meta property="og:type" content="article" />
 	<meta property="og:url" content={siteConfig.url + $page.url.pathname} />
 	<meta property="og:image" content={siteConfig.ogImage.url} />

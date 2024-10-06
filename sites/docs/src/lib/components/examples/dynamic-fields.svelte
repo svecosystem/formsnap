@@ -56,18 +56,25 @@
 				<div class="flex flex-none flex-col gap-2">
 					{#each $formData.urls as _, i}
 						<Form.ElementField {form} name="urls[{i}]">
-							<Form.Control let:attrs>
-								<div class="flex items-center gap-3">
-									<Input type="url" bind:value={$formData.urls[i]} {...attrs} class="w-full" />
-									<Button
-										on:click={() => removeUrlByIndex(i)}
-										variant="destructive"
-										size="icon"
-										aria-label="Delete URL {i}"
-									>
-										<Trash class="size-5" />
-									</Button>
-								</div>
+							<Form.Control>
+								{#snippet children({ props })}
+									<div class="flex items-center gap-3">
+										<Input
+											type="url"
+											bind:value={$formData.urls[i]}
+											{...props}
+											class="w-full"
+										/>
+										<Button
+											onclick={() => removeUrlByIndex(i)}
+											variant="destructive"
+											size="icon"
+											aria-label="Delete URL {i}"
+										>
+											<Trash class="size-5" />
+										</Button>
+									</div>
+								{/snippet}
 							</Form.Control>
 							<Form.Description class="sr-only">
 								This URL will be displayed on your public profile.
@@ -77,10 +84,10 @@
 					{/each}
 				</div>
 				<div class="flex items-center justify-between pt-2">
-					<div aria-hidden class="text-sm text-muted-foreground">
+					<div aria-hidden="true" class="text-muted-foreground text-sm">
 						These URLs will be displayed on your public profile.
 					</div>
-					<Button on:click={addUrl} class="ml-auto" variant="outline">
+					<Button onclick={addUrl} class="ml-auto" variant="outline">
 						<Plus class="mr-2 size-5" aria-label="Add" />
 						URL
 					</Button>

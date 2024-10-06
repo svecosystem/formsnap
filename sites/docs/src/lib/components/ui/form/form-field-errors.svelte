@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { FieldErrors as FieldErrorsPrimitive } from "formsnap";
+	import { FieldErrors as FieldErrorsPrimitive, type FieldErrorsProps } from "formsnap";
 	import { cn } from "$lib/utils";
-	import type { HTMLAttributes } from "svelte/elements";
 
-	type $$Props = HTMLAttributes<HTMLParagraphElement>;
-	let className: string | undefined | null = undefined;
-	export { className as class };
+	let { ref = $bindable(null), class: className, ...restProps }: FieldErrorsProps = $props();
 </script>
 
 <FieldErrorsPrimitive
-	class={cn("text-sm font-medium text-destructive", className)}
-	{...$$restProps}
+	bind:ref
+	class={cn("text-destructive text-sm font-medium", className)}
+	{...restProps}
 />

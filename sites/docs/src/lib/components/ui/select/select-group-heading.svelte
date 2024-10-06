@@ -6,11 +6,11 @@
 		ref = $bindable(null),
 		class: className,
 		...restProps
-	}: SelectPrimitive.SeparatorProps = $props();
+	}: SelectPrimitive.GroupHeadingProps = $props();
 </script>
 
-<SelectPrimitive.Separator
+<SelectPrimitive.GroupHeading
 	bind:ref
-	class={cn("bg-muted -mx-1 my-1 h-px", className)}
+	class={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
 	{...restProps}
 />

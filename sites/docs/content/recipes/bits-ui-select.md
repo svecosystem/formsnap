@@ -42,9 +42,7 @@ export const languages = {
 type Language = keyof typeof languages;
 
 export const schema = z.object({
-	language: z
-		.enum(Object.keys(languages) as [Language, ...Language[]])
-		.default("en"),
+	language: z.enum(Object.keys(languages) as [Language, ...Language[]]).default("en"),
 });
 ```
 

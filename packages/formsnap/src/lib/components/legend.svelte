@@ -30,10 +30,8 @@ A component that provides a title for a group of related form controls and shoul
 
 - [Legend Documentation](https://formsnap.dev/docs/components/legend)
 
-### Slot Props
-- `legendAttrs` - A spreadable object of attributes for the legend element if `asChild` is `true`.
-
-@param {boolean} [asChild=false] - Whether to opt out of rendering the legend element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
+### Snippet Props
+- `props` - A spreadable object of attributes for the legend element if `child` snippet is used.
 -->
 
 {#if child}

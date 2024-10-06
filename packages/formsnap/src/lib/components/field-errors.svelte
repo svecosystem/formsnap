@@ -36,8 +36,6 @@ A component that renders the container for validation errors for a [Field](https
 - `errorAttrs` - A spreadable object of attributes for the individual error elements if `asChild` is `true`.
 
 @param {string} [id] - The id of the field errors container.
-@param {el} [HTMLElement] - Bind to the field errors container element.
-@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
 {#if child}
 	{@render child({

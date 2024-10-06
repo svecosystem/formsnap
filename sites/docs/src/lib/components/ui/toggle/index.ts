@@ -1,12 +1,13 @@
+import { type VariantProps, tv } from "tailwind-variants";
 import Root from "./toggle.svelte";
-import { tv, type VariantProps } from "tailwind-variants";
 
 export const toggleVariants = tv({
-	base: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors data-[state=on]:bg-accent data-[state=on]:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-background hover:bg-muted hover:text-muted-foreground",
+	base: "ring-offset-background hover:bg-muted hover:text-muted-foreground focus-visible:ring-ring data-[state=on]:bg-accent data-[state=on]:text-accent-foreground inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
 	variants: {
 		variant: {
 			default: "bg-transparent",
-			outline: "bg-transparent border border-input hover:bg-accent hover:text-accent-foreground",
+			outline:
+				"border-input hover:bg-accent hover:text-accent-foreground border bg-transparent",
 		},
 		size: {
 			default: "h-10 px-3",
@@ -20,8 +21,8 @@ export const toggleVariants = tv({
 	},
 });
 
-export type Variant = VariantProps<typeof toggleVariants>["variant"];
-export type Size = VariantProps<typeof toggleVariants>["size"];
+export type ToggleVariant = VariantProps<typeof toggleVariants>["variant"];
+export type ToggleSize = VariantProps<typeof toggleVariants>["size"];
 
 export {
 	Root,

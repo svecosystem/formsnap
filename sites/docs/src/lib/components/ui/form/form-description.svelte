@@ -1,15 +1,12 @@
 <script lang="ts">
-	import {
-		Description as DescriptionPrimitive,
-		type DescriptionProps as DescriptionPrimitiveProps,
-	} from "formsnap";
+	import { Description as DescriptionPrimitive, type DescriptionProps } from "formsnap";
 	import { cn } from "$lib/utils";
 
-	type $$Props = DescriptionPrimitiveProps;
-	let className: string | undefined | null = undefined;
-	export { className as class };
+	let { ref = $bindable(null), class: className, ...restProps }: DescriptionProps = $props();
 </script>
 
-<DescriptionPrimitive class={cn("text-sm text-muted-foreground", className)} {...$$restProps}>
-	<slot />
-</DescriptionPrimitive>
+<DescriptionPrimitive
+	bind:ref
+	class={cn("text-muted-foreground text-sm", className)}
+	{...restProps}
+/>

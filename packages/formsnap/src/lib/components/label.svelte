@@ -32,9 +32,11 @@ A component that renders a label element associated with a form control, and mus
 
 @example
 ```svelte
-<Control let:attrs>
-	<Label>First Name</Label>
-	<input type="text" name="first_name" {...attrs} bind:value={$formData.first_name} />
+<Control>
+	{#snippet children({ props })}
+		<Label>First Name</Label>
+		<input type="text" name="first_name" {...props} bind:value={$formData.first_name} />
+	{/snippet}
 </Control>
 ```
 

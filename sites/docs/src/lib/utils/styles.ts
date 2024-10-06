@@ -2,6 +2,20 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import type { WithElementRef } from "bits-ui";
+import type {
+	HTMLAnchorAttributes,
+	HTMLAttributes,
+	HTMLButtonAttributes,
+	HTMLInputAttributes,
+	HTMLLabelAttributes,
+	HTMLLiAttributes,
+	HTMLOlAttributes,
+	HTMLTableAttributes,
+	HTMLTdAttributes,
+	HTMLTextareaAttributes,
+	HTMLThAttributes,
+} from "svelte/elements";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -21,7 +35,11 @@ export const flyAndScale = (
 	const style = getComputedStyle(node);
 	const transform = style.transform === "none" ? "" : style.transform;
 
-	const scaleConversion = (valueA: number, scaleA: [number, number], scaleB: [number, number]) => {
+	const scaleConversion = (
+		valueA: number,
+		scaleA: [number, number],
+		scaleB: [number, number]
+	) => {
 		const [minA, maxA] = scaleA;
 		const [minB, maxB] = scaleB;
 
@@ -54,3 +72,24 @@ export const flyAndScale = (
 		easing: cubicOut,
 	};
 };
+
+// to get a reference to the underlying DOM element the component is rendering.
+export type PrimitiveDivAttributes = WithElementRef<HTMLAttributes<HTMLDivElement>>;
+export type PrimitiveElementAttributes = WithElementRef<HTMLAttributes<HTMLElement>>;
+export type PrimitiveAnchorAttributes = WithElementRef<HTMLAnchorAttributes>;
+export type PrimitiveButtonAttributes = WithElementRef<HTMLButtonAttributes>;
+export type PrimitiveInputAttributes = WithElementRef<HTMLInputAttributes>;
+export type PrimitiveSpanAttributes = WithElementRef<HTMLAttributes<HTMLSpanElement>>;
+export type PrimitiveTextareaAttributes = WithElementRef<HTMLTextareaAttributes>;
+export type PrimitiveHeadingAttributes = WithElementRef<HTMLAttributes<HTMLHeadingElement>>;
+export type PrimitiveLiAttributes = WithElementRef<HTMLLiAttributes>;
+export type PrimitiveOlAttributes = WithElementRef<HTMLOlAttributes>;
+export type PrimitiveLabelAttributes = WithElementRef<HTMLLabelAttributes>;
+export type PrimitiveUlAttributes = WithElementRef<HTMLAttributes<HTMLUListElement>>;
+export type PrimitiveTableAttributes = WithElementRef<HTMLTableAttributes>;
+export type PrimitiveTdAttributes = WithElementRef<HTMLTdAttributes>;
+export type PrimitiveTrAttributes = WithElementRef<HTMLAttributes<HTMLTableRowElement>>;
+export type PrimitiveThAttributes = WithElementRef<HTMLThAttributes>;
+export type PrimitiveTableSectionAttributes = WithElementRef<
+	HTMLAttributes<HTMLTableSectionElement>
+>;
