@@ -23,9 +23,7 @@ When you have a group of radio buttons related to a single field, you should use
 			<Label>{theme}</Label>
 		</Control>
 	{/each}
-	<Description>
-		Help us understand your preferences by selecting a theme.
-	</Description>
+	<Description>Help us understand your preferences by selecting a theme.</Description>
 	<FieldErrors />
 </Fieldset>
 ```
@@ -39,12 +37,7 @@ When you have a group of checkboxes related to a single field, typically used fo
 	<Legend>Any food allergies?</Legend>
 	{#each allergies as allergy}
 		<Control let:attrs>
-			<input
-				{...attrs}
-				type="checkbox"
-				bind:group={$formData.allergies}
-				value={allergy}
-			/>
+			<input {...attrs} type="checkbox" bind:group={$formData.allergies} value={allergy} />
 			<Label>{allergy}</Label>
 		</Control>
 	{/each}
@@ -75,10 +68,7 @@ When you have a large form with multiple sections containing related fields, suc
 The `Fieldset` component renders a `<fieldset>` element and accepts the following props:
 
 ```ts
-export type FieldsetProps<
-	T extends Record<string, unknown>,
-	U extends FormPath<T>,
-> = {
+export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
 	/**
 	 * The form object returned from calling `superForm` in your component.
 	 */

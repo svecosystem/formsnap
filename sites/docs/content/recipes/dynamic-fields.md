@@ -104,9 +104,7 @@ Since our individual URL inputs will be part of the same field, we'll use a [Fie
 	<Fieldset {form} name="urls">
 		<Legend>Public URLs</Legend>
 		<!-- ... -->
-		<Description>
-			Add URLs to your profile that you'd like to share with others.
-		</Description>
+		<Description>Add URLs to your profile that you'd like to share with others.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>
@@ -196,9 +194,7 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 				<Control let:attrs>
 					<Label class="sr-only">URL {i + 1}</Label>
 					<input type="url" {...attrs} bind:value={$formData.urls[i]} />
-					<button type="button" on:click={() => removeUrlByIndex(i)}>
-						Remove URL
-					</button>
+					<button type="button" on:click={() => removeUrlByIndex(i)}> Remove URL </button>
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.
@@ -295,9 +291,7 @@ export const schema = z.object({
 				<Control let:attrs>
 					<Label class="sr-only">URL {i + 1}</Label>
 					<input type="url" {...attrs} bind:value={$formData.urls[i]} />
-					<button type="button" on:click={() => removeUrlByIndex(i)}>
-						Remove URL
-					</button>
+					<button type="button" on:click={() => removeUrlByIndex(i)}> Remove URL </button>
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.

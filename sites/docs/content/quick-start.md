@@ -44,12 +44,12 @@ export const schema = z.object({
 
 Looking at the schema above, we know we'll need a few different input types to represent the different data types. Here's how we'll map the schema to input types:
 
-- `email` -> `<input type="email">`
-- `bio` -> `<textarea>`
-- `theme` -> `<input type="radio">`
-- `language` -> `<select>`
-- `marketingEmails` -> `<input type="checkbox>`
-- `allergies` -> `<input type="checkbox">` (group/multiple)
+-   `email` -> `<input type="email">`
+-   `bio` -> `<textarea>`
+-   `theme` -> `<input type="radio">`
+-   `language` -> `<select>`
+-   `marketingEmails` -> `<input type="checkbox>`
+-   `allergies` -> `<input type="checkbox">` (group/multiple)
 
 Of course, there are other ways to represent the data, but this is the approach we'll take for this tutorial.
 
@@ -176,15 +176,7 @@ And that's really all it takes to setup a form field. Let's continue on with the
 ```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import {
-		Field,
-		Control,
-		Label,
-		Description,
-		FieldErrors,
-		Fieldset,
-		Legend,
-	} from "formsnap";
+	import { Field, Control, Label, Description, FieldErrors, Fieldset, Legend } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
