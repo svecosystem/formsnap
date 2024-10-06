@@ -30,7 +30,7 @@
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
-		onUpdated: ({ form: fd }) => {
+		onUpdate: ({ form: fd }) => {
 			if (fd.valid) {
 				toast.success(`You submitted:${JSON.stringify(fd.data, null, 2)}`);
 			} else {
@@ -55,9 +55,9 @@
 						<Listbox.Root
 							type="multiple"
 							bind:value={$formData.colors}
-							name={props.name as string}
+							name={props.name}
 						>
-							<Listbox.Trigger {...props} class="w-[180px]">
+							<Listbox.Trigger type="button" {...props} class="w-[180px]">
 								{selectedColors}
 							</Listbox.Trigger>
 							<Listbox.Content>
@@ -66,9 +66,9 @@
 								{/each}
 							</Listbox.Content>
 						</Listbox.Root>
-						<Form.Description
-							>We'll use these colors to customize your experience.</Form.Description
-						>
+						<Form.Description>
+							We'll use these colors to customize your experience.
+						</Form.Description>
 						<Form.FieldErrors />
 					{/snippet}
 				</Form.Control>

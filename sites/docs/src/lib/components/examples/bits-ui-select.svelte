@@ -22,12 +22,12 @@
 </script>
 
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
+	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
+	import { toast } from "svelte-sonner";
 	import * as Select from "$lib/components/ui/select/index.js";
 	import * as Form from "$lib/components/ui/form/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
-	import { toast } from "svelte-sonner";
 
 	let {
 		data,
@@ -39,7 +39,7 @@
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
+				toast.success(`You submitted:${JSON.stringify(fd.data, null, 2)}`);
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}
@@ -55,7 +55,7 @@
 				<Form.Control>
 					{#snippet children({ props })}
 						<Form.Label>Language</Form.Label>
-						<Select.Root bind:value={$formData.language} name={props.name as string}>
+						<Select.Root bind:value={$formData.language} name={props.name}>
 							<Select.Trigger {...props} class="w-[180px]">
 								<Select.Value placeholder="Select a language" />
 							</Select.Trigger>

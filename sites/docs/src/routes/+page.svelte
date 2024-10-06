@@ -1,13 +1,11 @@
 <script lang="ts">
-	import {
-		GitHubIcon,
-		PersonArmsSpread,
-		FileHTML,
-		Circuitry,
-		FileTS,
-		UsersThree,
-		Hammer,
-	} from "$lib/icons/index.js";
+	import Circuitry from "phosphor-svelte/lib/Circuitry";
+	import FileHTML from "phosphor-svelte/lib/FileHtml";
+	import FileTS from "phosphor-svelte/lib/FileTs";
+	import Hammer from "phosphor-svelte/lib/Hammer";
+	import PersonArmsSpread from "phosphor-svelte/lib/PersonArmsSpread";
+	import UsersThree from "phosphor-svelte/lib/UsersThree";
+	import { GitHubIcon } from "$lib/icons/index.js";
 	import { Button } from "$lib/components/ui/button/index.js";
 	import FeatureCard from "$lib/components/feature-card.svelte";
 	import A from "$lib/components/markdown/a.svelte";
@@ -44,7 +42,7 @@
 		What's included
 	</h2>
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-		<!-- <FeatureCard title="Accessible Defaults" icon={PersonArmsSpread}>
+		<FeatureCard title="Accessible Defaults" icon={PersonArmsSpread}>
 			ARIA-attributes and wiring are included by default, following the <A
 				href="https://www.w3.org/TR/wai-aria-practices-1.2/">WAI-ARIA Authoring Practices</A
 			>.
@@ -70,6 +68,6 @@
 				>shadcn-svelte</A
 			>, <A href="https://bits-ui.com">Bits UI</A>, <A href="https://melt-ui.com">Melt UI</A>,
 			and more!
-		</FeatureCard> -->
+		</FeatureCard>
 	</div>
 </section>

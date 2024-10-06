@@ -10,14 +10,14 @@
 </script>
 
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
-	import * as Form from "$lib/components/ui/form/index.js";
+	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
+	import { toast } from "svelte-sonner";
+	import * as Form from "$lib/components/ui/form/index.js";
 	import { Input } from "$lib/components/ui/input";
 	import { Button } from "$lib/components/ui/button";
-	import { Trash, Plus } from "$icons/index.js";
+	import { Plus, Trash } from "$icons/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
-	import { toast } from "svelte-sonner";
 
 	export let data: SuperValidated<Infer<typeof schema>>;
 
@@ -25,7 +25,7 @@
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
+				toast.success(`You submitted:${JSON.stringify(fd.data, null, 2)}`);
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}

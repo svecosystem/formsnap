@@ -14,13 +14,13 @@
 </script>
 
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
+	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
+	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from "formsnap";
+	import { toast } from "svelte-sonner";
 	import { buttonVariants } from "$lib/components/ui/button/index.js";
 	import { cn } from "$lib/utils/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
-	import { toast } from "svelte-sonner";
 
 	let {
 		data,
@@ -32,7 +32,7 @@
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
+				toast.success(`You submitted:${JSON.stringify(fd.data, null, 2)}`);
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}

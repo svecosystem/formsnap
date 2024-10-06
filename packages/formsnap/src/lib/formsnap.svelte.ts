@@ -1,6 +1,6 @@
 import { type ReadableBoxedValues, type WithRefProps, useRefById } from "svelte-toolbelt";
 import { fromStore } from "svelte/store";
-import type { FormPath, InputConstraint, InputConstraints, SuperForm } from "sveltekit-superforms";
+import type { FormPath, InputConstraint, InputConstraints } from "sveltekit-superforms";
 import type { FormPathArrays, TaintedFields, ValidationErrors } from "sveltekit-superforms/client";
 import { getContext, setContext } from "svelte";
 import { extractErrorArray } from "./internal/utils/errors.js";
@@ -12,7 +12,8 @@ import {
 	getDataFsError,
 } from "./internal/utils/attributes.js";
 import type { PrimitiveFromIndex } from "./internal/types.js";
-import type { DescriptionAttrs } from "./attrs.types.js";
+import type { ControlAttrs, DescriptionAttrs } from "./attrs.types.js";
+import type { FsSuperForm } from "./components/types.js";
 
 type SvelteBox<T> = {
 	current: T;
@@ -25,8 +26,10 @@ type FieldState<T extends Record<string, unknown>, U extends FormPath<T>> =
 type FormFieldStateProps<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>,
+	// eslint-disable-next-line ts/no-explicit-any
+	M = any,
 > = ReadableBoxedValues<{
-	form: SuperForm<T>;
+	form: FsSuperForm<T, M>;
 	name: U;
 }>;
 
@@ -81,8 +84,10 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 type ElementFieldStateProps<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>,
+	// eslint-disable-next-line ts/no-explicit-any
+	M = any,
 > = ReadableBoxedValues<{
-	form: SuperForm<T>;
+	form: FsSuperForm<T, M>;
 	name: U;
 }>;
 
@@ -255,7 +260,7 @@ class ControlState {
 				"aria-invalid": getAriaInvalid(this.field.errors),
 				"aria-required": getAriaRequired(this.field.constraints),
 				"data-fs-control": "",
-			}) as const
+			}) satisfies ControlAttrs
 	);
 }
 

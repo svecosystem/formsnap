@@ -1,7 +1,7 @@
 import type { HTMLAttributes, HTMLFieldsetAttributes, HTMLLabelAttributes } from "svelte/elements";
 import type { FormPath, FormPathLeaves, SuperForm } from "sveltekit-superforms";
 import type { Snippet } from "svelte";
-import type { WithChild, Without } from "svelte-toolbelt";
+import type { Expand, WithChild, Without } from "svelte-toolbelt";
 import type {
 	ControlAttrs,
 	DescriptionAttrs,
@@ -18,6 +18,17 @@ type PrimitiveDivAttributes = Primitive<HTMLAttributes<HTMLDivElement>>;
 type PrimitiveLabelAttributes = Primitive<HTMLLabelAttributes>;
 type PrimitiveLegendAttributes = Primitive<HTMLAttributes<HTMLLegendElement>>;
 
+// eslint-disable-next-line ts/no-explicit-any
+export type FsSuperForm<T extends Record<string, unknown>, M = any> = Omit<
+	SuperForm<T, M>,
+	"validate" | "validateForm"
+> & {
+	// eslint-disable-next-line ts/no-explicit-any
+	validate?: any;
+	// eslint-disable-next-line ts/no-explicit-any
+	validateForm?: any;
+};
+
 /**
  * Props for the [Description](https://formsnap.dev/docs/components/description) component.
  *
@@ -33,11 +44,12 @@ export type DescriptionProps = DescriptionPropsWithoutHTML &
  *
  * @category Field
  */
-export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
+// eslint-disable-next-line ts/no-explicit-any
+export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>, M = any> = {
 	/**
 	 * The form object returned from calling `superForm` in your component.
 	 */
-	form: SuperForm<T>;
+	form: FsSuperForm<T, M>;
 
 	/**
 	 * The path to the field in the form object.
@@ -66,11 +78,16 @@ export type FieldProps<T extends Record<string, unknown>, U extends FormPath<T>>
  *
  * @category ElementField
  */
-export type ElementFieldProps<T extends Record<string, unknown>, U extends FormPathLeaves<T>> = {
+export type ElementFieldProps<
+	T extends Record<string, unknown>,
+	U extends FormPathLeaves<T>,
+	// eslint-disable-next-line ts/no-explicit-any
+	M = any,
+> = {
 	/**
 	 * The form object returned from calling `superForm` in your component.
 	 */
-	form: SuperForm<T>;
+	form: FsSuperForm<T, M>;
 
 	/**
 	 * The path to the field in the form object.
@@ -107,12 +124,14 @@ export type ElementFieldProps<T extends Record<string, unknown>, U extends FormP
 export type FieldsetPropsWithoutHTML<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>,
+	// eslint-disable-next-line ts/no-explicit-any
+	M = any,
 > = WithChild<
 	{
 		/**
 		 * The form object returned from calling `superForm` in your component.
 		 */
-		form: SuperForm<T>;
+		form: FsSuperForm<T, M>;
 
 		/**
 		 * The path to the field in the form object.
@@ -130,8 +149,10 @@ export type FieldsetPropsWithoutHTML<
 export type FieldsetProps<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>,
-> = FieldsetPropsWithoutHTML<T, U> &
-	Without<PrimitiveFieldSetAttributes, FieldsetPropsWithoutHTML<T, U>>;
+	// eslint-disable-next-line ts/no-explicit-any
+	M = any,
+> = FieldsetPropsWithoutHTML<T, U, M> &
+	Without<PrimitiveFieldSetAttributes, FieldsetPropsWithoutHTML<T, U, M>>;
 
 /**
  * Props for the [Control](https://formsnap.dev/docs/components/control) component.
@@ -145,7 +166,7 @@ export type ControlProps = {
 	 */
 	id?: string;
 
-	children?: Snippet<[{ props: Record<string, unknown> }]>;
+	children?: Snippet<[{ props: Expand<ControlAttrs> }]>;
 };
 
 export type LabelPropsWithoutHTML = WithChild<{}>;

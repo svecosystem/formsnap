@@ -11,19 +11,19 @@
 			flavors: z.array(z.enum(flavors)).min(1, "You must select at least one flavor."),
 			toppings: z.array(z.enum(toppings)).max(2, "You can only select up to two toppings."),
 		})
-		.refine((data) => (data.flavors.length > data.scoops ? false : true), {
+		.refine((data) => !(data.flavors.length > data.scoops), {
 			message: "You can only select as many flavors as you have scoops.",
 			path: ["flavors"],
 		});
 </script>
 
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
+	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Field, Control } from "formsnap";
+	import { Control, Field } from "formsnap";
+	import { toast } from "svelte-sonner";
 	import * as Card from "$lib/components/ui/card/index.js";
 	import * as Form from "$lib/components/ui/form/index.js";
-	import { toast } from "svelte-sonner";
 
 	export let data: SuperValidated<Infer<typeof schema>>;
 
@@ -31,7 +31,7 @@
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
+				toast.success(`You submitted:${JSON.stringify(fd.data, null, 2)}`);
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}

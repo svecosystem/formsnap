@@ -1,13 +1,13 @@
 <script lang="ts">
 	import {
-		getFormField,
-		type LabelProps as PrimitiveLabelProps,
 		Label as PrimitiveLabel,
+		type LabelProps as PrimitiveLabelProps,
+		getFormField,
 	} from "formsnap";
-	import { cn } from "$lib/utils";
-	import { Label } from "$lib/components/ui/label";
 	import type { WithoutChildrenOrChild } from "bits-ui";
 	import type { Snippet } from "svelte";
+	import { cn } from "$lib/utils";
+	import { Label } from "$lib/components/ui/label";
 
 	let {
 		ref = $bindable(null),
