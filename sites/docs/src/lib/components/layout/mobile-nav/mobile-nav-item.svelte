@@ -1,8 +1,8 @@
 <script lang="ts">
+	import MobileNavLink from "./mobile-nav-link.svelte";
 	import { page } from "$app/stores";
 	import type { SidebarNavItem } from "$lib/config";
 	import { isTitleActive, slugFromPathname } from "$lib/utils/docs";
-	import MobileNavLink from "./mobile-nav-link.svelte";
 
 	export let navItem: SidebarNavItem;
 	$: currentPath = slugFromPathname($page.url.pathname);
