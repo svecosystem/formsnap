@@ -14,7 +14,7 @@
 		"ci:publish": "pnpm build:packages && changeset publish",
 		"lint": "pnpm -r lint",
 		"format": "pnpm -r format",
-		"check": "pnpm -r check",
+		"check": "pnpm build:packages && pnpm -r check",
 		"sync": "pnpm -r sync",
 		"postinstall": "pnpm -r sync"
 	},
