@@ -1,7 +1,7 @@
 <script lang="ts">
+	import FooterIcons from "./footer-icons.svelte";
 	import A from "$lib/components/markdown/a.svelte";
 	import { siteConfig } from "$lib/config";
-	import FooterIcons from "./footer-icons.svelte";
 </script>
 
 <footer class="border-border mt-4 border-t text-sm leading-6">

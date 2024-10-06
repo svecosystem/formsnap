@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { page } from "$app/stores";
 	import { createTableOfContents } from "@melt-ui/svelte";
 	import Tree from "./tree.svelte";
+	import { page } from "$app/stores";
 
 	export let selector = "#sveco-content";
 
