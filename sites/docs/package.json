@@ -11,7 +11,7 @@
 		"build:content": "contentlayer build",
 		"build:content-cachebust": "contentlayer build --clearCache",
 		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "pnpm build:content && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write . --cache",
@@ -78,5 +78,11 @@
 		"rehype-slug": "^6.0.0",
 		"svelte-sonner": "^0.3.17",
 		"vaul-svelte": "^0.2.3"
-	}
+	},
+	"engines": {
+		"pnpm": ">=8.7.0",
+		"node": ">=18"
+	},
+	"sideEffects": false,
+	"packageManager": "pnpm@9.6.0"
 }

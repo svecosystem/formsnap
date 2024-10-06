@@ -74,5 +74,11 @@
 	"type": "module",
 	"dependencies": {
 		"nanoid": "^5.0.5"
-	}
+	},
+	"engines": {
+		"pnpm": ">=8.7.0",
+		"node": ">=18"
+	},
+	"sideEffects": false,
+	"packageManager": "pnpm@9.6.0"
 }
