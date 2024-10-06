@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "formsnap": "1.0.1",
+    "docs": "0.0.3"
+  },
+  "changesets": [
+    "rude-lamps-teach"
+  ]
+}

@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { z } from "zod";
 
 	export const formSchema = z.object({
@@ -21,7 +21,7 @@
 <script lang="ts">
 	import SuperDebug, { defaults, superForm } from "sveltekit-superforms";
 	import { zod } from "sveltekit-superforms/adapters";
-	import { Field, FieldErrors, Control, Label } from "formsnap";
+	import { Control, Field, FieldErrors, Label } from "formsnap";
 
 	const form = superForm(defaults(zod(formSchema)), {
 		SPA: true,
@@ -35,9 +35,11 @@
 <SuperDebug data={$errors} />
 <form method="POST" use:enhance class="flex flex-col gap-2">
 	<Field {form} name="address.postcode">
-		<Control let:attrs>
-			<Label>Postcode</Label>
-			<input {...attrs} bind:value={$formData.address.postcode} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Postcode</Label>
+				<input {...props} bind:value={$formData.address.postcode} />
+			{/snippet}
 		</Control>
 		<FieldErrors class="text-red-500" />
 	</Field>

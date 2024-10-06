@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { z } from "zod";
 
 	export const allergies = ["None", "Peanuts", "Shellfish", "Lactose", "Gluten"] as const;
@@ -14,21 +14,25 @@
 </script>
 
 <script lang="ts">
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
+	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
+	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from "formsnap";
+	import { toast } from "svelte-sonner";
 	import { buttonVariants } from "$lib/components/ui/button/index.js";
 	import { cn } from "$lib/utils/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
-	import { toast } from "svelte-sonner";
 
-	export let data: SuperValidated<Infer<typeof schema>>;
+	let {
+		data,
+	}: {
+		data: SuperValidated<Infer<typeof schema>>;
+	} = $props();
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
-				toast.success("You submitted:" + JSON.stringify(fd.data, null, 2));
+				toast.success(`You submitted:${JSON.stringify(fd.data, null, 2)}`);
 			} else {
 				toast.error("Please fix the errors in the form.");
 			}
@@ -41,21 +45,23 @@
 	<Card.Content class="pt-6">
 		<form method="POST" action="?/checkboxGroup" use:enhance class="flex flex-col gap-4">
 			<Fieldset {form} name="allergies">
-				<Legend class="pb-2 font-medium text-foreground data-[fs-error]:text-destructive"
+				<Legend class="text-foreground data-[fs-error]:text-destructive pb-2 font-medium"
 					>Select any allergies you may have</Legend
 				>
 				<div class="flex flex-col gap-1 pb-2">
 					{#each allergies as allergy}
 						<div class="flex items-center gap-3">
-							<Control let:attrs>
-								<input
-									class="accent-brand"
-									type="checkbox"
-									{...attrs}
-									bind:group={$formData.allergies}
-									value={allergy}
-								/>
-								<Label>{allergy}</Label>
+							<Control>
+								{#snippet children({ props })}
+									<input
+										class="accent-brand"
+										type="checkbox"
+										{...props}
+										bind:group={$formData.allergies}
+										value={allergy}
+									/>
+									<Label>{allergy}</Label>
+								{/snippet}
 							</Control>
 						</div>
 					{/each}

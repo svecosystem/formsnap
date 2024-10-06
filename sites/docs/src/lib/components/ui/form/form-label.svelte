@@ -1,21 +1,30 @@
 <script lang="ts">
-	import { getFormField, getFormControl, type LabelProps as PrimitiveLabelProps } from "formsnap";
+	import {
+		Label as PrimitiveLabel,
+		type LabelProps as PrimitiveLabelProps,
+		getFormField,
+	} from "formsnap";
+	import type { WithoutChildrenOrChild } from "bits-ui";
+	import type { Snippet } from "svelte";
 	import { cn } from "$lib/utils";
 	import { Label } from "$lib/components/ui/label";
 
-	type $$Props = PrimitiveLabelProps;
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: WithoutChildrenOrChild<PrimitiveLabelProps> & { children?: Snippet } = $props();
 
-	let className: $$Props["class"] = undefined;
-	export { className as class };
-
-	const { labelAttrs } = getFormControl();
-	const { errors } = getFormField();
+	const field = getFormField();
 </script>
 
-<Label
-	class={cn($errors.length > 0 && "text-destructive", className)}
-	{...$$restProps}
-	{...$labelAttrs}
->
-	<slot />
-</Label>
+<PrimitiveLabel bind:ref {...restProps}>
+	{#snippet child({ props })}
+		<Label
+			class={cn(field.errors.length > 0 && "text-destructive", className)}
+			{...props}
+			{children}
+		/>
+	{/snippet}
+</PrimitiveLabel>

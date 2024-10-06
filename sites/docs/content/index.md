@@ -69,9 +69,7 @@ To showcase the value provided by Formsnap, let's take a look at a simple sign u
 		id="password"
 		name="password"
 		type="password"
-		aria-describedby={$errors.password
-			? "password-error password-desc"
-			: "password-desc"}
+		aria-describedby={$errors.password ? "password-error password-desc" : "password-desc"}
 		aria-invalid={$errors.password ? "true" : undefined}
 		aria-required={$constraints.password?.required ? "true" : undefined}
 		bind:value={$form.password}

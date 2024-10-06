@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { cn } from "$lib/utils";
 	import type {
-		TableOfContentsItem,
-		TableOfContentsElements,
 		TableOfContents,
+		TableOfContentsElements,
+		TableOfContentsItem,
 	} from "@melt-ui/svelte";
+	import { cn } from "$lib/utils";
 
 	export let tree: TableOfContentsItem[] = [];
 	export let activeHeadingIdxs: number[];
@@ -41,7 +41,7 @@
 			<li class="mt-0 {level === 1 && 'border-l'}">
 				<div
 					class={cn(
-						" inline-flex items-center justify-center gap-1 border-l border-l-transparent pb-2 pl-4 text-sm text-muted-foreground no-underline transition-colors data-[hover]:border-l-foreground",
+						" text-muted-foreground data-[hover]:border-l-foreground inline-flex items-center justify-center gap-1 border-l border-l-transparent pb-2 pl-4 text-sm no-underline transition-colors",
 						level !== 1 ? "pl-8" : "",
 						$isActive(heading.id) && "border-l-foreground"
 					)}
@@ -51,7 +51,7 @@
 						use:item
 						{...$item(heading.id)}
 						use:hoverAction
-						class="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background data-[active]:text-foreground"
+						class="hover:text-foreground focus-visible:ring-foreground focus-visible:ring-offset-background data-[active]:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 					>
 						{@html nodeWithoutSpan}
 					</a>

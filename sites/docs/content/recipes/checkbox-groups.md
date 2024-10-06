@@ -109,14 +109,7 @@ We'll first import the components we'll need from Formsnap, and then setup a `fo
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import SuperDebug from "sveltekit-superforms";
-	import {
-		Fieldset,
-		Legend,
-		Label,
-		Control,
-		FieldErrors,
-		Description,
-	} from "formsnap";
+	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
 
 	export let data;
 
@@ -143,9 +136,7 @@ Since each checkbox in the group is related to a single field, we'll use a `Fiel
 	<Fieldset {form} name="allergies">
 		<Legend>Select your allergies</Legend>
 		<!-- ... -->
-		<Description>
-			We'll use this information to ensure your meals are safe.
-		</Description>
+		<Description>We'll use this information to ensure your meals are safe.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>
@@ -171,9 +162,7 @@ Next, we'll iterate over the `allergies` array and create a [Control](/docs/comp
 				<Label>{value}</Label>
 			</Control>
 		{/each}
-		<Description>
-			We'll use this information to ensure your meals are safe.
-		</Description>
+		<Description>We'll use this information to ensure your meals are safe.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>
@@ -261,13 +250,7 @@ export const actions: Actions = {
 <script lang="ts" context="module">
 	import { z } from "zod";
 
-	export const allergies = [
-		"None",
-		"Peanuts",
-		"Shellfish",
-		"Lactose",
-		"Gluten",
-	] as const;
+	export const allergies = ["None", "Peanuts", "Shellfish", "Lactose", "Gluten"] as const;
 
 	export const schema = z.object({
 		allergies: z
@@ -283,14 +266,7 @@ export const actions: Actions = {
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 
-	import {
-		Fieldset,
-		Legend,
-		Label,
-		Control,
-		FieldErrors,
-		Description,
-	} from "formsnap";
+	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
 
 	export let data;
 

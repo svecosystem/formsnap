@@ -1,6 +1,6 @@
 name: Report Docs Issue
 description: Suggest an addition or modification to the documentation
-labels: ["documentation"]
+labels: [documentation]
 body:
     - type: dropdown
       attributes:
