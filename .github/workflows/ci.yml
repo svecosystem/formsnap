@@ -17,22 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: pnpm
+            node-version: 20
+            cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: Build
-        run: pnpm build
-
-      - name: Sync
-        run: pnpm sync
 
       - name: Run svelte-check
         run: pnpm check
@@ -43,18 +34,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: pnpm
+            node-version: 20
+            cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
 
-      - run: pnpm lint
+      - name: Lint
+        run: pnpm lint
 
   Test:
     name: Test
@@ -62,15 +51,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: pnpm
+            node-version: 20
+            cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
 
-      - run: pnpm test
+      - name: Test
+        run: pnpm test
