@@ -72,7 +72,7 @@ export function flyAndScale(
 	};
 }
 
-export type WithElementRef<T> = T & { ref?: HTMLElement };
+export type WithElementRef<T> = T & { ref?: HTMLElement | null };
 
 // to get a reference to the underlying DOM element the component is rendering.
 export type PrimitiveDivAttributes = WithElementRef<HTMLAttributes<HTMLDivElement>>;
