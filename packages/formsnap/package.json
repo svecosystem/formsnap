@@ -48,7 +48,7 @@
 		"svelte-check": "4.0.3",
 		"sveltekit-superforms": "^2.19.0",
 		"tailwindcss": "^3.3.6",
-		"tslib": "^2.4.1",
+		"tslib": "^2.7.0",
 		"typescript": "^5.6.2",
 		"vite": "^5.4.6",
 		"vitest": "^2.1.1"
@@ -57,6 +57,6 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"svelte-toolbelt": "^0.3.1"
+		"svelte-toolbelt": "^0.4.1"
 	}
 }

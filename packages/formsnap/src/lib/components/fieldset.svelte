@@ -55,12 +55,23 @@ A component that groups related form controls or fields and extends the [Field](
 -->
 
 <Field {form} {name}>
-	{#snippet children(snippetProps)}
+	{#snippet children({ value, errors, tainted, constraints })}
 		{#if childProp}
-			{@render childProp({ props: mergedProps, ...snippetProps })}
+			{@render childProp({
+				props: mergedProps,
+				value: value as T[U],
+				errors,
+				tainted,
+				constraints,
+			})}
 		{:else}
-			<fieldset {...mergedProps} data-fs-error={getDataFsError(snippetProps.errors)}>
-				{@render childrenProp?.(snippetProps)}
+			<fieldset {...mergedProps} data-fs-error={getDataFsError(errors)}>
+				{@render childrenProp?.({
+					value: value as T[U],
+					errors,
+					tainted,
+					constraints,
+				})}
 			</fieldset>
 		{/if}
 	{/snippet}

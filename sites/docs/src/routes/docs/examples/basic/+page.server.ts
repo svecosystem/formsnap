@@ -1,14 +1,14 @@
 import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { schema } from "./schema";
 import { fail } from "@sveltejs/kit";
+import { schema } from "./schema";
 import type { Actions } from "./$types";
 
-export const load = async () => {
+export async function load() {
 	const form = await superValidate(zod(schema));
 
 	return { form };
-};
+}
 
 export const actions: Actions = {
 	default: async (event) => {

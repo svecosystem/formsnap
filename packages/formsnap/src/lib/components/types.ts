@@ -21,12 +21,22 @@ type PrimitiveLegendAttributes = Primitive<HTMLAttributes<HTMLLegendElement>>;
 // eslint-disable-next-line ts/no-explicit-any
 export type FsSuperForm<T extends Record<string, unknown>, M = any> = Omit<
 	SuperForm<T, M>,
-	"validate" | "validateForm"
+	"validate" | "validateForm" | "enhance" | "isTainted" | "reset" | "options" | "restore"
 > & {
 	// eslint-disable-next-line ts/no-explicit-any
 	validate?: any;
 	// eslint-disable-next-line ts/no-explicit-any
 	validateForm?: any;
+	// eslint-disable-next-line ts/no-explicit-any
+	enhance?: any;
+	// eslint-disable-next-line ts/no-explicit-any
+	isTainted?: any;
+	// eslint-disable-next-line ts/no-explicit-any
+	reset?: any;
+	// eslint-disable-next-line ts/no-explicit-any
+	options?: any;
+	// eslint-disable-next-line ts/no-explicit-any
+	restore?: any;
 };
 
 /**

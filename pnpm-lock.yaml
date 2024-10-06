@@ -48,8 +48,8 @@ importers:
   packages/formsnap:
     dependencies:
       svelte-toolbelt:
-        specifier: ^0.3.1
-        version: 0.3.1(svelte@5.0.0-next.260)
+        specifier: ^0.4.1
+        version: 0.4.1(svelte@5.0.0-next.260)
     devDependencies:
       '@sveltejs/kit':
         specifier: ^2.5.28
@@ -76,8 +76,8 @@ importers:
         specifier: ^3.3.6
         version: 3.4.1
       tslib:
-        specifier: ^2.4.1
-        version: 2.6.2
+        specifier: ^2.7.0
+        version: 2.7.0
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
@@ -188,8 +188,8 @@ importers:
         specifier: ^3.4.1
         version: 3.4.1
       tslib:
-        specifier: ^2.6.2
-        version: 2.6.2
+        specifier: ^2.7.0
+        version: 2.7.0
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
@@ -4103,9 +4103,6 @@ packages:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
     engines: {node: ^14.0.0 || >=16.0.0}
 
-  scule@1.3.0:
-    resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
-
   section-matter@1.0.0:
     resolution: {integrity: sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==}
     engines: {node: '>=4'}
@@ -4315,9 +4312,6 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  style-object-to-css-string@1.1.3:
-    resolution: {integrity: sha512-bISQoUsir/qGfo7vY8rw00ia9nnyE1jvYt3zZ2jhdkcXZ6dAEi74inMzQ6On57vFI+I4Fck6wOv5UI9BEwJDgw==}
-
   style-to-object@0.4.4:
     resolution: {integrity: sha512-HYNoHZa2GorYNyqiCaBgsxvcJIn7OHq6inEga+E6Ke3m5JkoqpQbnFssk4jwe+K7AhGa2fcha4wSOf1Kn01dMg==}
 
@@ -4370,12 +4364,6 @@ packages:
     resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
     peerDependencies:
       svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
-
-  svelte-toolbelt@0.3.1:
-    resolution: {integrity: sha512-RL7/iOpvZQF499fjl+P76LkZUgekK6joXfbZwc3sQzFIMhl1wgBCVL3lfsYOfEF4u9SfeD8BNFlgs1pfJh09kw==}
-    engines: {node: '>=20', pnpm: '>=8.7.0'}
-    peerDependencies:
-      svelte: ^5.0.0-next.126
 
   svelte-toolbelt@0.4.1:
     resolution: {integrity: sha512-wRFa4YeimMpq7EptvtgX8d0IuBxqVRF7wymVWz92hs2VmQ33CGa40NvfIdK0Xm4ONRadU7FdpH6Gn2tUmEYEAg==}
@@ -4539,9 +4527,6 @@ packages:
 
   tslib@2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
-
-  tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
@@ -5774,7 +5759,7 @@ snapshots:
   '@js-temporal/polyfill@0.4.4':
     dependencies:
       jsbi: 4.3.0
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   '@jsdevtools/ez-spawn@3.0.4':
     dependencies:
@@ -6159,7 +6144,7 @@ snapshots:
 
   '@swc/helpers@0.5.6':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   '@tailwindcss/typography@0.5.10(tailwindcss@3.4.1)':
     dependencies:
@@ -6715,7 +6700,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   camelcase-css@2.0.1: {}
 
@@ -6737,7 +6722,7 @@ snapshots:
   capnp-ts@0.7.0:
     dependencies:
       debug: 4.3.7
-      tslib: 2.6.2
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
@@ -9679,7 +9664,7 @@ snapshots:
 
   rxjs@7.8.1:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   sade@1.8.1:
     dependencies:
@@ -9705,8 +9690,6 @@ snapshots:
       '@eslint-community/regexpp': 4.10.0
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
-
-  scule@1.3.0: {}
 
   section-matter@1.0.0:
     dependencies:
@@ -9914,8 +9897,6 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  style-object-to-css-string@1.1.3: {}
-
   style-to-object@0.4.4:
     dependencies:
       inline-style-parser: 0.1.1
@@ -9975,14 +9956,6 @@ snapshots:
 
   svelte-sonner@0.3.28(svelte@5.0.0-next.260):
     dependencies:
-      svelte: 5.0.0-next.260
-
-  svelte-toolbelt@0.3.1(svelte@5.0.0-next.260):
-    dependencies:
-      clsx: 2.1.1
-      scule: 1.3.0
-      style-object-to-css-string: 1.1.3
-      style-to-object: 1.0.8
       svelte: 5.0.0-next.260
 
   svelte-toolbelt@0.4.1(svelte@5.0.0-next.260):
@@ -10069,12 +10042,12 @@ snapshots:
 
   synckit@0.6.2:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   synckit@0.9.1:
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.2
+      tslib: 2.7.0
 
   tabbable@6.2.0: {}
 
@@ -10194,8 +10167,6 @@ snapshots:
 
   tslib@2.4.0:
     optional: true
-
-  tslib@2.6.2: {}
 
   tslib@2.7.0: {}
 
