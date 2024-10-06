@@ -1,6 +1,6 @@
 {
 	"name": "formsnap",
-	"version": "1.0.1",
+	"version": "2.0.0-next.0",
 	"scripts": {
 		"dev": "pnpm watch",
 		"build": "pnpm run package",

@@ -5,5 +5,7 @@
     "formsnap": "1.0.1",
     "docs": "0.0.3"
   },
-  "changesets": []
+  "changesets": [
+    "rude-lamps-teach"
+  ]
 }
