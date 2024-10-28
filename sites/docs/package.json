@@ -1,6 +1,6 @@
 {
 	"name": "docs",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "concurrently \"pnpm:dev:content\" \"pnpm:dev:svelte\"",
