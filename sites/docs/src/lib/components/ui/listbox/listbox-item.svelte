@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Check from "phosphor-svelte/lib/Check";
-	import { Listbox as ListboxPrimitive, type WithoutChild } from "bits-ui";
+	import { Select as SelectPrimitive, type WithoutChild } from "bits-ui";
 	import { cn } from "$lib/utils/styles.js";
 
 	let {
@@ -9,10 +9,10 @@
 		value,
 		children: childrenProp,
 		...restProps
-	}: WithoutChild<ListboxPrimitive.ItemProps> = $props();
+	}: WithoutChild<SelectPrimitive.ItemProps> = $props();
 </script>
 
-<ListboxPrimitive.Item
+<SelectPrimitive.Item
 	bind:ref
 	{value}
 	class={cn(
@@ -21,9 +21,9 @@
 	)}
 	{...restProps}
 >
-	{#snippet children(props)}
+	{#snippet children({ props, selected})}
 		<span class="absolute left-2 flex size-3.5 items-center justify-center">
-			{#if props.selected}
+			{#if selected}
 				<Check class="size-4" />
 			{/if}
 		</span>
@@ -33,4 +33,4 @@
 			{value}
 		{/if}
 	{/snippet}
-</ListboxPrimitive.Item>
+</SelectPrimitive.Item>
