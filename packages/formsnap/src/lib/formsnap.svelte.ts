@@ -115,11 +115,11 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 			: false
 	);
 	errorNode = $state<HTMLElement | null>(null);
-	#descriptionNode = $state<HTMLElement | null>(null);
+	descriptionNode = $state<HTMLElement | null>(null);
 	// fall back to the parent field's description node if one for
 	// this specific element doesn't exist.
-	descriptionNode = $derived.by(() => {
-		if (this.#descriptionNode) return this.#descriptionNode;
+	derivedDescriptionNode = $derived.by(() => {
+		if (this.descriptionNode) return this.descriptionNode;
 		if (this.#field.descriptionNode) return this.#field.descriptionNode;
 		return null;
 	}) as HTMLElement | null;
