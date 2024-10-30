@@ -6,6 +6,7 @@
     "docs": "0.0.3"
   },
   "changesets": [
+    "chatty-shrimps-press",
     "rude-lamps-teach"
   ]
 }
