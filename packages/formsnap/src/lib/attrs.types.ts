@@ -15,22 +15,22 @@ export type ControlAttrs = {
 	id: string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 
 	/** Present when description or validation exists. */
-	'aria-describedby': string | undefined;
+	"aria-describedby": string | undefined;
 
 	/** Present when a validation error exists on the field. */
-	'aria-invalid': 'true' | undefined;
+	"aria-invalid": "true" | undefined;
 
 	/** Present when the field is required. */
-	'aria-required': 'true' | undefined;
+	"aria-required": "true" | undefined;
 
 	/**
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-control': string;
+	"data-fs-control": string;
 };
 
 /**
@@ -47,16 +47,16 @@ export type LabelAttrs = {
 	for: string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 
 	/**
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-label': string;
+	"data-fs-label": string;
 
 	/** Any additional props provided to the `<Form.Label />` component */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
@@ -75,19 +75,19 @@ export type FieldErrorsAttrs = {
 	id: string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 
 	/**
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-field-errors': string;
+	"data-fs-field-errors": string;
 
 	/** Notifies screen readers when a validation error occurs */
-	'aria-live': 'assertive' | 'polite';
+	"aria-live": "assertive" | "polite";
 
 	/** Any additional props provided to `<Form.Validation />` */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
@@ -103,10 +103,10 @@ export type ErrorAttrs = {
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-field-error': string;
+	"data-fs-field-error": string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 };
 
 /**
@@ -124,13 +124,13 @@ export type LegendAttrs = {
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-legend': string;
+	"data-fs-legend": string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 
 	/* Any additional props provided to `<Form.Legend />` */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
@@ -152,13 +152,13 @@ export type DescriptionAttrs = {
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-description': string;
+	"data-fs-description": string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 
 	/* Any additional props provided to `<Form.Description />` */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
@@ -177,12 +177,12 @@ export type FieldsetAttrs = {
 	 * Used for selection during styling or otherwise
 	 * @see {@link https://formsnap.dev/docs/styling Styling Documentation}
 	 */
-	'data-fs-fieldset': string;
+	"data-fs-fieldset": string;
 
 	/** Present when a validation error exists on the field. */
-	'data-fs-error': string | undefined;
+	"data-fs-error": string | undefined;
 
 	/* Any additional props provided to `<Fieldset />` */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };

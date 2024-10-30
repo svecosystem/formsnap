@@ -1,16 +1,18 @@
 <script lang="ts">
-	import type { HTMLAttributes } from "svelte/elements";
-	import { cn } from "$lib/utils";
+	import { type PrimitiveDivAttributes, cn } from "$lib/utils/styles.js";
 
-	type $$Props = HTMLAttributes<HTMLDivElement>;
-
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: PrimitiveDivAttributes = $props();
 </script>
 
 <div
-	class={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)}
-	{...$$restProps}
+	bind:this={ref}
+	class={cn("bg-card text-card-foreground rounded-lg border shadow-sm", className)}
+	{...restProps}
 >
-	<slot />
+	{@render children?.()}
 </div>

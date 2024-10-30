@@ -1,13 +1,11 @@
 <script lang="ts">
-	import {
-		GitHubIcon,
-		PersonArmsSpread,
-		FileHTML,
-		Circuitry,
-		FileTS,
-		UsersThree,
-		Hammer,
-	} from "$lib/icons/index.js";
+	import Circuitry from "phosphor-svelte/lib/Circuitry";
+	import FileHTML from "phosphor-svelte/lib/FileHtml";
+	import FileTS from "phosphor-svelte/lib/FileTs";
+	import Hammer from "phosphor-svelte/lib/Hammer";
+	import PersonArmsSpread from "phosphor-svelte/lib/PersonArmsSpread";
+	import UsersThree from "phosphor-svelte/lib/UsersThree";
+	import { GitHubIcon } from "$lib/icons/index.js";
 	import { Button } from "$lib/components/ui/button/index.js";
 	import FeatureCard from "$lib/components/feature-card.svelte";
 	import A from "$lib/components/markdown/a.svelte";
@@ -27,7 +25,7 @@
 		to the next level.
 	</p>
 	<div class="mt-8 flex items-center justify-center gap-4">
-		<Button href="/docs" variant="brand" size="lg">Get Started</Button>
+		<Button href="/docs" variant="default" size="lg">Get Started</Button>
 		<Button
 			href="https://github.com/huntabyte/formsnap"
 			target="_blank"
@@ -50,14 +48,15 @@
 			>.
 		</FeatureCard>
 		<FeatureCard title="Composable APIs" icon={Circuitry}>
-			Designed with composition in mind, enabling you to extend and bend the components to your
-			will.
+			Designed with composition in mind, enabling you to extend and bend the components to
+			your will.
 		</FeatureCard>
 		<FeatureCard title="HTML Standard" icon={FileHTML}>
 			Utilizes appropriate HTML elements for compatibility and accessibility.
 		</FeatureCard>
 		<FeatureCard title="Fully Typed" icon={FileTS}>
-			Each component is fully typed with TypeScript, so you can move fast without breaking things.
+			Each component is fully typed with TypeScript, so you can move fast without breaking
+			things.
 		</FeatureCard>
 		<FeatureCard title="Dope Community" icon={UsersThree}>
 			A community of developers who are always willing to lend a helping hand. Join the <A
@@ -67,8 +66,8 @@
 		<FeatureCard title="Built by Builders" icon={Hammer}>
 			Built & maintained by the same team responsible for <A href="https://shadcn-svelte.com"
 				>shadcn-svelte</A
-			>, <A href="https://bits-ui.com">Bits UI</A>, <A href="https://melt-ui.com">Melt UI</A>, and
-			more!
+			>, <A href="https://bits-ui.com">Bits UI</A>, <A href="https://melt-ui.com">Melt UI</A>,
+			and more!
 		</FeatureCard>
 	</div>
 </section>

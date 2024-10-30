@@ -1,5 +1,17 @@
 # formsnap
 
+## 2.0.0-next.1
+
+### Patch Changes
+
+- fix: issue with derived updating ([#185](https://github.com/svecosystem/formsnap/pull/185))
+
+## 2.0.0-next.0
+
+### Major Changes
+
+- Formsnap v2 (Svelte) prerelease ([#179](https://github.com/svecosystem/formsnap/pull/179))
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { cn } from "$lib/utils";
-	import type { HTMLAttributes } from "svelte/elements";
+	import { type PrimitiveDivAttributes, cn } from "$lib/utils/styles.js";
 
-	type $$Props = HTMLAttributes<HTMLDivElement>;
-
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: PrimitiveDivAttributes = $props();
 </script>
 
-<div class={cn("p-6 pt-0", className)} {...$$restProps}>
-	<slot />
+<div bind:this={ref} class={cn("p-6", className)} {...restProps}>
+	{@render children?.()}
 </div>

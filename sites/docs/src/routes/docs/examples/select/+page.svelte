@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { z } from "zod";
 
 	const languages = {
@@ -15,14 +15,13 @@
 </script>
 
 <script lang="ts">
-	import type { PageData } from "./$types";
-	import { superForm } from "sveltekit-superforms";
+	import SuperDebug, { superForm } from "sveltekit-superforms";
 	import { zod } from "sveltekit-superforms/adapters";
+	import { toast } from "svelte-sonner";
 	import * as Form from "$lib/components/ui/form/index.js";
 	import * as Select from "$lib/components/ui/select/index.js";
-	import SuperDebug from "sveltekit-superforms";
-	import { toast } from "svelte-sonner";
-	export let data: PageData;
+
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zod(languageSchema),
@@ -35,26 +34,24 @@
 
 <form method="POST" use:form.enhance class="flex flex-col gap-4">
 	<Form.Field {form} name="language">
-		<Form.Control let:attrs>
-			<Form.Label>Language</Form.Label>
-			<Select.Root
-				selected={{ label: languages[$formData.language], value: $formData.language }}
-				onSelectedChange={(s) => {
-					s && ($formData.language = s.value);
-				}}
-			>
-				<Select.Input name={attrs.name} />
-				<Select.Trigger {...attrs}>
-					<Select.Value placeholder="Select a language" />
-				</Select.Trigger>
-				<Select.Content>
-					{#each Object.entries(languages) as [value, label]}
-						<Select.Item {value} {label} />
-					{/each}
-				</Select.Content>
-			</Select.Root>
-			<Form.Description>Help us address you properly.</Form.Description>
-			<Form.FieldErrors />
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Language</Form.Label>
+				<Select.Root bind:value={$formData.language}>
+					<Select.Trigger {...props}>
+						<Select.Value placeholder="Select a language" />
+					</Select.Trigger>
+					<Select.Content>
+						{#each Object.entries(languages) as [value, label]}
+							<Select.Item {value}>
+								{label}
+							</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+				<Form.Description>Help us address you properly.</Form.Description>
+				<Form.FieldErrors />
+			{/snippet}
 		</Form.Control>
 	</Form.Field>
 	<Form.Button>Submit</Form.Button>

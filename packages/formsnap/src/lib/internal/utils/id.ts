@@ -1,5 +1,9 @@
-import { nanoid } from 'nanoid/non-secure';
+let count = 0;
 
-export function generateId() {
-	return nanoid(5);
+/**
+ * Generates a unique ID based on a global counter.
+ */
+export function useId(prefix = "formsnap") {
+	count++;
+	return `${prefix}-${count}`;
 }

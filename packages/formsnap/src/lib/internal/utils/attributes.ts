@@ -19,12 +19,12 @@ type AriaDescribedByParams = {
 export function getAriaDescribedBy({
 	fieldErrorsId = undefined,
 	descriptionId = undefined,
-	errors
+	errors,
 }: AriaDescribedByParams) {
-	let describedBy = '';
+	let describedBy = "";
 
 	if (descriptionId) {
-		describedBy += descriptionId + ' ';
+		describedBy += `${descriptionId} `;
 	}
 	if (errors.length && fieldErrorsId) {
 		describedBy += fieldErrorsId;
@@ -37,8 +37,8 @@ export function getAriaDescribedBy({
  * control given the constraints for the field.
  */
 export function getAriaRequired(constraints: Record<string, unknown>) {
-	if (!('required' in constraints)) return undefined;
-	return constraints.required ? ('true' as const) : undefined;
+	if (!("required" in constraints)) return undefined;
+	return constraints.required ? ("true" as const) : undefined;
 }
 
 /**
@@ -46,7 +46,7 @@ export function getAriaRequired(constraints: Record<string, unknown>) {
  * control given the current validation errors.
  */
 export function getAriaInvalid(errors: string[] | undefined) {
-	return errors && errors.length ? 'true' : undefined;
+	return errors && errors.length ? "true" : undefined;
 }
 
 /**
@@ -54,5 +54,5 @@ export function getAriaInvalid(errors: string[] | undefined) {
  * given the current validation errors.
  */
 export function getDataFsError(errors: string[] | undefined): string | undefined {
-	return errors && errors.length ? '' : undefined;
+	return errors && errors.length ? "" : undefined;
 }

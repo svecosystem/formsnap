@@ -22,15 +22,14 @@
 </script>
 
 <script lang="ts">
-	import type { PageData } from "./$types";
-	import { superForm } from "sveltekit-superforms";
+	import SuperDebug, { superForm } from "sveltekit-superforms";
 	import { zod } from "sveltekit-superforms/adapters";
+	import { toast } from "svelte-sonner";
+	import type { PageData } from "./$types";
 	import * as Form from "$lib/components/ui/form/index.js";
 	import * as Select from "$lib/components/ui/select/index.js";
 	import { Input } from "$lib/components/ui/input/index.js";
-	import SuperDebug from "sveltekit-superforms";
 	import { Textarea } from "$lib/components/ui/textarea/index.js";
-	import { toast } from "svelte-sonner";
 	export let data: PageData;
 
 	const form = superForm(data.form, {
@@ -44,55 +43,57 @@
 
 <form method="POST" use:form.enhance class="flex flex-col gap-4">
 	<Form.Field {form} name="username">
-		<Form.Control let:attrs>
-			<Form.Label>Username</Form.Label>
-			<Input {...attrs} bind:value={$formData.username} />
-			<Form.Description>
-				This is your public display name. It can be your real name or a pseudonym. You can only
-				change this once every 30 days.
-			</Form.Description>
-			<Form.FieldErrors />
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Username</Form.Label>
+				<Input {...props} bind:value={$formData.username} />
+				<Form.Description>
+					This is your public display name. It can be your real name or a pseudonym. You
+					can only change this once every 30 days.
+				</Form.Description>
+				<Form.FieldErrors />
+			{/snippet}
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="email">
-		<Form.Control let:attrs>
-			<Form.Label>Email</Form.Label>
-			<Select.Root
-				selected={{ label: $formData.email, value: $formData.email }}
-				onSelectedChange={(s) => {
-					s && ($formData.email = s.value);
-				}}
-			>
-				<Select.Input bind:value={$formData.email} name={attrs.name} />
-				<Select.Trigger {...attrs}>
-					<Select.Value placeholder="Select a verified email to display" />
-				</Select.Trigger>
-				<Select.Content>
-					<Select.Item value="me@example.com" label="me@example.com" />
-					<Select.Item value="you@example.com" label="you@example.com" />
-					<Select.Item value="them@example.com" label="them@example.com" />
-				</Select.Content>
-			</Select.Root>
-			<Form.Description></Form.Description>
-			<Form.FieldErrors />
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Email</Form.Label>
+				<Select.Root name={props.name} bind:value={$formData.email}>
+					<Select.Trigger {...props}>
+						<Select.Value placeholder="Select a verified email to display" />
+					</Select.Trigger>
+					<Select.Content>
+						<Select.Item value="me@example.com">me@example.com</Select.Item>
+						<Select.Item value="you@example.com">you@example.com</Select.Item>
+						<Select.Item value="them@example.com">them@example.com</Select.Item>
+					</Select.Content>
+				</Select.Root>
+				<Form.Description></Form.Description>
+				<Form.FieldErrors />
+			{/snippet}
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="bio">
-		<Form.Control let:attrs>
-			<Form.Label>Bio</Form.Label>
-			<Textarea {...attrs} bind:value={$formData.bio} class="resize-none" rows={2} />
-			<Form.Description>
-				You can @mention other users and organizations to link to them.
-			</Form.Description>
-			<Form.FieldErrors />
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Bio</Form.Label>
+				<Textarea {...props} bind:value={$formData.bio} class="resize-none" rows={2} />
+				<Form.Description>
+					You can @mention other users and organizations to link to them.
+				</Form.Description>
+				<Form.FieldErrors />
+			{/snippet}
 		</Form.Control>
 	</Form.Field>
 	<Form.Field {form} name="website">
-		<Form.Control let:attrs>
-			<Form.Label>Website</Form.Label>
-			<Input {...attrs} bind:value={$formData.website} />
-			<Form.Description>Your personal website, blog, or portfolio.</Form.Description>
-			<Form.FieldErrors />
+		<Form.Control>
+			{#snippet children({ props })}
+				<Form.Label>Website</Form.Label>
+				<Input {...props} bind:value={$formData.website} />
+				<Form.Description>Your personal website, blog, or portfolio.</Form.Description>
+				<Form.FieldErrors />
+			{/snippet}
 		</Form.Control>
 	</Form.Field>
 	<Form.Button>Submit</Form.Button>

@@ -2,6 +2,19 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import type {
+	HTMLAnchorAttributes,
+	HTMLAttributes,
+	HTMLButtonAttributes,
+	HTMLInputAttributes,
+	HTMLLabelAttributes,
+	HTMLLiAttributes,
+	HTMLOlAttributes,
+	HTMLTableAttributes,
+	HTMLTdAttributes,
+	HTMLTextareaAttributes,
+	HTMLThAttributes,
+} from "svelte/elements";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -14,14 +27,18 @@ type FlyAndScaleParams = {
 	duration?: number;
 };
 
-export const flyAndScale = (
+export function flyAndScale(
 	node: Element,
 	params: FlyAndScaleParams = { y: -8, x: 0, start: 0.95, duration: 150 }
-): TransitionConfig => {
+): TransitionConfig {
 	const style = getComputedStyle(node);
 	const transform = style.transform === "none" ? "" : style.transform;
 
-	const scaleConversion = (valueA: number, scaleA: [number, number], scaleB: [number, number]) => {
+	const scaleConversion = (
+		valueA: number,
+		scaleA: [number, number],
+		scaleB: [number, number]
+	) => {
 		const [minA, maxA] = scaleA;
 		const [minB, maxB] = scaleB;
 
@@ -34,7 +51,7 @@ export const flyAndScale = (
 	const styleToString = (style: Record<string, number | string | undefined>): string => {
 		return Object.keys(style).reduce((str, key) => {
 			if (style[key] === undefined) return str;
-			return str + `${key}:${style[key]};`;
+			return `${str}${key}:${style[key]};`;
 		}, "");
 	};
 
@@ -53,4 +70,27 @@ export const flyAndScale = (
 		},
 		easing: cubicOut,
 	};
-};
+}
+
+export type WithElementRef<T> = T & { ref?: HTMLElement | null };
+
+// to get a reference to the underlying DOM element the component is rendering.
+export type PrimitiveDivAttributes = WithElementRef<HTMLAttributes<HTMLDivElement>>;
+export type PrimitiveElementAttributes = WithElementRef<HTMLAttributes<HTMLElement>>;
+export type PrimitiveAnchorAttributes = WithElementRef<HTMLAnchorAttributes>;
+export type PrimitiveButtonAttributes = WithElementRef<HTMLButtonAttributes>;
+export type PrimitiveInputAttributes = WithElementRef<HTMLInputAttributes>;
+export type PrimitiveSpanAttributes = WithElementRef<HTMLAttributes<HTMLSpanElement>>;
+export type PrimitiveTextareaAttributes = WithElementRef<HTMLTextareaAttributes>;
+export type PrimitiveHeadingAttributes = WithElementRef<HTMLAttributes<HTMLHeadingElement>>;
+export type PrimitiveLiAttributes = WithElementRef<HTMLLiAttributes>;
+export type PrimitiveOlAttributes = WithElementRef<HTMLOlAttributes>;
+export type PrimitiveLabelAttributes = WithElementRef<HTMLLabelAttributes>;
+export type PrimitiveUlAttributes = WithElementRef<HTMLAttributes<HTMLUListElement>>;
+export type PrimitiveTableAttributes = WithElementRef<HTMLTableAttributes>;
+export type PrimitiveTdAttributes = WithElementRef<HTMLTdAttributes>;
+export type PrimitiveTrAttributes = WithElementRef<HTMLAttributes<HTMLTableRowElement>>;
+export type PrimitiveThAttributes = WithElementRef<HTMLThAttributes>;
+export type PrimitiveTableSectionAttributes = WithElementRef<
+	HTMLAttributes<HTMLTableSectionElement>
+>;

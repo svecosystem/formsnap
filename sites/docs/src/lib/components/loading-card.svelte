@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { HTMLAttributes } from "svelte/elements";
 	import { cn } from "$lib/utils/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
 	import { SpinnerGap } from "$icons/index.js";
-	import type { HTMLAttributes } from "svelte/elements";
 
 	type $$Props = HTMLAttributes<HTMLDivElement>;
 
@@ -16,7 +16,7 @@
 		{...$$restProps}
 	>
 		<div class="flex h-full w-full items-center justify-center">
-			<SpinnerGap class="h-1/6 w-1/6 animate-spin-slow text-muted" />
+			<SpinnerGap class="animate-spin-slow text-muted h-1/6 w-1/6" />
 		</div>
 	</Card.Content>
 </Card.Root>

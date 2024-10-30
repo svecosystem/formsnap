@@ -28,7 +28,7 @@
 				<CaretRight class={cn("size-4 transition-transform ", open && "rotate-90")} />
 			</Collapsible.Trigger>
 		{/if}
-		<ul class="space-y-6 border-l border-border lg:space-y-2">
+		<ul class="border-border space-y-6 border-l lg:space-y-2">
 			<Collapsible.Content class="space-y-6 lg:space-y-2">
 				{#each navItem.items as item}
 					{@const isActive = item.href
@@ -38,7 +38,7 @@
 						<a
 							href={item.href}
 							class={cn(
-								"-ml-px block border-l border-border pl-4",
+								"border-border -ml-px block border-l pl-4",
 								isActive
 									? "border-brand text-brand"
 									: "border-border text-muted-foreground hover:border-primary hover:text-primary"
@@ -50,7 +50,10 @@
 		</ul>
 	</Collapsible.Root>
 {:else}
-	<a href={navItem.href} class="group mb-4 flex items-center font-semibold lg:text-sm lg:leading-6">
+	<a
+		href={navItem.href}
+		class="group mb-4 flex items-center font-semibold lg:text-sm lg:leading-6"
+	>
 		{navItem.title}
 	</a>
 {/if}

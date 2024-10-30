@@ -12,7 +12,7 @@
 				<a
 					{href}
 					class={cn(
-						"text-sm text-muted-foreground hover:text-brand",
+						"text-muted-foreground hover:text-brand text-sm",
 						external ? "flex items-center gap-0.5" : "",
 						$page.url.pathname === href ? "text-brand" : ""
 					)}

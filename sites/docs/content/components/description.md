@@ -16,9 +16,7 @@ Descriptions must be used within the context of a [Field](/docs/components/field
 		<Label>Name</Label>
 		<input type="text" {...attrs} />
 	</Control>
-	<Description>
-		Your full name, including your middle name if you have one.
-	</Description>
+	<Description>Your full name, including your middle name if you have one.</Description>
 </Field>
 ```
 
