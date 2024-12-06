@@ -38,7 +38,7 @@ export const schema = z.object({
 	theme: z.enum(themes).default("light"),
 	language: z.enum(languages).default("en"),
 	marketingEmails: z.boolean().default(true),
-	allergies: z.array(z.enum(allergies)),
+	allergies: z.enum(allergies).array().default([]),
 });
 ```
 
