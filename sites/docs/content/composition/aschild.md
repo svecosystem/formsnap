@@ -1,7 +1,7 @@
 ---
 title: asChild Prop
 description: Use your own elements or components with Formsnap.
-tagline: Composition
+section: Composition
 ---
 
 <script>

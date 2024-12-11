@@ -1,0 +1,36 @@
+{
+	"name": "@svecodocs/docs",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "pnpm \"/dev:/\"",
+		"dev:content": "velite dev --watch",
+		"dev:svelte": "vite dev",
+		"build": "velite && node ./scripts/update-velite-output.js && pnpm build:search && vite build",
+		"build:search": "node ./scripts/build-search-data.js",
+		"preview": "vite preview",
+		"check": "velite && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "pnpm build:content && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@svecodocs/kit": "^0.1.1",
+		"@sveltejs/adapter-cloudflare": "^4.8.0",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@tailwindcss/vite": "4.0.0-beta.5",
+		"bits-ui": "1.0.0-next.71",
+		"formsnap": "workspace:*",
+		"mdsx": "^0.0.6",
+		"phosphor-svelte": "^3.0.0",
+		"svelte": "^5.2.11",
+		"svelte-check": "^4.0.0",
+		"svelte-preprocess": "^6.0.3",
+		"svelte-sonner": "^0.3.28",
+		"sveltekit-superforms": "^2.19.0",
+		"tailwindcss": "4.0.0-beta.5",
+		"typescript": "^5.0.0",
+		"velite": "^0.2.1",
+		"vite": "^5.0.11",
+		"zod": "^3.24.1"
+	}
+}

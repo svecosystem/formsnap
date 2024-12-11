@@ -1,7 +1,7 @@
 ---
 title: Checkbox Groups
 description: Learn how to build checkbox group inputs with Formsnap.
-tagline: Recipes
+section: Recipes
 ---
 
 <script>

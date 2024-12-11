@@ -1,7 +1,7 @@
 ---
 title: Bits UI Select
 description: How to use the Select component from Bits UI with Formsnap.
-tagline: Recipes
+section: Recipes
 ---
 
 <script>
