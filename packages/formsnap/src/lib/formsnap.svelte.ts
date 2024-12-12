@@ -1,4 +1,11 @@
-import { type ReadableBoxedValues, type WithRefProps, useRefById } from "svelte-toolbelt";
+import {
+	type Getter,
+	type ReadableBoxedValues,
+	type WithRefProps,
+	box,
+	useOnChange,
+	useRefById,
+} from "svelte-toolbelt";
 import { fromStore } from "svelte/store";
 import type { FormPath, InputConstraint, InputConstraints } from "sveltekit-superforms";
 import type { FormPathArrays, TaintedFields, ValidationErrors } from "sveltekit-superforms/client";
@@ -20,6 +27,7 @@ import type {
 	LabelAttrs,
 } from "./attrs.types.js";
 import type { FsSuperForm } from "./components/types.js";
+import { useId } from "./internal/utils/id.js";
 
 type SvelteBox<T> = {
 	current: T;
@@ -45,6 +53,7 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 	#formConstraints: SvelteBox<InputConstraints<T>>;
 	#formTainted: SvelteBox<TaintedFields<T> | undefined>;
 	#formData: SvelteBox<T>;
+	form: FsSuperForm<T>;
 
 	name = $derived.by(() => this.#name.current);
 	errors = $derived.by(() =>
@@ -64,13 +73,28 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 	);
 	errorNode = $state<HTMLElement | null>(null);
 	descriptionNode = $state<HTMLElement | null>(null);
+	errorId = $state<string>();
+	descriptionId = $state<string>();
 
 	constructor(props: FormFieldStateProps<T, U>) {
 		this.#name = props.name;
+		this.form = props.form.current;
 		this.#formErrors = fromStore(props.form.current.errors);
 		this.#formConstraints = fromStore(props.form.current.constraints);
 		this.#formTainted = fromStore(props.form.current.tainted);
 		this.#formData = fromStore(props.form.current.form);
+
+		$effect(() => {
+			if (this.errorNode && this.errorNode.id) {
+				this.errorId = this.errorNode.id;
+			}
+		});
+
+		$effect(() => {
+			if (this.descriptionNode && this.descriptionNode.id) {
+				this.descriptionId = this.descriptionNode.id;
+			}
+		});
 	}
 
 	snippetProps = $derived.by(
@@ -106,6 +130,7 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 	#formTainted: SvelteBox<TaintedFields<T> | undefined>;
 	#formData: SvelteBox<T>;
 	#field: FieldState<T, U>;
+	form: FsSuperForm<T>;
 	name = $derived.by(() => {
 		const [path] = splitArrayPath<T>(this.#name.current);
 		return path as U;
@@ -136,14 +161,35 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 			U
 		>;
 	});
+	errorId = $state<string>();
+	descriptionId = $state<string>();
 
 	constructor(props: ElementFieldStateProps<T, U>, field: FieldState<T, U>) {
 		this.#name = props.name;
+		this.form = props.form.current;
 		this.#formErrors = fromStore(props.form.current.errors);
 		this.#formConstraints = fromStore(props.form.current.constraints);
 		this.#formTainted = fromStore(props.form.current.tainted);
 		this.#formData = fromStore(props.form.current.form);
 		this.#field = field;
+
+		useOnChange(
+			() => this.errorNode,
+			(v) => {
+				if (v && v.id) {
+					this.errorId = v.id;
+				}
+			}
+		);
+
+		useOnChange(
+			() => this.descriptionNode,
+			(v) => {
+				if (v && v.id) {
+					this.descriptionId = v.id;
+				}
+			}
+		);
 	}
 
 	snippetProps = $derived.by(
@@ -241,29 +287,48 @@ type ControlStateProps = ReadableBoxedValues<{
 }>;
 
 class ControlState {
-	id: ControlStateProps["id"];
+	#id: ControlStateProps["id"];
 	field: FieldState<Record<string, unknown>, string>;
+	labelId: ControlStateProps["id"] = box(useId());
+	id = $state(useId());
 
 	constructor(props: ControlStateProps, field: FieldState<Record<string, unknown>, string>) {
-		this.id = props.id;
+		this.#id = props.id;
 		this.field = field;
+
+		useOnChange(
+			() => this.#id.current,
+			(v) => {
+				this.id = v;
+			}
+		);
 	}
 
 	props = $derived.by(
 		() =>
 			({
-				id: this.id.current,
+				id: this.id,
 				name: this.field.name,
 				"data-fs-error": getDataFsError(this.field.errors),
 				"aria-describedby": getAriaDescribedBy({
-					fieldErrorsId: this.field.errorNode?.id,
-					descriptionId: this.field.descriptionNode?.id,
+					fieldErrorsId: this.field.errorId,
+					descriptionId: this.field.descriptionId,
 					errors: this.field.errors,
 				}),
 				"aria-invalid": getAriaInvalid(this.field.errors),
 				"aria-required": getAriaRequired(this.field.constraints),
 				"data-fs-control": "",
 			}) satisfies ControlAttrs
+	);
+
+	labelProps = $derived.by(
+		() =>
+			({
+				id: this.labelId.current,
+				"data-fs-label": "",
+				"data-fs-error": getDataFsError(this.field.errors),
+				for: this.id,
+			}) satisfies LabelAttrs
 	);
 }
 
@@ -278,6 +343,7 @@ class LabelState {
 		this.#ref = props.ref;
 		this.#id = props.id;
 		this.control = control;
+		this.control.labelId = this.#id;
 
 		useRefById({
 			id: this.#id,
@@ -285,15 +351,9 @@ class LabelState {
 		});
 	}
 
-	props = $derived.by(
-		() =>
-			({
-				id: this.#id.current,
-				"data-fs-label": "",
-				"data-fs-error": getDataFsError(this.control.field.errors),
-				for: this.control.id.current,
-			}) satisfies LabelAttrs
-	);
+	get props() {
+		return this.control.labelProps;
+	}
 }
 
 type LegendStateProps = WithRefProps;
@@ -327,7 +387,7 @@ class LegendState {
 const FORM_FIELD_CTX = Symbol.for("formsnap.form-field");
 const FORM_CONTROL_CTX = Symbol.for("formsnap.form-control");
 
-export function useFormField<T extends Record<string, unknown>, U extends FormPath<T>>(
+export function useField<T extends Record<string, unknown>, U extends FormPath<T>>(
 	props: FormFieldStateProps<T, U>
 ) {
 	return setContext(FORM_FIELD_CTX, new FormFieldState(props));
@@ -336,11 +396,11 @@ export function useFormField<T extends Record<string, unknown>, U extends FormPa
 export function useElementField<T extends Record<string, unknown>, U extends FormPath<T>>(
 	props: ElementFieldStateProps<T, U>
 ) {
-	const formField = getFormField<T, U>();
+	const formField = getField<T, U>();
 	return setContext(FORM_FIELD_CTX, new ElementFieldState(props, formField));
 }
 
-export function getFormField<
+export function getField<
 	T extends Record<string, unknown> = Record<string, unknown>,
 	U extends FormPath<T> = FormPath<T>,
 >() {
@@ -351,27 +411,27 @@ export function useFieldErrors<
 	T extends Record<string, unknown> = Record<string, unknown>,
 	U extends FormPath<T> = FormPath<T>,
 >(props: FieldErrorsStateProps) {
-	return new FieldErrorsState(props, getFormField<T, U>());
+	return new FieldErrorsState(props, getField<T, U>());
 }
 
 export function useDescription(props: DescriptionStateProps) {
-	return new DescriptionState(props, getFormField());
+	return new DescriptionState(props, getField());
 }
 
 export function useControl(props: ControlStateProps) {
-	return setContext(FORM_CONTROL_CTX, new ControlState(props, getFormField()));
+	return setContext(FORM_CONTROL_CTX, new ControlState(props, getField()));
 }
 
-export function getFormControl() {
+export function _getFormControl() {
 	return getContext<ControlState>(FORM_CONTROL_CTX);
 }
 
 export function useLabel(props: LabelStateProps) {
-	return new LabelState(props, getFormControl());
+	return new LabelState(props, _getFormControl());
 }
 
 export function useLegend(props: LegendStateProps) {
-	return new LegendState(props, getFormField());
+	return new LegendState(props, getField());
 }
 
 // takes a string like "urls[0]" and returns ["urls", "0"]
@@ -382,3 +442,103 @@ function splitArrayPath<T extends Record<string, unknown>>(name: string) {
 	const [path, index] = name.split(/[[\]]/);
 	return [path, index] as [FormPathArrays<T>, string];
 }
+
+export type UseFormFieldProps = {
+	/** Optionally provide a function that returns the ID of the field errors container. */
+	errorsId?: Getter<string>;
+	/** Optionally provide a function that returns the ID of the description element. */
+	descriptionId?: Getter<string>;
+};
+
+export function useFormField<
+	T extends Record<string, unknown> = Record<string, unknown>,
+	U extends FormPath<T> = FormPath<T>,
+>(props: UseFormFieldProps) {
+	const fieldState = getContext<FieldState<T, U>>(FORM_FIELD_CTX);
+	const form = fieldState.form;
+	const errorsId = $derived(props.errorsId ? props.errorsId() : undefined);
+	const descriptionId = $derived(props.descriptionId ? props.descriptionId() : undefined);
+
+	useOnChange(
+		() => errorsId,
+		(v) => {
+			if (v) {
+				fieldState.errorId = v;
+			}
+		}
+	);
+
+	useOnChange(
+		() => descriptionId,
+		(v) => {
+			if (v) {
+				fieldState.descriptionId = v;
+			}
+		}
+	);
+
+	return {
+		form,
+		get name() {
+			return fieldState.name;
+		},
+		get errors() {
+			return fieldState.errors;
+		},
+		get constraints() {
+			return fieldState.constraints;
+		},
+		get tainted() {
+			return fieldState.tainted;
+		},
+		get errorsId() {
+			return fieldState.errorId;
+		},
+		get descriptionId() {
+			return fieldState.descriptionId;
+		},
+	};
+}
+
+export type UseFormControlProps = {
+	/** Optionally provide a function that returns the ID of the control element. */
+	id?: Getter<string>;
+};
+
+export function useFormControl(props: UseFormControlProps) {
+	const controlState = getContext<ControlState>(FORM_CONTROL_CTX);
+	const id = $derived(props.id ? props.id() : undefined);
+
+	useOnChange(
+		() => id,
+		(v) => {
+			if (v) {
+				controlState.id = v;
+			}
+		}
+	);
+
+	return {
+		get id() {
+			return controlState.id;
+		},
+		get labelProps() {
+			return controlState.labelProps;
+		},
+		get props() {
+			return controlState.props;
+		},
+	};
+}
+
+/**
+ * Use `useFormControl` instead.
+ * @deprecated
+ */
+export const getFormControl = useFormControl;
+
+/**
+ * Use `useFormField` instead.
+ * @deprecated
+ */
+export const getFormField = useFormField;

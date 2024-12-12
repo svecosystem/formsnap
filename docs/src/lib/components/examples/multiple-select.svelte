@@ -24,7 +24,7 @@
 	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { Control, Field, FieldErrors, Label, Description } from "formsnap";
 	import { toast } from "svelte-sonner";
-	import { DemoContainer, Button } from "@svecodocs/kit";
+	import { DemoContainer, Button, NativeSelect } from "@svecodocs/kit";
 
 	const form = superForm(defaults(zod(schema)), {
 		validators: zodClient(schema),
@@ -46,19 +46,19 @@
 				{#snippet children({ props })}
 					<div class="flex flex-col items-start gap-1.5">
 						<Label>Number of scoops</Label>
-						<select {...props} bind:value={$formData.scoops} class="w-[200px]">
+						<NativeSelect {...props} bind:value={$formData.scoops}>
 							{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
 								<option value={num}>{num} {num === 1 ? "Scoop" : "Scoops"} </option>
 							{/each}
-						</select>
+						</NativeSelect>
 					</div>
 				{/snippet}
 			</Control>
-			<FieldErrors />
+			<FieldErrors class="text-destructive dark:text-red-400" />
 		</Field>
 		<Field {form} name="flavors">
 			<div class="flex flex-col gap-1">
-				<!-- <Control>
+				<Control>
 					{#snippet children({ props })}
 						<div class="flex flex-col items-start gap-1.5">
 							<Label>Select your flavors</Label>
@@ -78,13 +78,13 @@
 							</select>
 						</div>
 					{/snippet}
-				</Control> -->
+				</Control>
 				<Description>Only select one flavor per scoop.</Description>
-				<FieldErrors />
+				<FieldErrors class="text-destructive dark:text-red-400" />
 			</div>
 		</Field>
 		<Field {form} name="toppings">
-			<!-- <Control>
+			<Control>
 				{#snippet children({ props })}
 					<div class="flex flex-col items-start gap-1.5">
 						<Label>Select your toppings</Label>
@@ -104,8 +104,8 @@
 						</select>
 					</div>
 				{/snippet}
-			</Control> -->
-			<FieldErrors />
+			</Control>
+			<FieldErrors class="text-destructive dark:text-red-400" />
 		</Field>
 		<Button class="self-start">Submit</Button>
 	</form>
