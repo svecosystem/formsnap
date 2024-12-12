@@ -55,7 +55,6 @@ A component that groups related form controls or fields and extends the [Field](
 @param {SuperForm} form - The form object.
 @param {FormPath<T>} name - The name of the field.
 -->
-
 <Field {form} {name}>
 	{#snippet children({ value, errors, tainted, constraints })}
 		{#if childProp}

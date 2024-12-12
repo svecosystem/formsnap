@@ -31,5 +31,4 @@ Associates a [Label](https://formsnap.dev/docs/components/label) with and provid
 ### Snippet Props
 - `props` - A spreadable object of attributes that must be applied to the form control element.
 -->
-
 {@render children?.({ props: controlState.props })}

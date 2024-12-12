@@ -30,7 +30,7 @@ A component that provides a title for a group of related form controls and shoul
 
 - [Legend Documentation](https://formsnap.dev/docs/components/legend)
 
-### Snippet Props
+### `child` Snippet Props
 - `props` - A spreadable object of attributes for the legend element if `child` snippet is used.
 -->
 

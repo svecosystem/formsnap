@@ -53,7 +53,7 @@ export function createContext<ContextValue>(
 				}`
 			);
 		}
-		// eslint-disable-next-line ts/no-explicit-any
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if (context === null) return context as any;
 		return context;
 	}

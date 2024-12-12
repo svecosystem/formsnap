@@ -12,7 +12,13 @@ import {
 	getDataFsError,
 } from "./internal/utils/attributes.js";
 import type { PrimitiveFromIndex } from "./internal/types.js";
-import type { ControlAttrs, DescriptionAttrs } from "./attrs.types.js";
+import type {
+	ControlAttrs,
+	DescriptionAttrs,
+	ErrorAttrs,
+	FieldErrorsAttrs,
+	LabelAttrs,
+} from "./attrs.types.js";
 import type { FsSuperForm } from "./components/types.js";
 
 type SvelteBox<T> = {
@@ -148,10 +154,7 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 				tainted: this.tainted,
 				constraints:
 					// @ts-expect-error - this type is wonky
-					this.#formConstraints.current[
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						this.#name.current as any
-					] ?? ({} as InputConstraint),
+					this.#formConstraints.current[this.#name.current] ?? ({} as InputConstraint),
 			}) as const
 	);
 }
@@ -190,7 +193,7 @@ class FieldErrorsState<T extends Record<string, unknown>, U extends FormPath<T>>
 				"data-fs-error": this.#errorAttr,
 				"data-fs-field-errors": "",
 				"aria-live": "assertive",
-			}) as const
+			}) satisfies FieldErrorsAttrs
 	);
 
 	errorProps = $derived.by(
@@ -198,7 +201,7 @@ class FieldErrorsState<T extends Record<string, unknown>, U extends FormPath<T>>
 			({
 				"data-fs-field-error": "",
 				"data-fs-error": this.#errorAttr,
-			}) as const
+			}) satisfies ErrorAttrs
 	);
 }
 
@@ -229,7 +232,7 @@ class DescriptionState {
 				id: this.#id.current,
 				"data-fs-error": getDataFsError(this.field.errors),
 				"data-fs-description": "",
-			}) as const satisfies DescriptionAttrs
+			}) satisfies DescriptionAttrs
 	);
 }
 
@@ -289,7 +292,7 @@ class LabelState {
 				"data-fs-label": "",
 				"data-fs-error": getDataFsError(this.control.field.errors),
 				for: this.control.id.current,
-			}) as const
+			}) satisfies LabelAttrs
 	);
 }
 
