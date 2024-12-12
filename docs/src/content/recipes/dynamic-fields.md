@@ -5,10 +5,9 @@ section: Recipes
 ---
 
 <script>
-	import { Steps, Callout } from '@svecodocs/kit'
+	import { Steps, Step, Callout } from '@svecodocs/kit'
 	import LoadingCard from '$lib/components/loading-card.svelte'
 	import DynamicFieldsForm from '$lib/components/examples/dynamic-fields.svelte'
-	export let data;
 </script>
 
 To create a dynamic field, you'll need to use the [ElementField](/docs/components/element-field) component, that allows you to treat each element of an array as it's own field.
@@ -19,7 +18,7 @@ In this recipe, we'll create a URLs field where users can add and remove URLs fr
 
 <Steps>
 
-### Define the Schema
+<Step>Define the Schema</Step>
 
 Here's the schema we'll use for the form we'll build in this guide. We'll assume you know how to setup the load function and actions in the `+page.server.ts` file.
 
@@ -36,7 +35,7 @@ export const schema = z.object({
 
 We've defined an array named `urls` that contains strings that must be valid URLs. We've also set a minimum length of 2 for the array itself, and provided two default values to start with. The minimum length of 2 may sounds strange, but we're only doing so to demonstrate different validation errors for the array and its elements.
 
-### Create the Form
+<Step>Create the Form</Step>
 
 We'll need to initialize our SuperForm with the form returned from the `load` function, and then setup the basic structure of our form.
 
@@ -61,7 +60,7 @@ We'll need to initialize our SuperForm with the form returned from the `load` fu
 </form>
 ```
 
-### Import the Components
+<Step>Import the Components</Step>
 
 We have a few components we need to import to build the form.
 
@@ -95,7 +94,7 @@ We have a few components we need to import to build the form.
 </form>
 ```
 
-### Scaffold the Fieldset
+<Step>Scaffold the Fieldset</Step>
 
 Since our individual URL inputs will be part of the same field, we'll use a [Fieldset](/docs/components/fieldset) component to group them together and a [Legend](/docs/components/legend) to provide a title.
 
@@ -116,7 +115,7 @@ The [FieldErrors](/docs/components/field-errors) component will display any vali
 
 The [Description](/docs/components/description) component will provide additional context about the fields once we've created them, but each field will share the same description from the [Fieldset](/docs/components/fieldset) scope.
 
-### Render the URL Fields
+<Step>Render the URL Fields</Step>
 
 Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.urls` array to render the individual URL fields, which are represented by the [ElementField](/docs/components/element-field) component.
 
@@ -151,7 +150,7 @@ You should always include a label for each input for accessibility purposes. In 
 
 </Callout>
 
-### Make the Fields Dynamic
+<Step>Make the Fields Dynamic</Step>
 
 At the moment, the user can only have two URLs in their profile. We want to allow them to add and remove URLs as needed. We can achieve this by adding buttons to add and remove URLs.
 
@@ -215,25 +214,13 @@ We've added a `removeUrlByIndex` function that removes a URL from the `urls` arr
 
 Now the user can add and remove URLs as needed, and the form will validate the array and its elements according to the schema we defined.
 
-### Finished Product
+<Step>Finished Product</Step>
 
 That's it! 🎉
 
 You've created a dynamic field that allows users to add and remove URLs from their profile. With some custom styles and finesse, you can make the form look something like this:
 
-{#await data.dynamicFieldsForm}
-
-<LoadingCard class="h-[292px]" />
-
-{:then form}
-
-<DynamicFieldsForm data={form} />
-
-{:catch}
-
-An error occurred while loading the example.
-
-{/await}
+<DynamicFieldsForm  />
 
 </Steps>
 

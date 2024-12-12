@@ -5,11 +5,9 @@ section: Recipes
 ---
 
 <script>
-	import { Steps } from '@svecodocs/kit'
+	import { Steps, Step } from '@svecodocs/kit'
 	import LoadingCard from '$lib/components/loading-card.svelte'
 	import CheckboxGroup from '$lib/components/examples/checkbox-group.svelte'
-
-	export let data
 </script>
 
 Checkbox groups are a set of checkboxes that allow users to select multiple options from a list, and are quite common in forms.
@@ -22,7 +20,7 @@ For the purposes of this guide, we'll assume you're using the `zod` and `zodClie
 
 <Steps>
 
-### Define the Schema
+<Step>Define the Schema</Step>
 
 Let's start by defining a schema that contains an `array` to hold the selected options. We'll create this inside the `context="module"` script tag of our Svelte component so we can access it in our component and `+page.server.ts` file.
 
@@ -42,7 +40,7 @@ Let's start by defining a schema that contains an `array` to hold the selected o
 
 We've defined an array named `allergies` that holds the possible enum values, and then created a schema that requires at least one option to be selected.
 
-### Setup the Load Function & Actions
+<Step>Setup the Load Function & Actions</Step>
 
 Next, we'll create a `+page.server.ts` file where we'll define our `load` function and `actions` to handle the form submission.
 
@@ -74,7 +72,7 @@ export const actions: Actions = {
 
 Notice we're importing that schema we defined in our `+page.svelte` file and using it to validate the form data in the `load` function and `actions`.
 
-### Initialize the SuperForm
+<Step>Initialize the SuperForm</Step>
 
 Now that we have our schema defined and our `load` function and `actions` set up, we can initialize the SuperForm in our Svelte component.
 
@@ -97,7 +95,7 @@ Now that we have our schema defined and our `load` function and `actions` set up
 
 We're using the `superForm` function to initialize the form, passing in the `form` object from our `load` function and the `zodClient` adapter to handle client-side validation.
 
-### Import Components and Enhance the Form
+<Step>Import Components and Enhance the Form</Step>
 
 Now that our SuperForm is initialized, we can use it to construct our checkbox group.
 
@@ -126,7 +124,7 @@ We'll first import the components we'll need from Formsnap, and then setup a `fo
 </form>
 ```
 
-### Construct the Fieldset
+<Step>Construct the Fieldset</Step>
 
 Since each checkbox in the group is related to a single field, we'll use a `Fieldset` component with a `Legend` to group them together. We'll use the `Description` component to provide more context about the fieldset and the `FieldErrors` component to display validation errors.
 
@@ -170,7 +168,7 @@ Next, we'll iterate over the `allergies` array and create a [Control](/docs/comp
 </form>
 ```
 
-### Improve Validation
+<Step>Improve Validation</Step>
 
 We now have a functional checkbox group that allows users to select multiple options from a list. However, we can make some improvements to enhance the user experience and provide better validation feedback.
 
@@ -197,23 +195,11 @@ You may have noticed that users can select `"None"` and another allergy at the s
 
 We've added a `refine` method to the `allergies` array to ensure that if `"None"` is selected, no other allergies can be selected. If the user selects `"None"`, the array length must be `1`, otherwise the validation will fail and the custom error message will be displayed.
 
-### Finished Product
+<Step>Finished Product</Step>
 
 That's it! You've successfully created a checkbox group with Formsnap. With some custom styles and components applied, the finished product might look something like this:
 
-{#await data.checkboxGroupForm}
-
-<LoadingCard class="h-[331px]" />
-
-{:then form}
-
-<CheckboxGroup data={form} />
-
-{:catch}
-
-An error occurred while loading the example.
-
-{/await}
+<CheckboxGroup />
 
 </Steps>
 
@@ -283,7 +269,6 @@ export const actions: Actions = {
 		{#each allergies as allergy}
 			<Control let:attrs>
 				<input
-					class="accent-brand"
 					type="checkbox"
 					{...attrs}
 					bind:group={$formData.allergies}

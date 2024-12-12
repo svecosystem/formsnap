@@ -1,4 +1,6 @@
-<script lang="ts" context="module">
+<svelte:options runes />
+
+<script lang="ts" module>
 	import { z } from "zod";
 
 	const flavors = ["vanilla", "chocolate", "cookies and cream", "strawberry"] as const;
@@ -18,15 +20,13 @@
 </script>
 
 <script lang="ts">
-	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
-	import { zodClient } from "sveltekit-superforms/adapters";
+	import { defaults, superForm } from "sveltekit-superforms";
+	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { Control, Field, FieldErrors, Label, Description } from "formsnap";
 	import { toast } from "svelte-sonner";
 	import { DemoContainer, Button } from "@svecodocs/kit";
 
-	export let data: SuperValidated<Infer<typeof schema>>;
-
-	const form = superForm(data, {
+	const form = superForm(defaults(zod(schema)), {
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
@@ -36,11 +36,11 @@
 			}
 		},
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
 <DemoContainer>
-	<form method="POST" action="?/multipleSelect" use:enhance class="flex flex-col gap-3">
+	<form method="POST" action="?/multipleSelect" use:form.enhance class="flex flex-col gap-3">
 		<Field {form} name="scoops">
 			<Control>
 				{#snippet children({ props })}
@@ -58,7 +58,7 @@
 		</Field>
 		<Field {form} name="flavors">
 			<div class="flex flex-col gap-1">
-				<Control>
+				<!-- <Control>
 					{#snippet children({ props })}
 						<div class="flex flex-col items-start gap-1.5">
 							<Label>Select your flavors</Label>
@@ -78,13 +78,13 @@
 							</select>
 						</div>
 					{/snippet}
-				</Control>
+				</Control> -->
 				<Description>Only select one flavor per scoop.</Description>
 				<FieldErrors />
 			</div>
 		</Field>
 		<Field {form} name="toppings">
-			<Control>
+			<!-- <Control>
 				{#snippet children({ props })}
 					<div class="flex flex-col items-start gap-1.5">
 						<Label>Select your toppings</Label>
@@ -104,7 +104,7 @@
 						</select>
 					</div>
 				{/snippet}
-			</Control>
+			</Control> -->
 			<FieldErrors />
 		</Field>
 		<Button class="self-start">Submit</Button>

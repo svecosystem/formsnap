@@ -8,15 +8,7 @@ import { schema as multipleSelectSchema } from "$lib/components/examples/multipl
 import { schema as bitsSelectSchema } from "$lib/components/examples/bits-ui-select.svelte";
 import { schema as bitsMultiSelectSchema } from "$lib/components/examples/bits-ui-multi-select.svelte";
 
-export const load: PageServerLoad = async () => {
-	return {
-		checkboxGroupForm: superValidate(zod(checkboxGroupSchema)),
-		dynamicFieldsForm: superValidate(zod(dynamicFieldsSchema)),
-		multipleSelectForm: superValidate(zod(multipleSelectSchema)),
-		bitsSelectForm: superValidate(zod(bitsSelectSchema)),
-		bitsMultiSelectForm: superValidate(zod(bitsMultiSelectSchema)),
-	};
-};
+export const load: PageServerLoad = async () => {};
 
 export const actions: Actions = {
 	checkboxGroup: async (event) => {

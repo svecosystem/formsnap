@@ -26,7 +26,7 @@ type FieldState<T extends Record<string, unknown>, U extends FormPath<T>> =
 type FormFieldStateProps<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>,
-	// eslint-disable-next-line ts/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	M = any,
 > = ReadableBoxedValues<{
 	form: FsSuperForm<T, M>;
@@ -34,7 +34,6 @@ type FormFieldStateProps<
 }>;
 
 class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
-	#form: FormFieldStateProps<T, U>["form"];
 	#name: FormFieldStateProps<T, U>["name"];
 	#formErrors: SvelteBox<ValidationErrors<T>>;
 	#formConstraints: SvelteBox<InputConstraints<T>>;
@@ -43,21 +42,24 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 
 	name = $derived.by(() => this.#name.current);
 	errors = $derived.by(() =>
-		extractErrorArray(getValueAtPath(this.#name.current, this.#formErrors.current))
+		extractErrorArray(
+			getValueAtPath(this.#name.current, structuredClone(this.#formErrors.current))
+		)
 	);
 	constraints = $derived.by(
-		() => getValueAtPath(this.#name.current, this.#formConstraints.current) ?? {}
+		() =>
+			getValueAtPath(this.#name.current, structuredClone(this.#formConstraints.current)) ?? {}
 	);
 	tainted = $derived.by(() =>
 		this.#formTainted.current
-			? getValueAtPath(this.#name.current, this.#formTainted.current) === true
+			? getValueAtPath(this.#name.current, structuredClone(this.#formTainted.current)) ===
+				true
 			: false
 	);
 	errorNode = $state<HTMLElement | null>(null);
 	descriptionNode = $state<HTMLElement | null>(null);
 
 	constructor(props: FormFieldStateProps<T, U>) {
-		this.#form = props.form;
 		this.#name = props.name;
 		this.#formErrors = fromStore(props.form.current.errors);
 		this.#formConstraints = fromStore(props.form.current.constraints);
@@ -74,7 +76,7 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 				constraints:
 					// @ts-expect-error - this type is wonky
 					this.#formConstraints.current[
-						// eslint-disable-next-line ts/no-explicit-any
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						this.#name.current as any
 					] ?? ({} as InputConstraint),
 			}) as const
@@ -84,7 +86,7 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 type ElementFieldStateProps<
 	T extends Record<string, unknown>,
 	U extends FormPath<T>,
-	// eslint-disable-next-line ts/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	M = any,
 > = ReadableBoxedValues<{
 	form: FsSuperForm<T, M>;
@@ -92,7 +94,6 @@ type ElementFieldStateProps<
 }>;
 
 class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
-	#form: ElementFieldStateProps<T, U>["form"];
 	#name: ElementFieldStateProps<T, U>["name"];
 	#formErrors: SvelteBox<ValidationErrors<T>>;
 	#formConstraints: SvelteBox<InputConstraints<T>>;
@@ -131,7 +132,6 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 	});
 
 	constructor(props: ElementFieldStateProps<T, U>, field: FieldState<T, U>) {
-		this.#form = props.form;
 		this.#name = props.name;
 		this.#formErrors = fromStore(props.form.current.errors);
 		this.#formConstraints = fromStore(props.form.current.constraints);
@@ -149,7 +149,7 @@ class ElementFieldState<T extends Record<string, unknown>, U extends FormPath<T>
 				constraints:
 					// @ts-expect-error - this type is wonky
 					this.#formConstraints.current[
-						// eslint-disable-next-line ts/no-explicit-any
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						this.#name.current as any
 					] ?? ({} as InputConstraint),
 			}) as const

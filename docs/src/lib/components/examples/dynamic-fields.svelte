@@ -1,4 +1,6 @@
-<script lang="ts" context="module">
+<svelte:options runes />
+
+<script lang="ts" module>
 	import { z } from "zod";
 
 	export const schema = z.object({
@@ -10,17 +12,15 @@
 </script>
 
 <script lang="ts">
-	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
-	import { zodClient } from "sveltekit-superforms/adapters";
+	import { defaults, superForm } from "sveltekit-superforms";
+	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { toast } from "svelte-sonner";
 	import { Fieldset, ElementField, Control, Description, FieldErrors, Legend } from "formsnap";
 	import { Input, Button, DemoContainer } from "@svecodocs/kit";
 	import Plus from "phosphor-svelte/lib/Plus";
 	import Trash from "phosphor-svelte/lib/Trash";
 
-	export let data: SuperValidated<Infer<typeof schema>>;
-
-	const form = superForm(data, {
+	const form = superForm(defaults(zod(schema)), {
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {
@@ -69,7 +69,7 @@
 										size="icon"
 										aria-label="Delete URL {i}"
 									>
-										<Trash class="size-5" />
+										<Trash />
 									</Button>
 								</div>
 							{/snippet}
@@ -77,7 +77,7 @@
 						<Description class="sr-only">
 							This URL will be displayed on your public profile.
 						</Description>
-						<FieldErrors />
+						<FieldErrors class="text-destructive" />
 					</ElementField>
 				{/each}
 			</div>
@@ -85,8 +85,8 @@
 				<div aria-hidden="true" class="text-muted-foreground text-sm">
 					These URLs will be displayed on your public profile.
 				</div>
-				<Button onclick={addUrl} class="ml-auto" variant="outline">
-					<Plus class="mr-2 size-5" aria-label="Add" />
+				<Button onclick={addUrl} class="ml-auto" variant="outline" size="sm">
+					<Plus aria-label="Add" />
 					URL
 				</Button>
 			</div>

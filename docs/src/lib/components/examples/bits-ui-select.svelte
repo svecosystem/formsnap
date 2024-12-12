@@ -22,20 +22,13 @@
 </script>
 
 <script lang="ts">
-	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
-	import { zodClient } from "sveltekit-superforms/adapters";
+	import { defaults, superForm } from "sveltekit-superforms";
+	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { toast } from "svelte-sonner";
-	import { Select } from "bits-ui";
-	import { Button, DemoContainer } from "@svecodocs/kit";
+	import { Button, DemoContainer, Select } from "@svecodocs/kit";
 	import { Field, Control, Description, FieldErrors, Label } from "formsnap";
 
-	let {
-		data,
-	}: {
-		data: SuperValidated<Infer<typeof schema>>;
-	} = $props();
-
-	const form = superForm(data, {
+	const form = superForm(defaults(zod(schema)), {
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {

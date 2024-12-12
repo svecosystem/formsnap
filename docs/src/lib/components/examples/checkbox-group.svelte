@@ -1,3 +1,5 @@
+<svelte:options runes />
+
 <script lang="ts" module>
 	import { z } from "zod";
 
@@ -14,19 +16,13 @@
 </script>
 
 <script lang="ts">
-	import { type Infer, type SuperValidated, superForm } from "sveltekit-superforms";
-	import { zodClient } from "sveltekit-superforms/adapters";
+	import { defaults, superForm } from "sveltekit-superforms";
+	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from "formsnap";
 	import { toast } from "svelte-sonner";
 	import { Button, DemoContainer } from "@svecodocs/kit";
 
-	let {
-		data,
-	}: {
-		data: SuperValidated<Infer<typeof schema>>;
-	} = $props();
-
-	const form = superForm(data, {
+	const form = superForm(defaults(zod(schema)), {
 		validators: zodClient(schema),
 		onUpdated: ({ form: fd }) => {
 			if (fd.valid) {

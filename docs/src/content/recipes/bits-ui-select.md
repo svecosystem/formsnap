@@ -5,11 +5,10 @@ section: Recipes
 ---
 
 <script>
-	import { Steps, Callout } from "@svecodocs/kit"
+	import { Steps, Step, Callout } from "@svecodocs/kit"
 	import LoadingCard from "$lib/components/loading-card.svelte"
 	import BitsSelectForm from "$lib/components/examples/bits-ui-select.svelte"
 	import BitsMultiSelectForm from "$lib/components/examples/bits-ui-multi-select.svelte"
-	export let data;
 </script>
 
 The `Select` component from [Bits UI](https://bits-ui.com/docs/components/select) is a simple, yet powerful component for building a custom select menu. It powers the `Select` component for [shadcn-svelte](https://shadcn-svelte.com/docs/components/select), which is one of the most popular UI projects for Svelte. This recipe will demonstrate how to integrate that component with Formsnap.
@@ -20,7 +19,7 @@ We're going to build a "languages" select menu that allows the user to select a 
 
 <Steps>
 
-### Define the Schema
+<Step>Define the Schema</Step>
 
 Here's the schema we'll use for the form we'll build in this guide. We'll assume you know how to setup the load function and actions in the `+page.server.ts` file.
 
@@ -47,7 +46,7 @@ export const schema = z.object({
 });
 ```
 
-### Setup the Form
+<Step>Setup the Form</Step>
 
 ```svelte title="+page.svelte"
 <script lang="ts">
@@ -55,10 +54,9 @@ export const schema = z.object({
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Select } from "bits-ui";
 	import { Field, Control, Label, FieldErrors } from "formsnap";
-
 	import { schema, languages } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
@@ -66,10 +64,9 @@ export const schema = z.object({
 
 	const { form: formData, enhance } = form;
 
-	$: selectedLanguage = {
-		label: languages[$formData.language],
-		value: $formData.language,
-	};
+	const selectedLanguageLabel = $derived(
+		$formData.language ? languages[$formData.language] : "Select a language"
+	);
 </script>
 
 <form method="POST" use:enhance>
@@ -109,25 +106,13 @@ Only apply the `name` attribute to the `Select.Input`. **_Do not_** spread the e
 
 </Callout>
 
-### Finished Product
+<Step>Finished Product</Step>
 
 That's it! 🎉
 
 With some additional styles and structure, the form could look something like this:
 
-{#await data.bitsSelectForm}
-
-<LoadingCard class="h-[201.98px]" />
-
-{:then form}
-
-<BitsSelectForm data={form} />
-
-{:catch}
-
-An error occurred while loading the example.
-
-{/await}
+<BitsSelectForm />
 
 </Steps>
 
@@ -137,7 +122,7 @@ The `<Select />` component also supports multiple selection. Here's how you can 
 
 <Steps>
 
-### Define the Schema
+<Step>Define the Schema</Step>
 
 Here's the schema we'll use for the form we'll build in this guide. We'll assume you know how to setup the load function and actions in the `+page.server.ts` file.
 
@@ -161,7 +146,7 @@ export const schema = z.object({
 });
 ```
 
-### Setup the Form
+<Step>Setup the Form</Step>
 
 ```svelte title="+page.svelte"
 <script lang="ts">
@@ -225,24 +210,12 @@ Only apply the `name` attribute to the `Select.Input`. **_Do not_** spread the e
 
 </Callout>
 
-### Finished Product
+<Step>Finished Product</Step>
 
 That's it! 🎉
 
 With some additional styles and structure, the form could look something like this:
 
-{#await data.bitsMultiSelectForm}
-
-<LoadingCard class="h-[201.98px]" />
-
-{:then form}
-
-<BitsMultiSelectForm data={form} />
-
-{:catch}
-
-An error occurred while loading the example.
-
-{/await}
+<BitsMultiSelectForm />
 
 </Steps>

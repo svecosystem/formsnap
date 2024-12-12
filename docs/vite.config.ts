@@ -7,6 +7,9 @@ const __dirname = new URL(".", import.meta.url).pathname;
 
 export default defineConfig({
 	plugins: [sveltekit(), tailwindcss()],
+	optimizeDeps: {
+		exclude: ["formsnap"],
+	},
 	server: {
 		fs: {
 			allow: [resolve(__dirname, "./.velite")],

@@ -5,10 +5,9 @@ section: Recipes
 ---
 
 <script>
-	import { Steps } from "@svecodocs/kit"
+	import { Steps, Step } from "@svecodocs/kit"
 	import LoadingCard from "$lib/components/loading-card.svelte"
 	import MultipleSelectForm from "$lib/components/examples/multiple-select.svelte"
-	export let data;
 </script>
 
 In the following guide, you'll learn how to setup and validate multiple select fields with Formsnap by building an Ice Cream order form.
@@ -17,7 +16,7 @@ In the following guide, you'll learn how to setup and validate multiple select f
 
 <Steps>
 
-### Define the Schema
+<Step>Define the Schema</Step>
 
 Here's the schema we'll use for the form we'll build in this guide. We're assuming you know how to setup the load function and actions, and have already created a `+page.svelte` and `+page.server.ts` file.
 
@@ -42,7 +41,7 @@ export const schema = z
 
 The schema represents an ice cream order form with a `scoops` field, a `flavors` field, and a `toppings` field. The `flavors` and `toppings` fields are arrays of enums, and we've added some custom validation to ensure the user can only select as many flavors as they have scoops. We've also set a minimum of 1 for the `flavors` field and a maximum of 2 for the `toppings` field.
 
-### Create the Form
+<Step>Create the Form</Step>
 
 Let's initialize our SuperForm with the form returned from the `load` function and setup the basic structure of our form. We'll also want to import the `schema`, `flavors`, and `toppings` from the schema file.
 
@@ -67,7 +66,7 @@ Let's initialize our SuperForm with the form returned from the `load` function a
 </form>
 ```
 
-### Import the Components
+<Step>Import the Components</Step>
 
 At a minimum we need to import the [Field](/docs/components/field), [Control](/docs/components/control), [Label](/docs/components/label), and [FieldErrors](/docs/components/field-errors) components from Formsnap.
 
@@ -93,7 +92,7 @@ At a minimum we need to import the [Field](/docs/components/field), [Control](/d
 </form>
 ```
 
-### Create the Scoops Field
+<Step>Create the Scoops Field</Step>
 
 The first field we'll create is the `scoops` field, which will be a regular select input with a range of 1 to 5 scoops.
 
@@ -119,7 +118,7 @@ The first field we'll create is the `scoops` field, which will be a regular sele
 </form>
 ```
 
-### Create the Flavors Field
+<Step>Create the Flavors Field</Step>
 
 Next, let's create the `flavors` field. This field will be a multiple select input with the available flavors as options.
 
@@ -162,7 +161,7 @@ Next, let's create the `flavors` field. This field will be a multiple select inp
 
 Notice that we're using the `multiple` attribute on the `select` element to allow the user to select multiple options. We're also using the `selected` attribute to pre-select the options that are already in the `formData.flavors` array.
 
-### Create the Toppings Field
+<Step>Create the Toppings Field</Step>
 
 Finally, let's create the `toppings` field. This field will also be a multiple select input with the available toppings as options.
 
@@ -218,24 +217,12 @@ Finally, let's create the `toppings` field. This field will also be a multiple s
 </form>
 ```
 
-### Finished Product
+<Step>Finished Product</Step>
 
 That's it! 🎉
 
 You've created the functionality for a form containing multiple select inputs with validation. With some custom styles and finesse, you can make the form look something like this:
 
-{#await data.multipleSelectForm}
-
-<LoadingCard class="h-[417px]" />
-
-{:then form}
-
-<MultipleSelectForm data={form} />
-
-{:catch}
-
-An error occurred while loading the example.
-
-{/await}
+<MultipleSelectForm />
 
 </Steps>

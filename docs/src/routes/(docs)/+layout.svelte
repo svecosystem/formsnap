@@ -3,9 +3,12 @@
 	import { navigation } from "$lib/navigation";
 	import FormsnapDark from "$lib/components/logos/formsnap-dark.svelte";
 	import FormsnapLight from "$lib/components/logos/formsnap-light.svelte";
+	import { Toaster } from "svelte-sonner";
 
 	let { children } = $props();
 </script>
+
+<Toaster />
 
 <DocsLayout {navigation}>
 	{#snippet logo()}
