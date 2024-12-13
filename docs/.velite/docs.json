@@ -213,6 +213,89 @@
     "slugFull": "/v2-migration-guide"
   },
   {
+    "title": "child",
+    "description": "Use your own elements or components with Formsnap.",
+    "path": "composition/child",
+    "content": "<script>\n\timport { Callout } from '@svecodocs/kit'\n</script>\n<p>Although the provided components are the recommended and easiest way to use Formsnap, they aren't the only way. If you prefer to bring your own components or use native HTML elements, that's fine too.</p>\n<p>The <code>child</code> snippet is available on all components that render native HTML elements under the hood. When used, Formsnap won't render the default element and will expect you to spread the <code>props</code> snippet onto a custom element or component of your choosing.</p>\n<h2>Usage Example</h2>\n<p>If you wanted to use your own custom <code>Label</code> component or use scoped styles with a <code>&#x3C;label></code> element, you can do so by using the <code>child</code> snippet within the <a href=\"/docs/components/label\">Label</a> component.</p>\n<pre><code class=\"language-svelte\" metastring=\"{6-8}\">&#x3C;script lang=\"ts\">\n\timport { Label } from \"formsnap\";\n&#x3C;/script>\n\n&#x3C;Label>\n\t{#snippet child({ props })}\n\t\t&#x3C;label {...props} class=\"label\">Name&#x3C;/label>\n\t{/snippet}\n&#x3C;/Label>\n\n&#x3C;style>\n\tlabel {\n\t\tcolor: green;\n\t}\n&#x3C;/style>\n</code></pre>\n<callout type=\"note\">\n<p>If you plan to pass a custom ID to your custom element, you should first pass it to the component, which will then forward it down to the <code>props</code> snippet prop.</p>\n</callout>",
+    "raw": "<script>\n\timport { Callout } from '@svecodocs/kit'\n</script>\n\nAlthough the provided components are the recommended and easiest way to use Formsnap, they aren't the only way. If you prefer to bring your own components or use native HTML elements, that's fine too.\n\nThe `child` snippet is available on all components that render native HTML elements under the hood. When used, Formsnap won't render the default element and will expect you to spread the `props` snippet onto a custom element or component of your choosing.\n\n## Usage Example\n\nIf you wanted to use your own custom `Label` component or use scoped styles with a `<label>` element, you can do so by using the `child` snippet within the [Label](/docs/components/label) component.\n\n```svelte {6-8}\n<script lang=\"ts\">\n\timport { Label } from \"formsnap\";\n</script>\n\n<Label>\n\t{#snippet child({ props })}\n\t\t<label {...props} class=\"label\">Name</label>\n\t{/snippet}\n</Label>\n\n<style>\n\tlabel {\n\t\tcolor: green;\n\t}\n</style>\n```\n\n<Callout type=\"note\">\n\nIf you plan to pass a custom ID to your custom element, you should first pass it to the component, which will then forward it down to the `props` snippet prop.\n\n</Callout>",
+    "toc": [
+      {
+        "title": "Usage Example",
+        "url": "#usage-example",
+        "items": []
+      }
+    ],
+    "section": "Composition",
+    "slug": "composition/child",
+    "slugFull": "/composition/child"
+  },
+  {
+    "title": "useFormControl",
+    "description": "Use the form control's state for more advanced composition.",
+    "path": "composition/use-form-control",
+    "content": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n<p>You can use <code>useFormControl</code> within the context of a <a href=\"/docs/components/control\">Control</a> component to access the state of the control and use it as you see fit.</p>\n<h2>Usage</h2>\n<p>Say we're building a custom component that contains both a custom input and label.</p>\n<pre><code class=\"language-svelte\" metastring=\"title=&#x22;LabelInput.svelte&#x22;\">&#x3C;script lang=\"ts\">\n\timport { useFormControl } from \"formsnap\";\n\timport CustomLabel from \"$lib/components/CustomLabel.svelte\";\n\timport CustomInput from \"$lib/components/CustomInput.svelte\";\n\n\tlet { label }: { label: string } = $props();\n\n\tconst control = useFormControl();\n&#x3C;/script>\n\n&#x3C;CustomLabel {...control.labelProps}>\n\t{label}\n&#x3C;/CustomLabel>\n&#x3C;CustomInput {...control.props} />\n</code></pre>\n<p>In this example, we're using <code>useFormControl</code> to get the spreadable for the label and control elements. We then pass those attributes to our custom components.</p>\n<p>We'd then use this within the context of a <code>Control</code> component like so:</p>\n<pre><code class=\"language-svelte\">&#x3C;Field {form} name=\"email\">\n\t&#x3C;Control>\n\t\t&#x3C;LabelInput label=\"Email address\" />\n\t&#x3C;/Control>\n&#x3C;/Field>\n</code></pre>\n<h2>API Reference</h2>\n<h3>Props</h3>\n<propfield type=\"() => string | undefined | null\" name=\"id\">\n<p>Optionally provide a getter function that returns a custom ID to override the default control ID.</p>\n</propfield>\n<h3>Return Type</h3>\n<p><code>useFormControl</code> returns the following types:</p>\n<pre><code class=\"language-ts\">export type FormControlContext = {\n\t/** Reactive state containing the ID of the form control. */\n\treadonly id: string;\n\n\t/** Reactive state containing the attributes for the label element. */\n\treadonly labelProps: Record&#x3C;string, unknown>;\n\n\t/** Reactive state containing the attributes for the control element. */\n\treadonly props: Record&#x3C;string, unknown>;\n};\n</code></pre>\n<callout type=\"warning\">\n<p>The <code>useFormControl</code> function returns getters for the various reactive states. You should not destructure the object returned by <code>useFormControl</code> and instead use the getters directly.</p>\n</callout>",
+    "raw": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n\nYou can use `useFormControl` within the context of a [Control](/docs/components/control) component to access the state of the control and use it as you see fit.\n\n## Usage\n\nSay we're building a custom component that contains both a custom input and label.\n\n```svelte title=\"LabelInput.svelte\"\n<script lang=\"ts\">\n\timport { useFormControl } from \"formsnap\";\n\timport CustomLabel from \"$lib/components/CustomLabel.svelte\";\n\timport CustomInput from \"$lib/components/CustomInput.svelte\";\n\n\tlet { label }: { label: string } = $props();\n\n\tconst control = useFormControl();\n</script>\n\n<CustomLabel {...control.labelProps}>\n\t{label}\n</CustomLabel>\n<CustomInput {...control.props} />\n```\n\nIn this example, we're using `useFormControl` to get the spreadable for the label and control elements. We then pass those attributes to our custom components.\n\nWe'd then use this within the context of a `Control` component like so:\n\n```svelte\n<Field {form} name=\"email\">\n\t<Control>\n\t\t<LabelInput label=\"Email address\" />\n\t</Control>\n</Field>\n```\n\n## API Reference\n\n### Props\n\n<PropField type=\"() => string | undefined | null\" name=\"id\">\n\nOptionally provide a getter function that returns a custom ID to override the default control ID.\n\n</PropField>\n\n### Return Type\n\n`useFormControl` returns the following types:\n\n```ts\nexport type FormControlContext = {\n\t/** Reactive state containing the ID of the form control. */\n\treadonly id: string;\n\n\t/** Reactive state containing the attributes for the label element. */\n\treadonly labelProps: Record<string, unknown>;\n\n\t/** Reactive state containing the attributes for the control element. */\n\treadonly props: Record<string, unknown>;\n};\n```\n\n<Callout type=\"warning\">\n\nThe `useFormControl` function returns getters for the various reactive states. You should not destructure the object returned by `useFormControl` and instead use the getters directly.\n\n</Callout>",
+    "toc": [
+      {
+        "title": "Usage",
+        "url": "#usage",
+        "items": []
+      },
+      {
+        "title": "API Reference",
+        "url": "#api-reference",
+        "items": [
+          {
+            "title": "Props",
+            "url": "#props",
+            "items": []
+          },
+          {
+            "title": "Return Type",
+            "url": "#return-type",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "section": "Composition",
+    "slug": "composition/use-form-control",
+    "slugFull": "/composition/use-form-control"
+  },
+  {
+    "title": "useFormField",
+    "description": "Use the form field's state for advanced composition with custom form components.",
+    "path": "composition/use-form-field",
+    "content": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n<p>You can use <code>useFormField</code> within the context of a <a href=\"/docs/components/field\">Field</a>, <a href=\"/docs/components/fieldset\">Fieldset</a>, or <a href=\"/docs/components/element-field\">ElementField</a> component to access the state of the field and use it to build more advanced form components.</p>\n<h2>Usage Example</h2>\n<p>The <code>useFormField</code> function is provided for more advanced use cases where you may need to access the entire state of a form field, as well as the form itself.</p>\n<pre><code class=\"language-svelte\" metastring=\"title=&#x22;CustomFieldErrors.svelte&#x22;\">&#x3C;script lang=\"ts\">\n\timport { useFormField } from \"formsnap\";\n\timport type { HTMLAttributes } from \"svelte/elements\";\n\timport { schema } from \"./schema.js\";\n\timport type { Infer } from \"sveltekit-superforms\";\n\t// whatever your validation library is\n\timport { z } from \"zod\";\n\n\tlet { id, ...rest }: HTMLAttributes&#x3C;HTMLElement> = $props();\n\n\tconst field = useFormField&#x3C;Infer&#x3C;typeof schema>, \"name\">({\n\t\terrorsId: () => id,\n\t});\n&#x3C;/script>\n\n{#if field.errors.length > 0}\n\t&#x3C;div class=\"error\" {id} {...rest}>\n\t\t{#each field.errors as error}\n\t\t\t&#x3C;p>{error}&#x3C;/p>\n\t\t{/each}\n\t&#x3C;/div>\n{/if}\n</code></pre>\n<p>In the example above, we're using the <code>useFormField</code> function to pass a custom <code>errorsId</code> that will be used to apply appropriate ARIA attributes to the other components within the field.</p>\n<h2>API</h2>\n<h3>Props</h3>\n<propfield type=\"() => string | undefined | null\" name=\"errorsId\">\n<p>Optionally provide a getter function that returns a custom ID to override the errors container ID.</p>\n</propfield>\n<propfield type=\"() => string | undefined | null\" name=\"descriptionId\">\n<p>Optionally provide a getter function that returns a custom ID to override the description container ID.</p>\n</propfield>\n<h3>Return Type</h3>\n<p><code>useFormField</code> returns the following type:</p>\n<pre><code class=\"language-ts\">import type { FormPath } from \"sveltekit-superforms\";\n\n/**\n * State for the current form field.\n */\nexport type UseFormFieldReturn&#x3C;T extends Record&#x3C;string, unknown>, U extends FormPath&#x3C;T>> = {\n\t/** The original form store passed to the `*Field` component. */\n\tform: SuperForm&#x3C;T>;\n\n\t/** Reactive state containing the ID of the field errors container for the field. */\n\treadonly errorsId: string;\n\n\t/** Reactive state containing the ID of the description element for the field. */\n\treadonly descriptionId: string;\n\n\t/** Reactive state containing the name of the field. */\n\treadonly name: U;\n\n\t/** Reactive state containing the current validations errors for the field. */\n\treadonly errors: string[];\n\n\t/** Reactive state containing the constraints (if any) for the field. */\n\treadonly constraints: Record&#x3C;string, unknown>;\n\n\t/** Reactive state containing the tainted state of the field. */\n\treadonly tainted: boolean;\n};\n</code></pre>\n<callout type=\"warning\">\n<p>The <code>useFormField</code> function returns getters for the various reactive states. You should not destructure the object returned by <code>useFormField</code> and instead use the getters directly.</p>\n</callout>",
+    "raw": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n\nYou can use `useFormField` within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component to access the state of the field and use it to build more advanced form components.\n\n## Usage Example\n\nThe `useFormField` function is provided for more advanced use cases where you may need to access the entire state of a form field, as well as the form itself.\n\n```svelte title=\"CustomFieldErrors.svelte\"\n<script lang=\"ts\">\n\timport { useFormField } from \"formsnap\";\n\timport type { HTMLAttributes } from \"svelte/elements\";\n\timport { schema } from \"./schema.js\";\n\timport type { Infer } from \"sveltekit-superforms\";\n\t// whatever your validation library is\n\timport { z } from \"zod\";\n\n\tlet { id, ...rest }: HTMLAttributes<HTMLElement> = $props();\n\n\tconst field = useFormField<Infer<typeof schema>, \"name\">({\n\t\terrorsId: () => id,\n\t});\n</script>\n\n{#if field.errors.length > 0}\n\t<div class=\"error\" {id} {...rest}>\n\t\t{#each field.errors as error}\n\t\t\t<p>{error}</p>\n\t\t{/each}\n\t</div>\n{/if}\n```\n\nIn the example above, we're using the `useFormField` function to pass a custom `errorsId` that will be used to apply appropriate ARIA attributes to the other components within the field.\n\n## API\n\n### Props\n\n<PropField type=\"() => string | undefined | null\" name=\"errorsId\">\n\nOptionally provide a getter function that returns a custom ID to override the errors container ID.\n\n</PropField>\n\n<PropField type=\"() => string | undefined | null\" name=\"descriptionId\">\n\nOptionally provide a getter function that returns a custom ID to override the description container ID.\n\n</PropField>\n\n### Return Type\n\n`useFormField` returns the following type:\n\n```ts\nimport type { FormPath } from \"sveltekit-superforms\";\n\n/**\n * State for the current form field.\n */\nexport type UseFormFieldReturn<T extends Record<string, unknown>, U extends FormPath<T>> = {\n\t/** The original form store passed to the `*Field` component. */\n\tform: SuperForm<T>;\n\n\t/** Reactive state containing the ID of the field errors container for the field. */\n\treadonly errorsId: string;\n\n\t/** Reactive state containing the ID of the description element for the field. */\n\treadonly descriptionId: string;\n\n\t/** Reactive state containing the name of the field. */\n\treadonly name: U;\n\n\t/** Reactive state containing the current validations errors for the field. */\n\treadonly errors: string[];\n\n\t/** Reactive state containing the constraints (if any) for the field. */\n\treadonly constraints: Record<string, unknown>;\n\n\t/** Reactive state containing the tainted state of the field. */\n\treadonly tainted: boolean;\n};\n```\n\n<Callout type=\"warning\">\n\nThe `useFormField` function returns getters for the various reactive states. You should not destructure the object returned by `useFormField` and instead use the getters directly.\n\n</Callout>",
+    "toc": [
+      {
+        "title": "Usage Example",
+        "url": "#usage-example",
+        "items": []
+      },
+      {
+        "title": "API",
+        "url": "#api",
+        "items": [
+          {
+            "title": "Props",
+            "url": "#props",
+            "items": []
+          },
+          {
+            "title": "Return Type",
+            "url": "#return-type",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "section": "Composition",
+    "slug": "composition/use-form-field",
+    "slugFull": "/composition/use-form-field"
+  },
+  {
     "title": "Control",
     "description": "Associates a label with and provides necessary attributes for a form control.",
     "path": "components/control",
@@ -517,89 +600,6 @@
     "section": "Components",
     "slug": "components/legend",
     "slugFull": "/components/legend"
-  },
-  {
-    "title": "child",
-    "description": "Use your own elements or components with Formsnap.",
-    "path": "composition/child",
-    "content": "<script>\n\timport { Callout } from '@svecodocs/kit'\n</script>\n<p>Although the provided components are the recommended and easiest way to use Formsnap, they aren't the only way. If you prefer to bring your own components or use native HTML elements, that's fine too.</p>\n<p>The <code>child</code> snippet is available on all components that render native HTML elements under the hood. When used, Formsnap won't render the default element and will expect you to spread the <code>props</code> snippet onto a custom element or component of your choosing.</p>\n<h2>Usage Example</h2>\n<p>If you wanted to use your own custom <code>Label</code> component or use scoped styles with a <code>&#x3C;label></code> element, you can do so by using the <code>child</code> snippet within the <a href=\"/docs/components/label\">Label</a> component.</p>\n<pre><code class=\"language-svelte\" metastring=\"{6-8}\">&#x3C;script lang=\"ts\">\n\timport { Label } from \"formsnap\";\n&#x3C;/script>\n\n&#x3C;Label>\n\t{#snippet child({ props })}\n\t\t&#x3C;label {...props} class=\"label\">Name&#x3C;/label>\n\t{/snippet}\n&#x3C;/Label>\n\n&#x3C;style>\n\tlabel {\n\t\tcolor: green;\n\t}\n&#x3C;/style>\n</code></pre>\n<callout type=\"note\">\n<p>If you plan to pass a custom ID to your custom element, you should first pass it to the component, which will then forward it down to the <code>props</code> snippet prop.</p>\n</callout>",
-    "raw": "<script>\n\timport { Callout } from '@svecodocs/kit'\n</script>\n\nAlthough the provided components are the recommended and easiest way to use Formsnap, they aren't the only way. If you prefer to bring your own components or use native HTML elements, that's fine too.\n\nThe `child` snippet is available on all components that render native HTML elements under the hood. When used, Formsnap won't render the default element and will expect you to spread the `props` snippet onto a custom element or component of your choosing.\n\n## Usage Example\n\nIf you wanted to use your own custom `Label` component or use scoped styles with a `<label>` element, you can do so by using the `child` snippet within the [Label](/docs/components/label) component.\n\n```svelte {6-8}\n<script lang=\"ts\">\n\timport { Label } from \"formsnap\";\n</script>\n\n<Label>\n\t{#snippet child({ props })}\n\t\t<label {...props} class=\"label\">Name</label>\n\t{/snippet}\n</Label>\n\n<style>\n\tlabel {\n\t\tcolor: green;\n\t}\n</style>\n```\n\n<Callout type=\"note\">\n\nIf you plan to pass a custom ID to your custom element, you should first pass it to the component, which will then forward it down to the `props` snippet prop.\n\n</Callout>",
-    "toc": [
-      {
-        "title": "Usage Example",
-        "url": "#usage-example",
-        "items": []
-      }
-    ],
-    "section": "Composition",
-    "slug": "composition/child",
-    "slugFull": "/composition/child"
-  },
-  {
-    "title": "useFormControl",
-    "description": "Use the form control's state for more advanced composition.",
-    "path": "composition/use-form-control",
-    "content": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n<p>You can use <code>useFormControl</code> within the context of a <a href=\"/docs/components/control\">Control</a> component to access the state of the control and use it as you see fit.</p>\n<h2>Usage</h2>\n<p>Say we're building a custom component that contains both a custom input and label.</p>\n<pre><code class=\"language-svelte\" metastring=\"title=&#x22;LabelInput.svelte&#x22;\">&#x3C;script lang=\"ts\">\n\timport { useFormControl } from \"formsnap\";\n\timport CustomLabel from \"$lib/components/CustomLabel.svelte\";\n\timport CustomInput from \"$lib/components/CustomInput.svelte\";\n\n\tlet { label }: { label: string } = $props();\n\n\tconst control = useFormControl();\n&#x3C;/script>\n\n&#x3C;CustomLabel {...control.labelProps}>\n\t{label}\n&#x3C;/CustomLabel>\n&#x3C;CustomInput {...control.props} />\n</code></pre>\n<p>In this example, we're using <code>useFormControl</code> to get the spreadable for the label and control elements. We then pass those attributes to our custom components.</p>\n<p>We'd then use this within the context of a <code>Control</code> component like so:</p>\n<pre><code class=\"language-svelte\">&#x3C;Field {form} name=\"email\">\n\t&#x3C;Control>\n\t\t&#x3C;LabelInput label=\"Email address\" />\n\t&#x3C;/Control>\n&#x3C;/Field>\n</code></pre>\n<h2>API Reference</h2>\n<h3>Props</h3>\n<propfield type=\"() => string | undefined | null\" name=\"id\">\n<p>Optionally provide a getter function that returns a custom ID to override the default control ID.</p>\n</propfield>\n<h3>Return Type</h3>\n<p><code>useFormControl</code> returns the following types:</p>\n<pre><code class=\"language-ts\">export type FormControlContext = {\n\t/** Reactive state containing the ID of the form control. */\n\treadonly id: string;\n\n\t/** Reactive state containing the attributes for the label element. */\n\treadonly labelProps: Record&#x3C;string, unknown>;\n\n\t/** Reactive state containing the attributes for the control element. */\n\treadonly props: Record&#x3C;string, unknown>;\n};\n</code></pre>\n<callout type=\"warning\">\n<p>The <code>useFormControl</code> function returns getters for the various reactive states. You should not destructure the object returned by <code>useFormControl</code> and instead use the getters directly.</p>\n</callout>",
-    "raw": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n\nYou can use `useFormControl` within the context of a [Control](/docs/components/control) component to access the state of the control and use it as you see fit.\n\n## Usage\n\nSay we're building a custom component that contains both a custom input and label.\n\n```svelte title=\"LabelInput.svelte\"\n<script lang=\"ts\">\n\timport { useFormControl } from \"formsnap\";\n\timport CustomLabel from \"$lib/components/CustomLabel.svelte\";\n\timport CustomInput from \"$lib/components/CustomInput.svelte\";\n\n\tlet { label }: { label: string } = $props();\n\n\tconst control = useFormControl();\n</script>\n\n<CustomLabel {...control.labelProps}>\n\t{label}\n</CustomLabel>\n<CustomInput {...control.props} />\n```\n\nIn this example, we're using `useFormControl` to get the spreadable for the label and control elements. We then pass those attributes to our custom components.\n\nWe'd then use this within the context of a `Control` component like so:\n\n```svelte\n<Field {form} name=\"email\">\n\t<Control>\n\t\t<LabelInput label=\"Email address\" />\n\t</Control>\n</Field>\n```\n\n## API Reference\n\n### Props\n\n<PropField type=\"() => string | undefined | null\" name=\"id\">\n\nOptionally provide a getter function that returns a custom ID to override the default control ID.\n\n</PropField>\n\n### Return Type\n\n`useFormControl` returns the following types:\n\n```ts\nexport type FormControlContext = {\n\t/** Reactive state containing the ID of the form control. */\n\treadonly id: string;\n\n\t/** Reactive state containing the attributes for the label element. */\n\treadonly labelProps: Record<string, unknown>;\n\n\t/** Reactive state containing the attributes for the control element. */\n\treadonly props: Record<string, unknown>;\n};\n```\n\n<Callout type=\"warning\">\n\nThe `useFormControl` function returns getters for the various reactive states. You should not destructure the object returned by `useFormControl` and instead use the getters directly.\n\n</Callout>",
-    "toc": [
-      {
-        "title": "Usage",
-        "url": "#usage",
-        "items": []
-      },
-      {
-        "title": "API Reference",
-        "url": "#api-reference",
-        "items": [
-          {
-            "title": "Props",
-            "url": "#props",
-            "items": []
-          },
-          {
-            "title": "Return Type",
-            "url": "#return-type",
-            "items": []
-          }
-        ]
-      }
-    ],
-    "section": "Composition",
-    "slug": "composition/use-form-control",
-    "slugFull": "/composition/use-form-control"
-  },
-  {
-    "title": "useFormField",
-    "description": "Use the form field's state for advanced composition with custom form components.",
-    "path": "composition/use-form-field",
-    "content": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n<p>You can use <code>useFormField</code> within the context of a <a href=\"/docs/components/field\">Field</a>, <a href=\"/docs/components/fieldset\">Fieldset</a>, or <a href=\"/docs/components/element-field\">ElementField</a> component to access the state of the field and use it to build more advanced form components.</p>\n<h2>Usage Example</h2>\n<p>The <code>useFormField</code> function is provided for more advanced use cases where you may need to access the entire state of a form field, as well as the form itself.</p>\n<pre><code class=\"language-svelte\" metastring=\"title=&#x22;CustomFieldErrors.svelte&#x22;\">&#x3C;script lang=\"ts\">\n\timport { useFormField } from \"formsnap\";\n\timport type { HTMLAttributes } from \"svelte/elements\";\n\timport { schema } from \"./schema.js\";\n\timport type { Infer } from \"sveltekit-superforms\";\n\t// whatever your validation library is\n\timport { z } from \"zod\";\n\n\tlet { id, ...rest }: HTMLAttributes&#x3C;HTMLElement> = $props();\n\n\tconst field = useFormField&#x3C;Infer&#x3C;typeof schema>, \"name\">({\n\t\terrorsId: () => id,\n\t});\n&#x3C;/script>\n\n{#if $errors.length > 0}\n\t&#x3C;div class=\"error\" {id} {...rest}>\n\t\t{#each $errors as error}\n\t\t\t&#x3C;p>{error}&#x3C;/p>\n\t\t{/each}\n\t&#x3C;/div>\n{/if}\n</code></pre>\n<p>In the example above, we're using the <code>useFormField</code> function to pass a custom <code>errorsId</code> that will be used to apply appropriate ARIA attributes to the other components within the field.</p>\n<h2>API</h2>\n<h3>Props</h3>\n<propfield type=\"() => string | undefined | null\" name=\"errorsId\">\n<p>Optionally provide a getter function that returns a custom ID to override the errors container ID.</p>\n</propfield>\n<propfield type=\"() => string | undefined | null\" name=\"descriptionId\">\n<p>Optionally provide a getter function that returns a custom ID to override the description container ID.</p>\n</propfield>\n<h3>Return Type</h3>\n<p><code>useFormField</code> returns the following type:</p>\n<pre><code class=\"language-ts\">import type { FormPath } from \"sveltekit-superforms\";\n\n/**\n * State for the current form field.\n */\nexport type UseFormFieldReturn&#x3C;T extends Record&#x3C;string, unknown>, U extends FormPath&#x3C;T>> = {\n\t/** The original form store passed to the `*Field` component. */\n\tform: SuperForm&#x3C;T>;\n\n\t/** Reactive state containing the ID of the field errors container for the field. */\n\treadonly errorsId: string;\n\n\t/** Reactive state containing the ID of the description element for the field. */\n\treadonly descriptionId: string;\n\n\t/** Reactive state containing the name of the field. */\n\treadonly name: U;\n\n\t/** Reactive state containing the current validations errors for the field. */\n\treadonly errors: string[];\n\n\t/** Reactive state containing the constraints (if any) for the field. */\n\treadonly constraints: Record&#x3C;string, unknown>;\n\n\t/** Reactive state containing the tainted state of the field. */\n\treadonly tainted: boolean;\n};\n</code></pre>\n<callout type=\"warning\">\n<p>The <code>useFormField</code> function returns getters for the various reactive states. You should not destructure the object returned by <code>useFormField</code> and instead use the getters directly.</p>\n</callout>",
-    "raw": "<script>\n\timport { Callout, PropField } from '@svecodocs/kit'\n</script>\n\nYou can use `useFormField` within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component to access the state of the field and use it to build more advanced form components.\n\n## Usage Example\n\nThe `useFormField` function is provided for more advanced use cases where you may need to access the entire state of a form field, as well as the form itself.\n\n```svelte title=\"CustomFieldErrors.svelte\"\n<script lang=\"ts\">\n\timport { useFormField } from \"formsnap\";\n\timport type { HTMLAttributes } from \"svelte/elements\";\n\timport { schema } from \"./schema.js\";\n\timport type { Infer } from \"sveltekit-superforms\";\n\t// whatever your validation library is\n\timport { z } from \"zod\";\n\n\tlet { id, ...rest }: HTMLAttributes<HTMLElement> = $props();\n\n\tconst field = useFormField<Infer<typeof schema>, \"name\">({\n\t\terrorsId: () => id,\n\t});\n</script>\n\n{#if $errors.length > 0}\n\t<div class=\"error\" {id} {...rest}>\n\t\t{#each $errors as error}\n\t\t\t<p>{error}</p>\n\t\t{/each}\n\t</div>\n{/if}\n```\n\nIn the example above, we're using the `useFormField` function to pass a custom `errorsId` that will be used to apply appropriate ARIA attributes to the other components within the field.\n\n## API\n\n### Props\n\n<PropField type=\"() => string | undefined | null\" name=\"errorsId\">\n\nOptionally provide a getter function that returns a custom ID to override the errors container ID.\n\n</PropField>\n\n<PropField type=\"() => string | undefined | null\" name=\"descriptionId\">\n\nOptionally provide a getter function that returns a custom ID to override the description container ID.\n\n</PropField>\n\n### Return Type\n\n`useFormField` returns the following type:\n\n```ts\nimport type { FormPath } from \"sveltekit-superforms\";\n\n/**\n * State for the current form field.\n */\nexport type UseFormFieldReturn<T extends Record<string, unknown>, U extends FormPath<T>> = {\n\t/** The original form store passed to the `*Field` component. */\n\tform: SuperForm<T>;\n\n\t/** Reactive state containing the ID of the field errors container for the field. */\n\treadonly errorsId: string;\n\n\t/** Reactive state containing the ID of the description element for the field. */\n\treadonly descriptionId: string;\n\n\t/** Reactive state containing the name of the field. */\n\treadonly name: U;\n\n\t/** Reactive state containing the current validations errors for the field. */\n\treadonly errors: string[];\n\n\t/** Reactive state containing the constraints (if any) for the field. */\n\treadonly constraints: Record<string, unknown>;\n\n\t/** Reactive state containing the tainted state of the field. */\n\treadonly tainted: boolean;\n};\n```\n\n<Callout type=\"warning\">\n\nThe `useFormField` function returns getters for the various reactive states. You should not destructure the object returned by `useFormField` and instead use the getters directly.\n\n</Callout>",
-    "toc": [
-      {
-        "title": "Usage Example",
-        "url": "#usage-example",
-        "items": []
-      },
-      {
-        "title": "API",
-        "url": "#api",
-        "items": [
-          {
-            "title": "Props",
-            "url": "#props",
-            "items": []
-          },
-          {
-            "title": "Return Type",
-            "url": "#return-type",
-            "items": []
-          }
-        ]
-      }
-    ],
-    "section": "Composition",
-    "slug": "composition/use-form-field",
-    "slugFull": "/composition/use-form-field"
   },
   {
     "title": "Bits UI Select",
