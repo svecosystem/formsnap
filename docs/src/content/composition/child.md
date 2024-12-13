@@ -1,5 +1,5 @@
 ---
-title: Child Snippet
+title: child
 description: Use your own elements or components with Formsnap.
 section: Composition
 ---

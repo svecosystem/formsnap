@@ -445,9 +445,9 @@ function splitArrayPath<T extends Record<string, unknown>>(name: string) {
 
 export type UseFormFieldProps = {
 	/** Optionally provide a function that returns the ID of the field errors container. */
-	errorsId?: Getter<string>;
+	errorsId?: Getter<string | undefined | null>;
 	/** Optionally provide a function that returns the ID of the description element. */
-	descriptionId?: Getter<string>;
+	descriptionId?: Getter<string | undefined | null>;
 };
 
 export function useFormField<
@@ -502,7 +502,7 @@ export function useFormField<
 
 export type UseFormControlProps = {
 	/** Optionally provide a function that returns the ID of the control element. */
-	id?: Getter<string>;
+	id?: Getter<string | undefined | null>;
 };
 
 export function useFormControl(props: UseFormControlProps) {
