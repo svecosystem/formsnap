@@ -30,9 +30,9 @@ The `useFormField` function is provided for more advanced use cases where you ma
 	});
 </script>
 
-{#if $errors.length > 0}
+{#if field.errors.length > 0}
 	<div class="error" {id} {...rest}>
-		{#each $errors as error}
+		{#each field.errors as error}
 			<p>{error}</p>
 		{/each}
 	</div>
