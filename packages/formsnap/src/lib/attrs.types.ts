@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
- * Attributes provided via the {@link ControlSlotProps attrs} slot prop of the
+ * Attributes provided via the props snippet prop of the
  * [Control](https://formsnap.dev/docs/components/control) component to
  * spread onto the form control element.
  *
