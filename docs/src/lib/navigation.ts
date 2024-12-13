@@ -3,6 +3,7 @@ import ChalkboardTeacher from "phosphor-svelte/lib/ChalkboardTeacher";
 import RocketLaunch from "phosphor-svelte/lib/RocketLaunch";
 import Tag from "phosphor-svelte/lib/Tag";
 import Palette from "phosphor-svelte/lib/Palette";
+import Bulldozer from "phosphor-svelte/lib/Bulldozer";
 import { getAllDocs } from "./utils.js";
 
 const allDocs = getAllDocs();
@@ -49,6 +50,11 @@ export const navigation = defineNavigation({
 			title: "Releases",
 			href: "https://github.com/svecosystem/svecodocs/releases",
 			icon: Tag,
+		},
+		{
+			title: "Migration Guide",
+			href: "/docs/v2-migration-guide",
+			icon: Bulldozer,
 		},
 	],
 	sections: [
