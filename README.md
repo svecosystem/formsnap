@@ -61,7 +61,7 @@ export const load: PageServerLoad = async () => {
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(settingsFormSchema),
@@ -72,38 +72,46 @@ export const load: PageServerLoad = async () => {
 
 <form method="POST" use:enhance>
 	<Field {form} name="email">
-		<Control let:attrs>
-			<Label>Email</Label>
-			<input type="email" {...attrs} bind:value={$formData.email} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Email</Label>
+				<input type="email" {...props} bind:value={$formData.email} />
+			{/snippet}
 		</Control>
 		<Description>We'll provide critical updates about your account via email.</Description>
 		<FieldErrors />
 	</Field>
 
 	<Field {form} name="bio">
-		<Control let:attrs>
-			<Label>Bio</Label>
-			<textarea bind:value={$formData.bio} {...attrs} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Bio</Label>
+				<textarea bind:value={$formData.bio} {...props} />
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
 
 	<Field {form} name="language">
-		<Control let:attrs>
-			<Label>Language</Label>
-			<select {...attrs} bind:value={$formData.language}>
-				<option value="en">English</option>
-				<option value="es">Spanish</option>
-				<option value="fr">French</option>
-			</select>
+		<Control>
+			{#snippet children({ props })}
+				<Label>Language</Label>
+				<select {...props} bind:value={$formData.language}>
+					<option value="en">English</option>
+					<option value="es">Spanish</option>
+					<option value="fr">French</option>
+				</select>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
 
 	<Field {form} name="marketingEmails">
-		<Control let:attrs>
-			<Label>Receive marketing emails from us</Label>
-			<input type="checkbox" {...attrs} bind:checked={$formData.marketingEmails} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Receive marketing emails from us</Label>
+				<input type="checkbox" {...props} bind:checked={$formData.marketingEmails} />
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
@@ -111,9 +119,11 @@ export const load: PageServerLoad = async () => {
 	<Fieldset {form} name="theme">
 		<Legend>Select your theme</Legend>
 		{#each ["light", "dark"] as theme}
-			<Control let:attrs>
-				<input {...attrs} type="radio" bind:group={$formData.theme} value={theme} />
-				<Label>{theme}</Label>
+			<Control>
+				{#snippet children({ props })}
+					<input {...props} type="radio" bind:group={$formData.theme} value={theme} />
+					<Label>{theme}</Label>
+				{/snippet}
 			</Control>
 		{/each}
 		<FieldErrors />
