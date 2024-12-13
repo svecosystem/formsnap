@@ -4,7 +4,7 @@ export function getValueAtPath(path: string, obj: Record<string, unknown>) {
 	let value = obj as any;
 
 	for (const key of keys) {
-		if (typeof value !== 'object' || value === null) {
+		if (typeof value !== "object" || value === null) {
 			return undefined; // Handle cases where the path doesn't exist in the object
 		}
 		value = value[key];

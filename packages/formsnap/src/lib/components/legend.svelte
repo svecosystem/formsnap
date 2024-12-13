@@ -1,21 +1,26 @@
 <script lang="ts">
-	import { getFormField } from '$lib/context.js';
-	import { getDataFsError } from '$lib/internal/utils/attributes.js';
-	import type { LegendProps } from './types.js';
-	import type { LegendAttrs } from '$lib/attrs.types.js';
+	import { box, mergeProps } from "svelte-toolbelt";
+	import type { LegendProps } from "./types.js";
+	import { useId } from "$lib/internal/utils/id.js";
+	import { useLegend } from "$lib/formsnap.svelte.js";
 
-	type $$Props = LegendProps;
+	let {
+		id = useId(),
+		ref = $bindable(null),
+		children,
+		child,
+		...restProps
+	}: LegendProps = $props();
 
-	export let asChild = false;
-	export let el: $$Props['el'] = undefined;
+	const legendState = useLegend({
+		id: box.with(() => id),
+		ref: box.with(
+			() => ref,
+			(v) => (ref = v)
+		),
+	});
 
-	const { errors } = getFormField();
-
-	$: legendAttrs = {
-		'data-fs-legend': '',
-		'data-fs-error': getDataFsError($errors),
-		...$$restProps
-	} satisfies LegendAttrs;
+	const mergedProps = $derived(mergeProps(restProps, legendState.props));
 </script>
 
 <!--
@@ -25,16 +30,14 @@ A component that provides a title for a group of related form controls and shoul
 
 - [Legend Documentation](https://formsnap.dev/docs/components/legend)
 
-### Slot Props
-- `legendAttrs` - A spreadable object of attributes for the legend element if `asChild` is `true`.
-
-@param {boolean} [asChild=false] - Whether to opt out of rendering the legend element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
+### `child` Snippet Props
+- `props` - A spreadable object of attributes for the legend element if `child` snippet is used.
 -->
 
-{#if asChild}
-	<slot {legendAttrs} />
+{#if child}
+	{@render child({ props: mergedProps })}
 {:else}
-	<legend {...legendAttrs} bind:this={el}>
-		<slot {legendAttrs} />
+	<legend {...mergedProps}>
+		{@render children?.()}
 	</legend>
 {/if}

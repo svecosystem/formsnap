@@ -1,24 +1,26 @@
 <script lang="ts">
-	import { getFormField } from '$lib/context.js';
-	import { getDataFsError, generateId } from '$lib/internal/utils/index.js';
-	import type { DescriptionProps } from './types.js';
-	import type { DescriptionAttrs } from '$lib/attrs.types.js';
+	import { box, mergeProps } from "svelte-toolbelt";
+	import type { DescriptionProps } from "./types.js";
+	import { useId } from "$lib/internal/utils/index.js";
+	import { useDescription } from "$lib/formsnap.svelte.js";
 
-	type $$Props = DescriptionProps;
+	let {
+		id = useId(),
+		ref = $bindable(null),
+		children,
+		child,
+		...restProps
+	}: DescriptionProps = $props();
 
-	const { descriptionId, errors } = getFormField();
+	const descriptionState = useDescription({
+		id: box.with(() => id),
+		ref: box.with(
+			() => ref,
+			(v) => (ref = v)
+		),
+	});
 
-	export let id = generateId();
-	export let asChild: $$Props['asChild'] = false;
-	export let el: $$Props['el'] = undefined;
-
-	$: descriptionId.set(id);
-	$: descriptionAttrs = {
-		id: $descriptionId,
-		'data-fs-error': getDataFsError($errors),
-		'data-fs-description': '',
-		...$$restProps
-	} satisfies DescriptionAttrs;
+	const mergedProps = $derived(mergeProps(restProps, descriptionState.props));
 </script>
 
 <!--
@@ -27,19 +29,12 @@
 A component that provides additional context for a field and is associated with the control using the `aria-describedby` attribute.
 
 - [Description Documentation](https://formsnap.dev/docs/components/description)
-
-### Slot Props
-- `descriptionAttrs` - A spreadable object of attributes for the description element if `asChild` is `true`.
-
-@param {string} [id] - The id of the description element.
-@param {el} [HTMLElement] - Bind to the description element.
-@param {boolean} [asChild=false] - Whether to opt out of rendering the description element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
 
-{#if asChild}
-	<slot {descriptionAttrs} />
+{#if child}
+	{@render child({ props: mergedProps })}
 {:else}
-	<div {...descriptionAttrs} bind:this={el}>
-		<slot {descriptionAttrs} />
+	<div {...mergedProps}>
+		{@render children?.()}
 	</div>
 {/if}

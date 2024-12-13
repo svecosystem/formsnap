@@ -1,19 +1,26 @@
 <script lang="ts">
-	import { getFormControl } from '$lib/context.js';
-	import type { LabelProps } from './types.js';
-	import type { LabelAttrs } from '$lib/attrs.types.js';
+	import { box, mergeProps } from "svelte-toolbelt";
+	import type { LabelProps } from "./types.js";
+	import { useId } from "$lib/internal/utils/id.js";
+	import { useLabel } from "$lib/formsnap.svelte.js";
 
-	type $$Props = LabelProps;
+	let {
+		id = useId(),
+		ref = $bindable(null),
+		children,
+		child,
+		...restProps
+	}: LabelProps = $props();
 
-	export let asChild = false;
-	export let el: $$Props['el'] = undefined;
+	const labelState = useLabel({
+		id: box.with(() => id),
+		ref: box.with(
+			() => ref,
+			(v) => (ref = v)
+		),
+	});
 
-	const { labelAttrs: labelAttrsStore } = getFormControl();
-
-	$: localLabelAttrs = {
-		...$labelAttrsStore,
-		...$$restProps
-	} satisfies LabelAttrs;
+	const mergedProps = $derived(mergeProps(restProps, labelState.props));
 </script>
 
 <!--
@@ -25,22 +32,23 @@ A component that renders a label element associated with a form control, and mus
 
 @example
 ```svelte
-<Control let:attrs>
-	<Label>First Name</Label>
-	<input type="text" name="first_name" {...attrs} bind:value={$formData.first_name} />
+<Control>
+	{#snippet children({ props })}
+		<Label>First Name</Label>
+		<input type="text" name="first_name" {...props} bind:value={$formData.first_name} />
+	{/snippet}
 </Control>
 ```
 
-### Slot Props
-- `labelAttrs` - A spreadable object of attributes for the label element if `asChild` is `true`.
+### `child` Snippet Props
+- `props` - A spreadable object of attributes for the label element
 
 @param {boolean} [asChild=false] - Whether to opt out of rendering the label element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
-
-{#if asChild}
-	<slot labelAttrs={localLabelAttrs} />
+{#if child}
+	{@render child({ props: mergedProps })}
 {:else}
-	<label {...localLabelAttrs} bind:this={el}>
-		<slot labelAttrs={localLabelAttrs} />
+	<label {...mergedProps}>
+		{@render children?.()}
 	</label>
 {/if}

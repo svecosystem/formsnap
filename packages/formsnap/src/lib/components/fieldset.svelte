@@ -1,28 +1,40 @@
-<script lang="ts" context="module">
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	import type { FormPath } from 'sveltekit-superforms';
-	type T = Record<string, unknown>;
+<script lang="ts" module>
+	import type { FormPath as _FormPath } from "sveltekit-superforms";
+	type T = unknown;
 	type U = unknown;
 </script>
 
-<script lang="ts" generics="T extends Record<string, unknown>, U extends FormPath<T>">
-	import { getDataFsError } from '$lib/internal/utils/attributes.js';
-	import type { FieldsetProps } from './types.js';
-	import type { SuperForm } from 'sveltekit-superforms';
-	import Field from './field.svelte';
+<script lang="ts" generics="T extends Record<string, unknown>, U extends _FormPath<T>">
+	import { box, mergeProps, useRefById } from "svelte-toolbelt";
+	import type { FieldsetProps } from "./types.js";
+	import Field from "./field.svelte";
+	import { getDataFsError } from "$lib/internal/utils/attributes.js";
+	import { useId } from "$lib/internal/utils/id.js";
 
-	type $$Props = FieldsetProps<T, U>;
+	let {
+		id = useId(),
+		ref = $bindable(null),
+		form,
+		name,
+		child: childProp,
+		children: childrenProp,
+		...restProps
+	}: FieldsetProps<T, U> = $props();
 
-	export let form: SuperForm<T>;
-	export let name: U;
+	useRefById({
+		id: box.with(() => id),
+		ref: box.with(
+			() => ref,
+			(v) => (ref = v)
+		),
+	});
 
-	export let asChild: $$Props['asChild'] = false;
-	export let el: $$Props['el'] = undefined;
-
-	$: fieldsetAttrs = {
-		'data-fs-fieldset': '',
-		...$$restProps
-	};
+	const mergedProps = $derived(
+		mergeProps(restProps, {
+			id,
+			"data-fs-fieldset": "",
+		})
+	);
 </script>
 
 <!--
@@ -33,24 +45,35 @@ A component that groups related form controls or fields and extends the [Field](
 - [Fieldset Documentation](https://formsnap.dev/docs/components/fieldset)
 - [Field Documentation](https://formsnap.dev/docs/components/field)
 
-### Slot Props
+### Snippet Props
 - `value` - The value of the field.
 - `errors` - The errors of the field.
 - `tainted` - The tainted state of the field.
 - `constraints` - The constraints of the field.
-- `fieldsetAttrs` - A spreadable object of attributes for the fieldset element if `asChild` is `true`.
+- `props` - A spreadable object of attributes for the fieldset element if using the `child` snippet.
 
 @param {SuperForm} form - The form object.
 @param {FormPath<T>} name - The name of the field.
-@param {boolean} [asChild=false] - Whether to opt out of rendering the fieldset element. [[asChild Docs](https://formsnap.dev/docs/composition/aschild)]
 -->
-
-<Field {form} {name} let:value let:errors let:tainted let:constraints>
-	{#if asChild}
-		<slot {fieldsetAttrs} {value} {errors} {tainted} {constraints} />
-	{:else}
-		<fieldset {...fieldsetAttrs} data-fs-error={getDataFsError(errors)} bind:this={el}>
-			<slot {fieldsetAttrs} {value} {errors} {tainted} {constraints} />
-		</fieldset>
-	{/if}
+<Field {form} {name}>
+	{#snippet children({ value, errors, tainted, constraints })}
+		{#if childProp}
+			{@render childProp({
+				props: mergedProps,
+				value: value as T[U],
+				errors,
+				tainted,
+				constraints,
+			})}
+		{:else}
+			<fieldset {...mergedProps} data-fs-error={getDataFsError(errors)}>
+				{@render childrenProp?.({
+					value: value as T[U],
+					errors,
+					tainted,
+					constraints,
+				})}
+			</fieldset>
+		{/if}
+	{/snippet}
 </Field>
