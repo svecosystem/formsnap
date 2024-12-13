@@ -51,16 +51,16 @@ Let's initialize our SuperForm with the form returned from the `load` function a
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { schema, flavors, toppings } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<!-- ... -->
 	<button type="submit">Submit</button>
 </form>
@@ -77,16 +77,16 @@ At a minimum we need to import the [Field](/docs/components/field), [Control](/d
 	import { Field, Control, Label, FieldErrors } from "formsnap";
 	import { schema } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<!-- ... -->
 	<button type="submit">Submit</button>
 </form>
@@ -96,21 +96,23 @@ At a minimum we need to import the [Field](/docs/components/field), [Control](/d
 
 The first field we'll create is the `scoops` field, which will be a regular select input with a range of 1 to 5 scoops.
 
-```svelte title="+page.svelte"  {3-17}
+```svelte title="+page.svelte" {3-19}
 <!-- script tag -->
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<Field {form} name="scoops">
-		<Control let:attrs>
-			<div class="flex flex-col items-start gap-1">
-				<Label>Number of scoops</Label>
-				<select {...attrs} bind:value={$formData.scoops}>
-					{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-						<option value={num}>
-							{num === 1 ? `${num} Scoop` : `${num} Scoops`}
-						</option>
-					{/each}
-				</select>
-			</div>
+		<Control>
+			{#snippet children({ props })}
+				<div class="flex flex-col items-start gap-1">
+					<Label>Number of scoops</Label>
+					<select {...props} bind:value={$formData.scoops}>
+						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+							<option value={num}>
+								{num === 1 ? `${num} Scoop` : `${num} Scoops`}
+							</option>
+						{/each}
+					</select>
+				</div>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
@@ -122,36 +124,40 @@ The first field we'll create is the `scoops` field, which will be a regular sele
 
 Next, let's create the `flavors` field. This field will be a multiple select input with the available flavors as options.
 
-```svelte title="+page.svelte"  {18-32}
+```svelte title="+page.svelte"  {20-36}
 <!-- script tag -->
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<Field {form} name="scoops">
-		<Control let:attrs>
-			<div class="flex flex-col items-start gap-1">
-				<Label>Number of scoops</Label>
-				<select {...attrs} bind:value={$formData.scoops}>
-					{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-						<option value={num}>
-							{num === 1 ? `${num} Scoop` : `${num} Scoops`}
-						</option>
-					{/each}
-				</select>
-			</div>
+		<Control>
+			{#snippet children({ props })}
+				<div class="flex flex-col items-start gap-1">
+					<Label>Number of scoops</Label>
+					<select {...props} bind:value={$formData.scoops}>
+						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+							<option value={num}>
+								{num === 1 ? `${num} Scoop` : `${num} Scoops`}
+							</option>
+						{/each}
+					</select>
+				</div>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="flavors">
-		<Control let:attrs>
-			<div class="flex flex-col items-start gap-1">
-				<Label>What flavors do you fancy?</Label>
-				<select multiple bind:value={$formData.flavors} {...attrs}>
-					{#each flavors as flavor}
-						<option value={flavor} selected={$formData.flavors.includes(flavor)}>
-							{flavor}
-						</option>
-					{/each}
-				</select>
-			</div>
+		<Control>
+			{#snippet children({ props })}
+				<div class="flex flex-col items-start gap-1">
+					<Label>What flavors do you fancy?</Label>
+					<select multiple bind:value={$formData.flavors} {...props}>
+						{#each flavors as flavor}
+							<option value={flavor} selected={$formData.flavors.includes(flavor)}>
+								{flavor}
+							</option>
+						{/each}
+					</select>
+				</div>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
@@ -165,51 +171,57 @@ Notice that we're using the `multiple` attribute on the `select` element to allo
 
 Finally, let's create the `toppings` field. This field will also be a multiple select input with the available toppings as options.
 
-```svelte title="+page.svelte"  {33-47}
+```svelte title="+page.svelte"  {37-53}
 <!-- script tag -->
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<Field {form} name="scoops">
-		<Control let:attrs>
-			<div class="flex flex-col items-start gap-1">
-				<Label>Number of scoops</Label>
-				<select {...attrs} bind:value={$formData.scoops}>
-					{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-						<option value={num}>
-							{num === 1 ? `${num} Scoop` : `${num} Scoops`}
-						</option>
-					{/each}
-				</select>
-			</div>
+		<Control>
+			{#snippet children({ props })}
+				<div class="flex flex-col items-start gap-1">
+					<Label>Number of scoops</Label>
+					<select {...props} bind:value={$formData.scoops}>
+						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+							<option value={num}>
+								{num === 1 ? `${num} Scoop` : `${num} Scoops`}
+							</option>
+						{/each}
+					</select>
+				</div>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="flavors">
-		<Control let:attrs>
-			<div class="flex flex-col items-start gap-1">
-				<Label>What flavors do you fancy?</Label>
-				<select multiple bind:value={$formData.flavors} {...attrs}>
-					{#each flavors as flavor}
-						<option value={flavor} selected={$formData.flavors.includes(flavor)}>
-							{flavor}
-						</option>
-					{/each}
-				</select>
-			</div>
+		<Control>
+			{#snippet children({ props })}
+				<div class="flex flex-col items-start gap-1">
+					<Label>What flavors do you fancy?</Label>
+					<select multiple bind:value={$formData.flavors} {...props}>
+						{#each flavors as flavor}
+							<option value={flavor} selected={$formData.flavors.includes(flavor)}>
+								{flavor}
+							</option>
+						{/each}
+					</select>
+				</div>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="toppings">
-		<Control let:attrs>
-			<div class="flex flex-col items-start gap-1">
-				<Label>Select your toppings</Label>
-				<select multiple bind:value={$formData.toppings} {...attrs}>
-					{#each toppings as topping}
-						<option value={topping} selected={$formData.toppings.includes(topping)}>
-							{topping}
-						</option>
-					{/each}
-				</select>
-			</div>
+		<Control>
+			{#snippet children({ props })}
+				<div class="flex flex-col items-start gap-1">
+					<Label>Select your toppings</Label>
+					<select multiple bind:value={$formData.toppings} {...props}>
+						{#each toppings as topping}
+							<option value={topping} selected={$formData.toppings.includes(topping)}>
+								{topping}
+							</option>
+						{/each}
+					</select>
+				</div>
+			{/snippet}
 		</Control>
 		<FieldErrors />
 	</Field>

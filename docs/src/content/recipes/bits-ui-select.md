@@ -70,41 +70,34 @@ export const schema = z.object({
 </script>
 
 <form method="POST" use:enhance>
-	<Field {form} name="languages">
-		<Control let:attrs>
-			<Label>Language</Label>
-			<Select.Root
-				selected={selectedLanguage}
-				onSelectedChange={(s) => {
-					s && ($formData.language = s.value);
-				}}
-			>
-				<Select.Input name={attrs.name} />
-				<Select.Trigger {...attrs}>
-					<Select.Value placeholder="Select a language" />
-				</Select.Trigger>
-				<Select.Content>
-					{#each Object.entries(languages) as [value, label]}
-						<Select.Item {value} {label} />
-					{/each}
-				</Select.Content>
-			</Select.Root>
+	<Field {form} name="language">
+		<Control>
+			{#snippet children({ props })}
+				<Label>Language</Label>
+				<Select.Root type="single" bind:value={$formData.language} name={props.name}>
+					<Select.Trigger {...props}>
+						{selectedLabel}
+					</Select.Trigger>
+					<Select.Content>
+						{#each Object.entries(languages) as [value, label]}
+							<Select.Item {value}>
+								{label}
+							</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+			{/snippet}
 		</Control>
+		<Description>The docs will be translated to your preferred language.</Description>
 		<FieldErrors />
 	</Field>
 	<button type="submit">Submit</button>
 </form>
 ```
 
-We apply the `attrs` to the `Select.Trigger` component so that the label and other accessibility attributes are associated with it instead of the hidden `Select.Input`.
+We apply the control `props` to the `Select.Trigger` component so that the label and other accessibility attributes are associated with it.
 
-This enables the user to click the label to open the select menu, and also allows validation errors to automatically associate with the trigger element, which is the _control_ in this case.
-
-<Callout type="warning">
-
-Only apply the `name` attribute to the `Select.Input`. **_Do not_** spread the entire `attrs` object onto it or you will have duplicate `id` attributes which creates invalid HTML and a mess of accessibility issues.
-
-</Callout>
+We apply the `props.name` to the `Select.Root` component so a hidden input is rendered for the select.
 
 <Step>Finished Product</Step>
 
@@ -154,61 +147,48 @@ export const schema = z.object({
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Select } from "bits-ui";
 	import { Field, Control, Label, FieldErrors } from "formsnap";
-
 	import { schema, colors } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 
-	$: selectedColors = $formData.colors.map((c) => ({ label: colors[c], value: c }));
+	const selectedColors = $derived(
+		$formData.colors.length ? $formData.colors.map((c) => colors[c]).join(",") : "Select colors"
+	);
 </script>
 
-<form method="POST" use:form.enhance class="flex flex-col gap-4">
+<form method="POST" use:form.enhance>
 	<Field {form} name="colors">
-		<Control let:attrs>
-			<Label>Favorite colors</Label>
-			<Select.Root
-				multiple
-				selected={selectedColors}
-				onSelectedChange={(s) => {
-					if (s) {
-						$formData.colors = s.map((c) => c.value);
-					} else {
-						$formData.colors = [];
-					}
-				}}
-			>
-				{#each $formData.colors as color}
-					<input name={attrs.name} hidden value={color} />
-				{/each}
-				<Select.Trigger {...attrs}>
-					<Select.Value placeholder="Select colors" />
-				</Select.Trigger>
-				<Select.Content>
-					{#each Object.entries(colors) as [value, label]}
-						<Select.Item {value} {label} />
-					{/each}
-				</Select.Content>
-			</Select.Root>
-			<FieldErrors />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Favorite colors</Label>
+				<Select.Root type="multiple" bind:value={$formData.colors} name={props.name}>
+					<Select.Trigger {...props}>
+						{selectedColors}
+					</Select.Trigger>
+					<Select.Content>
+						{#each Object.entries(colors) as [value, label]}
+							<Select.Item {value} {label} />
+						{/each}
+					</Select.Content>
+				</Select.Root>
+			{/snippet}
 		</Control>
+		<Description>We'll use these colors to customize your experience.</Description>
+		<FieldErrors />
 	</Field>
 	<button type="submit">Submit</button>
 </form>
 ```
 
-Notice that we need to use a hidden input for _each_ selected value in the multiple select. This enables SuperForms to properly track the values and validate them on the server.
+We apply the control `props` to the `Select.Trigger` component so that the label and other accessibility attributes are associated with it.
 
-<Callout type="warning">
-
-Only apply the `name` attribute to the `Select.Input`. **_Do not_** spread the entire `attrs` object onto it or you will have duplicate `id` attributes which creates invalid HTML and a mess of accessibility issues.
-
-</Callout>
+We apply the `props.name` to the `Select.Root` component so a hidden input is rendered for the select.
 
 <Step>Finished Product</Step>
 

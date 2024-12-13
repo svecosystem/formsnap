@@ -78,18 +78,17 @@ Now that we have our schema defined and our `load` function and `actions` set up
 
 ```svelte title="+page.svelte"
 <!-- script context="module" tag -->
-
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import SuperDebug from "sveltekit-superforms";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 ```
 
@@ -101,24 +100,22 @@ Now that our SuperForm is initialized, we can use it to construct our checkbox g
 
 We'll first import the components we'll need from Formsnap, and then setup a `form` element with the `enhance` action to progressively enhance the form with client-side validation.
 
-```svelte title="+page.svelte" {7-14,24-27}
+```svelte title="+page.svelte" {5,15-18}
 <!-- script context="module" tag  -->
-
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import SuperDebug from "sveltekit-superforms";
 	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
-<form method="POST" use:enhance>
+<form method="POST" use:form.enhance>
 	<!-- ... -->
 	<button type="submit">Submit</button>
 </form>
@@ -128,14 +125,13 @@ We'll first import the components we'll need from Formsnap, and then setup a `fo
 
 Since each checkbox in the group is related to a single field, we'll use a `Fieldset` component with a `Legend` to group them together. We'll use the `Description` component to provide more context about the fieldset and the `FieldErrors` component to display validation errors.
 
-```svelte {4-5,7-11}
+```svelte {3-8}
 <!-- script tags -->
-
-<form method="POST" use:enhance>
+<form method="POST" use:form.enhance>
 	<Fieldset {form} name="allergies">
 		<Legend>Select your allergies</Legend>
 		<!-- ... -->
-		<Description>We'll use this information to ensure your meals are safe.</Description>
+		<Description>We'll accommodate your dietary restrictions.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>
@@ -144,24 +140,25 @@ Since each checkbox in the group is related to a single field, we'll use a `Fiel
 
 Next, we'll iterate over the `allergies` array and create a [Control](/docs/components/control) that includes a [Label](/docs/components/label) and a checkbox input for each option.
 
-```svelte {6-16}
+```svelte {5-17}
 <!-- script tags -->
-
-<form method="POST" use:enhance>
+<form method="POST" use:form.enhance>
 	<Fieldset {form} name="allergies">
 		<Legend>Select your allergies</Legend>
 		{#each allergies as allergy}
-			<Control let:attrs>
-				<input
-					type="checkbox"
-					{...attrs}
-					bind:group={$formData.allergies}
-					value={allergy}
-				/>
-				<Label>{value}</Label>
+			<Control>
+				{#snippet children({ props })}
+					<input
+						type="checkbox"
+						{...props}
+						bind:group={$formData.allergies}
+						value={allergy}
+					/>
+					<Label>{value}</Label>
+				{/snippet}
 			</Control>
 		{/each}
-		<Description>We'll use this information to ensure your meals are safe.</Description>
+		<Description>We'll accommodate your dietary restrictions.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>
@@ -252,32 +249,33 @@ export const actions: Actions = {
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-
 	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data, {
 		validators: zodClient(schema),
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
-<form method="POST" action="?/checkboxGroup" use:enhance>
+<form method="POST" use:form.enhance>
 	<Fieldset {form} name="allergies">
 		<Legend>Select any allergies you may have</Legend>
 		{#each allergies as allergy}
-			<Control let:attrs>
-				<input
-					type="checkbox"
-					{...attrs}
-					bind:group={$formData.allergies}
-					value={allergy}
-				/>
-				<Label>{allergy}</Label>
+			<Control>
+				{#snippet children({ props })}
+					<input
+						type="checkbox"
+						{...props}
+						bind:group={$formData.allergies}
+						value={allergy}
+					/>
+					<Label>{allergy}</Label>
+				{/snippet}
 			</Control>
 		{/each}
-		<Description>We'll ensure to accommodate your dietary restrictions.</Description>
+		<Description>We'll accommodate your dietary restrictions.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<button type="submit">Submit</button>

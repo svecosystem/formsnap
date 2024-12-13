@@ -80,11 +80,10 @@ Now that we have our form in the `PageData` object, we can use it, along with th
 	import { superForm } from "sveltekit-superforms";
 	import { Field } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
 	import SuperDebug from "sveltekit-superforms";
 
-	export let data: PageData;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
@@ -110,11 +109,10 @@ We'll start with the `email` field and work our way down.
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
 	import SuperDebug from "sveltekit-superforms";
 
-	export let data: PageData;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
@@ -139,11 +137,10 @@ Now let's add the remaining parts of the field:
 	import { superForm } from "sveltekit-superforms";
 	import { Field, Control, Label, Description, FieldErrors } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
 	import SuperDebug from "sveltekit-superforms";
 
-	export let data: PageData;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
@@ -153,9 +150,11 @@ Now let's add the remaining parts of the field:
 
 <form method="POST" use:enhance>
 	<Field {form} name="email">
-		<Control let:attrs>
-			<Label>Email</Label>
-			<input {...attrs} type="email" bind:value={$formData.email} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Email</Label>
+				<input {...props} type="email" bind:value={$formData.email} />
+			{/snippet}
 		</Control>
 		<Description>Use your company email if you have one.</Description>
 		<FieldErrors />
@@ -164,7 +163,7 @@ Now let's add the remaining parts of the field:
 <SuperDebug data={$formData} />
 ```
 
-We've first added the [Control](/docs/components/control) component. `Control`s are used to represent a form control and its label. They keep the control and label in sync via the `attrs` slot prop, which is spread onto the control. Inside the `Control`, we've added the [Label](/docs/components/label) component, which will automatically associate itself with the control the `attrs` are spread onto. We've also added the control itself, which is an `input` that we're binding to the `email` property of the form data.
+We've first added the [Control](/docs/components/control) component. `Control`s are used to represent a form control and its label. They keep the control and label in sync via the `props` snippet prop, which is spread onto the control. Inside the `Control`, we've added the [Label](/docs/components/label) component, which will automatically associate itself with the control the `props` are spread onto. We've also added the control itself, which is an `input` that we're binding to the `email` property of the form data.
 
 The [Description](/docs/components/description) component is optional, but it's useful for providing additional context to the user about the field. It'll be synced with the `aria-describedby` attribute on the input, so it's accessible to screen readers.
 
@@ -179,11 +178,10 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	import { superForm } from "sveltekit-superforms";
 	import { Field, Control, Label, Description, FieldErrors, Fieldset, Legend } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import type { PageData } from "./$types.js";
 	import { allergies, schema, themes } from "./schema.js";
 	import SuperDebug from "sveltekit-superforms";
 
-	export let data: PageData;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
@@ -193,29 +191,35 @@ And that's really all it takes to setup a form field. Let's continue on with the
 
 <form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
 	<Field {form} name="email">
-		<Control let:attrs>
-			<Label>Email</Label>
-			<input {...attrs} type="email" bind:value={$formData.email} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Email</Label>
+				<input {...props} type="email" bind:value={$formData.email} />
+			{/snippet}
 		</Control>
 		<Description>Company email is preferred</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="bio">
-		<Control let:attrs>
-			<Label>Bio</Label>
-			<textarea {...attrs} bind:value={$formData.bio} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Bio</Label>
+				<textarea {...props} bind:value={$formData.bio} />
+			{/snippet}
 		</Control>
 		<Description>Tell us a bit about yourself.</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="language">
-		<Control let:attrs>
-			<Label>Language</Label>
-			<select {...attrs} bind:value={$formData.language}>
-				<option value="fr">French</option>
-				<option value="es">Spanish</option>
-				<option value="en">English</option>
-			</select>
+		<Control>
+			{#snippet children({ props })}
+				<Label>Language</Label>
+				<select {...props} bind:value={$formData.language}>
+					<option value="fr">French</option>
+					<option value="es">Spanish</option>
+					<option value="en">English</option>
+				</select>
+			{/snippet}
 		</Control>
 		<Description>Help us address you properly.</Description>
 		<FieldErrors />
@@ -223,18 +227,22 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	<Fieldset {form} name="theme">
 		<Legend>Select your theme</Legend>
 		{#each themes as theme}
-			<Control let:attrs>
-				<Label>{theme}</Label>
-				<input {...attrs} type="radio" value={theme} bind:group={$formData.theme} />
+			<Control>
+				{#snippet children({ props })}
+					<Label>{theme}</Label>
+					<input {...props} type="radio" value={theme} bind:group={$formData.theme} />
+				{/snippet}
 			</Control>
 		{/each}
 		<Description>We prefer dark mode, but the choice is yours.</Description>
 		<FieldErrors />
 	</Fieldset>
 	<Field {form} name="marketingEmails">
-		<Control let:attrs>
-			<input {...attrs} type="checkbox" bind:checked={$formData.marketingEmails} />
-			<Label>I want to receive marketing emails</Label>
+		<Control>
+			{#snippet children({ props })}
+				<input {...props} type="checkbox" bind:checked={$formData.marketingEmails} />
+				<Label>I want to receive marketing emails</Label>
+			{/snippet}
 		</Control>
 		<Description>Stay up to date with our latest news and offers.</Description>
 		<FieldErrors />
@@ -242,14 +250,16 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	<Fieldset {form} name="allergies">
 		<Legend>Food allergies</Legend>
 		{#each allergies as allergy}
-			<Control let:attrs>
-				<input
-					{...attrs}
-					type="checkbox"
-					bind:group={$formData.allergies}
-					value={allergy}
-				/>
-				<Label>{allergy}</Label>
+			<Control>
+				{#snippet children({ props })}
+					<input
+						{...props}
+						type="checkbox"
+						bind:group={$formData.allergies}
+						value={allergy}
+					/>
+					<Label>{allergy}</Label>
+				{/snippet}
 			</Control>
 		{/each}
 		<Description>When we provide lunch, we'll accommodate your needs.</Description>

@@ -45,16 +45,16 @@ We'll need to initialize our SuperForm with the form returned from the `load` fu
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { schema } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<!-- ... -->
 	<button type="submit">Submit</button>
 </form>
@@ -79,16 +79,16 @@ We have a few components we need to import to build the form.
 	} from "formsnap";
 	import { schema } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 </script>
 
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<!-- ... -->
 	<button type="submit">Submit</button>
 </form>
@@ -98,9 +98,9 @@ We have a few components we need to import to build the form.
 
 Since our individual URL inputs will be part of the same field, we'll use a [Fieldset](/docs/components/fieldset) component to group them together and a [Legend](/docs/components/legend) to provide a title.
 
-```svelte title="+page.svelte"  {3-10}
+```svelte title="+page.svelte" {3-8}
 <!-- script tag -->
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<Fieldset {form} name="urls">
 		<Legend>Public URLs</Legend>
 		<!-- ... -->
@@ -111,7 +111,7 @@ Since our individual URL inputs will be part of the same field, we'll use a [Fie
 </form>
 ```
 
-The [FieldErrors](/docs/components/field-errors) component will display any validation errors for the array itself. In our case, it will display an error if the array doesn't contain at least two URLs (we'll add the erros for the individual URLs in the next step).
+The [FieldErrors](/docs/components/field-errors) component will display any validation errors for the array itself. In our case, it will display an error if the array doesn't contain at least two URLs (we'll add the errors for the individual URLs in the next step).
 
 The [Description](/docs/components/description) component will provide additional context about the fields once we've created them, but each field will share the same description from the [Fieldset](/docs/components/fieldset) scope.
 
@@ -119,16 +119,18 @@ The [Description](/docs/components/description) component will provide additiona
 
 Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.urls` array to render the individual URL fields, which are represented by the [ElementField](/docs/components/element-field) component.
 
-```svelte title="+page.svelte"  {5-12}
+```svelte title="+page.svelte" {5-18}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Fieldset {form} name="urls">
 		<Legend>Public URLs</Legend>
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
-				<Control let:attrs>
-					<Label class="sr-only">URL {i + 1}</Label>
-					<input type="url" {...attrs} bind:value={$formData.urls[i]} />
+				<Control>
+					{#snippet children({ props })}
+						<Label class="sr-only">URL {i + 1}</Label>
+						<input type="url" {...props} bind:value={$formData.urls[i]} />
+					{/snippet}
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.
@@ -154,7 +156,7 @@ You should always include a label for each input for accessibility purposes. In 
 
 At the moment, the user can only have two URLs in their profile. We want to allow them to add and remove URLs as needed. We can achieve this by adding buttons to add and remove URLs.
 
-```svelte title="+page.svelte"  {23-29,40-42,50}
+```svelte showLineNumbers title="+page.svelte" {23-29,41-43,53}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -169,13 +171,13 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 	} from "formsnap";
 	import { schema } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 
 	function removeUrlByIndex(index: number) {
 		$formData.urls = $formData.urls.filter((_, i) => i !== index);
@@ -186,15 +188,19 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 	}
 </script>
 
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<Fieldset {form} name="urls">
 		<Legend>Public URLs</Legend>
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
-				<Control let:attrs>
-					<Label class="sr-only">URL {i + 1}</Label>
-					<input type="url" {...attrs} bind:value={$formData.urls[i]} />
-					<button type="button" on:click={() => removeUrlByIndex(i)}> Remove URL </button>
+				<Control>
+					{#snippet children({ props })}
+						<Label class="sr-only">URL {i + 1}</Label>
+						<input type="url" {...props} bind:value={$formData.urls[i]} />
+						<button type="button" onclick={() => removeUrlByIndex(i)}>
+							Remove URL
+						</button>
+					{/snippet}
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.
@@ -203,7 +209,7 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 			</ElementField>
 		{/each}
 		<FieldErrors />
-		<button type="button" on:click={addUrl}>Add URL</button>
+		<button type="button" onclick={addUrl}>Add URL</button>
 	</Fieldset>
 
 	<button type="submit">Submit</button>
@@ -254,13 +260,13 @@ export const schema = z.object({
 	} from "formsnap";
 	import { schema } from "./schema.js";
 
-	export let data;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData } = form;
 
 	function removeUrlByIndex(index: number) {
 		$formData.urls = $formData.urls.filter((_, i) => i !== index);
@@ -271,15 +277,19 @@ export const schema = z.object({
 	}
 </script>
 
-<form use:enhance method="POST">
+<form use:form.enhance method="POST">
 	<Fieldset {form} name="urls">
 		<Legend>Public URLs</Legend>
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
-				<Control let:attrs>
-					<Label class="sr-only">URL {i + 1}</Label>
-					<input type="url" {...attrs} bind:value={$formData.urls[i]} />
-					<button type="button" on:click={() => removeUrlByIndex(i)}> Remove URL </button>
+				<Control>
+					{#snippet children({ props })}
+						<Label class="sr-only">URL {i + 1}</Label>
+						<input type="url" {...props} bind:value={$formData.urls[i]} />
+						<button type="button" onclick={() => removeUrlByIndex(i)}>
+							Remove URL
+						</button>
+					{/snippet}
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.
@@ -287,7 +297,7 @@ export const schema = z.object({
 			</ElementField>
 		{/each}
 		<FieldErrors />
-		<button type="button" on:click={addUrl}>Add URL</button>
+		<button type="button" onclick={addUrl}>Add URL</button>
 	</Fieldset>
 
 	<button type="submit">Submit</button>

@@ -18,7 +18,7 @@ To showcase the value provided by Formsnap, let's take a look at a simple sign u
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { signupFormSchema } from "./schema";
-	export let data: PageData;
+	let { data } = $props();
 
 	const { form, errors, enhance, constraints } = superForm(data.form, {
 		validators: zodClient(signupFormSchema),
@@ -92,11 +92,10 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 ```svelte title="+page.svelte"
 <script lang="ts">
 	import { Field, Control, Label, FieldErrors, Description } from "formsnap";
-	import type { PageData } from "./$types";
 	import { signupFormSchema } from "./schema.ts";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { superForm } from "sveltekit-superforms";
-	export let data: PageData;
+	let { data } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(signupFormSchema),
@@ -106,25 +105,31 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 
 <form method="POST" use:enhance>
 	<Field {form} name="name">
-		<Control let:attrs>
-			<Label>Name</Label>
-			<input {...attrs} bind:value={$formData.name} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Name</Label>
+				<input {...props} bind:value={$formData.name} />
+			{/snippet}
 		</Control>
 		<Description>Be sure to use your real name.</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="email">
-		<Control let:attrs>
-			<Label>Email</Label>
-			<input {...attrs} type="email" bind:value={$formData.email} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Email</Label>
+				<input {...props} type="email" bind:value={$formData.email} />
+			{/snippet}
 		</Control>
 		<Description>It's preferred that you use your company email.</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="password">
-		<Control let:attrs>
-			<Label>Password</Label>
-			<input {...attrs} type="password" bind:value={$formData.password} />
+		<Control>
+			{#snippet children({ props })}
+				<Label>Password</Label>
+				<input {...props} type="password" bind:value={$formData.password} />
+			{/snippet}
 		</Control>
 		<Description>Ensure the password is at least 10 characters.</Description>
 		<FieldErrors />

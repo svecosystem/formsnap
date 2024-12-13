@@ -60,10 +60,10 @@
 							{/each}
 						</Select.Content>
 					</Select.Root>
-					<Description>We'll use these colors to customize your experience.</Description>
-					<FieldErrors />
 				{/snippet}
 			</Control>
+			<Description>We'll use these colors to customize your experience.</Description>
+			<FieldErrors />
 		</Field>
 		<Button class="self-start" type="submit">Submit</Button>
 	</form>
