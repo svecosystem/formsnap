@@ -1,22 +1,37 @@
 import { defineSiteConfig } from "@svecodocs/kit";
 
 export const siteConfig = defineSiteConfig({
-	name: "Svecodocs",
-	url: "https://docs.sveco.dev",
+	name: "Formsnap",
+	url: "https://next.formsnap.dev",
 	ogImage: {
-		url: "https://docs.sveco.dev/og.png",
+		url: "https://next.formsnap.dev/og.png",
 		height: "630",
 		width: "1200",
 	},
-	description: "Documentation toolkit for Svecosystem Projects.",
+	description: "Accessible and powerful form components for SvelteKit.",
 	author: "Huntabyte",
-	keywords: ["svecosystem", "sveltekit", "documentation", "docs"],
+	keywords: [
+		"svelte",
+		"sveltekit",
+		"forms",
+		"zod",
+		"superforms",
+		"sveltekit forms",
+		"svelte forms",
+		"svelte form components",
+		"svelte form library",
+		"formsnap",
+		"sveltekit-superforms",
+		"form components",
+		"sveltekit form actions",
+		"sveltekit SPA forms",
+	],
 	license: {
 		name: "MIT",
-		url: "https://github.com/svecosystem/svecodocs/blob/main/LICENSE",
+		url: "https://github.com/svecosystem/formsnap/blob/main/LICENSE",
 	},
 	links: {
 		x: "https://x.com/huntabyte",
-		github: "https://github.com/svecosystem/svecodocs",
+		github: "https://github.com/svecosystem/formsnap",
 	},
 });
