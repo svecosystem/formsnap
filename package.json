@@ -17,7 +17,7 @@
 		"lint": "prettier --check . && eslint .",
 		"lint:fix": "prettier --write . && eslint . --fix",
 		"format": "prettier --write .",
-		"check": "pnpm -r check",
+		"check": "pnpm build:packages && pnpm -r check",
 		"sync": "pnpm -r sync"
 	},
 	"license": "MIT",
