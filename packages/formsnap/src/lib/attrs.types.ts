@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
- * Attributes provided via the {@link ControlSlotProps attrs} slot prop of the
+ * Attributes provided via the props snippet prop of the
  * [Control](https://formsnap.dev/docs/components/control) component to
  * spread onto the form control element.
  *
@@ -34,13 +35,8 @@ export type ControlAttrs = {
 };
 
 /**
- * Attributes provided via the slot prop of the [Label](https://formsnap.dev/docs/components/label) component
- * when used with the {@link LabelProps asChild} prop to spread onto the label element.
- *
- * @category Label
- *
- * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
- * @see {@link https://formsnap.dev/docs/components/label Label Documentation}
+ * Attributes provided via the `child` snippet props of the
+ * [Label](https://formsnap.dev/docs/components/label) component to spread onto the label element.
  */
 export type LabelAttrs = {
 	/** The ID of the control, used for label association. */
@@ -56,19 +52,12 @@ export type LabelAttrs = {
 	"data-fs-label": string;
 
 	/** Any additional props provided to the `<Form.Label />` component */
-	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
 /**
- * Attributes provided via the slot prop {@link FieldErrorsSlotProps fieldErrorsAttrs}
- * when used with the {@link FieldErrorsProps asChild} prop to spread onto the
- * field error container element.
- *
- * @category FieldErrors
- *
- * @see {@link https://formsnap.dev/docs/composition/aschild asChild Documentation}
- * @see {@link https://formsnap.dev/docs/components/field-errors FieldErrors Documentation}
+ * Attributes provided via the `child` snippet props to spread onto the field error
+ * container element.
  */
 export type FieldErrorsAttrs = {
 	/** The ID of the validation element, used to describe the control. */
@@ -87,16 +76,11 @@ export type FieldErrorsAttrs = {
 	"aria-live": "assertive" | "polite";
 
 	/** Any additional props provided to `<Form.Validation />` */
-	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
 /**
- * Attributes provided via the {@link FieldErrorsSlotProps errorAttrs} slot prop
- * of the [FieldErrors](https://formsnap.dev/docs/components/field-errors) component
- * to be spread onto the individual error elements.
- *
- * @category FieldErrors
+ * Attributes provided via the snippet props to be spread onto the individual error elements.
  */
 export type ErrorAttrs = {
 	/**
@@ -130,7 +114,6 @@ export type LegendAttrs = {
 	"data-fs-error": string | undefined;
 
 	/* Any additional props provided to `<Form.Legend />` */
-	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
@@ -158,14 +141,13 @@ export type DescriptionAttrs = {
 	"data-fs-error": string | undefined;
 
 	/* Any additional props provided to `<Form.Description />` */
-	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };
 
 /**
- * Attributes provided via the {@link FieldsetSlotProps fieldsetAttrs} slot prop
+ * Attributes provided via the {@link FieldsetSlotProps props} snippet prop
  * of the [Fieldset](https://formsnap.dev/docs/components/fieldset) component to be
- * spread onto the `<fieldset>` element when used with the {@link FieldsetProps asChild} prop.
+ * spread onto the `<fieldset>` element when used with the {@link FieldsetProps child} snippet.
  *
  * @category Fieldset
  *
@@ -183,6 +165,5 @@ export type FieldsetAttrs = {
 	"data-fs-error": string | undefined;
 
 	/* Any additional props provided to `<Fieldset />` */
-	// eslint-disable-next-line ts/no-explicit-any
 	[key: string]: any;
 };

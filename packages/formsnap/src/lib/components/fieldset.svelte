@@ -1,5 +1,7 @@
 <script lang="ts" module>
 	import type { FormPath as _FormPath } from "sveltekit-superforms";
+	type T = unknown;
+	type U = unknown;
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends _FormPath<T>">
@@ -53,7 +55,6 @@ A component that groups related form controls or fields and extends the [Field](
 @param {SuperForm} form - The form object.
 @param {FormPath<T>} name - The name of the field.
 -->
-
 <Field {form} {name}>
 	{#snippet children({ value, errors, tainted, constraints })}
 		{#if childProp}

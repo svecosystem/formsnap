@@ -1,0 +1,86 @@
+[
+	{
+		"title": "Getting Started",
+		"href": "/docs/getting-started",
+		"description": "A quick guide to get started using Svecodocs",
+		"content": "  import { Callout } from \"@svecodocs/kit\";   The following guide will walk you through the process of getting a Svecodocs project up and running.  Clone the starter template  Clone the Svecodocs starter template:  pnpx degit svecosystem/svecodocs/starter  Navigation  The starter template comes with a basic navigation structure to get your started. To customize the navigation, adjust the src/lib/navigation.ts file.  import { createNavigation } from \"@svecodocs/kit\";  export const navigation = createNavigation({  // Customize the navigation here });  Site config  The site config is used to configure site-wide settings, such as the title, description, keywords, ogImage, and other metadata.  The config is located in the src/lib/site-config.ts file.  import { defineSiteConfig } from \"@svecodocs/kit\";  export const siteConfig = defineSiteConfig({  title: \"Svecodocs\",  description: \"A SvelteKit docs starter template\",  keywords: \"sveltekit, docs, starter, template\",  ogImage: {   url: \"https://docs.svecosystem.com/og.png\",   height: 630,   width: 1200,  }, });  Per-Route Site Config  You can override any part of the site config on a per-route basis using the useSiteConfig hook.   This feature is still being worked on.  Theme  The starter template comes with the default Svecodocs theme (orange). To customize the theme, adjust the import in the src/app.css file to reflect the color scheme you want to use for your project. Each theme has been designed to work well in both light and dark mode.  /* @import \"@svecodocs/kit/themes/orange.css\"; */ @import \"@svecodocs/kit/themes/emerald.css\"; @import \"@svecodocs/kit/globals.css\";  Logo  To customize the logo displayed in the sidebar header, head to the src/routes/(docs)/+layout.svelte file and adjust the contents of the logo snippet. If the logo has a light and dark version, ensure to handle those similarly to the default Svecosystem logo.  {#snippet logo()}      The project name here {/snippet} `"
+	},
+	{
+		"title": "Introduction",
+		"href": "/docs/index",
+		"description": "What exactly is Svecodocs?",
+		"content": "  import { Callout } from '@svecodocs/kit'   After spending countless hours building documentation sites for various projects, we decided to build a docs package/starter template that we can use for future projects. This project is a result of that effort.  Svecodocs is a starting point/utility library for building documentation sites under the $2 umbrella. The code is open source, but it's built and maintained for our own specific needs, so we won't be accepting any public feature requests.  You are more than welcome to fork the project and customize it to your own needs.  Features  Markdown-based docs**. Write docs using Markdown and Svelte components Light and dark mode**. Toggle between light and dark mode Syntax highlighting**. Code blocks are automatically highlighted SEO-friendly**. Meta tags and Open Graph support out of the box Pre-built components**. Tabs, callouts, and more to use within the documentation Custom unified plugins**. Custom remark and rehype plugins to give more flexibility over the rendered HTML shadcn-svelte**. Beautifully designed Svelte components Tailwind v4**. Tailwind CSS v4 is used for styling"
+	},
+	{
+		"title": "Button",
+		"href": "/docs/components/button",
+		"description": "A button component to use in examples and documentation.",
+		"content": "  import { Button, DemoContainer } from \"@svecodocs/kit\";  Usage    import { Button } from \"@svecodocs/kit\";   Default Brand Ghost Outline Subtle Link  Example  Default Size    Default  Brand  Destructive  Ghost  Outline  Subtle  Link  Small Size    Default  Brand  Destructive  Ghost  Outline  Subtle  Link "
+	},
+	{
+		"title": "Callout",
+		"href": "/docs/components/callout",
+		"description": "A callout component to highlight important information.",
+		"content": "  import { Callout } from \"@svecodocs/kit\";  import Avocado from \"phosphor-svelte/lib/Avocado\";   Callouts (also known as admonitions) are used to highlight a block of text. There are five types of callouts available: 'note', 'warning', 'danger', 'tip', and 'success'.  You can override the default icon for the callout by passing a component via the icon prop.  Usage    import { Callout } from \"$lib/components\";       This is a note, used to highlight important information or provide additional context. You can use  markdown in here as well! Just ensure you include a space between the component and the content in  your Markdown file. Examples  Warning    This is an example of a warning callout.  Note    This is an example of a note callout.  Danger    This is an example of a danger callout.  Tip    This is an example of a tip callout.  Success    This is an example of a success callout.  Custom Icon    This is an example of a note callout with a custom icon.  Custom Title    This is an example of a warning callout with a custom title.  "
+	},
+	{
+		"title": "Card Grid",
+		"href": "/docs/components/card-grid",
+		"description": "Display a grid of cards.",
+		"content": "  import { CardGrid, Card } from \"@svecodocs/kit\";  import RocketLaunch from \"phosphor-svelte/lib/RocketLaunch\";  import Blueprint from \"phosphor-svelte/lib/Blueprint\";  import Binary from \"phosphor-svelte/lib/Binary\";  import CloudCheck from \"phosphor-svelte/lib/CloudCheck\";   Use the CardGrid component to display a grid of $2 components.  Usage    import { CardGrid, Card } from \"@svecodocs/ui\";        You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file. Examples  2 Columns (default)            You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file. 3 Columns            You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.       You can use markdown in here, just ensure to include a space between the component and the   content in your Markdown file.   "
+	},
+	{
+		"title": "Card",
+		"href": "/docs/components/card",
+		"description": "Display a card with a title and optional icon.",
+		"content": "  import { Card } from \"@svecodocs/kit\";  import RocketLaunch from \"phosphor-svelte/lib/RocketLaunch\";   You can use the Card component to display a card with a title and optional icon.  Usage  With Icon  Pass an icon component to the icon prop to display an icon in the card.    import { Card } from \"@svecodocs/ui\";  import RocketLaunch from \"phosphor-svelte/lib/RocketLaunch\";     You can use markdown in here, just ensure to include a space between the component and the  content in your Markdown file.  Link Card  Pass the href prop to convert the card into a link.    import { Card } from \"@svecodocs/ui\";  import RocketLaunch from \"phosphor-svelte/lib/RocketLaunch\";     You can use markdown in here, just ensure to include a space between the component and the  content in your Markdown file.     You can use markdown in here, just ensure to include a space between the component and the content  in your Markdown file.  Without Icon  If you don't want to use an icon, just don't pass the icon prop.    import { Card } from \"@svecodocs/ui\";     You can use markdown in here, just ensure to include a space between the component and the  content in your Markdown file.    You can use markdown in here, just ensure to include a space between the component and the content in your Markdown file.  Horizontal  You can use the horizontal prop to display the card horizontally.    import { Card } from \"@svecodocs/ui\";  import RocketLaunch from \"phosphor-svelte/lib/RocketLaunch\";     You can use markdown in here, just ensure to include a space between the component and the  content in your Markdown file.    You can use markdown in here, just ensure to include a space between the component and the content in your Markdown file. "
+	},
+	{
+		"title": "Demo Container",
+		"href": "/docs/components/demo-container",
+		"description": "Display a container with a border and a background color for examples/demos.",
+		"content": "  import { DemoContainer, Button } from \"@svecodocs/kit\";   Often times you'll want to display some demo/example components in a container. The DemoContainer component is a great way to do this, as it aligns effortlessly with the rest of the docs theme.  Usage    import { DemoContainer, Button } from \"@svecodocs/ui\";     Default  Brand  Outline  Ghost  Subtle  Link  Example    Default  Brand  Outline  Ghost  Subtle  Link "
+	},
+	{
+		"title": "Input",
+		"href": "/docs/components/input",
+		"description": "A form input component to use in examples and documentation.",
+		"content": "  import { Input, Label, DemoContainer, Button } from \"@svecodocs/kit\";   When building documentation, it's often necessary to provide users with a form input to showcase a specific feature. The Input component is a great way to do this, as it aligns effortlessly with the rest of the docs theme. The Label component is also provided to help with accessibility.  Usage    import { Input, Label } from \"@svecodocs/kit\";   Your name  Example        First name          Last name          Update Profile    "
+	},
+	{
+		"title": "Native Select",
+		"href": "/docs/components/native-select",
+		"description": "A styled native select component to use in examples and documentation.",
+		"content": "  import { NativeSelect, Label, DemoContainer } from \"@svecodocs/kit\";   The NativeSelect component is a styled native select component that you can use in your examples and documentation.  Usage    import { NativeSelect } from \"@svecodocs/kit\";     Option 1  Option 2  Option 3  Example      Select an option     Option 1   Option 2   Option 3     "
+	},
+	{
+		"title": "Steps",
+		"href": "/docs/components/steps",
+		"description": "Display a series of series of steps.",
+		"content": " import { Step, Steps, Callout } from \"@svecodocs/kit\";   The Steps and Step components are used to display a series of steps, breaking down a process into more manageable chunks.  Usage    import { Steps, Step } from \"$lib/components\";     Install the package   You can install the project via npm or pnpm.      Start your engines   You can start the project by running npm run dev or pnpm run dev.  Example    Install the package  You can install the project via npm or pnpm.  npm install @svecodocs/ui  Start your engines  You can start the project by running npm run dev or pnpm dev.  npm run dev      If you plan to use markdown-specific syntax in your steps, ensure you include a space between the component and the content in your Markdown file. "
+	},
+	{
+		"title": "Tabs",
+		"href": "/docs/components/tabs",
+		"description": "Break content into multiple panes to reduce cognitive load.",
+		"content": "  import { Tabs, TabItem, Callout } from \"@svecodocs/kit\";   You can use the Tabs and TabItem components to create tabbed interfaces. A label prop must be provided to each TabItem which will be used to display the label. Whichever tab should be active by default is specified by the value prop on the Tabs component.  Usage    import { Tabs, TabItem } from \"@svecodocs/kit\";     This is the first tab's content.  This is the second tab's content.  Examples  Simple Text   This is the first tab's content. This is the second tab's content.  Markdown Syntax       import { Button } from \"@svecodocs/kit\";    alert(\"Hello!\")}>Click me      export async function load() {  return {   transactions: [],  }; }       If you plan to use markdown-specific syntax in your tabs, ensure you include a space between the component and the content in your Markdown file. "
+	},
+	{
+		"title": "Textarea",
+		"href": "/docs/components/textarea",
+		"description": "A textarea component to use in examples and documentation.",
+		"content": "  import { Textarea, Label, DemoContainer, Button } from \"@svecodocs/kit\";   When building documentation, it's often necessary to provide users with a textarea to showcase a specific feature. The Textarea component is a great way to do this, as it aligns effortlessly with the rest of the docs theme. The Label component is also provided to help with accessibility.  Usage    import { Textarea, Label } from \"@svecodocs/kit\";   Your bio  Example           Bio              Update Profile      "
+	},
+	{
+		"title": "Navigation",
+		"href": "/docs/configuration/navigation",
+		"description": "Learn how to customize the navigation in your Svecodocs project.",
+		"content": "Navigation is a key component of every site, documenting the structure of your site and providing a clear path for users to navigate through your content.  Svecodocs comes with a navigation structure that is designed to be flexible and customizable. Each page in your site should have a corresponding navigation item, and the navigation items should be nested according to their hierarchy.  Navigation Structure  Main  You can think of the main navigation as the root navigation for your site. Links in the main navigation are used to navigation to different sections of your site, such as \"Documentation\", \"API Reference\", and \"Blog\".  Anchors  Anchors are links that are displayed at the top of the sidebar and typically used to either highlight important information or provide quick access to linked content.  Sections  Sections are used to group related navigation items together. They are typically used to organize content into different categories, such as \"Components\", \"Configuration\", and \"Utilities\"."
+	},
+	{
+		"title": "Theme",
+		"href": "/docs/configuration/theme",
+		"description": "Learn how to customize the theme in your Svecodocs project.",
+		"content": "The theme determines the branded color scheme for your site. A theme for each of the TailwindCSS colors is provided by the @svecodocs/kit package. Each theme has been designed to present well in both light and dark mode.  Using a theme  To use a theme, import the theme file into your src/app.css file before importing the @svecodocs/kit/globals.css file.  /* @import \"@svecodocs/kit/theme-orange.css\"; */ @import \"@svecodocs/kit/theme-emerald.css\"; @import \"@svecodocs/kit/globals.css\";  It's not recommended to customize the theme to maintain consistency across the UI components that are provided by Svecodocs and align with the provided themes.  Available themes  | Theme name | Import path                        | | ---------- | ---------------------------------- | | orange     | @svecodocs/kit/theme-orange.css  | | green      | @svecodocs/kit/theme-green.css   | | blue       | @svecodocs/kit/theme-blue.css    | | purple     | @svecodocs/kit/theme-purple.css  | | pink       | @svecodocs/kit/theme-pink.css    | | lime       | @svecodocs/kit/theme-lime.css    | | yellow     | @svecodocs/kit/theme-yellow.css  | | cyan       | @svecodocs/kit/theme-cyan.css    | | teal       | @svecodocs/kit/theme-teal.css    | | violet     | @svecodocs/kit/theme-violet.css  | | amber      | @svecodocs/kit/theme-amber.css   | | red        | @svecodocs/kit/theme-red.css     | | sky        | @svecodocs/kit/theme-sky.css     | | emerald    | @svecodocs/kit/theme-emerald.css | | fuchsia    | @svecodocs/kit/theme-fuchsia.css | | rose       | @svecodocs/kit/theme-rose.css    |  Tailwind Variables  Svecodocs uses TailwindCSS to style the UI components and provides a set of Tailwind variables that can be used to style your examples/custom components.  Gray  We override the TailwindCSS gray color scale to provide our own grays.  Brand  You can use the brand color to use the brand color of your project."
+	}
+]

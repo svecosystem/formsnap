@@ -1,15 +1,17 @@
 <script lang="ts" module>
 	import type { FormPath as _FormPath } from "sveltekit-superforms";
+	type T = unknown;
+	type U = unknown;
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>, U extends _FormPath<T>">
 	import { box } from "svelte-toolbelt";
 	import type { FieldProps } from "./types.js";
-	import { useFormField } from "$lib/formsnap.svelte.js";
+	import { useField } from "$lib/formsnap.svelte.js";
 
 	let { form, name, children }: FieldProps<T, U> = $props();
 
-	const fieldState = useFormField({
+	const fieldState = useField({
 		form: box.with(() => form),
 		name: box.with(() => name),
 	});

@@ -14,14 +14,11 @@ jobs:
             contents: write # to create release (changesets/action)
             pull-requests: write # to create pull request (changesets/action)
         name: Release
-        runs-on: ubuntu-latest
+        runs-on: macos-latest
         steps:
-            - name: Checkout Repo
-              uses: actions/checkout@v4
+            - uses: actions/checkout@v4
               with:
-                  # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
                   fetch-depth: 0
-
             - uses: pnpm/action-setup@v4
             - uses: actions/setup-node@v4
               with:
@@ -35,8 +32,6 @@ jobs:
               id: changesets
               uses: changesets/action@v1
               with:
-                  commit: "chore(release): version package"
-                  title: "chore(release): version package"
                   publish: pnpm ci:publish
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
