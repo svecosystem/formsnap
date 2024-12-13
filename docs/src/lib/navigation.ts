@@ -48,7 +48,7 @@ export const navigation = defineNavigation({
 		},
 		{
 			title: "Releases",
-			href: "https://github.com/svecosystem/svecodocs/releases",
+			href: "https://github.com/svecosystem/formsnap/releases",
 			icon: Tag,
 		},
 		{
