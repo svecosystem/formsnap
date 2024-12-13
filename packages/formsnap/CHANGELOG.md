@@ -1,5 +1,11 @@
 # formsnap
 
+## 2.0.0
+
+### Major Changes
+
+- Formsnap v2 - See [Migration Guide](https://formsnap.dev/docs/v2-migration-guide) ([#177](https://github.com/svecosystem/formsnap/pull/177))
+
 ## 2.0.0-next.1
 
 ### Patch Changes
@@ -102,7 +108,7 @@
 
 ### Minor Changes
 
-- - Add utility function `getFormSchema()` ([#62](https://github.com/huntabyte/formsnap/pull/62))
+-   - Add utility function `getFormSchema()` ([#62](https://github.com/huntabyte/formsnap/pull/62))
 
 ## 0.1.4
 
@@ -135,7 +141,7 @@
 ### Minor Changes
 
 - 83dcbbd: - Add `getForm` helper
-  - Fix bug which was creating large `.d.ts` files and crashing editors
+    - Fix bug which was creating large `.d.ts` files and crashing editors
 
 ## 0.0.9
 
@@ -180,39 +186,39 @@
 - 0801f7d: Add the `handlers` object containing the event handler helpers as well as the `setValue` helper function to the `getFormField` return object.
 - 748f8e8: #### Add a `getFormField` helper function
 
-  The `getFormField` helper function must be called upon component initialization and provides some useful stores, actions, etc. when composing your own forms.
-  For example, if I wanted to create a reusable `Form.Label` with conditional styles applied to it depending on the error state of the field, I could do something like this:
+    The `getFormField` helper function must be called upon component initialization and provides some useful stores, actions, etc. when composing your own forms.
+    For example, if I wanted to create a reusable `Form.Label` with conditional styles applied to it depending on the error state of the field, I could do something like this:
 
-  ```svelte
-  <!-- CustomLabel.svelte -->
-  <script lang="ts">
-  	import { Form, getFormField } from 'formsnap';
-  	const { errors } = getFormField();
-  </script>
+    ```svelte
+    <!-- CustomLabel.svelte -->
+    <script lang="ts">
+    	import { Form, getFormField } from "formsnap";
+    	const { errors } = getFormField();
+    </script>
 
-  <Form.Label class={$errors ? 'text-red-500' : 'text-gray-800'}>
-  	<slot />
-  </Form.Label>
-  ```
+    <Form.Label class={$errors ? "text-red-500" : "text-gray-800"}>
+    	<slot />
+    </Form.Label>
+    ```
 
-  It returns the following type:
+    It returns the following type:
 
-  ```ts
-  export type FormFieldContext = {
-    name: string;
-    ids: {
-      input: string;
-      description: string;
-      validation: string;
+    ```ts
+    export type FormFieldContext = {
+    	name: string;
+    	ids: {
+    		input: string;
+    		description: string;
+    		validation: string;
+    	};
+    	errors: Writable<string[] | undefined>;
+    	value: Writable<unknown>;
+    	hasDescription: Writable<boolean>;
+    	hasValidation: Writable<boolean>;
+    	attrStore: AttrStore;
+    	actions: ActionsObject;
     };
-    errors: Writable<string[] | undefined>;
-    value: Writable<unknown>;
-    hasDescription: Writable<boolean>;
-    hasValidation: Writable<boolean>;
-    attrStore: AttrStore;
-    actions: ActionsObject;
-  };
-  ```
+    ```
 
 ## 0.0.2
 
@@ -220,21 +226,21 @@
 
 - 8596892: Exposes the following additional values from superforms as slot props via the `<Form.Root/>` component.
 
-  - `allErrors`
-  - `delayed`
-  - `errors`
-  - `submitting`
-  - `tainted`
-  - `timeout`
-  - `validate`
-  - `posted`
-  - `fields`
-  - `message`
-  - `options`
-  - `formId`
-  - `restore`
-  - `capture`
-  - `constraints`
+    - `allErrors`
+    - `delayed`
+    - `errors`
+    - `submitting`
+    - `tainted`
+    - `timeout`
+    - `validate`
+    - `posted`
+    - `fields`
+    - `message`
+    - `options`
+    - `formId`
+    - `restore`
+    - `capture`
+    - `constraints`
 
 ## 0.0.1
 
