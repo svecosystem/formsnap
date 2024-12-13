@@ -2,8 +2,7 @@
   "mode": "exit",
   "tag": "next",
   "initialVersions": {
-    "formsnap": "1.0.1",
-    "docs": "0.0.3"
+    "formsnap": "1.0.1"
   },
   "changesets": [
     "chatty-shrimps-press",
