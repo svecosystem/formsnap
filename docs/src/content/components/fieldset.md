@@ -4,6 +4,10 @@ description: Groups related form controls or fields and extends the Field compon
 section: Components
 ---
 
+<script>
+	import { PropField } from '@svecodocs/kit'
+</script>
+
 The `Fieldset` component is used to follow the [W3C Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/#associating-related-controls-with-fieldset) recommendation for associating related form controls. It renders a `<fieldset>` element and should always be used in conjunction with the [Legend](/docs/components/legend) component to provide a title for the group.
 
 This component automatically includes the [Field](/docs/components/field) component, so you don't need to worry about wrapping it yourself, just be sure to pass the `form` and `name` props to the `Fieldset` as you would with the `Field` component.
@@ -18,9 +22,11 @@ When you have a group of radio buttons related to a single field, you should use
 <Fieldset {form} name="theme">
 	<Legend>Select your theme</Legend>
 	{#each themes as theme}
-		<Control let:attrs>
-			<input {...attrs} type="radio" bind:group={$formData.theme} value={theme} />
-			<Label>{theme}</Label>
+		<Control>
+			{#snippet children({ props })}
+				<input {...props} type="radio" bind:group={$formData.theme} value={theme} />
+				<Label>{theme}</Label>
+			{/snippet}
 		</Control>
 	{/each}
 	<Description>Help us understand your preferences by selecting a theme.</Description>
@@ -32,13 +38,20 @@ When you have a group of radio buttons related to a single field, you should use
 
 When you have a group of checkboxes related to a single field, typically used for multiple selections, you should use a `Fieldset` to group them together.
 
-```svelte {1-2,16}
+```svelte {1-2,18}
 <Fieldset {form} name="allergies">
 	<Legend>Any food allergies?</Legend>
 	{#each allergies as allergy}
-		<Control let:attrs>
-			<input {...attrs} type="checkbox" bind:group={$formData.allergies} value={allergy} />
-			<Label>{allergy}</Label>
+		<Control>
+			{#snippet children({ props })}
+				<input
+					{...props}
+					type="checkbox"
+					bind:group={$formData.allergies}
+					value={allergy}
+				/>
+				<Label>{allergy}</Label>
+			{/snippet}
 		</Control>
 	{/each}
 	<Description>We'll make sure to accommodate your dietary needs.</Description>
@@ -63,63 +76,118 @@ When you have a large form with multiple sections containing related fields, suc
 </form>
 ```
 
-## Props
+## API Reference
+
+### Props
 
 The `Fieldset` component renders a `<fieldset>` element and accepts the following props:
 
-```ts
-export type FieldsetProps<T extends Record<string, unknown>, U extends FormPath<T>> = {
-	/**
-	 * The form object returned from calling `superForm` in your component.
-	 */
-	form: SuperForm<T>;
+<PropField type="SuperForm<T>" name="form" required>
 
-	/**
-	 * The path to the field in the form object.
-	 */
-	name: U;
+The form object returned from calling `superForm` in your component.
 
-	/**
-	 * If `true`, Formsnap won't render the default `div` element
-	 * and will expect you to spread the `groupAttrs` slot prop into
-	 * a custom label element/component of your choosing.
-	 *
-	 * @see https://formsnap.dev/docs/composition/aschild
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
+</PropField>
 
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the group.
-	 */
-	el?: HTMLFieldSetElement;
-} & Omit<HTMLFieldsetAttributes, "form">;
-```
+<PropField type="FormPath<T>" name="name" required>
 
-## Slot Props
+The path to the field in the form object.
 
-The `Fieldset` component provides a single slot prop, `fieldsetAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop.
+</PropField>
 
-```ts
-type SlotProps = {
-	fieldsetAttrs: FieldsetAttrs;
-};
-```
+<PropField type="HTMLElement | null" name="ref">
 
-## Attributes
+A `$bindable` reference to the underlying HTML element rendered by the `Fieldset` component.
 
-The following attributes are automatically applied to the `<fieldset>` element rendered by the `Fieldset` component. This is also the shape of the `fieldsetAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
+</PropField>
 
-```ts
-export type FieldsetAttrs = {
-	/** Used for selection during styling or otherwise */
-	"data-fs-fieldset": string;
+<PropField type="Snippet" name="child">
 
-	/** Present when a validation error exists on the field. */
-	"data-fs-error": string | undefined;
+If provided, the `Fieldset` component will not render an HTML element and will instead expect you to spread the snippet's `props` onto an element of your choosing.
 
-	/* Any additional props provided to `<Form.Fieldset />` */
-	[key: string]: any;
-};
-```
+See the [`child`](/docs/composition/child) snippet documentation for more information.
+
+</PropField>
+
+<PropField type="HTMLAttributes<HTMLFieldSetElement>" name="...rest">
+
+Any additional props provided to the `Fieldset` component will be spread onto the underlying HTML element.
+
+</PropField>
+
+### Snippet Props (children)
+
+The following snippet props are provided to the `children` snippet for convenience and ease of composition when using the `ElementField` component.
+
+<PropField type="T[U]" name="value">
+
+The value of the value store of the field.
+
+</PropField>
+
+<PropField type="string[] | undefined" name="errors">
+
+The value of the errors store for the field.
+
+</PropField>
+
+<PropField type="Record<string, unknown>" name="constraints">
+
+The constraints for the field.
+
+</PropField>
+
+<PropField type="boolean" name="tainted">
+
+Whether the field is tainted or not.
+
+</PropField>
+
+### Snippet Props (child)
+
+The following snippet props are provided to the `child` snippet for convenience and ease of composition when using the `ElementField` component.
+
+<PropField type="Record<string, unknown>" name="props">
+
+The props to spread onto your custom `<fieldset>` element/component.
+
+</PropField>
+
+<PropField type="T[U]" name="value">
+
+The value of the value store of the field.
+
+</PropField>
+
+<PropField type="string[] | undefined" name="errors">
+
+The value of the errors store for the field.
+
+</PropField>
+
+<PropField type="Record<string, unknown>" name="constraints">
+
+The constraints for the field.
+
+</PropField>
+
+<PropField type="boolean" name="tainted">
+
+Whether the field is tainted or not.
+
+</PropField>
+
+### Data Attributes
+
+The following data attributes are automatically applied to the `<fieldset>` element rendered by the `Fieldset` component.
+
+<PropField type="''" name="data-fs-fieldset">
+
+Applied to the element for selection during styling or otherwise.
+
+</PropField>
+
+<PropField type="'' | undefined" name="data-fs-error">
+
+Applied to the element when a validation error exists on the field.
+
+</PropField>

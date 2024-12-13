@@ -5,7 +5,7 @@ section: Components
 ---
 
 <script>
-	import { Callout } from '@svecodocs/kit'
+	import { Callout, PropField } from '@svecodocs/kit'
 </script>
 
 In the context of a form, a **_control_** refers to any interactive element such as an input field, a select dropdown, or a button. This includes custom components like select dropdowns or checkboxes that function as buttons but still serve as form inputs, typically activated by clicking on a label or pressing a key.
@@ -20,90 +20,67 @@ Doing so would limit the `Field` component to a single control, which would prev
 
 </Callout>
 
-## Props
-
 The `Control` component doesn't render an element itself, it strictly provides context and attributes for the control via a slot prop and state for the [Label](/docs/components/label).
 
-```ts
-export type ControlProps = {
-	/**
-	 * Optionally provide a unique id for the form item/control.
-	 * If not provided, a unique ID will be generated for you.
-	 *
-	 * This is useful when another library automatically generates
-	 * IDs for form items. You can pass that ID to the `id` prop and
-	 * the label will be associated with that control.
-	 */
-	id?: string;
-};
+## Usage
+
+```svelte title="+page.svelte"
+<Control>
+	{#snippet children({ props })}
+		<input type="text" {...props} bind:value={$formData.name} />
+	{/snippet}
+</Control>
 ```
 
-## Slot Props
+## API Reference
 
-The only slot prop provided by the `Control` is the `attrs` prop which should be spread onto the control element/component.
+### Props
 
-<Callout type="warning" title="Hey!">
+<PropField type="string" name="id">
 
-Don't forget to spread the `attrs` prop onto the control element/component. Forgetting to do so will result in the control not being associated with the label, which is a critical accessibility issue and will result in a poor user experience for everyone. Additionally, the control won't have the correct `name` attribute, which is necessary for form submission!
+Optionally provide a unique id for the form item/control. If not provided, a unique ID will be generated for you.
 
-</Callout>
+This is useful when another library automatically generates IDs for form items. You can pass that ID to the `id` prop and the label will be associated with that control.
 
-```ts
-type SlotProps = {
-	attrs: ControlAttrs;
-};
-```
+</PropField>
 
-## Attributes
+<PropField type="Snippet" name="children" required>
 
-```ts
-export type ControlAttrs = {
-	/** The name of the control used for form submission. */
-	name: string;
+The children snippet is used to provide attributes for the control element/component.
 
-	/** The ID of the control, used for label association. */
-	id: string;
-
-	/** Present when a validation error exists on the field. */
-	"data-fs-error": string | undefined;
-
-	/** Present when description or validation exists. */
-	"aria-describedby": string | undefined;
-
-	/** Present when a validation error exists on the field. */
-	"aria-invalid": "true" | undefined;
-
-	/** Present when the field is required. */
-	"aria-required": "true" | undefined;
-
-	/** Used for selection during styling or otherwise */
-	"data-fs-control": string;
-};
-```
+</PropField>
 
 ## Composition
 
-Since the `Control` component doesn't render any HTML elements, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
+Since the `Control` component doesn't render an HTML element, it's a common practice to create a wrapper component around it to have consistent styling and behavior across your forms.
 
-For example, you may want to automatically include the [Label](/docs/components/label) for each item, and you want the label and slot content to be wrapped in a `<div>`.
+For example, you may want to automatically include the [Label](/docs/components/label) for each item, and you want the label and children content to be wrapped in a `<div>`.
 
 Here's how you might do just that:
 
 ```svelte title="CustomControl.svelte"
 <script lang="ts">
-	import { Control, Label, type ControlProps } from "formsnap";
+	import { Control, Label } from "formsnap";
+	import type { ComponentProps } from "svelte";
 
-	type $$Props = ControlProps & {
+	let {
+		label,
+		// Rename the children prop to childrenProp to avoid
+		// conflicts with the Control component
+		children: childrenProp,
+		...restProps
+	}: ComponentProps<typeof Control> & {
 		label: string;
-	};
-
-	export let label: string;
+	} = $props();
 </script>
 
-<Control let:attrs {...$$restProps}>
-	<div class="flex flex-col gap-2">
-		<Label>{label}</Label>
-		<slot {attrs} />
-	</div>
+<Control {...restProps}>
+	{#snippet children({ props })}
+		<div class="flex flex-col gap-2">
+			<Label>{label}</Label>
+			<!-- Forward the props to the children snippet -->
+			{@render childrenProp({ props })}
+		</div>
+	{/snippet}
 </Control>
 ```

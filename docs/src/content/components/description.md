@@ -4,78 +4,72 @@ description: Provides an accessible description for a form field.
 section: Components
 ---
 
+<script>
+	import { PropField } from '@svecodocs/kit'
+</script>
+
 The `Description` component provides an accessible description for a field. It renders a `<div>` element and should be used to provide additional context or instructions for a form field.
 
 Descriptions must be used within the context of a [Field](/docs/components/field), [Fieldset](/docs/components/fieldset), or [ElementField](/docs/components/element-field) component and will automatically be linked to the [Control](/docs/components/control) of the field using the `aria-describedby` attribute.
 
 ## Usage
 
-```svelte {6-8}
-<Field name="name">
-	<Control let:attrs>
-		<Label>Name</Label>
-		<input type="text" {...attrs} />
+```svelte {8}
+<Field name="name" {form}>
+	<Control>
+		{#snippet children({ props })}
+			<Label>Name</Label>
+			<input type="text" {...attrs} />
+		{/snippet}
 	</Control>
-	<Description>Your full name, including your middle name if you have one.</Description>
+	<Description>Your full name, including your middle name.</Description>
 </Field>
 ```
 
-## Props
+## API Reference
 
-The `Description` component accepts all props that a standard HTML `<div>` element would accept along with a few additional props:
+### Props
 
-```ts
-export type DescriptionProps = {
-	/**
-	 * Optionally provide a unique id for the description.
-	 * If not provided, a unique ID will be generated for you.
-	 */
-	id?: string;
+The `Description` component accepts all props that a standard HTML `<div>` element would accept, along with a few additional props:
 
-	/**
-	 * If true, Formsnap won't render the default `div` element and will
-	 * instead expect you to spread the `descriptionAttrs` slot prop into an
-	 * element of your choosing.
-	 *
-	 * @see https://formsnap.dev/docs/composition/aschild
-	 * @defaultValue `false`
-	 */
-	asChild?: boolean;
+<PropField type="HTMLElement | null" name="ref">
 
-	/**
-	 * You can bind to this prop to receive a reference to the
-	 * underling HTML element rendered for the description.
-	 */
-	el?: HTMLDivElement;
-} & HTMLAttributes<HTMLDivElement>;
+A reference to the underlying HTML element rendered by the `Description` component.
+
+```svelte /bind:ref={descriptionRef}/
+<Description bind:ref={descriptionRef}>
+	<!-- ... -->
+</Description>
 ```
 
-## Slot Props
+</PropField>
 
-The `Description` component provides a single slot prop, `descriptionAttrs`, which is only necessary when using the [asChild](/docs/composition/aschild) prop.
+<PropField type="Snippet" name="child">
 
-```ts
-type SlotProps = {
-	descriptionAttrs: DescriptionAttrs;
-};
-```
+If provided, the `Description` component will not render an HTML element and will instead expect you to spread the snippet's `props` onto an element of your choosing.
 
-## Attributes
+See the [`child`](/docs/composition/child) snippet documentation for more information.
 
-The following attributes are automatically applied to the element rendered by the `Description` component. This is also the shape of the `descriptionAttrs` slot prop when using the [asChild](/docs/composition/aschild) prop.
+</PropField>
 
-```ts
-export type DescriptionAttrs = {
-	/** The ID of the description element, used to describe the control. */
-	id: string;
+<PropField type="HTMLAttributes<HTMLElement>" name="...rest">
 
-	/** Used for selection during styling or otherwise */
-	"data-fs-description": string;
+Any additional props provided to the `Description` component will be spread onto the underlying HTML element.
 
-	/** Present when a validation error exists on the field. */
-	"data-fs-error": string | undefined;
+</PropField>
 
-	/* Any additional props provided to `<Form.Description />` */
-	[key: string]: any;
-};
-```
+### Data Attributes
+
+The following data attributes are automatically applied to the `<div>` element rendered by the `Description` component.
+
+<PropField type="''" name="data-fs-description">
+
+Applied to the description element for selection during styling or otherwise.
+
+</PropField>
+
+<PropField type="'' | undefined" name="data-fs-error">
+
+Applied to the description element when a validation error exists on the field.
+
+</PropField>
