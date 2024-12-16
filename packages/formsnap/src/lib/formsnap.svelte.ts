@@ -9,7 +9,7 @@ import {
 import { fromStore } from "svelte/store";
 import type { FormPath, InputConstraint, InputConstraints } from "sveltekit-superforms";
 import type { FormPathArrays, TaintedFields, ValidationErrors } from "sveltekit-superforms/client";
-import { getContext, setContext } from "svelte";
+import { getContext, hasContext, setContext } from "svelte";
 import { extractErrorArray } from "./internal/utils/errors.js";
 import { getValueAtPath } from "./internal/utils/path.js";
 import {
@@ -544,6 +544,11 @@ export function useFormControl(props: UseFormControlProps = {}) {
  * @returns The props to spread onto the element acting as the form control.
  */
 export function controlProps() {
+	if (!hasContext(FORM_CONTROL_CTX)) {
+		throw new Error(
+			"No parent <Control> component found. `controlProps` must be used within a descendant of the <Control> component."
+		);
+	}
 	return useFormControl().props;
 }
 
@@ -562,6 +567,12 @@ export function controlProps() {
  * @returns The props to spread onto the element acting as the form control.
  */
 export function labelProps() {
+	if (!hasContext(FORM_CONTROL_CTX)) {
+		throw new Error(
+			"No parent <Control> component found. `labelProps` must be used within a descendant of the <Control> component."
+		);
+	}
+
 	return useFormControl().labelProps;
 }
 
