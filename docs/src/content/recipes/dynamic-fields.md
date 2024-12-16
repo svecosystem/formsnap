@@ -120,7 +120,7 @@ The [Description](/docs/components/description) component will provide additiona
 
 Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.urls` array to render the individual URL fields, which are represented by the [ElementField](/docs/components/element-field) component.
 
-```svelte title="+page.svelte" {5-18}
+```svelte title="+page.svelte" {5-16}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Fieldset {form} name="urls">
@@ -155,7 +155,7 @@ You should always include a label for each input for accessibility purposes. In 
 
 At the moment, the user can only have two URLs in their profile. We want to allow them to add and remove URLs as needed. We can achieve this by adding buttons to add and remove URLs.
 
-```svelte showLineNumbers title="+page.svelte" {23-29,41-43,53}
+```svelte showLineNumbers title="+page.svelte" {24-30,41,53}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";

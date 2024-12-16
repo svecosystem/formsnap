@@ -100,7 +100,7 @@ Now that our SuperForm is initialized, we can use it to construct our checkbox g
 
 We'll first import the components we'll need from Formsnap, and then setup a `form` element with the `enhance` action to progressively enhance the form with client-side validation.
 
-```svelte title="+page.svelte" {5,15-18}
+```svelte title="+page.svelte" {5-13,15-19}
 <!-- script context="module" tag  -->
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
@@ -148,7 +148,7 @@ Since each checkbox in the group is related to a single field, we'll use a `Fiel
 
 Next, we'll iterate over the `allergies` array and create a [Control](/docs/components/control) that includes a [Label](/docs/components/label) and a checkbox input for each option.
 
-```svelte {5-17}
+```svelte {5-15}
 <!-- script tags -->
 <form method="POST" use:form.enhance>
 	<Fieldset {form} name="allergies">
