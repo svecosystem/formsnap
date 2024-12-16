@@ -136,7 +136,7 @@ Now let's add the remaining parts of the field:
 ```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Field, Control, Label, Description, FieldErrors } from "formsnap";
+	import { Field, Control, Label, Description, FieldErrors, controlProps } from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { allergies, schema, themes } from "./schema.js";
 	import SuperDebug from "sveltekit-superforms";
@@ -152,10 +152,8 @@ Now let's add the remaining parts of the field:
 <form method="POST" use:enhance>
 	<Field {form} name="email">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Email</Label>
-				<input {...props} type="email" bind:value={$formData.email} />
-			{/snippet}
+			<Label>Email</Label>
+			<input {...controlProps()} type="email" bind:value={$formData.email} />
 		</Control>
 		<Description>Use your company email if you have one.</Description>
 		<FieldErrors />
@@ -164,7 +162,7 @@ Now let's add the remaining parts of the field:
 <SuperDebug data={$formData} />
 ```
 
-We've first added the [Control](/docs/components/control) component. `Control`s are used to represent a form control and its label. They keep the control and label in sync via the `props` snippet prop, which is spread onto the control. Inside the `Control`, we've added the [Label](/docs/components/label) component, which will automatically associate itself with the control the `props` are spread onto. We've also added the control itself, which is an `input` that we're binding to the `email` property of the form data.
+We've first added the [Control](/docs/components/control) component. `Control`s are used to represent a form control and its label. They keep the control and label in sync via the `controlProps()` function, which is provided by the `Control` component and is spread onto the control element. Inside the `Control`, we've added the [Label](/docs/components/label) component, which will automatically associate itself with the control the `props` are spread onto. We've also added the control itself, which is an `input` that we're binding to the `email` property of the form data.
 
 The [Description](/docs/components/description) component is optional, but it's useful for providing additional context to the user about the field. It'll be synced with the `aria-describedby` attribute on the input, so it's accessible to screen readers.
 
@@ -177,7 +175,16 @@ And that's really all it takes to setup a form field. Let's continue on with the
 ```svelte title="src/routes/settings/+page.svelte"
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
-	import { Field, Control, Label, Description, FieldErrors, Fieldset, Legend } from "formsnap";
+	import {
+		Field,
+		Control,
+		Label,
+		Description,
+		FieldErrors,
+		Fieldset,
+		Legend,
+		controlProps,
+	} from "formsnap";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { allergies, schema, themes } from "./schema.js";
 	import SuperDebug from "sveltekit-superforms";
@@ -193,34 +200,28 @@ And that's really all it takes to setup a form field. Let's continue on with the
 <form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
 	<Field {form} name="email">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Email</Label>
-				<input {...props} type="email" bind:value={$formData.email} />
-			{/snippet}
+			<Label>Email</Label>
+			<input {...controlProps()} type="email" bind:value={$formData.email} />
 		</Control>
 		<Description>Company email is preferred</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="bio">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Bio</Label>
-				<textarea {...props} bind:value={$formData.bio} />
-			{/snippet}
+			<Label>Bio</Label>
+			<textarea {...controlProps()} bind:value={$formData.bio} />
 		</Control>
 		<Description>Tell us a bit about yourself.</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="language">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Language</Label>
-				<select {...props} bind:value={$formData.language}>
-					<option value="fr">French</option>
-					<option value="es">Spanish</option>
-					<option value="en">English</option>
-				</select>
-			{/snippet}
+			<Label>Language</Label>
+			<select {...controlProps()} bind:value={$formData.language}>
+				<option value="fr">French</option>
+				<option value="es">Spanish</option>
+				<option value="en">English</option>
+			</select>
 		</Control>
 		<Description>Help us address you properly.</Description>
 		<FieldErrors />
@@ -229,10 +230,13 @@ And that's really all it takes to setup a form field. Let's continue on with the
 		<Legend>Select your theme</Legend>
 		{#each themes as theme}
 			<Control>
-				{#snippet children({ props })}
-					<Label>{theme}</Label>
-					<input {...props} type="radio" value={theme} bind:group={$formData.theme} />
-				{/snippet}
+				<Label>{theme}</Label>
+				<input
+					{...controlProps()}
+					type="radio"
+					value={theme}
+					bind:group={$formData.theme}
+				/>
 			</Control>
 		{/each}
 		<Description>We prefer dark mode, but the choice is yours.</Description>
@@ -240,10 +244,8 @@ And that's really all it takes to setup a form field. Let's continue on with the
 	</Fieldset>
 	<Field {form} name="marketingEmails">
 		<Control>
-			{#snippet children({ props })}
-				<input {...props} type="checkbox" bind:checked={$formData.marketingEmails} />
-				<Label>I want to receive marketing emails</Label>
-			{/snippet}
+			<input {...controlProps()} type="checkbox" bind:checked={$formData.marketingEmails} />
+			<Label>I want to receive marketing emails</Label>
 		</Control>
 		<Description>Stay up to date with our latest news and offers.</Description>
 		<FieldErrors />
@@ -252,15 +254,13 @@ And that's really all it takes to setup a form field. Let's continue on with the
 		<Legend>Food allergies</Legend>
 		{#each allergies as allergy}
 			<Control>
-				{#snippet children({ props })}
-					<input
-						{...props}
-						type="checkbox"
-						bind:group={$formData.allergies}
-						value={allergy}
-					/>
-					<Label>{allergy}</Label>
-				{/snippet}
+				<input
+					{...controlProps()}
+					type="checkbox"
+					bind:group={$formData.allergies}
+					value={allergy}
+				/>
+				<Label>{allergy}</Label>
 			</Control>
 		{/each}
 		<Description>When we provide lunch, we'll accommodate your needs.</Description>

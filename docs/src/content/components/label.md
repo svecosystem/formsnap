@@ -17,10 +17,8 @@ When using a `Label` inside a [Control](/docs/components/control), you don't nee
 ```svelte {3}
 <Field {form} name="name">
 	<Control>
-		{#snippet children({ props })}
-			<Label>Name</Label>
-			<input type="text" {...props} />
-		{/snippet}
+		<Label>Name</Label>
+		<input type="text" {...controlProps()} />
 	</Control>
 </Field>
 ```

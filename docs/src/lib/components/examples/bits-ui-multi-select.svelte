@@ -24,7 +24,7 @@
 	import { defaults, superForm } from "sveltekit-superforms";
 	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { toast } from "svelte-sonner";
-	import { Field, Control, Description, FieldErrors, Label } from "formsnap";
+	import { Field, Control, Description, FieldErrors, Label, controlProps } from "formsnap";
 	import { DemoContainer, Button, Select } from "@svecodocs/kit";
 
 	const form = superForm(defaults(zod(schema)), {
@@ -48,19 +48,21 @@
 	<form method="POST" action="?/bitsMultiSelect" use:form.enhance class="flex flex-col gap-4">
 		<Field {form} name="colors">
 			<Control>
-				{#snippet children({ props })}
-					<Label>Favorite colors</Label>
-					<Select.Root type="multiple" bind:value={$formData.colors} name={props.name}>
-						<Select.Trigger type="button" {...props} class="w-[180px]">
-							{selectedColors}
-						</Select.Trigger>
-						<Select.Content>
-							{#each Object.entries(colors) as [value, label]}
-								<Select.Item {value} {label} />
-							{/each}
-						</Select.Content>
-					</Select.Root>
-				{/snippet}
+				<Label>Favorite colors</Label>
+				<Select.Root
+					type="multiple"
+					bind:value={$formData.colors}
+					name={controlProps().name}
+				>
+					<Select.Trigger type="button" {...controlProps()} class="w-[180px]">
+						{selectedColors}
+					</Select.Trigger>
+					<Select.Content>
+						{#each Object.entries(colors) as [value, label]}
+							<Select.Item {value} {label} />
+						{/each}
+					</Select.Content>
+				</Select.Root>
 			</Control>
 			<Description>We'll use these colors to customize your experience.</Description>
 			<FieldErrors />

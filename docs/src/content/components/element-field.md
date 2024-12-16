@@ -42,9 +42,7 @@ Here's an example of how you might use the `ElementField` component to create a 
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
 				<Control>
-					{#snippet children({ props })}
-						<input type="url" bind:value={$formData.urls[i]} {...props} />
-					{/snippet}
+					<input type="url" bind:value={$formData.urls[i]} {...controlProps()} />
 				</Control>
 				<FieldErrors />
 			</ElementField>

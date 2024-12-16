@@ -25,10 +25,27 @@ The `Control` component doesn't render an element itself, it strictly provides c
 ## Usage
 
 ```svelte title="+page.svelte"
+<script lang="ts">
+	import { Control, controlProps } from "formsnap";
+</script>
+
 <Control>
-	{#snippet children({ props })}
-		<input type="text" {...props} bind:value={$formData.name} />
-	{/snippet}
+	<input type="text" {...controlProps()} bind:value={$formData.name} />
+</Control>
+```
+
+## controlProps
+
+The `controlProps` function returns the props for the closest ancestor `Control` component. Use this function to spread the props onto the control element/component.
+
+```svelte
+<script lang="ts">
+	import { Control, controlProps } from "formsnap";
+</script>
+
+<Control>
+	<!-- controlProps() gets the props from the closest <Control> -->
+	<input type="text" {...controlProps()} bind:value={$formData.name} />
 </Control>
 ```
 
@@ -60,7 +77,7 @@ Here's how you might do just that:
 
 ```svelte title="CustomControl.svelte"
 <script lang="ts">
-	import { Control, Label } from "formsnap";
+	import { Control, Label, controlProps } from "formsnap";
 	import type { ComponentProps } from "svelte";
 
 	let {
@@ -75,12 +92,10 @@ Here's how you might do just that:
 </script>
 
 <Control {...restProps}>
-	{#snippet children({ props })}
-		<div class="flex flex-col gap-2">
-			<Label>{label}</Label>
-			<!-- Forward the props to the children snippet -->
-			{@render childrenProp({ props })}
-		</div>
-	{/snippet}
+	<div class="flex flex-col gap-2">
+		<Label>{label}</Label>
+		<!-- Forward the props to the children snippet -->
+		{@render childrenProp({ props: controlProps() })}
+	</div>
 </Control>
 ```

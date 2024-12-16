@@ -22,7 +22,7 @@
 <script lang="ts">
 	import { defaults, superForm } from "sveltekit-superforms";
 	import { zod, zodClient } from "sveltekit-superforms/adapters";
-	import { Control, Field, FieldErrors, Label, Description } from "formsnap";
+	import { Control, Field, FieldErrors, Label, Description, controlProps } from "formsnap";
 	import { toast } from "svelte-sonner";
 	import { DemoContainer, Button, NativeSelect } from "@svecodocs/kit";
 
@@ -43,41 +43,35 @@
 	<form method="POST" action="?/multipleSelect" use:form.enhance class="flex flex-col gap-3">
 		<Field {form} name="scoops">
 			<Control>
-				{#snippet children({ props })}
-					<div class="flex flex-col items-start gap-1.5">
-						<Label>Number of scoops</Label>
-						<NativeSelect {...props} bind:value={$formData.scoops}>
-							{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-								<option value={num}>{num} {num === 1 ? "Scoop" : "Scoops"} </option>
-							{/each}
-						</NativeSelect>
-					</div>
-				{/snippet}
+				<div class="flex flex-col items-start gap-1.5">
+					<Label>Number of scoops</Label>
+					<NativeSelect {...controlProps()} bind:value={$formData.scoops}>
+						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+							<option value={num}>{num} {num === 1 ? "Scoop" : "Scoops"} </option>
+						{/each}
+					</NativeSelect>
+				</div>
 			</Control>
 			<FieldErrors class="text-destructive dark:text-red-400" />
 		</Field>
 		<Field {form} name="flavors">
 			<div class="flex flex-col gap-1">
 				<Control>
-					{#snippet children({ props })}
-						<div class="flex flex-col items-start gap-1.5">
-							<Label>Select your flavors</Label>
-							<select
-								multiple
-								bind:value={$formData.flavors}
-								{...props}
-								class="w-[200px]"
-							>
-								{#each flavors as flavor}
-									<option
-										value={flavor}
-										selected={$formData.flavors.includes(flavor)}
-										>{flavor}</option
-									>
-								{/each}
-							</select>
-						</div>
-					{/snippet}
+					<div class="flex flex-col items-start gap-1.5">
+						<Label>Select your flavors</Label>
+						<select
+							multiple
+							bind:value={$formData.flavors}
+							{...controlProps()}
+							class="w-[200px]"
+						>
+							{#each flavors as flavor}
+								<option value={flavor} selected={$formData.flavors.includes(flavor)}
+									>{flavor}</option
+								>
+							{/each}
+						</select>
+					</div>
 				</Control>
 				<Description>Only select one flavor per scoop.</Description>
 				<FieldErrors class="text-destructive dark:text-red-400" />
@@ -85,25 +79,21 @@
 		</Field>
 		<Field {form} name="toppings">
 			<Control>
-				{#snippet children({ props })}
-					<div class="flex flex-col items-start gap-1.5">
-						<Label>Select your toppings</Label>
-						<select
-							multiple
-							bind:value={$formData.toppings}
-							{...props}
-							class="w-[200px]"
-						>
-							{#each toppings as topping}
-								<option
-									value={topping}
-									selected={$formData.toppings.includes(topping)}
-									>{topping}</option
-								>
-							{/each}
-						</select>
-					</div>
-				{/snippet}
+				<div class="flex flex-col items-start gap-1.5">
+					<Label>Select your toppings</Label>
+					<select
+						multiple
+						bind:value={$formData.toppings}
+						{...controlProps()}
+						class="w-[200px]"
+					>
+						{#each toppings as topping}
+							<option value={topping} selected={$formData.toppings.includes(topping)}
+								>{topping}</option
+							>
+						{/each}
+					</select>
+				</div>
 			</Control>
 			<FieldErrors class="text-destructive dark:text-red-400" />
 		</Field>

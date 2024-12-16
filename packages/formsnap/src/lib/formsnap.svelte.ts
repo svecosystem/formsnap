@@ -505,7 +505,7 @@ export type UseFormControlProps = {
 	id?: Getter<string | undefined | null>;
 };
 
-export function useFormControl(props: UseFormControlProps) {
+export function useFormControl(props: UseFormControlProps = {}) {
 	const controlState = getContext<ControlState>(FORM_CONTROL_CTX);
 	const id = $derived(props.id ? props.id() : undefined);
 
@@ -529,6 +529,40 @@ export function useFormControl(props: UseFormControlProps) {
 			return controlState.props;
 		},
 	};
+}
+
+/**
+ * Convenience function to get the props from the closest `Control` component.
+ *
+ * @example
+ * ```svelte
+ * <Control>
+ * 	<!-- Receives props from this ^ Control -->
+ * 	<input {...controlProps()} />
+ * </Control>
+ *```
+ * @returns The props to spread onto the element acting as the form control.
+ */
+export function controlProps() {
+	return useFormControl().props;
+}
+
+/**
+ * Convenience function to get the label props from the closest `Control` component
+ * that will link the label to the associated form control.
+ *
+ * @example
+ * ```svelte
+ * <Control>
+ * 	<!-- Receives label props from this ^ Control -->
+ *  <label {...labelProps()} />
+ * 	<input {...controlProps()} />
+ * </Control>
+ *```
+ * @returns The props to spread onto the element acting as the form control.
+ */
+export function labelProps() {
+	return useFormControl().labelProps;
 }
 
 /**

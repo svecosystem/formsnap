@@ -18,15 +18,13 @@ This component automatically includes the [Field](/docs/components/field) compon
 
 When you have a group of radio buttons related to a single field, you should use a `Fieldset` to group them together.
 
-```svelte {1-2,13}
+```svelte {1-2,11}
 <Fieldset {form} name="theme">
 	<Legend>Select your theme</Legend>
 	{#each themes as theme}
 		<Control>
-			{#snippet children({ props })}
-				<input {...props} type="radio" bind:group={$formData.theme} value={theme} />
-				<Label>{theme}</Label>
-			{/snippet}
+			<input {...controlProps()} type="radio" bind:group={$formData.theme} value={theme} />
+			<Label>{theme}</Label>
 		</Control>
 	{/each}
 	<Description>Help us understand your preferences by selecting a theme.</Description>
@@ -38,20 +36,18 @@ When you have a group of radio buttons related to a single field, you should use
 
 When you have a group of checkboxes related to a single field, typically used for multiple selections, you should use a `Fieldset` to group them together.
 
-```svelte {1-2,18}
+```svelte {1-2,16}
 <Fieldset {form} name="allergies">
 	<Legend>Any food allergies?</Legend>
 	{#each allergies as allergy}
 		<Control>
-			{#snippet children({ props })}
-				<input
-					{...props}
-					type="checkbox"
-					bind:group={$formData.allergies}
-					value={allergy}
-				/>
-				<Label>{allergy}</Label>
-			{/snippet}
+			<input
+				{...controlProps()}
+				type="checkbox"
+				bind:group={$formData.allergies}
+				value={allergy}
+			/>
+			<Label>{allergy}</Label>
 		</Control>
 	{/each}
 	<Description>We'll make sure to accommodate your dietary needs.</Description>

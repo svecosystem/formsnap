@@ -123,6 +123,10 @@ The `Control` component now uses snippet props for attribute passing.
 The `Control` component in v1 simply expose an `attrs` slot prop that was spread onto the control element, like so:
 
 ```svelte title="Formsnap v1 (old)"
+<script lang="ts">
+	import { Control } from "formsnap";
+</script>
+
 <Control let:attrs>
 	<input type="text" {...attrs} bind:value={$formData.name} />
 </Control>
@@ -130,9 +134,21 @@ The `Control` component in v1 simply expose an `attrs` slot prop that was spread
 
 #### After (v2)
 
-In v2, the `Control` component now provides those attributes via a `children` snippet prop, like so:
+In v2, the `Control` component now provides those attributes via the `controlProps` function which retrieves the props from the closest `Control` component's context.
 
 ```svelte title="Formsnap v2 (new)"
+<script lang="ts">
+	import { Control, controlProps } from "formsnap";
+</script>
+
+<Control>
+	<input type="text" {...controlProps()} bind:value={$formData.name} />
+</Control>
+```
+
+Alternatively, you can access the props via the `Control` component's `children` snippet props.
+
+```svelte title="Formsnap v2 (new - alt)"
 <Control>
 	{#snippet children({ props })}
 		<input type="text" {...props} bind:value={$formData.name} />

@@ -105,7 +105,15 @@ We'll first import the components we'll need from Formsnap, and then setup a `fo
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
+	import {
+		Fieldset,
+		Legend,
+		Label,
+		Control,
+		FieldErrors,
+		Description,
+		controlProps,
+	} from "formsnap";
 
 	let { data } = $props();
 
@@ -147,15 +155,13 @@ Next, we'll iterate over the `allergies` array and create a [Control](/docs/comp
 		<Legend>Select your allergies</Legend>
 		{#each allergies as allergy}
 			<Control>
-				{#snippet children({ props })}
-					<input
-						type="checkbox"
-						{...props}
-						bind:group={$formData.allergies}
-						value={allergy}
-					/>
-					<Label>{value}</Label>
-				{/snippet}
+				<input
+					type="checkbox"
+					{...controlProps()}
+					bind:group={$formData.allergies}
+					value={allergy}
+				/>
+				<Label>{value}</Label>
 			</Control>
 		{/each}
 		<Description>We'll accommodate your dietary restrictions.</Description>
@@ -249,7 +255,15 @@ export const actions: Actions = {
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Fieldset, Legend, Label, Control, FieldErrors, Description } from "formsnap";
+	import {
+		Fieldset,
+		Legend,
+		Label,
+		Control,
+		FieldErrors,
+		Description,
+		controlProps,
+	} from "formsnap";
 
 	let { data } = $props();
 
@@ -264,15 +278,13 @@ export const actions: Actions = {
 		<Legend>Select any allergies you may have</Legend>
 		{#each allergies as allergy}
 			<Control>
-				{#snippet children({ props })}
-					<input
-						type="checkbox"
-						{...props}
-						bind:group={$formData.allergies}
-						value={allergy}
-					/>
-					<Label>{allergy}</Label>
-				{/snippet}
+				<input
+					type="checkbox"
+					{...controlProps()}
+					bind:group={$formData.allergies}
+					value={allergy}
+				/>
+				<Label>{allergy}</Label>
 			</Control>
 		{/each}
 		<Description>We'll accommodate your dietary restrictions.</Description>

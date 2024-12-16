@@ -15,7 +15,15 @@
 	import { defaults, superForm } from "sveltekit-superforms";
 	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { toast } from "svelte-sonner";
-	import { Fieldset, ElementField, Control, Description, FieldErrors, Legend } from "formsnap";
+	import {
+		Fieldset,
+		ElementField,
+		Control,
+		Description,
+		FieldErrors,
+		Legend,
+		controlProps,
+	} from "formsnap";
 	import { Input, Button, DemoContainer } from "@svecodocs/kit";
 	import Plus from "phosphor-svelte/lib/Plus";
 	import Trash from "phosphor-svelte/lib/Trash";
@@ -55,24 +63,22 @@
 				{#each $formData.urls as _, i}
 					<ElementField {form} name="urls[{i}]">
 						<Control>
-							{#snippet children({ props })}
-								<div class="flex items-center gap-3">
-									<Input
-										type="url"
-										bind:value={$formData.urls[i]}
-										{...props}
-										class="w-full"
-									/>
-									<Button
-										onclick={() => removeUrlByIndex(i)}
-										variant="destructive"
-										size="icon"
-										aria-label="Delete URL {i}"
-									>
-										<Trash />
-									</Button>
-								</div>
-							{/snippet}
+							<div class="flex items-center gap-3">
+								<Input
+									type="url"
+									bind:value={$formData.urls[i]}
+									{...controlProps()}
+									class="w-full"
+								/>
+								<Button
+									onclick={() => removeUrlByIndex(i)}
+									variant="destructive"
+									size="icon"
+									aria-label="Delete URL {i}"
+								>
+									<Trash />
+								</Button>
+							</div>
 						</Control>
 						<Description class="sr-only">
 							This URL will be displayed on your public profile.
