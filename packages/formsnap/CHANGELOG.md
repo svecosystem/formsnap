@@ -1,5 +1,11 @@
 # formsnap
 
+## 2.0.1
+
+### Patch Changes
+
+- fix: constraints on nested properties ([#216](https://github.com/svecosystem/formsnap/pull/216))
+
 ## 2.0.0
 
 ### Major Changes
