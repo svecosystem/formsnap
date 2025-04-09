@@ -103,12 +103,7 @@ class FormFieldState<T extends Record<string, unknown>, U extends FormPath<T>> {
 				value: this.#formData.current[this.#name.current],
 				errors: this.errors,
 				tainted: this.tainted,
-				constraints:
-					// @ts-expect-error - this type is wonky
-					this.#formConstraints.current[
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						this.#name.current as any
-					] ?? ({} as InputConstraint),
+				constraints: this.constraints,
 			}) as const
 	);
 }
