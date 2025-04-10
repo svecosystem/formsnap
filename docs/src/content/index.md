@@ -91,7 +91,7 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 
 ```svelte title="+page.svelte"
 <script lang="ts">
-	import { Field, Control, Label, FieldErrors, Description } from "formsnap";
+	import { Field, Control, Label, FieldErrors, Description, controlProps } from "formsnap";
 	import { signupFormSchema } from "./schema.ts";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { superForm } from "sveltekit-superforms";
@@ -106,30 +106,24 @@ All is not lost though, as the whole idea behind Formsnap is to make this proces
 <form method="POST" use:enhance>
 	<Field {form} name="name">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Name</Label>
-				<input {...props} bind:value={$formData.name} />
-			{/snippet}
+			<Label>Name</Label>
+			<input {...controlProps()} bind:value={$formData.name} />
 		</Control>
 		<Description>Be sure to use your real name.</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="email">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Email</Label>
-				<input {...props} type="email" bind:value={$formData.email} />
-			{/snippet}
+			<Label>Email</Label>
+			<input {...controlProps()} type="email" bind:value={$formData.email} />
 		</Control>
 		<Description>It's preferred that you use your company email.</Description>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="password">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Password</Label>
-				<input {...props} type="password" bind:value={$formData.password} />
-			{/snippet}
+			<Label>Password</Label>
+			<input {...controlProps()} type="password" bind:value={$formData.password} />
 		</Control>
 		<Description>Ensure the password is at least 10 characters.</Description>
 		<FieldErrors />

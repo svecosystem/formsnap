@@ -74,7 +74,7 @@ At a minimum we need to import the [Field](/docs/components/field), [Control](/d
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Field, Control, Label, FieldErrors } from "formsnap";
+	import { Field, Control, Label, FieldErrors, controlProps } from "formsnap";
 	import { schema } from "./schema.js";
 
 	let { data } = $props();
@@ -101,18 +101,16 @@ The first field we'll create is the `scoops` field, which will be a regular sele
 <form use:form.enhance method="POST">
 	<Field {form} name="scoops">
 		<Control>
-			{#snippet children({ props })}
-				<div class="flex flex-col items-start gap-1">
-					<Label>Number of scoops</Label>
-					<select {...props} bind:value={$formData.scoops}>
-						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-							<option value={num}>
-								{num === 1 ? `${num} Scoop` : `${num} Scoops`}
-							</option>
-						{/each}
-					</select>
-				</div>
-			{/snippet}
+			<div class="flex flex-col items-start gap-1">
+				<Label>Number of scoops</Label>
+				<select {...controlProps()} bind:value={$formData.scoops}>
+					{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+						<option value={num}>
+							{num === 1 ? `${num} Scoop` : `${num} Scoops`}
+						</option>
+					{/each}
+				</select>
+			</div>
 		</Control>
 		<FieldErrors />
 	</Field>
@@ -129,35 +127,31 @@ Next, let's create the `flavors` field. This field will be a multiple select inp
 <form use:form.enhance method="POST">
 	<Field {form} name="scoops">
 		<Control>
-			{#snippet children({ props })}
-				<div class="flex flex-col items-start gap-1">
-					<Label>Number of scoops</Label>
-					<select {...props} bind:value={$formData.scoops}>
-						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-							<option value={num}>
-								{num === 1 ? `${num} Scoop` : `${num} Scoops`}
-							</option>
-						{/each}
-					</select>
-				</div>
-			{/snippet}
+			<div class="flex flex-col items-start gap-1">
+				<Label>Number of scoops</Label>
+				<select {...controlProps()} bind:value={$formData.scoops}>
+					{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+						<option value={num}>
+							{num === 1 ? `${num} Scoop` : `${num} Scoops`}
+						</option>
+					{/each}
+				</select>
+			</div>
 		</Control>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="flavors">
 		<Control>
-			{#snippet children({ props })}
-				<div class="flex flex-col items-start gap-1">
-					<Label>What flavors do you fancy?</Label>
-					<select multiple bind:value={$formData.flavors} {...props}>
-						{#each flavors as flavor}
-							<option value={flavor} selected={$formData.flavors.includes(flavor)}>
-								{flavor}
-							</option>
-						{/each}
-					</select>
-				</div>
-			{/snippet}
+			<div class="flex flex-col items-start gap-1">
+				<Label>What flavors do you fancy?</Label>
+				<select multiple bind:value={$formData.flavors} {...controlProps()}>
+					{#each flavors as flavor}
+						<option value={flavor} selected={$formData.flavors.includes(flavor)}>
+							{flavor}
+						</option>
+					{/each}
+				</select>
+			</div>
 		</Control>
 		<FieldErrors />
 	</Field>
@@ -176,52 +170,46 @@ Finally, let's create the `toppings` field. This field will also be a multiple s
 <form use:form.enhance method="POST">
 	<Field {form} name="scoops">
 		<Control>
-			{#snippet children({ props })}
-				<div class="flex flex-col items-start gap-1">
-					<Label>Number of scoops</Label>
-					<select {...props} bind:value={$formData.scoops}>
-						{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
-							<option value={num}>
-								{num === 1 ? `${num} Scoop` : `${num} Scoops`}
-							</option>
-						{/each}
-					</select>
-				</div>
-			{/snippet}
+			<div class="flex flex-col items-start gap-1">
+				<Label>Number of scoops</Label>
+				<select {...controlProps()} bind:value={$formData.scoops}>
+					{#each Array.from({ length: 5 }, (_, i) => i + 1) as num}
+						<option value={num}>
+							{num === 1 ? `${num} Scoop` : `${num} Scoops`}
+						</option>
+					{/each}
+				</select>
+			</div>
 		</Control>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="flavors">
 		<Control>
-			{#snippet children({ props })}
-				<div class="flex flex-col items-start gap-1">
-					<Label>What flavors do you fancy?</Label>
-					<select multiple bind:value={$formData.flavors} {...props}>
-						{#each flavors as flavor}
-							<option value={flavor} selected={$formData.flavors.includes(flavor)}>
-								{flavor}
-							</option>
-						{/each}
-					</select>
-				</div>
-			{/snippet}
+			<div class="flex flex-col items-start gap-1">
+				<Label>What flavors do you fancy?</Label>
+				<select multiple bind:value={$formData.flavors} {...controlProps()}>
+					{#each flavors as flavor}
+						<option value={flavor} selected={$formData.flavors.includes(flavor)}>
+							{flavor}
+						</option>
+					{/each}
+				</select>
+			</div>
 		</Control>
 		<FieldErrors />
 	</Field>
 	<Field {form} name="toppings">
 		<Control>
-			{#snippet children({ props })}
-				<div class="flex flex-col items-start gap-1">
-					<Label>Select your toppings</Label>
-					<select multiple bind:value={$formData.toppings} {...props}>
-						{#each toppings as topping}
-							<option value={topping} selected={$formData.toppings.includes(topping)}>
-								{topping}
-							</option>
-						{/each}
-					</select>
-				</div>
-			{/snippet}
+			<div class="flex flex-col items-start gap-1">
+				<Label>Select your toppings</Label>
+				<select multiple bind:value={$formData.toppings} {...controlProps()}>
+					{#each toppings as topping}
+						<option value={topping} selected={$formData.toppings.includes(topping)}>
+							{topping}
+						</option>
+					{/each}
+				</select>
+			</div>
 		</Control>
 		<FieldErrors />
 	</Field>

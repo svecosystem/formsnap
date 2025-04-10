@@ -76,6 +76,7 @@ We have a few components we need to import to build the form.
 		Label,
 		FieldErrors,
 		Description,
+		controlProps,
 	} from "formsnap";
 	import { schema } from "./schema.js";
 
@@ -119,7 +120,7 @@ The [Description](/docs/components/description) component will provide additiona
 
 Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.urls` array to render the individual URL fields, which are represented by the [ElementField](/docs/components/element-field) component.
 
-```svelte title="+page.svelte" {5-18}
+```svelte title="+page.svelte" {5-16}
 <!-- script tag -->
 <form use:enhance method="POST">
 	<Fieldset {form} name="urls">
@@ -127,10 +128,8 @@ Now that we've scaffolded the `Fieldset`, we can iterate over the `$formData.url
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
 				<Control>
-					{#snippet children({ props })}
-						<Label class="sr-only">URL {i + 1}</Label>
-						<input type="url" {...props} bind:value={$formData.urls[i]} />
-					{/snippet}
+					<Label class="sr-only">URL {i + 1}</Label>
+					<input type="url" {...controlProps()} bind:value={$formData.urls[i]} />
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.
@@ -156,7 +155,7 @@ You should always include a label for each input for accessibility purposes. In 
 
 At the moment, the user can only have two URLs in their profile. We want to allow them to add and remove URLs as needed. We can achieve this by adding buttons to add and remove URLs.
 
-```svelte showLineNumbers title="+page.svelte" {23-29,41-43,53}
+```svelte showLineNumbers title="+page.svelte" {24-30,41,53}
 <script lang="ts">
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
@@ -168,6 +167,7 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 		Label,
 		FieldErrors,
 		Description,
+		controlProps,
 	} from "formsnap";
 	import { schema } from "./schema.js";
 
@@ -194,13 +194,9 @@ At the moment, the user can only have two URLs in their profile. We want to allo
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
 				<Control>
-					{#snippet children({ props })}
-						<Label class="sr-only">URL {i + 1}</Label>
-						<input type="url" {...props} bind:value={$formData.urls[i]} />
-						<button type="button" onclick={() => removeUrlByIndex(i)}>
-							Remove URL
-						</button>
-					{/snippet}
+					<Label class="sr-only">URL {i + 1}</Label>
+					<input type="url" {...controlProps()} bind:value={$formData.urls[i]} />
+					<button type="button" onclick={() => removeUrlByIndex(i)}> Remove URL </button>
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.
@@ -257,6 +253,7 @@ export const schema = z.object({
 		Label,
 		FieldErrors,
 		Description,
+		controlProps,
 	} from "formsnap";
 	import { schema } from "./schema.js";
 
@@ -283,13 +280,9 @@ export const schema = z.object({
 		{#each $formData.urls as _, i}
 			<ElementField {form} name="urls[{i}]">
 				<Control>
-					{#snippet children({ props })}
-						<Label class="sr-only">URL {i + 1}</Label>
-						<input type="url" {...props} bind:value={$formData.urls[i]} />
-						<button type="button" onclick={() => removeUrlByIndex(i)}>
-							Remove URL
-						</button>
-					{/snippet}
+					<Label class="sr-only">URL {i + 1}</Label>
+					<input type="url" {...controlProps()} bind:value={$formData.urls[i]} />
+					<button type="button" onclick={() => removeUrlByIndex(i)}> Remove URL </button>
 				</Control>
 				<Description class="sr-only">
 					This URL will be publicly available on your profile.

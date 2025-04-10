@@ -18,7 +18,15 @@
 <script lang="ts">
 	import { defaults, superForm } from "sveltekit-superforms";
 	import { zod, zodClient } from "sveltekit-superforms/adapters";
-	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from "formsnap";
+	import {
+		Control,
+		controlProps,
+		Description,
+		FieldErrors,
+		Fieldset,
+		Label,
+		Legend,
+	} from "formsnap";
 	import { toast } from "svelte-sonner";
 	import { Button, DemoContainer } from "@svecodocs/kit";
 
@@ -45,16 +53,14 @@
 				{#each allergies as allergy}
 					<div class="flex items-center gap-3">
 						<Control>
-							{#snippet children({ props })}
-								<input
-									class="accent-brand"
-									type="checkbox"
-									{...props}
-									bind:group={$formData.allergies}
-									value={allergy}
-								/>
-								<Label>{allergy}</Label>
-							{/snippet}
+							<input
+								class="accent-brand"
+								type="checkbox"
+								{...controlProps()}
+								bind:group={$formData.allergies}
+								value={allergy}
+							/>
+							<Label>{allergy}</Label>
 						</Control>
 					</div>
 				{/each}

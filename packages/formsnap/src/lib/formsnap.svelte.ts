@@ -9,7 +9,7 @@ import {
 import { fromStore } from "svelte/store";
 import type { FormPath, InputConstraint, InputConstraints } from "sveltekit-superforms";
 import type { FormPathArrays, TaintedFields, ValidationErrors } from "sveltekit-superforms/client";
-import { getContext, setContext } from "svelte";
+import { getContext, hasContext, setContext } from "svelte";
 import { extractErrorArray } from "./internal/utils/errors.js";
 import { getValueAtPath } from "./internal/utils/path.js";
 import {
@@ -500,7 +500,7 @@ export type UseFormControlProps = {
 	id?: Getter<string | undefined | null>;
 };
 
-export function useFormControl(props: UseFormControlProps) {
+export function useFormControl(props: UseFormControlProps = {}) {
 	const controlState = getContext<ControlState>(FORM_CONTROL_CTX);
 	const id = $derived(props.id ? props.id() : undefined);
 
@@ -524,6 +524,51 @@ export function useFormControl(props: UseFormControlProps) {
 			return controlState.props;
 		},
 	};
+}
+
+/**
+ * Convenience function to get the props from the closest `Control` component.
+ *
+ * @example
+ * ```svelte
+ * <Control>
+ * 	<!-- Receives props from this ^ Control -->
+ * 	<input {...controlProps()} />
+ * </Control>
+ *```
+ * @returns The props to spread onto the element acting as the form control.
+ */
+export function controlProps() {
+	if (!hasContext(FORM_CONTROL_CTX)) {
+		throw new Error(
+			"No parent <Control> component found. `controlProps` must be used within a descendant of the <Control> component."
+		);
+	}
+	return useFormControl().props;
+}
+
+/**
+ * Convenience function to get the label props from the closest `Control` component
+ * that will link the label to the associated form control.
+ *
+ * @example
+ * ```svelte
+ * <Control>
+ * 	<!-- Receives label props from this ^ Control -->
+ *  <label {...labelProps()} />
+ * 	<input {...controlProps()} />
+ * </Control>
+ *```
+ * @returns The props to spread onto the element acting as the form control.
+ */
+export function labelProps() {
+	if (!hasContext(FORM_CONTROL_CTX)) {
+		throw new Error(
+			"No parent <Control> component found. `labelProps` must be used within a descendant of the <Control> component."
+		);
+	}
+
+	return useFormControl().labelProps;
 }
 
 /**

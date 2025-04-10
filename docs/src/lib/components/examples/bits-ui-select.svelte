@@ -26,7 +26,7 @@
 	import { zod, zodClient } from "sveltekit-superforms/adapters";
 	import { toast } from "svelte-sonner";
 	import { Button, DemoContainer, Select } from "@svecodocs/kit";
-	import { Field, Control, Description, FieldErrors, Label } from "formsnap";
+	import { Field, Control, Description, FieldErrors, Label, controlProps } from "formsnap";
 
 	const form = superForm(defaults(zod(schema)), {
 		validators: zodClient(schema),
@@ -49,25 +49,25 @@
 	<form method="POST" action="?/bitsSelect" use:enhance class="flex flex-col gap-4">
 		<Field {form} name="language">
 			<Control>
-				{#snippet children({ props })}
-					<Label>Language</Label>
-					<Select.Root type="single" bind:value={$formData.language} name={props.name}>
-						<Select.Trigger {...props} class="w-[180px]">
-							{selectedLabel}
-						</Select.Trigger>
-						<Select.Content>
-							{#each Object.entries(languages) as [value, label]}
-								<Select.Item {value}>
-									{label}
-								</Select.Item>
-							{/each}
-						</Select.Content>
-					</Select.Root>
-					<Description>
-						The docs will be translated to your preferred language.
-					</Description>
-					<FieldErrors />
-				{/snippet}
+				<Label>Language</Label>
+				<Select.Root
+					type="single"
+					bind:value={$formData.language}
+					name={controlProps().name}
+				>
+					<Select.Trigger {...controlProps()} class="w-[180px]">
+						{selectedLabel}
+					</Select.Trigger>
+					<Select.Content>
+						{#each Object.entries(languages) as [value, label]}
+							<Select.Item {value}>
+								{label}
+							</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+				<Description>The docs will be translated to your preferred language.</Description>
+				<FieldErrors />
 			</Control>
 		</Field>
 		<Button class="self-start" type="submit">Submit</Button>

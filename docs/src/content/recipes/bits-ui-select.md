@@ -53,7 +53,7 @@ export const schema = z.object({
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Select } from "bits-ui";
-	import { Field, Control, Label, FieldErrors } from "formsnap";
+	import { Field, Control, Label, FieldErrors, controlProps } from "formsnap";
 	import { schema, languages } from "./schema.js";
 
 	let { data } = $props();
@@ -72,21 +72,19 @@ export const schema = z.object({
 <form method="POST" use:enhance>
 	<Field {form} name="language">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Language</Label>
-				<Select.Root type="single" bind:value={$formData.language} name={props.name}>
-					<Select.Trigger {...props}>
-						{selectedLabel}
-					</Select.Trigger>
-					<Select.Content>
-						{#each Object.entries(languages) as [value, label]}
-							<Select.Item {value}>
-								{label}
-							</Select.Item>
-						{/each}
-					</Select.Content>
-				</Select.Root>
-			{/snippet}
+			<Label>Language</Label>
+			<Select.Root type="single" bind:value={$formData.language} name={controlProps().name}>
+				<Select.Trigger {...controlProps()}>
+					{selectedLabel}
+				</Select.Trigger>
+				<Select.Content>
+					{#each Object.entries(languages) as [value, label]}
+						<Select.Item {value}>
+							{label}
+						</Select.Item>
+					{/each}
+				</Select.Content>
+			</Select.Root>
 		</Control>
 		<Description>The docs will be translated to your preferred language.</Description>
 		<FieldErrors />
@@ -146,7 +144,7 @@ export const schema = z.object({
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Select } from "bits-ui";
-	import { Field, Control, Label, FieldErrors } from "formsnap";
+	import { Field, Control, Label, FieldErrors, controlProps } from "formsnap";
 	import { schema, colors } from "./schema.js";
 
 	let { data } = $props();
@@ -165,19 +163,17 @@ export const schema = z.object({
 <form method="POST" use:form.enhance>
 	<Field {form} name="colors">
 		<Control>
-			{#snippet children({ props })}
-				<Label>Favorite colors</Label>
-				<Select.Root type="multiple" bind:value={$formData.colors} name={props.name}>
-					<Select.Trigger {...props}>
-						{selectedColors}
-					</Select.Trigger>
-					<Select.Content>
-						{#each Object.entries(colors) as [value, label]}
-							<Select.Item {value} {label} />
-						{/each}
-					</Select.Content>
-				</Select.Root>
-			{/snippet}
+			<Label>Favorite colors</Label>
+			<Select.Root type="multiple" bind:value={$formData.colors} name={controlProps().name}>
+				<Select.Trigger {...controlProps()}>
+					{selectedColors}
+				</Select.Trigger>
+				<Select.Content>
+					{#each Object.entries(colors) as [value, label]}
+						<Select.Item {value} {label} />
+					{/each}
+				</Select.Content>
+			</Select.Root>
 		</Control>
 		<Description>We'll use these colors to customize your experience.</Description>
 		<FieldErrors />

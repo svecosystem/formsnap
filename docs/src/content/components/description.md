@@ -14,13 +14,11 @@ Descriptions must be used within the context of a [Field](/docs/components/field
 
 ## Usage
 
-```svelte {8}
+```svelte {6}
 <Field name="name" {form}>
 	<Control>
-		{#snippet children({ props })}
-			<Label>Name</Label>
-			<input type="text" {...attrs} />
-		{/snippet}
+		<Label>Name</Label>
+		<input type="text" {...controlProps()} />
 	</Control>
 	<Description>Your full name, including your middle name.</Description>
 </Field>
