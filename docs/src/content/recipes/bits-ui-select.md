@@ -53,7 +53,7 @@ export const schema = z.object({
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Select } from "bits-ui";
-	import { Field, Control, Label, FieldErrors } from "formsnap";
+	import { Field, Control, Label, FieldErrors, Description } from "formsnap";
 	import { schema, languages } from "./schema.js";
 
 	let { data } = $props();
@@ -146,7 +146,7 @@ export const schema = z.object({
 	import { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 	import { Select } from "bits-ui";
-	import { Field, Control, Label, FieldErrors } from "formsnap";
+	import { Field, Control, Label, FieldErrors, Description } from "formsnap";
 	import { schema, colors } from "./schema.js";
 
 	let { data } = $props();
