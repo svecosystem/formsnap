@@ -39,7 +39,7 @@
 	],
 	"peerDependencies": {
 		"svelte": "^5.0.0",
-		"sveltekit-superforms": "^2.19.0"
+		"sveltekit-superforms": "^2.19.0 || ^3.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "^2.5.28",
