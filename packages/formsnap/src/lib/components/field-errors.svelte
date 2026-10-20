@@ -42,7 +42,7 @@ A component that renders the container for validation errors for a [Field](https
 		props: mergedProps,
 		...fieldErrorsState.snippetProps,
 	})}
-{:else}
+{:else if fieldErrorsState.field.errors.length > 0}
 	<div {...mergedProps}>
 		{#if children}
 			{@render children(fieldErrorsState.snippetProps)}
