@@ -1,11 +1,5 @@
 # formsnap
 
-## 2.1.0
-
-### Minor Changes
-
-- feat: expand peer-dependency range for `sveltekit-superforms` v3 ([#233](https://github.com/svecosystem/formsnap/pull/233))
-
 ## 2.0.1
 
 ### Patch Changes
