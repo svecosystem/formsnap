@@ -13,6 +13,7 @@ jobs:
         permissions:
             contents: write # to create release (changesets/action)
             pull-requests: write # to create pull request (changesets/action)
+            id-token: write # to publish to npm via trusted publishing (OIDC)
         name: Release
         runs-on: macos-latest
         steps:
@@ -22,7 +23,8 @@ jobs:
             - uses: pnpm/action-setup@v4
             - uses: actions/setup-node@v4
               with:
-                  node-version: 20
+                  # trusted publishing requires npm >= 11.5.1, which ships with Node 24
+                  node-version: 24
                   cache: pnpm
 
             - name: Install dependencies
@@ -35,4 +37,3 @@ jobs:
                   publish: pnpm ci:publish
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

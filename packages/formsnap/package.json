@@ -1,7 +1,10 @@
 {
 	"name": "formsnap",
 	"version": "2.0.1",
-	"repository": "github:svecosystem/formsnap",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/svecosystem/formsnap.git"
+	},
 	"funding": "https://github.com/sponsors/huntabyte",
 	"scripts": {
 		"dev": "pnpm watch",
