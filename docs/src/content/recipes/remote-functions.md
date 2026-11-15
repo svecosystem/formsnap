@@ -86,34 +86,40 @@ Use Superforms' `onSubmit` hook to register a `customRequest`. Return a SvelteKi
 
 	let submissionError = $state("");
 
-	const form = superForm(untrack(() => actionData?.form ?? data.form), {
-		onSubmit({ customRequest }) {
-			submissionError = "";
-			customRequest(async ({ action, formData }) => {
-				const location = action.pathname + action.search;
-				const email = formData.get("email");
+	const form = superForm(
+		untrack(() => actionData?.form ?? data.form),
+		{
+			onSubmit({ customRequest }) {
+				submissionError = "";
+				customRequest(async ({ action, formData }) => {
+					const location = action.pathname + action.search;
+					const email = formData.get("email");
 
-				try {
-					const submitted = await submitEmail({
-						email: typeof email === "string" ? email : "",
-					});
+					try {
+						const submitted = await submitEmail({
+							email: typeof email === "string" ? email : "",
+						});
 
-					return submitted.valid
-						? { type: "success", status: 200, location, data: { form: submitted } }
-						: { type: "failure", status: 400, location, data: { form: submitted } };
-				} catch {
-					return {
-						type: "error",
-						status: 500,
-						error: { status: 500, message: "Could not submit the form. Try again." },
-					};
-				}
-			});
-		},
-		onError({ result }) {
-			submissionError = result.error.message;
-		},
-	});
+						return submitted.valid
+							? { type: "success", status: 200, location, data: { form: submitted } }
+							: { type: "failure", status: 400, location, data: { form: submitted } };
+					} catch {
+						return {
+							type: "error",
+							status: 500,
+							error: {
+								status: 500,
+								message: "Could not submit the form. Try again.",
+							},
+						};
+					}
+				});
+			},
+			onError({ result }) {
+				submissionError = result.error.message;
+			},
+		}
+	);
 
 	const { form: values, enhance, message, submitting } = form;
 </script>
