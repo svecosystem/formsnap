@@ -6,7 +6,9 @@ section: Recipes
 
 Formsnap gets its field values, constraints, and validation errors from Superforms. You can keep that integration and use a SvelteKit remote `command()` to submit the enhanced form. A regular SvelteKit form action handles submissions when JavaScript is unavailable.
 
-This recipe uses Formsnap 2.1, Superforms 2.31, Svelte 5, SvelteKit 2.70, and Zod 4. Enable the experimental `kit.experimental.remoteFunctions` option in your SvelteKit configuration. See [SvelteKit's remote functions guide](https://svelte.dev/docs/kit/remote-functions) for setup.
+Use Formsnap 2.1, Svelte 5, and Zod 4. The same form code works with SvelteKit 2.70 and Superforms 2.31, or SvelteKit 3 and Superforms 3.1.
+
+Enable remote functions by passing `experimental: { remoteFunctions: true }` to the `sveltekit()` plugin in `vite.config.js`. If your SvelteKit 2 app uses `svelte.config.js`, set `kit.experimental.remoteFunctions` there instead. See the [SvelteKit remote functions guide](https://svelte.dev/docs/kit/remote-functions) for setup.
 
 ## Share validation between the action and command
 
@@ -70,7 +72,7 @@ The command schema checks the payload shape. Superforms validates the email in t
 
 ## Submit through the remote command
 
-Use Superforms' `onSubmit` hook to register a `customRequest`. Return a SvelteKit action result containing the validated form so Superforms can update its stores and Formsnap can render the errors.
+Use Superforms' `onSubmit` hook to register a `customRequest`. Return a SvelteKit action result containing the validated form so Superforms can update its stores and Formsnap can render the errors. Include the page action’s location in both results for SvelteKit 3.
 
 ```svelte title="+page.svelte"
 <script lang="ts">
@@ -87,7 +89,8 @@ Use Superforms' `onSubmit` hook to register a `customRequest`. Return a SvelteKi
 	const form = superForm(untrack(() => actionData?.form ?? data.form), {
 		onSubmit({ customRequest }) {
 			submissionError = "";
-			customRequest(async ({ formData }) => {
+			customRequest(async ({ action, formData }) => {
+				const location = action.pathname + action.search;
 				const email = formData.get("email");
 
 				try {
@@ -96,13 +99,13 @@ Use Superforms' `onSubmit` hook to register a `customRequest`. Return a SvelteKi
 					});
 
 					return submitted.valid
-						? { type: "success", status: 200, data: { form: submitted } }
-						: { type: "failure", status: 400, data: { form: submitted } };
+						? { type: "success", status: 200, location, data: { form: submitted } }
+						: { type: "failure", status: 400, location, data: { form: submitted } };
 				} catch {
 					return {
 						type: "error",
 						status: 500,
-						error: { message: "Could not submit the form. Try again." },
+						error: { status: 500, message: "Could not submit the form. Try again." },
 					};
 				}
 			});
